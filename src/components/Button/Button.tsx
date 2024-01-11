@@ -5,6 +5,7 @@ interface IDefaultButtonProps {
     type: 'button' | 'submit',
     disabled: boolean,
     children: React.ReactNode;
+    onClick?: () => void;
 };
 
 interface IStyledButtonProps {

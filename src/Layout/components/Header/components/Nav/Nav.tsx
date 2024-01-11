@@ -1,10 +1,14 @@
+import { FC, ReactNode } from 'react';
+
 import { StyledNav } from './StyledNav'
 import { NavList } from './NavList';
 
-export const Nav = () => (
+interface INav {
+    children: ReactNode,
+};
+
+export const Nav: FC<INav> = ({ children }) => (
     <StyledNav>
-        <NavList>
-            
-        </NavList>
+        {children}
     </StyledNav>
 );
