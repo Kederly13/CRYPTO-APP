@@ -13,14 +13,14 @@ import { StyledNavList } from './StyledNavList';
 
 export const NavList: FC = () => (
     <StyledNavList>
-        {/* <Link to={'/'}> */}
+        <Link to={'/'}>
             <li>
                 <img src={Home} alt='logo'/>        
                 <span>
                     HOME
                 </span>
             </li>
-        {/* </Link> */}
+        </Link>
         <li>
             <img src={Layer} alt='Layer'/>
             <span>
