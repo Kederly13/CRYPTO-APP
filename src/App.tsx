@@ -2,6 +2,7 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import { Button } from 'components/Button';
 
 import { Layout } from 'Layout';
+import { Home } from './pages/Home/index'
 
 import './App.scss';
 
@@ -9,15 +10,9 @@ const App = () => {
   return (
     <div className="App">
       <Layout>
-        <Button
-          type='button'
-          disabled
-        >
-          Coins
-        </Button>
         <Router>
           <Routes>
-            <Route path='/' element={null} />
+            <Route path='/' element={<Home />} />
           </Routes>
         </Router>
       </Layout>

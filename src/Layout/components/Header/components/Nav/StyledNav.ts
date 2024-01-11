@@ -1,9 +1,5 @@
 import styled from 'styled-components';
 
 export const StyledNav = styled.nav`
-    display: flex;
-
-    & > ul {
-        display: flex;
-    }        
+    display: flex;      
 `
