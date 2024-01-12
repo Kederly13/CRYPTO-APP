@@ -13,19 +13,22 @@ import { StyledNavList } from './StyledNavList';
 
 export const NavList: FC = () => (
     <StyledNavList>
-        <Link to={'/'}>
-            <li>
+        <li>
+            <Link to={'/'}>
                 <img src={Home} alt='logo'/>        
                 <span>
                     HOME
                 </span>
-            </li>
-        </Link>
+            </Link>
+        </li>
+        
         <li>
-            <img src={Layer} alt='Layer'/>
-            <span>
-                Portfolio
-            </span>
+            <Link to ={'/'}>
+                <img src={Layer} alt='Layer'/>
+                <span>
+                    Portfolio
+                </span>
+            </Link>
         </li>
     </StyledNavList>
 );

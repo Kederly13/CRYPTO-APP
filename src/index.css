@@ -30,8 +30,8 @@ p {
 
 a {
   text-decoration: none;
-  color: black;
   transition: .5s;
+  color: inherit;
 }
 
 input, button {
