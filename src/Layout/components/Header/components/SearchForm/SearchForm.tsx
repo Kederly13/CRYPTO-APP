@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { StyledSearchForm } from './StyledSearchForm';
 import { Input } from 'components/Input';
 import SearchIcon from 'assets/svg/search.svg';
-// import {search as SearchIcon} from './logo.svg';
+// import {search as SearchIcon} frogdasdm './logo.svg';
 
 export const SearchForm: React.FC = () => {
 
