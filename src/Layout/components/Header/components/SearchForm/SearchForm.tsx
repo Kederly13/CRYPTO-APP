@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, ChangeEvent } from 'react';
 
 import { StyledSearchForm } from './StyledSearchForm';
 import { Input } from 'components/Input';
@@ -6,9 +6,13 @@ import SearchIcon from 'assets/svg/search.svg';
 // import {search as SearchIcon} frogdasdm './logo.svg';
 
 export const SearchForm: React.FC = () => {
-
     const [coin, setCoin] = useState<string>('');
-    const handleChange = () => {};
+
+    const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+        const { value } = e.target;
+        setCoin(value);
+    };
+
     return (
         <StyledSearchForm>
             <div>
@@ -17,11 +21,11 @@ export const SearchForm: React.FC = () => {
                   </button>
                   <Input
                     type='search'
-                    placeholder='enter a category'
-                    value={null}
+                    placeholder='Search...'
+                    value={coin}
                     onChange={handleChange}
                   />
             </div>
         </StyledSearchForm>
-    )
-}
+    );
+};
