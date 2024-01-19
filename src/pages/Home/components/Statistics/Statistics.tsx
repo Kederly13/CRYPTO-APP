@@ -40,8 +40,8 @@ export const Statistics = () => {
         loadCoinsInfo();
         
     }, []);
-    console.log(coinsDetails);
-    // const { id, logo, name, symbol, price, hourlyChange } = coinsDetails;
+    
+
     return (
         <StyledStatistics>
         <h2>
@@ -49,11 +49,18 @@ export const Statistics = () => {
             <Button disabled={true} type='button' padding='12px 24px'>Exit comparison</Button>
         </h2>
         <div>
-            {/* {!!coinsDetails.length && (
-                <Currency
-                    logo
+            {!!coinsDetails.length && (
+                coinsDetails.map((coin) => (
+                    <Currency
+                    logo={coin.logo}
+                    name={coin.name}
+                    symbol={coin.symbol}
+                    price={coin.price}
+                    hourlyChange={coin.hourlyChange}
                 />
-            )} */}
+                ))
+                
+            )}
         </div>
     </StyledStatistics>
     );

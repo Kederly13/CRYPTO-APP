@@ -13,12 +13,14 @@ export const StyledCurrency = styled.button<ICurrencyProps>`
         align-items: center;
 
         & > img {
-
+            width: 32px;
+            height: 32px;
         }
 
         & > div {
             & > span:nth-child(1) {
-                display: flex;
+                display: block;
+                color: #FFF;
             }
 
             & > span:nth-child(2) {
@@ -27,7 +29,7 @@ export const StyledCurrency = styled.button<ICurrencyProps>`
             }
 
             & > span:nth-child(3) {
-                color: ${({ condition }) => (condition ? '#00F5E4' : '#FF0061')}
+                color: '#FF0061';
             }
         }
     }
