@@ -1,12 +1,12 @@
-import { Switch } from 'components/Switch';
-import { Container } from 'components/Container';
+import { HomeSwitch } from 'components/HomeSwitch';
+import { Section } from 'components/Section';
 import { Statistics } from './components/Statistics';
 
 export const Home = () => (
-    <Container>
-        <Switch />
+    <Section>
+        <HomeSwitch />
         <Statistics />
-    </Container> 
+    </Section>
 );
 
 export default Home;

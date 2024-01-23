@@ -18,16 +18,14 @@ export const Currency: FC<ICurrencyProps> = (props) => {
     const { logo, name, symbol, price, hourlyChange, condition } = props;
 
     return (
-        <StyledCurrency {...props}>
+        <StyledCurrency>
             <div>
                 <img src={logo} alt='logo'/>
                 <div>
-                    <span>{name} {symbol}</span>
+                    <p>{name} ({symbol})</p>
                     <span>{price}</span><span>{hourlyChange}</span> 
                 </div>
             </div>
-            
-
         </StyledCurrency>
     );
 };

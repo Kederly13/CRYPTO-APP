@@ -6,7 +6,6 @@ import Home from './pages/Home/Home'
 import './App.scss';
 
 const App = () => (
-  <div className="App">
     <Router>
       <Layout>
         <Routes>
@@ -14,7 +13,6 @@ const App = () => (
         </Routes>
       </Layout>
     </Router>
-  </div>
 );
 
 export default App;

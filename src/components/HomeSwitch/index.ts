@@ -1,0 +1,1 @@
+export { HomeSwitch } from './HomeSwitch';

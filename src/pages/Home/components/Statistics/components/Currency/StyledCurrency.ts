@@ -1,8 +1,6 @@
 import styled from 'styled-components';
 
-import { ICurrencyProps } from './Currency';
-
-export const StyledCurrency = styled.button<ICurrencyProps>`
+export const StyledCurrency = styled.div`
     background-color: #191926;
     border-radius: 6px;
     max-width: 252px;
@@ -18,8 +16,7 @@ export const StyledCurrency = styled.button<ICurrencyProps>`
         }
 
         & > div {
-            & > span:nth-child(1) {
-                display: block;
+            & > p {
                 color: #FFF;
             }
 
