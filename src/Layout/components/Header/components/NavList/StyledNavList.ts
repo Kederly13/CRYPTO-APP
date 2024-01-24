@@ -11,13 +11,18 @@ export const StyledNavList = styled.ul`
         transition: 0.5s;
         border-radius: 6px;
 
-        &:hover {
-            background-color: rgba(97, 97, 222, 0.50);
-        }
-        
         & > a {
             display: inline-flex;
             align-items: center;
+
+            &:hover {
+                background-color: rgba(97, 97, 222, 0.50);
+
+                svg {
+                    fill: #FFF;
+                }
+            }
+            
 
             & > img {
                 margin-right: 10px;

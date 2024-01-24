@@ -1,7 +1,8 @@
 import styled from 'styled-components'; 
 
 export const StyledSearchForm = styled.form`
-    width: 356px;
+    max-width: 356px;
+    width: 100%;
     border-radius: 6px;
     background: #191926;
     margin-left: 158px;
@@ -10,12 +11,11 @@ export const StyledSearchForm = styled.form`
         display: flex;  
         align-items: center;
         padding: 8px 16px;
+        height: 100%;
 
-        & > {
-            width: 20px;
-            height: 20px;
-        }
-        
-        
+        & > input {
+            width: calc(100% - 20px);
+            height: inherit;
+        } 
     }  
 `;

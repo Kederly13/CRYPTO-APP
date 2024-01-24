@@ -6,8 +6,7 @@ import { ArrowDown } from 'assets/svg/arrowDown';
 import { ArrowUp } from 'assets/svg/arrowUp';
 
 interface IPercentProps {
-    // percent: number;
-    children: React.ReactNode;
+    percent: number;
 };
 
 interface IStyledPercentProps {
@@ -17,8 +16,12 @@ interface IStyledPercentProps {
 
 export type PercentProps = IPercentProps & IStyledPercentProps;
 
-export const Percent: FC<PercentProps> = ({ children, ...props }) => (
-    <StyledPercent {...props}>
-        {children}
-    </StyledPercent>
-);
+export const Percent: FC<PercentProps> = ({ percent, ...props }) => {
+    const percentStr = `${percent.toFixed()}`;
+    
+    return (
+        <StyledPercent percent={percent} {...props}>
+            {percent < 0 ? <ArrowDown /> : <ArrowUp />}
+        </StyledPercent>
+    );
+};

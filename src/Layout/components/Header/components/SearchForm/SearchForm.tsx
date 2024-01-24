@@ -16,15 +16,13 @@ export const SearchForm: React.FC = () => {
     return (
         <StyledSearchForm>
             <div>
-                  <button type='submit' >
-                        <img src={SearchIcon} alt='Search' />
-                  </button>
-                  <Input
+                <img src={SearchIcon} alt='Search' />
+                <Input
                     type='search'
                     placeholder='Search...'
                     value={coin}
                     onChange={handleChange}
-                  />
+                />
             </div>
         </StyledSearchForm>
     );
