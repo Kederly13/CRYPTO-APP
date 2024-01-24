@@ -1,7 +1,5 @@
 import styled from 'styled-components';
 
-import { NextArrow } from 'assets/svg/nextArrow';
-
 export const StyledStatistics = styled.div`
     & > h2 {
         font-size: 14px;
@@ -10,12 +8,4 @@ export const StyledStatistics = styled.div`
         justify-content: space-between;
         margin-bottom: 24px;
     }
-`;
-
-const CustomPrevButton = styled.div`
-    
-`;
-
-const CustomNextButton = styled.div`
-    
 `;

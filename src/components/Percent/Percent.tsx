@@ -17,11 +17,12 @@ interface IStyledPercentProps {
 export type PercentProps = IPercentProps & IStyledPercentProps;
 
 export const Percent: FC<PercentProps> = ({ percent, ...props }) => {
-    const percentStr = `${percent.toFixed()}`;
+    const percentStr = `${percent.toFixed(2)}`;
     
     return (
         <StyledPercent percent={percent} {...props}>
             {percent < 0 ? <ArrowDown /> : <ArrowUp />}
+            <span>{percentStr} %</span>
         </StyledPercent>
     );
 };

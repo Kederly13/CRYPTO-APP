@@ -5,10 +5,12 @@ import { Navigation, Pagination, Scrollbar, A11y } from 'swiper/modules';
 import { StyledStatistics } from './StyledStatistics';
 import { Button } from 'components/Button';
 import { Currency } from './components/Currency';
+import { Percent } from 'components/Percent';
 
 import { CoinsApi } from 'api/CoinsApi';
 
 import 'swiper/swiper-bundle.css';
+import { SwiperBtns } from './components/SwiperBtns';
 
 interface Coin {
     id: string;
@@ -50,34 +52,33 @@ export const Statistics = () => {
 
     useEffect(() => {
         loadCoinsInfo();
-        
     }, []);
     
     return (
         <StyledStatistics>
-        <h2>
-            Select the currency to view statistics
-            <Button disabled={true} type='button' padding='12px 24px'>Exit comparison</Button>
-        </h2>
-        <Swiper
-            modules={[Navigation, Pagination, Scrollbar, A11y]}
-            navigation
-            slidesPerView={5}
-        >
-            {!!coinsDetails.length && (
-                coinsDetails.map((coin) => (
-                    <SwiperSlide>
-                        <Currency
-                            logo={coin.logo}
-                            name={coin.name}
-                            symbol={coin.symbol}
-                            price={coin.price}
-                            hourlyChange={coin.hourlyChange}
-                        />
-                    </SwiperSlide>
-                ))    
-            )}
-        </Swiper>    
-    </StyledStatistics>
+            <h2>
+                Select the currency to view statistics
+                <Button disabled={true} type='button' padding='12px 24px'>Exit comparison</Button>
+            </h2>
+            <Swiper
+                modules={[Navigation, Pagination, Scrollbar, A11y]}
+                slidesPerView={5}
+            >
+                {!!coinsDetails.length && (
+                    coinsDetails.map((coin) => (
+                        <SwiperSlide>
+                            <Currency
+                                logo={coin.logo}
+                                name={coin.name}
+                                symbol={coin.symbol}
+                                price={coin.price}
+                                percent={<Percent percent={coin.hourlyChange} marginLeft='8px' />}              
+                            />
+                        </SwiperSlide>
+                    ))    
+                )}
+                <SwiperBtns/>
+            </Swiper>      
+        </StyledStatistics>
     );
 };
