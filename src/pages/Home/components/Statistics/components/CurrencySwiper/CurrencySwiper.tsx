@@ -17,8 +17,7 @@ interface ICurrencySwiper {
 export const CurrencySwiper: FC<ICurrencySwiper> = ({ coinsDetails }) => {
     const [slider, setSlider] = useState<SwiperType>();
     // const [activeIndex, setActiveIndex] = useState<number>(1);
-    console.log(slide.swiperIndex);
-
+    
     return (
         <StyledCurrencySwiper
             modules={[Navigation, Pagination, Scrollbar, A11y]}
