@@ -1,18 +1,11 @@
-import { FC, useEffect, useState } from 'react';
-import { Swiper, SwiperSlide } from 'swiper/react';
-import { Navigation, Pagination, Scrollbar, A11y } from 'swiper/modules';
-
+import { useEffect, useState } from 'react';
 import { StyledStatistics } from './StyledStatistics';
+import { CurrencySwiper } from './components/CurrencySwiper';
 import { Button } from 'components/Button';
-import { Currency } from './components/Currency';
-import { Percent } from 'components/Percent';
-
 import { CoinsApi } from 'api/CoinsApi';
-
 import 'swiper/swiper-bundle.css';
-import { SwiperBtns } from './components/SwiperBtns';
 
-interface Coin {
+export interface Coin {
     id: string;
     logo: string,
     name: string,
@@ -20,7 +13,7 @@ interface Coin {
     price: number,
     hourlyChange: number,
     condition?: boolean
-}
+};
 
 export const Statistics = () => {
     const [coinsDetails, setCoinsDetails] = useState<Coin[]>([]);
@@ -60,25 +53,9 @@ export const Statistics = () => {
                 Select the currency to view statistics
                 <Button disabled={true} type='button' padding='12px 24px'>Exit comparison</Button>
             </h2>
-            <Swiper
-                modules={[Navigation, Pagination, Scrollbar, A11y]}
-                slidesPerView={5}
-            >
-                {!!coinsDetails.length && (
-                    coinsDetails.map((coin) => (
-                        <SwiperSlide>
-                            <Currency
-                                logo={coin.logo}
-                                name={coin.name}
-                                symbol={coin.symbol}
-                                price={coin.price}
-                                percent={<Percent percent={coin.hourlyChange} marginLeft='8px' />}              
-                            />
-                        </SwiperSlide>
-                    ))    
-                )}
-                <SwiperBtns/>
-            </Swiper>      
+            <CurrencySwiper
+                coinsDetails={coinsDetails}
+            />
         </StyledStatistics>
     );
 };
