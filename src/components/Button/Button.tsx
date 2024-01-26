@@ -12,7 +12,7 @@ interface IStyledButtonProps {
     maxWidth?: string,
     padding?: string,
     margin?: string,
-    backgroundColor?: string,
+    backgroundcolor?: string,
     borderRadiusL?: string,
 };
 

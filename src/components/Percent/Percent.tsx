@@ -10,7 +10,7 @@ interface IPercentProps {
 };
 
 interface IStyledPercentProps {
-    marginLeft?: string;
+    marginleft?: string;
     marginRight?: string;
 };
 
