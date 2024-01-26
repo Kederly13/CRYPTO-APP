@@ -7,6 +7,7 @@ export const StyledSwiperBtns = styled.div`
   width: 100%;
   z-index: 100;
   top: 15%;
+  
 
   /* transform: translate(-5) */
 
@@ -19,6 +20,7 @@ export const StyledSwiperBtns = styled.div`
     align-items: center;
     border-radius: 50%;
     background-color: rgba(97, 97, 222, 0.50);
+    
   }
 
   & > button:nth-child(1) { 
@@ -26,6 +28,7 @@ export const StyledSwiperBtns = styled.div`
   }
 
   & > button:nth-child(2) {
-    transform: translate(50%)
+    transform: translate(50%);
+    margin-left: auto;
   }
 `;

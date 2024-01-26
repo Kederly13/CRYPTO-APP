@@ -3,6 +3,7 @@ import { StyledStatistics } from './StyledStatistics';
 import { CurrencySwiper } from './components/CurrencySwiper';
 import { Button } from 'components/Button';
 import { CoinsApi } from 'api/CoinsApi';
+import { ChartApi } from 'api/ChartApi';
 import 'swiper/swiper-bundle.css';
 
 export interface Coin {
@@ -15,8 +16,39 @@ export interface Coin {
     condition?: boolean
 };
 
+export interface ICoinPrice {
+    [index: number]: number;
+};
+
+interface ICoinPricesState {
+    [index: number]: ICoinPrice;
+};
+
 export const Statistics = () => {
     const [coinsDetails, setCoinsDetails] = useState<Coin[]>([]);
+    const [coinPrices, setCoinPrices] = useState<ICoinPricesState>([]);
+    console.log(coinPrices)
+
+    const loadCoinPrices = async () => {
+        // const cashedCoinPrices = localStorage.getItem('coinPrices');
+
+        // if (cashedCoinPrices) {
+        //     const parsedCoinPrices = JSON.parse(cashedCoinPrices)
+        // }
+        try {
+            const prices = await ChartApi.getPrices('bitcoin');
+            setCoinPrices(prices.data.prices)
+            
+            // const cachedCoinPrices = localStorage.getItem('coinPrices');
+
+            // if (cachedCoinPrices) {
+            //     const parsedCoinPrices = JSON.parse(cachedCoinPrices);
+            //     setCoinPrices
+            // }
+        } catch (error) {
+            console.log(error);
+        }
+    }
 
     const loadCoinsInfo = async () => {
         try {
@@ -45,6 +77,7 @@ export const Statistics = () => {
 
     useEffect(() => {
         loadCoinsInfo();
+        loadCoinPrices();
     }, []);
     
     return (

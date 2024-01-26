@@ -17,7 +17,6 @@ interface ICurrencySwiper {
 export const CurrencySwiper: FC<ICurrencySwiper> = ({ coinsDetails }) => {
     const [activeIndex, setActiveIndex] = useState<number>(1);
     const [swiper, setSwiper] = useState<SwiperType>();
-    console.log(activeIndex)
     const perView = 5; 
     
     return (
