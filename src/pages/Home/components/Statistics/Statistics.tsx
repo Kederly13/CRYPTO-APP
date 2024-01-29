@@ -16,18 +16,17 @@ export interface Coin {
     condition?: boolean
 };
 
-export interface ICoinPrice {
-    [index: number]: number;
-};
-
-interface ICoinPricesState {
-    [index: number]: ICoinPrice;
-};
+type TCoinPrice = Array<Array<number>>;
 
 export const Statistics = () => {
     const [coinsDetails, setCoinsDetails] = useState<Coin[]>([]);
-    const [coinPrices, setCoinPrices] = useState<ICoinPricesState>([]);
-    console.log(coinPrices)
+    const [coinPrices, setCoinPrices] = useState<TCoinPrice>([]);
+
+    const convertDates: (prices: TCoinPrice) => TCoinPrice = (prices) => {
+        return prices.map((item) => {
+            return [new Date(item[0]).getDate(), item[1]]
+        })
+    };
 
     const loadCoinPrices = async () => {
         // const cashedCoinPrices = localStorage.getItem('coinPrices');
@@ -37,8 +36,9 @@ export const Statistics = () => {
         // }
         try {
             const prices = await ChartApi.getPrices('bitcoin');
-            setCoinPrices(prices.data.prices)
-            
+            const newPrices = convertDates(prices.data.prices);
+            setCoinPrices(newPrices);
+            console.log(coinPrices)
             // const cachedCoinPrices = localStorage.getItem('coinPrices');
 
             // if (cachedCoinPrices) {

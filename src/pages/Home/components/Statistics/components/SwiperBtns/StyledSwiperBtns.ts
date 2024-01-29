@@ -5,14 +5,13 @@ export const StyledSwiperBtns = styled.div`
   justify-content: space-between;
   position: absolute;
   width: 100%;
-  z-index: 100;
-  top: 15%;
-  
+  top: 50%;
+  left: 0;
+  transform: translateY(-50%);
+  z-index: 50;
+  pointer-events: none;
 
-  /* transform: translate(-5) */
-
-  & > button:nth-child(1),
-  & > button:nth-child(2) {
+  button {
     width: 48px;
     height: 48px;
     display: flex;
@@ -20,14 +19,14 @@ export const StyledSwiperBtns = styled.div`
     align-items: center;
     border-radius: 50%;
     background-color: rgba(97, 97, 222, 0.50);
-    
+    pointer-events: auto;
   }
 
   & > button:nth-child(1) { 
     transform: translate(-50%)
   }
 
-  & > button:nth-child(2) {
+  & > button:last-child {
     transform: translate(50%);
     margin-left: auto;
   }

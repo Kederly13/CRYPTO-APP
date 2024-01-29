@@ -1,4 +1,5 @@
 import { FC } from 'react';
+import { uid } from 'uid';
 import { useState } from 'react';
 import { Currency } from '../Currency';
 import { Percent } from 'components/Percent';
@@ -18,7 +19,7 @@ export const CurrencySwiper: FC<ICurrencySwiper> = ({ coinsDetails }) => {
     const [activeIndex, setActiveIndex] = useState<number>(1);
     const [swiper, setSwiper] = useState<SwiperType>();
     const perView = 5; 
-    
+
     return (
         <StyledCurrencySwiperWrapper>
             <Swiper
@@ -29,19 +30,24 @@ export const CurrencySwiper: FC<ICurrencySwiper> = ({ coinsDetails }) => {
             >
                 {!!coinsDetails.length && (
                     coinsDetails.map((coin) => (
-                        <SwiperSlide>
-                            <Currency
+                        <SwiperSlide key={uid()}>
+                            <Currency         
                                 logo={coin.logo}
                                 name={coin.name}
                                 symbol={coin.symbol}
                                 price={coin.price}
-                                percent={<Percent percent={coin.hourlyChange} marginleft='8px' />}              
+                                percent={<Percent percent={coin.hourlyChange} ml='8px' />}              
                             />
                         </SwiperSlide>
                     ))    
                 )}
-            <SwiperBtns activeIndex={activeIndex} total={coinsDetails.length - perView}/>
             </Swiper>
+            <SwiperBtns 
+                onNext={() => swiper?.slideNext()}
+                onPrev={() => swiper?.slidePrev()}
+                activeIndex={activeIndex} 
+                total={coinsDetails.length - perView}
+            />
         </StyledCurrencySwiperWrapper>
     );
 };

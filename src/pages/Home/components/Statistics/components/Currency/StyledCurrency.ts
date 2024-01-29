@@ -9,7 +9,7 @@ export const StyledCurrency = styled.div`
     display: flex;
     align-items: center;
 
-    & > img {
+    .currencyLogo {
         width: 32px;
         height: 32px;
     }
@@ -29,10 +29,6 @@ export const StyledCurrency = styled.div`
             & > span:nth-child(1) {
                 color: #D1D1D1;
                 font-size: 14px;
-            }
-
-            & > span:nth-child(2) {
-                color: #FF0061;
             }
         }                                                                                                                                                           
     }

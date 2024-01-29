@@ -1,4 +1,3 @@
-import { useSwiper } from "swiper/react"
 import { FC } from "react";
 
 import { StyledSwiperBtns } from './StyledSwiperBtns';
@@ -8,19 +7,17 @@ import { PrewArrow } from 'assets/svg/PrevArrow';
 interface ISwiperBtnsProps {
   total: number,
   activeIndex: number;
+  onNext: () => void;
+  onPrev: () => void;
 };
 
-export const SwiperBtns: FC<ISwiperBtnsProps> = ({ total, activeIndex }) => {
-  const swiper = useSwiper();
-
-  return (
-    <StyledSwiperBtns>
-      {activeIndex > 1 && (
-        <button aria-label='prev-slide' onClick={() => swiper.slidePrev()}><PrewArrow/></button>
-      )}
-      {activeIndex !== total && (
-        <button onClick={() => swiper.slideNext()}><NextArrow/></button>
-      )}
-    </StyledSwiperBtns>
-  );
-};
+export const SwiperBtns: FC<ISwiperBtnsProps> = ({ total, activeIndex, onNext, onPrev }) => (
+  <StyledSwiperBtns>
+    {activeIndex > 1 && (
+      <button aria-label='prev-slide' onClick={onPrev}><PrewArrow/></button>
+    )}
+    {activeIndex !== total && (
+      <button aria-label='next-slide' onClick={onNext}><NextArrow/></button>
+    )}
+  </StyledSwiperBtns>
+);

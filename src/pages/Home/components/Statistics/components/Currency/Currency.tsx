@@ -17,7 +17,7 @@ export const Currency: FC<ICurrencyProps> = (props) => {
 
     return (
         <StyledCurrency>
-                <img src={logo} alt='logo'/>
+                <img className='currencyLogo' src={logo} alt='logo'/>
                 <div>
                     <p>{name} ({symbol})</p>
                     <div>

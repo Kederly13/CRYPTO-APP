@@ -1,4 +1,4 @@
-import { FC, ReactNode } from 'react';
+import { FC } from 'react';
 import { Link } from 'react-router-dom';
 import Home from 'assets/svg/home.svg';
 import Layer from 'assets/svg/layers.svg';
