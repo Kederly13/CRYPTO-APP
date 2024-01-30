@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { StyledStatistics } from './StyledStatistics';
 import { CurrencySwiper } from './components/CurrencySwiper';
 import { Button } from 'components/Button';
+import { Chart } from './components/Chart/Chart';
 import { CoinsApi } from 'api/CoinsApi';
 import { ChartApi } from 'api/ChartApi';
 import 'swiper/swiper-bundle.css';
@@ -16,7 +17,7 @@ export interface Coin {
     condition?: boolean
 };
 
-type TCoinPrice = Array<Array<number>>;
+export type TCoinPrice = Array<Array<number>>;
 
 export const Statistics = () => {
     const [coinsDetails, setCoinsDetails] = useState<Coin[]>([]);
@@ -38,7 +39,6 @@ export const Statistics = () => {
             const prices = await ChartApi.getPrices('bitcoin');
             const newPrices = convertDates(prices.data.prices);
             setCoinPrices(newPrices);
-            console.log(coinPrices)
             // const cachedCoinPrices = localStorage.getItem('coinPrices');
 
             // if (cachedCoinPrices) {
@@ -63,10 +63,11 @@ export const Statistics = () => {
                     id: coin.id,
                     logo: coin.image,
                     name: coin.name,
-                    symbol: coin.symbol,
+                    symbol: coin.symbol.toUpperCase(),
                     price: coin.current_price,
                     hourlyChange: coin.market_cap_change_percentage_24h,
                   }));
+                  console.log(newCoins);
                   setCoinsDetails(newCoins);
                   localStorage.setItem('coinsInfo', JSON.stringify(newCoins));
             }
@@ -89,6 +90,7 @@ export const Statistics = () => {
             <CurrencySwiper
                 coinsDetails={coinsDetails}
             />
+            <Chart coinData={coinPrices} headline={coinsDetails.length > 0 ? `${coinsDetails[0].name} ${coinsDetails[0].symbol}` : ''} number={coinsDetails.length > 0 ? coinsDetails[0]. price : 0}/>
         </StyledStatistics>
     );
 };
