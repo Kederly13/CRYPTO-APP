@@ -5,6 +5,9 @@ import { Button } from 'components/Button';
 import { Chart } from './components/Chart/Chart';
 import { CoinsApi } from 'api/CoinsApi';
 import { ChartApi } from 'api/ChartApi';
+
+import { useAllSelectedSearchParams } from 'hooks/useSelectedSearchParams';
+
 import 'swiper/swiper-bundle.css';
 
 export interface Coin {
@@ -23,20 +26,22 @@ export const Statistics = () => {
     const [coinsDetails, setCoinsDetails] = useState<Coin[]>([]);
     const [coinPrices, setCoinPrices] = useState<TCoinPrice>([]);
 
+    const { coin } = useAllSelectedSearchParams();
+
     const convertDates: (prices: TCoinPrice) => TCoinPrice = (prices) => {
         return prices.map((item) => {
             return [new Date(item[0]).getDate(), item[1]]
         })
     };
 
-    const loadCoinPrices = async () => {
+    const loadCoinPrices = async (coin: string) => {
         // const cashedCoinPrices = localStorage.getItem('coinPrices');
 
         // if (cashedCoinPrices) {
         //     const parsedCoinPrices = JSON.parse(cashedCoinPrices)
         // }
         try {
-            const prices = await ChartApi.getPrices('bitcoin');
+            const prices = await ChartApi.getPrices(coin);
             const newPrices = convertDates(prices.data.prices);
             setCoinPrices(newPrices);
             // const cachedCoinPrices = localStorage.getItem('coinPrices');
@@ -78,8 +83,15 @@ export const Statistics = () => {
 
     useEffect(() => {
         loadCoinsInfo();
-        loadCoinPrices();
     }, []);
+
+    useEffect(() => {
+        if (coin.selectedValue) {
+            loadCoinPrices(coin.selectedValue);
+            console.log(coin.selectedValue)
+        }
+
+    }, [coin.selectedValue]);
     
     return (
         <StyledStatistics>

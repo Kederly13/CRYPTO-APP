@@ -21,16 +21,10 @@ ChartJS.register(
     LineElement,
     Title,
     Tooltip,
-    Legend
 );
 
 export const options = {
     responsive: true,
-    plugins: {
-      legend: {
-        position: 'top' as const,
-      },
-    },
   };
 
 interface IChartProps {
@@ -44,7 +38,7 @@ export const Chart: FC<IChartProps> = ({ coinData, headline, number }) => {
     labels: coinData.map(item => item[0]),
     datasets: [
       {
-        label: 'Coin Prices',
+
         data: coinData.map(item => item[1]),
         borderColor: '#7878FF'
       },

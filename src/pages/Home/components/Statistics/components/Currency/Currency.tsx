@@ -1,5 +1,7 @@
 import { FC } from 'react';
 
+import { useAllSelectedSearchParams } from 'hooks/useSelectedSearchParams';
+
 import { StyledCurrency } from './StyledCurrency';
 
 export interface ICurrencyProps {
@@ -10,13 +12,15 @@ export interface ICurrencyProps {
     name: string,
     symbol: string,
     price: number,
+    id: string
 };
 
 export const Currency: FC<ICurrencyProps> = (props) => {
-    const { logo, name, symbol, price, percent } = props;
+    const { logo, name, symbol, price, percent, id } = props;
+    const { coin } = useAllSelectedSearchParams();
 
     return (
-        <StyledCurrency>
+        <StyledCurrency onClick={() => coin.onSelectedValue(id)}>
                 <img className='currencyLogo' src={logo} alt='logo'/>
                 <div>
                     <p>{name} ({symbol})</p>

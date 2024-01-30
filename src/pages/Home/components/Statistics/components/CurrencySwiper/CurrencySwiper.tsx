@@ -31,7 +31,8 @@ export const CurrencySwiper: FC<ICurrencySwiper> = ({ coinsDetails }) => {
                 {!!coinsDetails.length && (
                     coinsDetails.map((coin) => (
                         <SwiperSlide key={uid()}>
-                            <Currency         
+                            <Currency
+                                id={coin.id}         
                                 logo={coin.logo}
                                 name={coin.name}
                                 symbol={coin.symbol}
