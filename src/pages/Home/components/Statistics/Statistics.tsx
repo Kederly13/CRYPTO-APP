@@ -25,6 +25,7 @@ export type TCoinPrice = Array<Array<number>>;
 export const Statistics = () => {
     const [coinsDetails, setCoinsDetails] = useState<Coin[]>([]);
     const [coinPrices, setCoinPrices] = useState<TCoinPrice>([]);
+    const [selectedCoin, setSelectedCoin] = useState<Coin>();
 
     const { coin } = useAllSelectedSearchParams();
 
@@ -32,6 +33,11 @@ export const Statistics = () => {
         return prices.map((item) => {
             return [new Date(item[0]).getDate(), item[1]]
         })
+    };
+
+    const findSelectedCoin = (id: string) => {
+        const foundCoin = coinsDetails.find(coin => coin.id === id);
+        setSelectedCoin(foundCoin)
     };
 
     const loadCoinPrices = async (coin: string) => {
@@ -83,14 +89,19 @@ export const Statistics = () => {
 
     useEffect(() => {
         loadCoinsInfo();
+        console.log(coinsDetails);
+        if (!!coinsDetails.length) {
+            findSelectedCoin(coinsDetails[0].id)
+        }
     }, []);
 
     useEffect(() => {
         if (coin.selectedValue) {
             loadCoinPrices(coin.selectedValue);
-            console.log(coin.selectedValue)
+            findSelectedCoin(coin.selectedValue)
+        } else {
+            loadCoinPrices(coinsDetails[0].id)
         }
-
     }, [coin.selectedValue]);
     
     return (
@@ -102,7 +113,7 @@ export const Statistics = () => {
             <CurrencySwiper
                 coinsDetails={coinsDetails}
             />
-            <Chart coinData={coinPrices} headline={coinsDetails.length > 0 ? `${coinsDetails[0].name} ${coinsDetails[0].symbol}` : ''} number={coinsDetails.length > 0 ? coinsDetails[0]. price : 0}/>
+            <Chart coinData={coinPrices} headline={selectedCoin ? `${selectedCoin.name} (${selectedCoin.symbol})` : ''} number={selectedCoin ? selectedCoin.price : 0}/>
         </StyledStatistics>
     );
 };

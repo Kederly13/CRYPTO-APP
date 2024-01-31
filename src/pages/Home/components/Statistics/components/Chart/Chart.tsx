@@ -38,7 +38,6 @@ export const Chart: FC<IChartProps> = ({ coinData, headline, number }) => {
     labels: coinData.map(item => item[0]),
     datasets: [
       {
-
         data: coinData.map(item => item[1]),
         borderColor: '#7878FF'
       },
