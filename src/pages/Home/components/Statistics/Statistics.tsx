@@ -25,7 +25,7 @@ export type TCoinPrice = Array<Array<number>>;
 export const Statistics = () => {
     const [coinsDetails, setCoinsDetails] = useState<Coin[]>([]);
     const [coinPrices, setCoinPrices] = useState<TCoinPrice>([]);
-    const [selectedCoin, setSelectedCoin] = useState<Coin>();
+    const [selectedCoin, setSelectedCoin] = useState<Coin | undefined>(undefined);
 
     const { coin } = useAllSelectedSearchParams();
 
@@ -37,7 +37,9 @@ export const Statistics = () => {
 
     const findSelectedCoin = (id: string) => {
         const foundCoin = coinsDetails.find(coin => coin.id === id);
-        setSelectedCoin(foundCoin)
+        if (foundCoin) {
+            setSelectedCoin(foundCoin);
+        }
     };
 
     const loadCoinPrices = async (coin: string) => {
@@ -68,6 +70,7 @@ export const Statistics = () => {
             if (cachedCoinsInfo) {
                 const parsedCoinsInfo = JSON.parse(cachedCoinsInfo);
                 setCoinsDetails(parsedCoinsInfo);
+                coin.onSelectedValue(parsedCoinsInfo[0].id)
             } else {
                 const coinsInfo = await CoinsApi.getCoins();
                 const newCoins = coinsInfo.data.map((coin: any) => ({
@@ -78,8 +81,11 @@ export const Statistics = () => {
                     price: coin.current_price,
                     hourlyChange: coin.market_cap_change_percentage_24h,
                   }));
-                  console.log(newCoins);
+                  coin.onSelectedValue(newCoins[0].id)
                   setCoinsDetails(newCoins);
+                //   if (coinsDetails.length) {
+                //     coin.onSelectedValue(coinsDetails[0].id);
+                // } why this is not working;
                   localStorage.setItem('coinsInfo', JSON.stringify(newCoins));
             }
         } catch (error) {
@@ -89,20 +95,19 @@ export const Statistics = () => {
 
     useEffect(() => {
         loadCoinsInfo();
-        console.log(coinsDetails);
-        if (!!coinsDetails.length) {
-            findSelectedCoin(coinsDetails[0].id)
-        }
+        
     }, []);
 
     useEffect(() => {
+        // if (coinsDetails.length) {
+        //     coin.onSelectedValue(coinsDetails[0].id);
+        // } this is not working;
+
         if (coin.selectedValue) {
             loadCoinPrices(coin.selectedValue);
-            findSelectedCoin(coin.selectedValue)
-        } else {
-            loadCoinPrices(coinsDetails[0].id)
-        }
-    }, [coin.selectedValue]);
+            findSelectedCoin(coin.selectedValue);;
+        };
+    }, [coin.selectedValue, coinsDetails]);
     
     return (
         <StyledStatistics>
@@ -113,7 +118,11 @@ export const Statistics = () => {
             <CurrencySwiper
                 coinsDetails={coinsDetails}
             />
-            <Chart coinData={coinPrices} headline={selectedCoin ? `${selectedCoin.name} (${selectedCoin.symbol})` : ''} number={selectedCoin ? selectedCoin.price : 0}/>
+            <Chart 
+                coinData={coinPrices} 
+                headline={selectedCoin ? `${selectedCoin.name} (${selectedCoin.symbol})` : ''} 
+                number={selectedCoin ? selectedCoin.price : 0}
+            />
         </StyledStatistics>
     );
 };

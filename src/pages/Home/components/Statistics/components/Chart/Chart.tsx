@@ -1,26 +1,27 @@
 import { Line } from 'react-chartjs-2';
 import { FC } from 'react';
+import { Bar } from 'react-chartjs-2';
+
 import {
     Chart as ChartJS,
+    BarElement,
     CategoryScale,
     LinearScale,
     PointElement,
     LineElement,
-    Title,
     Tooltip,
-    Legend,
   } from 'chart.js';
 
 import { StyledChart } from './StyledChart';
 import { UpperBlock } from './components/UpperBlock/UpperBlock';
 
 ChartJS.register(
-    CategoryScale,
-    LinearScale,
-    PointElement,
-    LineElement,
-    Title,
-    Tooltip,
+  BarElement,
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  LineElement,
+  Tooltip
 );
 
 export const options = {
@@ -46,16 +47,28 @@ export const Chart: FC<IChartProps> = ({ coinData, headline, number }) => {
 
   return (
     <StyledChart>
-      <UpperBlock
-        headline={headline}
-        number={number}
-      />
-      <Line 
-        options={options} 
-        data={data}
-        height={193}
-        width={582}
-      />
+      <div>
+          <UpperBlock
+            headline={headline}
+            number={number}
+          />
+          <Line 
+            options={options} 
+            data={data}
+            height={193}
+            width={582}
+          />
+      </div>
+      <div>
+          <UpperBlock
+            headline='Volume'
+            number={number}
+          />
+          <Bar
+            data={data}
+            options={options}
+          />
+      </div>
     </StyledChart>
   )
 };

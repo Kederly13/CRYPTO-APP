@@ -11,14 +11,16 @@ import { Coin } from '../../Statistics';
 import { StyledCurrencySwiperWrapper } from './StyledCurrencySwiper';
 import { Swiper as SwiperType } from 'swiper';
 
+
 interface ICurrencySwiper {
     coinsDetails: Coin[];
+    selected?: boolean
 };
 
 export const CurrencySwiper: FC<ICurrencySwiper> = ({ coinsDetails }) => {
     const [activeIndex, setActiveIndex] = useState<number>(1);
     const [swiper, setSwiper] = useState<SwiperType>();
-    const perView = 5; 
+    const perView = 5;
 
     return (
         <StyledCurrencySwiperWrapper>

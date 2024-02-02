@@ -15,12 +15,19 @@ export interface ICurrencyProps {
     id: string
 };
 
-export const Currency: FC<ICurrencyProps> = (props) => {
+export interface IStyledCurrencyProps {
+    selected?: boolean;
+};
+
+export type CurrencyProps = ICurrencyProps & IStyledCurrencyProps;
+
+
+export const Currency: FC<CurrencyProps> = ( props ) => {
     const { logo, name, symbol, price, percent, id } = props;
     const { coin } = useAllSelectedSearchParams();
-
+    
     return (
-        <StyledCurrency onClick={() => coin.onSelectedValue(id)}>
+        <StyledCurrency {...props} onClick={() => coin.onSelectedValue(id)} selected={coin.selectedValue === id}>
                 <img className='currencyLogo' src={logo} alt='logo'/>
                 <div>
                     <p>{name} ({symbol})</p>
