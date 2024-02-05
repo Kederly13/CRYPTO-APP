@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { StyledStatistics } from './StyledStatistics';
 import { CurrencySwiper } from './components/CurrencySwiper';
 import { Button } from 'components/Button';
-import { Chart } from './components/Chart/Chart';
+import { ChartBox } from './components/Chart/Chart';
 import { CoinsApi } from 'api/CoinsApi';
 import { ChartApi } from 'api/ChartApi';
 
@@ -42,6 +42,11 @@ export const Statistics = () => {
         }
     };
 
+    // const findSelectedCoin = (id: string): Coin | undefined => {
+    //     const foundCoin = coinsDetails.find(coin => coin.id === id);
+    //     return foundCoin;
+    // };
+
     const loadCoinPrices = async (coin: string) => {
         // const cashedCoinPrices = localStorage.getItem('coinPrices');
 
@@ -70,7 +75,7 @@ export const Statistics = () => {
             if (cachedCoinsInfo) {
                 const parsedCoinsInfo = JSON.parse(cachedCoinsInfo);
                 setCoinsDetails(parsedCoinsInfo);
-                coin.onSelectedValue(parsedCoinsInfo[0].id)
+                // coin.onSelectedValue(parsedCoinsInfo[0].id);
             } else {
                 const coinsInfo = await CoinsApi.getCoins();
                 const newCoins = coinsInfo.data.map((coin: any) => ({
@@ -81,11 +86,8 @@ export const Statistics = () => {
                     price: coin.current_price,
                     hourlyChange: coin.market_cap_change_percentage_24h,
                   }));
-                  coin.onSelectedValue(newCoins[0].id)
+                //   coin.onSelectedValue(newCoins[0].id)
                   setCoinsDetails(newCoins);
-                //   if (coinsDetails.length) {
-                //     coin.onSelectedValue(coinsDetails[0].id);
-                // } why this is not working;
                   localStorage.setItem('coinsInfo', JSON.stringify(newCoins));
             }
         } catch (error) {
@@ -95,19 +97,20 @@ export const Statistics = () => {
 
     useEffect(() => {
         loadCoinsInfo();
-        
     }, []);
 
     useEffect(() => {
-        // if (coinsDetails.length) {
-        //     coin.onSelectedValue(coinsDetails[0].id);
-        // } this is not working;
+        if (coinsDetails.length) {
+            coin.onSelectedValue(coinsDetails[0].id);
+        } 
+    }, [coinsDetails])
 
+    useEffect(() => {
         if (coin.selectedValue) {
             loadCoinPrices(coin.selectedValue);
             findSelectedCoin(coin.selectedValue);;
         };
-    }, [coin.selectedValue, coinsDetails]);
+    }, [coin.selectedValue]);
     
     return (
         <StyledStatistics>
@@ -118,7 +121,7 @@ export const Statistics = () => {
             <CurrencySwiper
                 coinsDetails={coinsDetails}
             />
-            <Chart 
+            <ChartBox 
                 coinData={coinPrices} 
                 headline={selectedCoin ? `${selectedCoin.name} (${selectedCoin.symbol})` : ''} 
                 number={selectedCoin ? selectedCoin.price : 0}

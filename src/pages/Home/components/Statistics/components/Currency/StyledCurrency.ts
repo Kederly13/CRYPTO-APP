@@ -4,13 +4,14 @@ import { IStyledCurrencyProps } from './Currency';
 
 
 export const StyledCurrency = styled.div<IStyledCurrencyProps>`
-    background: ${({ selected }) => (selected ? '#7878FF' : '#191926')};
+    background: ${({ selected }) => (selected ? 'rgba(97, 97, 222, 0.50)' : '#191926')};
     /* background: rgba(97, 97, 222, 0.50);
     border: 1px solid #7878FF; */
     max-width: 252px;
     padding: 16px;
     display: flex;
     align-items: center;
+    width: 100%;
 
     .currencyLogo {
         width: 32px;

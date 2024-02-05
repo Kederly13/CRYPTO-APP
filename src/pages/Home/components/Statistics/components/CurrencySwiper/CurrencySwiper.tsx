@@ -18,7 +18,7 @@ interface ICurrencySwiper {
 };
 
 export const CurrencySwiper: FC<ICurrencySwiper> = ({ coinsDetails }) => {
-    const [activeIndex, setActiveIndex] = useState<number>(1);
+    const [activeIndex, setActiveIndex] = useState<number>(0);
     const [swiper, setSwiper] = useState<SwiperType>();
     const perView = 5;
 
@@ -28,7 +28,7 @@ export const CurrencySwiper: FC<ICurrencySwiper> = ({ coinsDetails }) => {
                 modules={[Navigation, Pagination, Scrollbar, A11y]}
                 slidesPerView={5}
                 onSwiper={setSwiper}
-                onActiveIndexChange={(swiper: SwiperType) => setActiveIndex(swiper.activeIndex + 1)}
+                onActiveIndexChange={(swiper: SwiperType) => setActiveIndex(swiper.activeIndex)}
             >
                 {!!coinsDetails.length && (
                     coinsDetails.map((coin) => (

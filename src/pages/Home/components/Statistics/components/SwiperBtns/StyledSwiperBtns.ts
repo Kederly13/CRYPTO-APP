@@ -23,7 +23,8 @@ export const StyledSwiperBtns = styled.div`
   }
 
   & > button:nth-child(1) { 
-    transform: translate(-50%)
+    transform: translate(-50%);
+    margin-right: auto;
   }
 
   & > button:last-child {

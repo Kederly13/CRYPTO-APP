@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { Line } from 'react-chartjs-2';
 
-export const StyledChart = styled.div`
+export const StyledChartBox = styled.div`
   margin-top: 66px;
   display: flex;
   justify-content: space-between;

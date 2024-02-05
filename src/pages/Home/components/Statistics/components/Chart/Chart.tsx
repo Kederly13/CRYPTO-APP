@@ -1,5 +1,5 @@
 import { Line } from 'react-chartjs-2';
-import { FC } from 'react';
+import { FC, ReactNode } from 'react';
 import { Bar } from 'react-chartjs-2';
 
 import {
@@ -12,7 +12,7 @@ import {
     Tooltip,
   } from 'chart.js';
 
-import { StyledChart } from './StyledChart';
+import { StyledChartBox } from './StyledChart';
 import { UpperBlock } from './components/UpperBlock/UpperBlock';
 
 ChartJS.register(
@@ -32,9 +32,10 @@ interface IChartProps {
   coinData: Array<Array<number>>;
   headline: string;
   number: number;
+  children: ReactNode;
 };
 
-export const Chart: FC<IChartProps> = ({ coinData, headline, number }) => {
+export const ChartBox: FC<IChartProps> = ({ coinData, headline, number, children }) => {
   const data = {
     labels: coinData.map(item => item[0]),
     datasets: [
@@ -46,20 +47,21 @@ export const Chart: FC<IChartProps> = ({ coinData, headline, number }) => {
   };
 
   return (
-    <StyledChart>
+    <StyledChartBox>
       <div>
           <UpperBlock
             headline={headline}
             number={number}
           />
-          <Line 
+          { children }
+          {/* <Line 
             options={options} 
             data={data}
             height={193}
             width={582}
-          />
+          /> */}
       </div>
-      <div>
+      {/* <div>
           <UpperBlock
             headline='Volume'
             number={number}
@@ -67,8 +69,10 @@ export const Chart: FC<IChartProps> = ({ coinData, headline, number }) => {
           <Bar
             data={data}
             options={options}
+            height={193}
+            width={582}
           />
-      </div>
-    </StyledChart>
+      </div> */}
+    </StyledChartBox>
   )
 };

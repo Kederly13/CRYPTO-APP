@@ -13,7 +13,7 @@ interface ISwiperBtnsProps {
 
 export const SwiperBtns: FC<ISwiperBtnsProps> = ({ total, activeIndex, onNext, onPrev }) => (
   <StyledSwiperBtns>
-    {activeIndex > 1 && (
+    {activeIndex > 0 && (
       <button aria-label='prev-slide' onClick={onPrev}><PrewArrow/></button>
     )}
     {activeIndex !== total && (
