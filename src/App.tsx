@@ -1,4 +1,5 @@
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { Provider } from 'react-dedux';
 
 import { Layout } from 'Layout';
 import Home from './pages/Home/Home'

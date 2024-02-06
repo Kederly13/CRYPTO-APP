@@ -2,9 +2,12 @@ import { useEffect, useState } from 'react';
 import { StyledStatistics } from './StyledStatistics';
 import { CurrencySwiper } from './components/CurrencySwiper';
 import { Button } from 'components/Button';
-import { ChartBox } from './components/Chart/Chart';
+import { LineChart } from './components/LineChart';
+import { BarChart } from './components/BarChart';
+import { ChartBox } from './components/ChartBox';
 import { CoinsApi } from 'api/CoinsApi';
 import { ChartApi } from 'api/ChartApi';
+
 
 import { useAllSelectedSearchParams } from 'hooks/useSelectedSearchParams';
 
@@ -26,6 +29,7 @@ export const Statistics = () => {
     const [coinsDetails, setCoinsDetails] = useState<Coin[]>([]);
     const [coinPrices, setCoinPrices] = useState<TCoinPrice>([]);
     const [selectedCoin, setSelectedCoin] = useState<Coin | undefined>(undefined);
+    const [coinVolume, setCoinVolume] = useState<TCoinPrice>([]);
 
     const { coin } = useAllSelectedSearchParams();
 
@@ -35,17 +39,14 @@ export const Statistics = () => {
         })
     };
 
-    const findSelectedCoin = (id: string) => {
-        const foundCoin = coinsDetails.find(coin => coin.id === id);
-        if (foundCoin) {
-            setSelectedCoin(foundCoin);
+    const findSelectedCoin = (id: string | null) => {
+        if (id !== null) {
+            const foundCoin = coinsDetails.find(coin => coin.id === id);
+            if (foundCoin) {
+                setSelectedCoin(foundCoin);
+            }
         }
     };
-
-    // const findSelectedCoin = (id: string): Coin | undefined => {
-    //     const foundCoin = coinsDetails.find(coin => coin.id === id);
-    //     return foundCoin;
-    // };
 
     const loadCoinPrices = async (coin: string) => {
         // const cashedCoinPrices = localStorage.getItem('coinPrices');
@@ -54,14 +55,17 @@ export const Statistics = () => {
         //     const parsedCoinPrices = JSON.parse(cashedCoinPrices)
         // }
         try {
-            const prices = await ChartApi.getPrices(coin);
-            const newPrices = convertDates(prices.data.prices);
+            const response = await ChartApi.getPrices(coin);
+            console.log(response)
+            const newPrices = convertDates(response.data.prices);
+            const volume = convertDates(response.data.total_volumes);
+            setCoinVolume(volume);
             setCoinPrices(newPrices);
             // const cachedCoinPrices = localStorage.getItem('coinPrices');
 
             // if (cachedCoinPrices) {
             //     const parsedCoinPrices = JSON.parse(cachedCoinPrices);
-            //     setCoinPrices
+            //     setCoinPrices    
             // }
         } catch (error) {
             console.log(error);
@@ -75,7 +79,7 @@ export const Statistics = () => {
             if (cachedCoinsInfo) {
                 const parsedCoinsInfo = JSON.parse(cachedCoinsInfo);
                 setCoinsDetails(parsedCoinsInfo);
-                // coin.onSelectedValue(parsedCoinsInfo[0].id);
+                coin.onSelectedValue(parsedCoinsInfo[0].id);
             } else {
                 const coinsInfo = await CoinsApi.getCoins();
                 const newCoins = coinsInfo.data.map((coin: any) => ({
@@ -86,7 +90,6 @@ export const Statistics = () => {
                     price: coin.current_price,
                     hourlyChange: coin.market_cap_change_percentage_24h,
                   }));
-                //   coin.onSelectedValue(newCoins[0].id)
                   setCoinsDetails(newCoins);
                   localStorage.setItem('coinsInfo', JSON.stringify(newCoins));
             }
@@ -102,13 +105,16 @@ export const Statistics = () => {
     useEffect(() => {
         if (coinsDetails.length) {
             coin.onSelectedValue(coinsDetails[0].id);
-        } 
+            findSelectedCoin(coin.selectedValue);
+        }
+        
     }, [coinsDetails])
 
     useEffect(() => {
         if (coin.selectedValue) {
             loadCoinPrices(coin.selectedValue);
-            findSelectedCoin(coin.selectedValue);;
+            findSelectedCoin(coin.selectedValue);
+            console.log()
         };
     }, [coin.selectedValue]);
     
@@ -121,11 +127,24 @@ export const Statistics = () => {
             <CurrencySwiper
                 coinsDetails={coinsDetails}
             />
-            <ChartBox 
-                coinData={coinPrices} 
-                headline={selectedCoin ? `${selectedCoin.name} (${selectedCoin.symbol})` : ''} 
-                number={selectedCoin ? selectedCoin.price : 0}
-            />
+            <div className='charts'>
+                <ChartBox 
+                    headline={selectedCoin ? `${selectedCoin.name} (${selectedCoin.symbol})` : ''} 
+                    number={selectedCoin ? selectedCoin.price : 0}
+                >
+                    <LineChart
+                        coinData={coinPrices} 
+                    />
+                </ChartBox>
+                <ChartBox 
+                    headline={'Volume'} 
+                    number={selectedCoin ? selectedCoin.price : 0}
+                >
+                    <BarChart
+                        coinData={coinVolume} 
+                    />
+                </ChartBox>
+            </div>
         </StyledStatistics>
     );
 };
