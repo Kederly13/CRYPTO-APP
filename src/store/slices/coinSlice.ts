@@ -1,23 +1,14 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { CoinsApi } from 'api/CoinsApi';
-
-export interface Coin {
-    id: string;
-    logo: string,
-    name: string,
-    symbol: string,
-    current_price: number,
-    market_cap_change_percentage_24h: number,
-    condition?: boolean
-};
+import { ICoin } from 'types/coinType';
 
 type CoinsState = {
-    coinList: Coin[];
+    coinList: ICoin[];
     loading: boolean,
     error: null
 };
 
-export const fetchCoins = createAsyncThunk<Coin[], undefined, {rejectValue: string} >(
+export const fetchCoins = createAsyncThunk<ICoin[], undefined, {rejectValue: string}>(
     'coins/fetchCoins',
     async function (_, { rejectWithValue }) {
         const response = await CoinsApi.getCoins();
@@ -26,15 +17,10 @@ export const fetchCoins = createAsyncThunk<Coin[], undefined, {rejectValue: stri
             return rejectWithValue('server error')
         }
 
-        const newCoins = response.data.map(({ id, logo, name, symbol, current_price, market_cap_change_percentage_24h }: any) => ({
-            id,
-            logo,
-            name,
-            symbol: symbol.toUpperCase(),
-            current_price,
-            market_cap_change_percentage_24h,
-            }));
-            return newCoins; 
+        return response.data.map((coinData: any) => ({
+            ...coinData,
+            symbole: coinData.symbol.toUpperCase()
+        }))
     }
 );
 
@@ -48,7 +34,6 @@ const coinSlice = createSlice({
     name: 'coins',
     initialState,
     reducers: {
-
     },
     extraReducers: (builder) => {
         builder

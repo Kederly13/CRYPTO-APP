@@ -3,7 +3,6 @@ import { FC, ReactNode } from 'react';
 import { StyledChartBox } from './StyledChart';
 import { UpperBlock } from './components/UpperBlock/UpperBlock';
 
-
 interface IChartProps {
   headline: string;
   number: number;

@@ -14,10 +14,10 @@ interface ISwiperBtnsProps {
 export const SwiperBtns: FC<ISwiperBtnsProps> = ({ total, activeIndex, onNext, onPrev }) => (
   <StyledSwiperBtns>
     {activeIndex > 0 && (
-      <button aria-label='prev-slide' onClick={onPrev}><PrewArrow/></button>
+      <button aria-label='prev-slide' className='singlePrevBtn' onClick={onPrev}><PrewArrow/></button>
     )}
     {activeIndex !== total && (
-      <button aria-label='next-slide' onClick={onNext}><NextArrow/></button>
+      <button aria-label='next-slide' className='singleNextBtn' onClick={onNext}><NextArrow/></button>
     )}
   </StyledSwiperBtns>
 );

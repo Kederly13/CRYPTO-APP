@@ -5,32 +5,26 @@ import { Button } from 'components/Button';
 import { LineChart } from './components/LineChart';
 import { BarChart } from './components/BarChart';
 import { ChartBox } from './components/ChartBox';
-import { CoinsApi } from 'api/CoinsApi';
 import { ChartApi } from 'api/ChartApi';
+import { fetchCoins } from 'store/slices/coinSlice';
+import { ICoin } from 'types/coinType';
 
-
+import { useAppDispatch, useAppSelector } from 'hooks/reduxHooks';
 import { useAllSelectedSearchParams } from 'hooks/useSelectedSearchParams';
 
 import 'swiper/swiper-bundle.css';
 
-export interface Coin {
-    id: string;
-    logo: string,
-    name: string,
-    symbol: string,
-    price: number,
-    hourlyChange: number,
-    condition?: boolean
-};
 
 export type TCoinPrice = Array<Array<number>>;
 
 export const Statistics = () => {
-    const [coinsDetails, setCoinsDetails] = useState<Coin[]>([]);
     const [coinPrices, setCoinPrices] = useState<TCoinPrice>([]);
-    const [selectedCoin, setSelectedCoin] = useState<Coin | undefined>(undefined);
+    const [selectedCoin, setSelectedCoin] = useState<ICoin | undefined>(undefined);
     const [coinVolume, setCoinVolume] = useState<TCoinPrice>([]);
+    const dispatch = useAppDispatch();
 
+    const fetchedCoins = useAppSelector(state => state.coins.coinList);
+    
     const { coin } = useAllSelectedSearchParams();
 
     const convertDates: (prices: TCoinPrice) => TCoinPrice = (prices) => {
@@ -41,7 +35,7 @@ export const Statistics = () => {
 
     const findSelectedCoin = (id: string | null) => {
         if (id !== null) {
-            const foundCoin = coinsDetails.find(coin => coin.id === id);
+            const foundCoin = fetchedCoins.find(coin => coin.id === id);
             if (foundCoin) {
                 setSelectedCoin(foundCoin);
             }
@@ -56,7 +50,6 @@ export const Statistics = () => {
         // }
         try {
             const response = await ChartApi.getPrices(coin);
-            console.log(response)
             const newPrices = convertDates(response.data.prices);
             const volume = convertDates(response.data.total_volumes);
             setCoinVolume(volume);
@@ -72,49 +65,33 @@ export const Statistics = () => {
         }
     }
 
-    const loadCoinsInfo = async () => {
-        try {
-            const cachedCoinsInfo = localStorage.getItem('coinsInfo');
-
-            if (cachedCoinsInfo) {
-                const parsedCoinsInfo = JSON.parse(cachedCoinsInfo);
-                setCoinsDetails(parsedCoinsInfo);
-                coin.onSelectedValue(parsedCoinsInfo[0].id);
-            } else {
-                const coinsInfo = await CoinsApi.getCoins();
-                const newCoins = coinsInfo.data.map((coin: any) => ({
-                    id: coin.id,
-                    logo: coin.image,
-                    name: coin.name,
-                    symbol: coin.symbol.toUpperCase(),
-                    price: coin.current_price,
-                    hourlyChange: coin.market_cap_change_percentage_24h,
-                  }));
-                  setCoinsDetails(newCoins);
-                  localStorage.setItem('coinsInfo', JSON.stringify(newCoins));
-            }
-        } catch (error) {
-            console.log(error);
+    useEffect(() => {
+        const cashedCoins = localStorage.getItem('coinPrices');
+        if (cashedCoins) {
+            const parsedCoins = JSON.parse(cashedCoins);
+            dispatch(parsedCoins);
+            findSelectedCoin(parsedCoins[0].id)
+            console.log()
         }
-    };
+        dispatch(fetchCoins());
+    }, [dispatch]);
 
     useEffect(() => {
-        loadCoinsInfo();
-    }, []);
+        console.log(fetchedCoins)
+    }, [fetchedCoins])
 
     useEffect(() => {
-        if (coinsDetails.length) {
-            coin.onSelectedValue(coinsDetails[0].id);
+        if (fetchedCoins.length > 0) {
+            coin.onSelectedValue(fetchedCoins[0].id);
             findSelectedCoin(coin.selectedValue);
+            localStorage.setItem('coinsData', JSON.stringify(fetchedCoins));
         }
-        
-    }, [coinsDetails])
+    }, [fetchedCoins]);
 
     useEffect(() => {
         if (coin.selectedValue) {
             loadCoinPrices(coin.selectedValue);
             findSelectedCoin(coin.selectedValue);
-            console.log()
         };
     }, [coin.selectedValue]);
     
@@ -125,12 +102,12 @@ export const Statistics = () => {
                 <Button disabled={true} type='button' padding='12px 24px'>Exit comparison</Button>
             </h2>
             <CurrencySwiper
-                coinsDetails={coinsDetails}
+                coinsDetails={fetchedCoins}
             />
             <div className='charts'>
                 <ChartBox 
                     headline={selectedCoin ? `${selectedCoin.name} (${selectedCoin.symbol})` : ''} 
-                    number={selectedCoin ? selectedCoin.price : 0}
+                    number={selectedCoin ? selectedCoin.current_price : 0}
                 >
                     <LineChart
                         coinData={coinPrices} 
@@ -138,7 +115,7 @@ export const Statistics = () => {
                 </ChartBox>
                 <ChartBox 
                     headline={'Volume'} 
-                    number={selectedCoin ? selectedCoin.price : 0}
+                    number={selectedCoin ? selectedCoin.current_price : 0}
                 >
                     <BarChart
                         coinData={coinVolume} 

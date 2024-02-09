@@ -22,13 +22,12 @@ export const StyledSwiperBtns = styled.div`
     pointer-events: auto;
   }
 
-  & > button:nth-child(1) { 
+  .singlePrevBtn {
     transform: translate(-50%);
-    margin-right: auto;
   }
 
-  & > button:last-child {
-    transform: translate(50%);
+  .singleNextBtn {
     margin-left: auto;
+    transform: translate(50%);
   }
-`;
+`

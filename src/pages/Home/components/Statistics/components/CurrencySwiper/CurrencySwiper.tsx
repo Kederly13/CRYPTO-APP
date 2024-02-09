@@ -3,17 +3,16 @@ import { uid } from 'uid';
 import { useState } from 'react';
 import { Currency } from '../Currency';
 import { Percent } from 'components/Percent';
-import 'swiper/swiper-bundle.css';
 import { SwiperBtns } from '../SwiperBtns';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation, Pagination, Scrollbar, A11y } from 'swiper/modules';
-import { Coin } from '../../Statistics';
+
 import { StyledCurrencySwiperWrapper } from './StyledCurrencySwiper';
 import { Swiper as SwiperType } from 'swiper';
-
+import { ICoin } from 'types/coinType';
 
 interface ICurrencySwiper {
-    coinsDetails: Coin[];
+    coinsDetails: ICoin[];
     selected?: boolean
 };
 
@@ -35,11 +34,11 @@ export const CurrencySwiper: FC<ICurrencySwiper> = ({ coinsDetails }) => {
                         <SwiperSlide key={uid()}>
                             <Currency
                                 id={coin.id}         
-                                logo={coin.logo}
+                                logo={coin.image}
                                 name={coin.name}
                                 symbol={coin.symbol}
-                                price={coin.price}
-                                percent={<Percent percent={coin.hourlyChange} ml='8px' />}              
+                                price={coin.current_price}
+                                percent={<Percent percent={coin.market_cap_change_percentage_24h} ml='8px' />}              
                             />
                         </SwiperSlide>
                     ))    
