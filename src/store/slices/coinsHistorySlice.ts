@@ -1,19 +1,22 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { ChartApi } from 'api/ChartApi';
 
-type TCoinData = Array<Array<number>>
+import { getConvertedDates } from 'utils/getConvertedDates';
 
-type TCoinDataState = {
-    coinPrices: TCoinData,
-    coinVolume: TCoinData,
-    loading: boolean,
-    error: null,
+export type TCoinData = Array<Array<number>>
+
+interface ICoinObjHistory {
+    prices: TCoinData,
+    market_caps: TCoinData,
+    total_volumes: TCoinData
 };
 
-const convertDates: (data: TCoinData) => TCoinData = (data) => {
-    return data.map((item) => {
-        return [new Date(item[0]).getDate(), item[1]]
-    })
+type TCoinHistory = Record<string, ICoinObjHistory>;
+
+type TCoinsHistoryState = {
+    coinsHistory: Array<TCoinHistory>
+    loading: boolean,
+    error: null,
 };
 
 const fetchCoinData = createAsyncThunk<TCoinData, string, {rejectValue: string}>(
@@ -25,19 +28,17 @@ const fetchCoinData = createAsyncThunk<TCoinData, string, {rejectValue: string}>
             return rejectWithValue('server error')
         }
 
-        const coinPrices = convertDates(response.data.prices);
-        const coinVolume = convertDates(response.data.total_volumes);
+        const coinPrices = getConvertedDates(response.data.prices);
+        const coinVolume = getConvertedDates(response.data.total_volumes);
 
         dispatch(coinPrices(coinPrices))
         return { coinPrices, coinVolume }
     }
 
-
 )
 
-const initialState: TCoinDataState = {
-    coinPrices: [],
-    coinVolume: [],
+const initialState: TCoinsHistoryState = {
+    coinsHistory: [],
     loading: false,
     error: null
 };
@@ -46,7 +47,7 @@ const coinDataSlice = createSlice({
     name: 'coinData',
     initialState,
     reducers: {
-
+        
     },
     extraReducers: (builder) => {
         builder

@@ -19,7 +19,6 @@ export const fetchCoins = createAsyncThunk<ICoin[], undefined, {rejectValue: str
 
         return response.data.map((coinData: any) => ({
             ...coinData,
-            symbole: coinData.symbol.toUpperCase()
         }))
     }
 );
