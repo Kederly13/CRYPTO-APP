@@ -53,15 +53,14 @@ const coinHistorySlice = createSlice({
             .addCase(fetchCoinData.fulfilled, (state, action) => {
                 const coinId = action.meta.arg;
 
+                
+
                 if (!state.coinsHistory) {
                     state.coinsHistory = {};
                 };
+                
+                state.coinsHistory[coinId] = { ...action.payload };
 
-                state.coinsHistory[coinId] = {
-                    prices: action.payload.prices,
-                    market_caps: action.payload.market_caps,
-                    total_volumes: action.payload.total_volumes,
-                };
                 console.log('Coins History after fulfillment:', state.coinsHistory);
                 state.loading = false;
             })

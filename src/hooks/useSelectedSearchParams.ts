@@ -1,8 +1,6 @@
 import { SEARCH_PARAMS } from 'constants/searchParams';
 import { useSearchParams } from 'react-router-dom';
 
-
-
 export const useSelectedSearchParams = ( param: SEARCH_PARAMS ) => {
     const [searchParams, setSearchParams] = useSearchParams();
     const selectedValue = searchParams.get(param);
@@ -26,26 +24,37 @@ export const useSelectedSearchParams = ( param: SEARCH_PARAMS ) => {
 export const useMultipleSelectedSearchParams = ( param: SEARCH_PARAMS ) => {
     const [searchParams, setSearchParams] = useSearchParams();
     const selectedValue = searchParams.get(param);
+    
+    const onSelectedMultipleValue = (value: string) => {
+        const selectedValueArr = selectedValue ? selectedValue.split(',') : [];
 
-    const onSelectedValue = (value: string) => {
-        // if (selectedValue === id) {
-        //     searchParams.delete(param)
-        //     setSearchParams(searchParams)
-        //     return;
-        // }
-        searchParams.set(param, value);
+        if (selectedValueArr.includes(value)) {
+            const updatedSelectedValueArr = selectedValueArr.filter(item => item !== value);
+            
+            if (updatedSelectedValueArr.length) {
+                searchParams.set(param, updatedSelectedValueArr.join(','))
+            } else {
+                searchParams.has(param) && searchParams.delete(param);
+            }
+        } else {
+            if (selectedValueArr.length < 2) {
+                selectedValueArr.push(value);
+                searchParams.set(param, selectedValueArr.join(','));
+            }
+            
+        }
         setSearchParams(searchParams);
     };
     
     return {
-        selectedValue,
-        onSelectedValue
+        selectedValue: selectedValue?.split(','),
+        onSelectedMultipleValue
     };
 };
 
 export const useAllSelectedSearchParams = () => {
     const days = useSelectedSearchParams(SEARCH_PARAMS.DAYS);
-    const coin = useSelectedSearchParams(SEARCH_PARAMS.COIN);
+    const coin = useMultipleSelectedSearchParams(SEARCH_PARAMS.COIN);
 
     return {
         days,
