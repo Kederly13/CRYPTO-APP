@@ -8,6 +8,7 @@ import { ChartBox } from './components/ChartBox';
 import { ChartApi } from 'api/ChartApi';
 import { fetchCoins } from 'store/slices/coinSlice';
 import { ICoin } from 'types/coinType';
+import { fetchCoinData } from 'store/slices/coinsHistorySlice';
 
 import { useAppDispatch, useAppSelector } from 'hooks/reduxHooks';
 import { useAllSelectedSearchParams } from 'hooks/useSelectedSearchParams';
@@ -24,6 +25,8 @@ export const Statistics = () => {
     const dispatch = useAppDispatch();
 
     const fetchedCoins = useAppSelector(state => state.coins.coinList);
+    const fetchedCoinData = useAppSelector(state => state.coinsHistory.coinsHistory);
+
     
     const { coin } = useAllSelectedSearchParams();
 
@@ -74,11 +77,16 @@ export const Statistics = () => {
             console.log()
         }
         dispatch(fetchCoins());
+        
     }, [dispatch]);
 
+    // useEffect(() => {
+    //     console.log(fetchedCoins)
+    // }, [fetchedCoins])
+
     useEffect(() => {
-        console.log(fetchedCoins)
-    }, [fetchedCoins])
+        console.log(fetchedCoinData)
+    }, [fetchedCoinData])
 
     useEffect(() => {
         if (fetchedCoins.length > 0) {
@@ -90,6 +98,7 @@ export const Statistics = () => {
 
     useEffect(() => {
         if (coin.selectedValue) {
+            dispatch(fetchCoinData(coin.selectedValue))
             loadCoinPrices(coin.selectedValue);
             findSelectedCoin(coin.selectedValue);
         };
