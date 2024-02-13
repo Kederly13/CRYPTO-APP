@@ -88,8 +88,7 @@ export const Statistics = () => {
 
     useEffect(() => {
         if (coin.selectedValue) {
-            console.log(coin.selectedValue);
-            dispatch(fetchMultipleCoinData(coin.selectedValue))
+            // dispatch(fetchMultipleCoinData(coin.selectedValue))
             // loadCoinPrices(coin.selectedValue);
             // findSelectedCoin(coin.selectedValue);
         };
