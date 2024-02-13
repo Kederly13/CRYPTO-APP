@@ -8,7 +8,7 @@ import { ChartBox } from './components/ChartBox';
 import { ChartApi } from 'api/ChartApi';
 import { fetchCoins } from 'store/slices/coinSlice';
 import { ICoin } from 'types/coinType';
-import { fetchCoinData } from 'store/slices/coinsHistorySlice';
+import { fetchMultipleCoinData } from 'store/slices/coinsHistorySlice';
 
 import { useAppDispatch, useAppSelector } from 'hooks/reduxHooks';
 import { useAllSelectedSearchParams } from 'hooks/useSelectedSearchParams';
@@ -27,7 +27,6 @@ export const Statistics = () => {
     const fetchedCoins = useAppSelector(state => state.coins.coinList);
     const fetchedCoinData = useAppSelector(state => state.coinsHistory.coinsHistory);
 
-    
     const { coin } = useAllSelectedSearchParams();
 
     const convertDates: (prices: TCoinPrice) => TCoinPrice = (prices) => {
@@ -45,28 +44,28 @@ export const Statistics = () => {
         }
     };
 
-    const loadCoinPrices = async (coin: string) => {
-        // const cashedCoinPrices = localStorage.getItem('coinPrices');
+    // const loadCoinPrices = async (coin: string) => {
+    //     // const cashedCoinPrices = localStorage.getItem('coinPrices');
 
-        // if (cashedCoinPrices) {
-        //     const parsedCoinPrices = JSON.parse(cashedCoinPrices)
-        // }
-        try {
-            const response = await ChartApi.getPrices(coin);
-            const newPrices = convertDates(response.data.prices);
-            const volume = convertDates(response.data.total_volumes);
-            setCoinVolume(volume);
-            setCoinPrices(newPrices);
-            // const cachedCoinPrices = localStorage.getItem('coinPrices');
+    //     // if (cashedCoinPrices) {
+    //     //     const parsedCoinPrices = JSON.parse(cashedCoinPrices)
+    //     // }
+    //     try {
+    //         const response = await ChartApi.getPrices(coin);
+    //         const newPrices = convertDates(response.data.prices);
+    //         const volume = convertDates(response.data.total_volumes);
+    //         setCoinVolume(volume);
+    //         setCoinPrices(newPrices);
+    //         // const cachedCoinPrices = localStorage.getItem('coinPrices');
 
-            // if (cachedCoinPrices) {
-            //     const parsedCoinPrices = JSON.parse(cachedCoinPrices);
-            //     setCoinPrices    
-            // }
-        } catch (error) {
-            console.log(error);
-        }
-    }
+    //         // if (cachedCoinPrices) {
+    //         //     const parsedCoinPrices = JSON.parse(cachedCoinPrices);
+    //         //     setCoinPrices    
+    //         // }
+    //     } catch (error) {
+    //         console.log(error);
+    //     }
+    // }
 
     useEffect(() => {
         const cashedCoins = localStorage.getItem('coinPrices');
@@ -74,33 +73,25 @@ export const Statistics = () => {
             const parsedCoins = JSON.parse(cashedCoins);
             dispatch(parsedCoins);
             findSelectedCoin(parsedCoins[0].id)
-            console.log()
         }
         dispatch(fetchCoins());
         
     }, [dispatch]);
 
-    // useEffect(() => {
-    //     console.log(fetchedCoins)
-    // }, [fetchedCoins])
-
     useEffect(() => {
-        console.log(fetchedCoinData)
-    }, [fetchedCoinData])
-
-    useEffect(() => {
-        if (fetchedCoins.length > 0) {
-            coin.onSelectedValue(fetchedCoins[0].id);
-            findSelectedCoin(coin.selectedValue);
-            localStorage.setItem('coinsData', JSON.stringify(fetchedCoins));
-        }
+        // if (fetchedCoins.length > 0) {
+        //     coin.onSelectedValue(fetchedCoins[0].id);
+        //     findSelectedCoin(coin.selectedValue);
+        //     localStorage.setItem('coinsData', JSON.stringify(fetchedCoins));
+        // }
     }, [fetchedCoins]);
 
     useEffect(() => {
         if (coin.selectedValue) {
-            dispatch(fetchCoinData(coin.selectedValue))
-            loadCoinPrices(coin.selectedValue);
-            findSelectedCoin(coin.selectedValue);
+            console.log(coin.selectedValue);
+            dispatch(fetchMultipleCoinData(coin.selectedValue))
+            // loadCoinPrices(coin.selectedValue);
+            // findSelectedCoin(coin.selectedValue);
         };
     }, [coin.selectedValue]);
     

@@ -1,6 +1,7 @@
 import { FC } from 'react';
 
 import { useAllSelectedSearchParams } from 'hooks/useSelectedSearchParams';
+import { fetchMultipleCoinData } from 'store/slices/coinsHistorySlice';
 
 import { StyledCurrency } from './StyledCurrency';
 
@@ -21,13 +22,12 @@ export interface IStyledCurrencyProps {
 
 export type CurrencyProps = ICurrencyProps & IStyledCurrencyProps;
 
-
 export const Currency: FC<CurrencyProps> = ( props ) => {
     const { logo, name, symbol, price, percent, id } = props;
     const { coin } = useAllSelectedSearchParams();
     
     return (
-        <StyledCurrency {...props} onClick={() => coin.onSelectedValue(id)} selected={coin.selectedValue === id}>
+        <StyledCurrency {...props} onClick={() => coin.onSelectedMultipleValue(id)} selected={coin.selectedValue?.includes(id)}>
                 <img className='currencyLogo' src={logo} alt='logo'/>
                 <div>
                     <p>{name} ({symbol})</p>

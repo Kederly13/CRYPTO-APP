@@ -20,12 +20,15 @@ type TCoinsHistoryState = {
     error: null | string,
 };
 
-export const fetchCoinData = createAsyncThunk<ICoinObjHistory, string, {rejectValue: string}>(
+export const fetchMultipleCoinData = createAsyncThunk<ICoinObjHistory[], string[], {rejectValue: string}>(
     'coinData/fetchCoinData',
-    async (id: string, { rejectWithValue }) => {
+    async (ids: string[], { rejectWithValue }) => {
         try {
-            const { data } = await ChartApi.getPrices(id);
-            return data;
+            const promises = ids.map(async (id) => {
+                const { data } = await ChartApi.getPrices(id);
+                return data;
+            });
+            return await Promise.all(promises);
         } catch (error) {
             return rejectWithValue(getErrorMessage(error))
         }
@@ -46,25 +49,24 @@ const coinHistorySlice = createSlice({
     },
     extraReducers: (builder) => {
         builder
-            .addCase(fetchCoinData.pending, (state) => {
+            .addCase(fetchMultipleCoinData.pending, (state) => {
                 state.loading = true;
                 state.error = null;
             })
-            .addCase(fetchCoinData.fulfilled, (state, action) => {
-                const coinId = action.meta.arg;
-
-                
-
+            .addCase(fetchMultipleCoinData.fulfilled, (state, action) => {
                 if (!state.coinsHistory) {
                     state.coinsHistory = {};
-                };
-                
-                state.coinsHistory[coinId] = { ...action.payload };
+                };       
+
+                action.payload.forEach((data, index) => {
+                    const coinId = action.meta.arg[index];
+                    state.coinsHistory![coinId] = { ...data };
+                });
 
                 console.log('Coins History after fulfillment:', state.coinsHistory);
                 state.loading = false;
             })
-            .addCase(fetchCoinData.rejected, (state, action) => {
+            .addCase(fetchMultipleCoinData.rejected, (state, action) => {
                 state.error = action.payload as string;
                 state.loading = false;
             })

@@ -21,7 +21,7 @@ export const useSelectedSearchParams = ( param: SEARCH_PARAMS ) => {
     };
 };
 
-export const useMultipleSelectedSearchParams = ( param: SEARCH_PARAMS ) => {
+export const useMultipleSelectedSearchParams = (param: SEARCH_PARAMS) => {
     const [searchParams, setSearchParams] = useSearchParams();
     const selectedValue = searchParams.get(param);
     
