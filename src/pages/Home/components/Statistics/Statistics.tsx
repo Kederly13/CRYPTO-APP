@@ -29,12 +29,6 @@ export const Statistics = () => {
 
     const { coin } = useAllSelectedSearchParams();
 
-    const convertDates: (prices: TCoinPrice) => TCoinPrice = (prices) => {
-        return prices.map((item) => {
-            return [new Date(item[0]).getDate(), item[1]]
-        })
-    };
-
     const findSelectedCoin = (id: string | null) => {
         if (id !== null) {
             const foundCoin = fetchedCoins.find(coin => coin.id === id);
@@ -44,38 +38,8 @@ export const Statistics = () => {
         }
     };
 
-    // const loadCoinPrices = async (coin: string) => {
-    //     // const cashedCoinPrices = localStorage.getItem('coinPrices');
-
-    //     // if (cashedCoinPrices) {
-    //     //     const parsedCoinPrices = JSON.parse(cashedCoinPrices)
-    //     // }
-    //     try {
-    //         const response = await ChartApi.getPrices(coin);
-    //         const newPrices = convertDates(response.data.prices);
-    //         const volume = convertDates(response.data.total_volumes);
-    //         setCoinVolume(volume);
-    //         setCoinPrices(newPrices);
-    //         // const cachedCoinPrices = localStorage.getItem('coinPrices');
-
-    //         // if (cachedCoinPrices) {
-    //         //     const parsedCoinPrices = JSON.parse(cachedCoinPrices);
-    //         //     setCoinPrices    
-    //         // }
-    //     } catch (error) {
-    //         console.log(error);
-    //     }
-    // }
-
     useEffect(() => {
-        const cashedCoins = localStorage.getItem('coinPrices');
-        if (cashedCoins) {
-            const parsedCoins = JSON.parse(cashedCoins);
-            dispatch(parsedCoins);
-            findSelectedCoin(parsedCoins[0].id)
-        }
         dispatch(fetchCoins());
-        
     }, [dispatch]);
 
     useEffect(() => {
@@ -87,12 +51,13 @@ export const Statistics = () => {
     }, [fetchedCoins]);
 
     useEffect(() => {
-        if (coin.selectedValue) {
-            // dispatch(fetchMultipleCoinData(coin.selectedValue))
-            // loadCoinPrices(coin.selectedValue);
-            // findSelectedCoin(coin.selectedValue);
-        };
+        if (coin.selectedValue)
+        dispatch(fetchMultipleCoinData(coin.selectedValue));
     }, [coin.selectedValue]);
+
+    useEffect(() => {
+        console.log(fetchedCoinData);
+    }, [fetchedCoinData]);
     
     return (
         <StyledStatistics>

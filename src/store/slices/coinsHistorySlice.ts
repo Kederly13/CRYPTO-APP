@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { ChartApi } from 'api/ChartApi';
-
+import { RootState } from 'store';
 import { getErrorMessage } from 'utils/getErrorMessage';
 import { getConvertedDates } from 'utils/getConvertedDates';
 
@@ -22,7 +22,17 @@ type TCoinsHistoryState = {
 
 export const fetchMultipleCoinData = createAsyncThunk<ICoinObjHistory[], string[], {rejectValue: string}>(
     'coinData/fetchCoinData',
-    async (ids: string[], { rejectWithValue }) => {
+    async (ids: string[], {getState, rejectWithValue }) => {
+        const state = getState() as RootState;
+        let idsToFetch = [];
+        if (state.coinsHistory.coinsHistory) {
+             idsToFetch = ids.filter((id) => state.coinsHistory.coinsHistory![id]);
+        }
+
+        if (idsToFetch.length === 0) {
+            // Если все данные уже есть в сторе, возвращаем пустой массив
+            return [];
+          }
         try {
             const promises = ids.map(async (id) => {
                 const { data } = await ChartApi.getPrices(id);
@@ -32,7 +42,8 @@ export const fetchMultipleCoinData = createAsyncThunk<ICoinObjHistory[], string[
         } catch (error) {
             return rejectWithValue(getErrorMessage(error))
         }
-    }  
+    }
+      
 );
 
 const initialState: TCoinsHistoryState = {
@@ -62,8 +73,6 @@ const coinHistorySlice = createSlice({
                     const coinId = action.meta.arg[index];
                     state.coinsHistory![coinId] = { ...data };
                 });
-
-                console.log('Coins History after fulfillment:', state.coinsHistory);
                 state.loading = false;
             })
             .addCase(fetchMultipleCoinData.rejected, (state, action) => {
