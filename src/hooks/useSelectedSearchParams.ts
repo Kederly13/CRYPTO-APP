@@ -33,9 +33,7 @@ export const useMultipleSelectedSearchParams = (param: SEARCH_PARAMS) => {
             
             if (updatedSelectedValueArr.length) {
                 searchParams.set(param, updatedSelectedValueArr.join(','))
-            } else {
-                searchParams.has(param) && searchParams.delete(param);
-            }
+            } 
         } else {
             if (selectedValueArr.length < 2) {
                 selectedValueArr.push(value);

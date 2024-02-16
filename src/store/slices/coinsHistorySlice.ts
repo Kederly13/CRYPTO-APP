@@ -15,39 +15,25 @@ interface ICoinObjHistory {
 type TCoinHistory = Record<string, ICoinObjHistory>;
 
 type TCoinsHistoryState = {
-    coinsHistory: TCoinHistory | null,
+    coinsHistory: TCoinHistory,
     loading: boolean,
     error: null | string,
 };
 
-export const fetchMultipleCoinData = createAsyncThunk<ICoinObjHistory[], string[], {rejectValue: string}>(
-    'coinData/fetchCoinData',
-    async (ids: string[], {getState, rejectWithValue }) => {
-        const state = getState() as RootState;
-        let idsToFetch = [];
-        if (state.coinsHistory.coinsHistory) {
-             idsToFetch = ids.filter((id) => state.coinsHistory.coinsHistory![id]);
-        }
-
-        if (idsToFetch.length === 0) {
-            // Если все данные уже есть в сторе, возвращаем пустой массив
-            return [];
-          }
+export const fetchCoinHistory = createAsyncThunk<ICoinObjHistory, string, {rejectValue: string}>(
+    'coinData/fetchCoinHistory',
+    async (id: string, { rejectWithValue }) => {
         try {
-            const promises = ids.map(async (id) => {
-                const { data } = await ChartApi.getPrices(id);
-                return data;
-            });
-            return await Promise.all(promises);
+            const { data } = await ChartApi.getPrices(id);
+            return data;
         } catch (error) {
-            return rejectWithValue(getErrorMessage(error))
+            return rejectWithValue(getErrorMessage(error));
         }
-    }
-      
+    }     
 );
 
 const initialState: TCoinsHistoryState = {
-    coinsHistory: null,
+    coinsHistory: {},
     loading: false,
     error: null
 };
@@ -56,26 +42,26 @@ const coinHistorySlice = createSlice({
     name: 'coinHistorySlice',
     initialState,
     reducers: {
-        
+        removeCoin (state, action) {
+            for (const coin in state.coinsHistory) {
+                if (coin === action.payload.id && Object.values(state.coinsHistory).length > 1) {
+                    delete state.coinsHistory[action.payload.id];
+                }
+            }
+        }
     },
     extraReducers: (builder) => {
         builder
-            .addCase(fetchMultipleCoinData.pending, (state) => {
+            .addCase(fetchCoinHistory.pending, (state) => {
                 state.loading = true;
                 state.error = null;
             })
-            .addCase(fetchMultipleCoinData.fulfilled, (state, action) => {
-                if (!state.coinsHistory) {
-                    state.coinsHistory = {};
-                };       
-
-                action.payload.forEach((data, index) => {
-                    const coinId = action.meta.arg[index];
-                    state.coinsHistory![coinId] = { ...data };
-                });
+            .addCase(fetchCoinHistory.fulfilled, (state, action) => {
+                const coinId = action.meta.arg;
+                state.coinsHistory[coinId] = action.payload;
                 state.loading = false;
             })
-            .addCase(fetchMultipleCoinData.rejected, (state, action) => {
+            .addCase(fetchCoinHistory.rejected, (state, action) => {
                 state.error = action.payload as string;
                 state.loading = false;
             })

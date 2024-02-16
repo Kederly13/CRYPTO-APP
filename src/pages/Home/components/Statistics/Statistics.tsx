@@ -8,7 +8,7 @@ import { ChartBox } from './components/ChartBox';
 import { ChartApi } from 'api/ChartApi';
 import { fetchCoins } from 'store/slices/coinSlice';
 import { ICoin } from 'types/coinType';
-import { fetchMultipleCoinData } from 'store/slices/coinsHistorySlice';
+import { fetchCoinHistory } from 'store/slices/coinsHistorySlice';
 
 import { useAppDispatch, useAppSelector } from 'hooks/reduxHooks';
 import { useAllSelectedSearchParams } from 'hooks/useSelectedSearchParams';
@@ -24,35 +24,41 @@ export const Statistics = () => {
     const [coinVolume, setCoinVolume] = useState<TCoinPrice>([]);
     const dispatch = useAppDispatch();
 
-    const fetchedCoins = useAppSelector(state => state.coins.coinList);
-    const fetchedCoinData = useAppSelector(state => state.coinsHistory.coinsHistory);
+    const coins = useAppSelector(state => state.coins.coinList);
+    const coinsHistory = useAppSelector(state => state.coinsHistory.coinsHistory);
+
+    const coinsHistoryKeys = Object.keys(coinsHistory)
 
     const { coin } = useAllSelectedSearchParams();
+    
+    // const coinsHistoryFirst = coinsHistoryKeys.find((key) => coin.selectedValue?.includes(key));
+    // const coinsHistorySecond = coinsHistoryKeys.find((key) => coin.selectedValue?.includes(key));
 
-    const findSelectedCoin = (id: string | null) => {
-        if (id !== null) {
-            const foundCoin = fetchedCoins.find(coin => coin.id === id);
-            if (foundCoin) {
-                setSelectedCoin(foundCoin);
-            }
-        }
-    };
+    const [coinsHistoryFirst, coinsHistorySecond] = coinsHistoryKeys;
+
+    const coinFirst = coins.find(({ id }) => coin.selectedValue?.includes(id));
+    const coinSecond = coins.find(({ id }) => coin.selectedValue?.includes(id));
+
 
     useEffect(() => {
         dispatch(fetchCoins());
     }, [dispatch]);
 
     useEffect(() => {
-        // if (fetchedCoins.length > 0) {
-        //     coin.onSelectedValue(fetchedCoins[0].id);
-        //     findSelectedCoin(coin.selectedValue);
-        //     localStorage.setItem('coinsData', JSON.stringify(fetchedCoins));
-        // }
-    }, [fetchedCoins]);
+        (async () => {
+            if (coins.length && coinsHistory.length) {
+                return;
+            }
+
+            const res = await dispatch(fetchCoins()).unwrap();
+            coin.onSelectedMultipleValue(res[0].id);
+            dispatch(fetchCoinHistory(res[0].id));
+        })()
+    }, []);
 
     useEffect(() => {
         if (coin.selectedValue)
-        dispatch(fetchMultipleCoinData(coin.selectedValue));
+        dispatch(fetchCoinHistory(coin.selectedValue));
     }, [coin.selectedValue]);
 
     useEffect(() => {

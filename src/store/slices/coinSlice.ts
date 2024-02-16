@@ -1,6 +1,7 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { CoinsApi } from 'api/CoinsApi';
 import { ICoin } from 'types/coinType';
+import { getErrorMessage } from 'utils/getErrorMessage';
 
 type CoinsState = {
     coinList: ICoin[];
@@ -12,14 +13,13 @@ export const fetchCoins = createAsyncThunk<ICoin[], undefined, {rejectValue: str
     'coins/fetchCoins',
     async function (_, { rejectWithValue }) {
         const response = await CoinsApi.getCoins();
-
-        if (!response.data) {
-            return rejectWithValue('server error')
+        try {
+            const { data } = await CoinsApi.getCoins();
+            return data;
+        } catch(error) {
+            return rejectWithValue(getErrorMessage(error));
         }
 
-        return response.data.map((coinData: any) => ({
-            ...coinData,
-        }))
     }
 );
 
