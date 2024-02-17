@@ -1,9 +1,13 @@
 import { FC } from 'react';
 
 import { useAllSelectedSearchParams } from 'hooks/useSelectedSearchParams';
-import { fetchMultipleCoinData } from 'store/slices/coinsHistorySlice';
+import { fetchCoinHistory } from 'store/slices/coinsHistorySlice';
+import { removeCoin } from 'store/slices/coinsHistorySlice';
+import { createAction } from '@reduxjs/toolkit';
+
 
 import { StyledCurrency } from './StyledCurrency';
+import { useAppDispatch } from 'hooks/reduxHooks';
 
 export interface ICurrencyProps {
     disabled?: boolean,
@@ -22,12 +26,17 @@ export interface IStyledCurrencyProps {
 
 export type CurrencyProps = ICurrencyProps & IStyledCurrencyProps;
 
+
 export const Currency: FC<CurrencyProps> = ( props ) => {
     const { logo, name, symbol, price, percent, id } = props;
     const { coin } = useAllSelectedSearchParams();
-    
+    const dispatch = useAppDispatch();
+
     return (
-        <StyledCurrency {...props} onClick={() => coin.onSelectedMultipleValue(id)} selected={coin.selectedValue?.includes(id)}>
+        <StyledCurrency {...props} onClick={() => {
+            dispatch(removeCoin({ id }));
+            coin.onSelectedMultipleValue(id)
+        }} selected={coin.selectedValue?.includes(id)}>
                 <img className='currencyLogo' src={logo} alt='logo'/>
                 <div>
                     <p>{name} ({symbol})</p>

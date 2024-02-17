@@ -15,6 +15,7 @@ export const fetchCoins = createAsyncThunk<ICoin[], undefined, {rejectValue: str
         const response = await CoinsApi.getCoins();
         try {
             const { data } = await CoinsApi.getCoins();
+            
             return data;
         } catch(error) {
             return rejectWithValue(getErrorMessage(error));

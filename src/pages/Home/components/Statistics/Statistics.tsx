@@ -19,9 +19,6 @@ import 'swiper/swiper-bundle.css';
 export type TCoinPrice = Array<Array<number>>;
 
 export const Statistics = () => {
-    const [coinPrices, setCoinPrices] = useState<TCoinPrice>([]);
-    const [selectedCoin, setSelectedCoin] = useState<ICoin | undefined>(undefined);
-    const [coinVolume, setCoinVolume] = useState<TCoinPrice>([]);
     const dispatch = useAppDispatch();
 
     const coins = useAppSelector(state => state.coins.coinList);
@@ -31,18 +28,10 @@ export const Statistics = () => {
 
     const { coin } = useAllSelectedSearchParams();
     
-    // const coinsHistoryFirst = coinsHistoryKeys.find((key) => coin.selectedValue?.includes(key));
-    // const coinsHistorySecond = coinsHistoryKeys.find((key) => coin.selectedValue?.includes(key));
-
     const [coinsHistoryFirst, coinsHistorySecond] = coinsHistoryKeys;
 
-    const coinFirst = coins.find(({ id }) => coin.selectedValue?.includes(id));
-    const coinSecond = coins.find(({ id }) => coin.selectedValue?.includes(id));
-
-
-    useEffect(() => {
-        dispatch(fetchCoins());
-    }, [dispatch]);
+    const coinFirst = coins.find(({ id }) => id === coinsHistoryFirst);
+    const coinSecond = coins.find(({ id }) => id === coinsHistorySecond); 
 
     useEffect(() => {
         (async () => {
@@ -57,14 +46,15 @@ export const Statistics = () => {
     }, []);
 
     useEffect(() => {
-        if (coin.selectedValue)
-        dispatch(fetchCoinHistory(coin.selectedValue));
-    }, [coin.selectedValue]);
+        if (coin.selectedValue?.length && coin.selectedValue.length > 1) {
+            if (coinsHistoryKeys.length) {
+                const newCoin = coin.selectedValue.find((id) => !coinsHistoryKeys?.includes(id));
+                newCoin && dispatch(fetchCoinHistory(newCoin))
+                console.log(newCoin)
+            }
+        }
+    }, [coin.selectedValue?.length]);
 
-    useEffect(() => {
-        console.log(fetchedCoinData);
-    }, [fetchedCoinData]);
-    
     return (
         <StyledStatistics>
             <h2>
@@ -72,23 +62,23 @@ export const Statistics = () => {
                 <Button disabled={true} type='button' padding='12px 24px'>Exit comparison</Button>
             </h2>
             <CurrencySwiper
-                coinsDetails={fetchedCoins}
+                coinsDetails={coins}
             />
             <div className='charts'>
                 <ChartBox 
-                    headline={selectedCoin ? `${selectedCoin.name} (${selectedCoin.symbol})` : ''} 
-                    number={selectedCoin ? selectedCoin.current_price : 0}
+                    headline={coinFirst ? `${coinFirst.name} (${coinFirst.symbol})` : ''} 
+                    number={coinFirst ? coinFirst.current_price : 0}
                 >
                     <LineChart
-                        coinData={coinPrices} 
+                        coinData={coinsHistoryFirst ? coinsHistory[coinsHistoryFirst].prices: []} 
                     />
                 </ChartBox>
                 <ChartBox 
                     headline={'Volume'} 
-                    number={selectedCoin ? selectedCoin.current_price : 0}
+                    number={coinFirst ? coinFirst.current_price : 0}
                 >
                     <BarChart
-                        coinData={coinVolume} 
+                        coinData={coinsHistoryFirst ? coinsHistory[coinsHistoryFirst].total_volumes : []} 
                     />
                 </ChartBox>
             </div>

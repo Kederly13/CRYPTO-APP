@@ -21,15 +21,15 @@ type TCoinsHistoryState = {
 };
 
 export const fetchCoinHistory = createAsyncThunk<ICoinObjHistory, string, {rejectValue: string}>(
-    'coinData/fetchCoinHistory',
+    'coinHistory/fetchCoinHistory',
     async (id: string, { rejectWithValue }) => {
         try {
-            const { data } = await ChartApi.getPrices(id);
+            const { data } = await ChartApi.getPrices(id); 
             return data;
         } catch (error) {
-            return rejectWithValue(getErrorMessage(error));
+            return rejectWithValue(getErrorMessage(error))
         }
-    }     
+    }   
 );
 
 const initialState: TCoinsHistoryState = {
@@ -39,13 +39,14 @@ const initialState: TCoinsHistoryState = {
 };
 
 const coinHistorySlice = createSlice({
-    name: 'coinHistorySlice',
+    name: 'coinHistory',
     initialState,
     reducers: {
-        removeCoin (state, action) {
-            for (const coin in state.coinsHistory) {
-                if (coin === action.payload.id && Object.values(state.coinsHistory).length > 1) {
-                    delete state.coinsHistory[action.payload.id];
+        removeCoin(state, action) {
+            for (const coinId in action.payload) {
+                if (coinId === action.payload.id && Object.values(state.coinsHistory).length > 1) {
+                    delete state.coinsHistory[action.payload.id]
+                    console.log(state.coinsHistory)
                 }
             }
         }
@@ -68,5 +69,7 @@ const coinHistorySlice = createSlice({
     }
 
 })
+
+export const { removeCoin } = coinHistorySlice.actions;
 
 export default coinHistorySlice.reducer;

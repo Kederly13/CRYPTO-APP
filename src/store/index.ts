@@ -1,5 +1,6 @@
 import { configureStore, combineReducers } from '@reduxjs/toolkit';
 import coinReducer from './slices/coinSlice';
+
 import { 
     persistStore, 
     persistReducer,
