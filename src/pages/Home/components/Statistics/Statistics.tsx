@@ -49,10 +49,11 @@ export const Statistics = () => {
         if (coin.selectedValue?.length && coin.selectedValue.length > 1) {
             if (coinsHistoryKeys.length) {
                 const newCoin = coin.selectedValue.find((id) => !coinsHistoryKeys?.includes(id));
+                
                 newCoin && dispatch(fetchCoinHistory(newCoin))
-                console.log(newCoin)
             }
         }
+        console.log(coinsHistory)
     }, [coin.selectedValue?.length]);
 
     return (

@@ -21,7 +21,7 @@ type TCoinsHistoryState = {
 };
 
 export const fetchCoinHistory = createAsyncThunk<ICoinObjHistory, string, {rejectValue: string}>(
-    'coinHistory/fetchCoinHistory',
+    'coinsHistory/fetchCoinHistory',
     async (id: string, { rejectWithValue }) => {
         try {
             const { data } = await ChartApi.getPrices(id); 
@@ -39,16 +39,16 @@ const initialState: TCoinsHistoryState = {
 };
 
 const coinHistorySlice = createSlice({
-    name: 'coinHistory',
+    name: 'coinsHistory',
     initialState,
     reducers: {
         removeCoin(state, action) {
             for (const coinId in action.payload) {
                 if (coinId === action.payload.id && Object.values(state.coinsHistory).length > 1) {
                     delete state.coinsHistory[action.payload.id]
-                    console.log(state.coinsHistory)
                 }
             }
+            // console.log(state.coinsHistory)
         }
     },
     extraReducers: (builder) => {
@@ -61,6 +61,7 @@ const coinHistorySlice = createSlice({
                 const coinId = action.meta.arg;
                 state.coinsHistory[coinId] = action.payload;
                 state.loading = false;
+   
             })
             .addCase(fetchCoinHistory.rejected, (state, action) => {
                 state.error = action.payload as string;
