@@ -5,10 +5,9 @@ import { Button } from 'components/Button';
 import { LineChart } from './components/LineChart';
 import { BarChart } from './components/BarChart';
 import { ChartBox } from './components/ChartBox';
-import { ChartApi } from 'api/ChartApi';
 import { fetchCoins } from 'store/slices/coinSlice';
-import { ICoin } from 'types/coinType';
 import { fetchCoinHistory } from 'store/slices/coinsHistorySlice';
+import { getConvertedDates } from 'utils/getConvertedDates';
 
 import { useAppDispatch, useAppSelector } from 'hooks/reduxHooks';
 import { useAllSelectedSearchParams } from 'hooks/useSelectedSearchParams';
@@ -23,7 +22,7 @@ export const Statistics = () => {
 
     const coins = useAppSelector(state => state.coins.coinList);
     const coinsHistory = useAppSelector(state => state.coinsHistory.coinsHistory);
-
+    console.log(coinsHistory)
     const coinsHistoryKeys = Object.keys(coinsHistory)
 
     const { coin } = useAllSelectedSearchParams();
@@ -31,7 +30,8 @@ export const Statistics = () => {
     const [coinsHistoryFirst, coinsHistorySecond] = coinsHistoryKeys;
 
     const coinFirst = coins.find(({ id }) => id === coinsHistoryFirst);
-    const coinSecond = coins.find(({ id }) => id === coinsHistorySecond); 
+    const coinSecond = coins.find(({ id }) => id === coinsHistorySecond);
+    console.log(coinSecond) 
 
     useEffect(() => {
         (async () => {
@@ -53,7 +53,7 @@ export const Statistics = () => {
                 newCoin && dispatch(fetchCoinHistory(newCoin))
             }
         }
-        console.log(coinsHistory)
+           
     }, [coin.selectedValue?.length]);
 
     return (
@@ -71,7 +71,7 @@ export const Statistics = () => {
                     number={coinFirst ? coinFirst.current_price : 0}
                 >
                     <LineChart
-                        coinData={coinsHistoryFirst ? coinsHistory[coinsHistoryFirst].prices: []} 
+                        coinData={coinsHistoryFirst ? getConvertedDates(coinsHistory[coinsHistoryFirst].prices): []} 
                     />
                 </ChartBox>
                 <ChartBox 
@@ -79,7 +79,7 @@ export const Statistics = () => {
                     number={coinFirst ? coinFirst.current_price : 0}
                 >
                     <BarChart
-                        coinData={coinsHistoryFirst ? coinsHistory[coinsHistoryFirst].total_volumes : []} 
+                        coinData={coinsHistoryFirst ? getConvertedDates(coinsHistory[coinsHistoryFirst].total_volumes) : []} 
                     />
                 </ChartBox>
             </div>

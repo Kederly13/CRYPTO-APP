@@ -43,7 +43,7 @@ const coinHistorySlice = createSlice({
     initialState,
     reducers: {
         removeCoin(state, action) {
-            for (const coinId in action.payload) {
+            for (const coinId in state.coinsHistory) {
                 if (coinId === action.payload.id && Object.values(state.coinsHistory).length > 1) {
                     delete state.coinsHistory[action.payload.id]
                 }
