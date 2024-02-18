@@ -21,22 +21,62 @@ ChartJS.register(
 );
    
 interface IBarChartProps {
-    coinData: Array<Array<number>>;
+    firstCoinData: Array<Array<number>>;
+    secondCoinData: Array<Array<number>>;
 };
 
 export const options = {
     responsive: true,
+    
+    scales: {
+        y: {
+            stacked: true,
+            grid: {
+                display: false
+            },
+            ticks: {
+                display: false
+            }
+        },
+        x: {
+            stacked: true,
+            grid: {
+                display: false
+            }
+        },
+    },
+    plugins: {
+        legend: {
+            position: 'bottom' as const,
+            display: true,
+            labels: {
+                boxWidth: 24, 
+                boxHeight: 23, 
+                color: '#7878FF',
+                font: {
+                    size: 20 
+                },
+                borderRadius: 0,
+            }
+        }
+    }
 };
   
-export const BarChart: FC<IBarChartProps> = ({ coinData }) => {
+export const BarChart: FC<IBarChartProps> = ({ firstCoinData, secondCoinData }) => {
     const data = {
-        labels: coinData.map(item => item[0]),
+        labels: firstCoinData.map(item => item[0]),
         datasets: [
             {
-                backgroundColor: '#A75EE0',
-                data: coinData.map(item => item[1]),
-                borderColor: '#A75EE0'
+                backgroundColor: '#7878FF',
+                data: firstCoinData.map(item => item[1]),
+                borderColor: '#7878FF'
             },
+            {
+                data: secondCoinData?.map(item => item[1]),
+                borderColor: '#E771FF',
+                backgroundColor: '#E771FF',
+                fill: true,
+            }
         ],
     };
 

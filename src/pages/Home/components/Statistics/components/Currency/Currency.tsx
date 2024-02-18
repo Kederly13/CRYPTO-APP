@@ -26,7 +26,6 @@ export interface IStyledCurrencyProps {
 
 export type CurrencyProps = ICurrencyProps & IStyledCurrencyProps;
 
-
 export const Currency: FC<CurrencyProps> = ( props ) => {
     const { logo, name, symbol, price, percent, id } = props;
     const { coin } = useAllSelectedSearchParams();

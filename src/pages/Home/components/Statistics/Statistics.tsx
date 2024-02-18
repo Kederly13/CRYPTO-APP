@@ -20,22 +20,18 @@ export type TCoinPrice = Array<Array<number>>;
 export const Statistics = () => {
     const dispatch = useAppDispatch();
 
+    const { coin } = useAllSelectedSearchParams();
     const coins = useAppSelector(state => state.coins.coinList);
     const coinsHistory = useAppSelector(state => state.coinsHistory.coinsHistory);
-    console.log(coinsHistory)
+
     const coinsHistoryKeys = Object.keys(coinsHistory)
-
-    const { coin } = useAllSelectedSearchParams();
-    
     const [coinsHistoryFirst, coinsHistorySecond] = coinsHistoryKeys;
-
     const coinFirst = coins.find(({ id }) => id === coinsHistoryFirst);
     const coinSecond = coins.find(({ id }) => id === coinsHistorySecond);
-    console.log(coinSecond) 
-
+    
     useEffect(() => {
         (async () => {
-            if (coins.length && coinsHistory.length) {
+            if (coins.length && coinsHistoryKeys.length) {
                 return;
             }
 
@@ -53,7 +49,6 @@ export const Statistics = () => {
                 newCoin && dispatch(fetchCoinHistory(newCoin))
             }
         }
-           
     }, [coin.selectedValue?.length]);
 
     return (
@@ -71,7 +66,10 @@ export const Statistics = () => {
                     number={coinFirst ? coinFirst.current_price : 0}
                 >
                     <LineChart
-                        coinData={coinsHistoryFirst ? getConvertedDates(coinsHistory[coinsHistoryFirst].prices): []} 
+                        firstCoinData={coinsHistoryFirst ? getConvertedDates(coinsHistory[coinsHistoryFirst].prices): []}
+                        coinFirst={coinFirst ? coinFirst.id : ''}
+                        secondCoinData={coinsHistorySecond ? getConvertedDates(coinsHistory[coinsHistorySecond].prices) : []}
+                        coinSecond={coinSecond ? coinSecond.id : ''} 
                     />
                 </ChartBox>
                 <ChartBox 
@@ -79,7 +77,8 @@ export const Statistics = () => {
                     number={coinFirst ? coinFirst.current_price : 0}
                 >
                     <BarChart
-                        coinData={coinsHistoryFirst ? getConvertedDates(coinsHistory[coinsHistoryFirst].total_volumes) : []} 
+                        firstCoinData={coinsHistoryFirst ? getConvertedDates(coinsHistory[coinsHistoryFirst].prices): []}
+                        secondCoinData={coinsHistorySecond ? getConvertedDates(coinsHistory[coinsHistorySecond].prices) : []} 
                     />
                 </ChartBox>
             </div>
