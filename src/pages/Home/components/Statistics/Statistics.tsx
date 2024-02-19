@@ -32,6 +32,7 @@ export const Statistics = () => {
     useEffect(() => {
         (async () => {
             if (coins.length && coinsHistoryKeys.length) {
+                // coin.onSelectedMultipleValue(coinsHistoryFirst);
                 return;
             }
 
@@ -67,9 +68,9 @@ export const Statistics = () => {
                 >
                     <LineChart
                         firstCoinData={coinsHistoryFirst ? getConvertedDates(coinsHistory[coinsHistoryFirst].prices): []}
-                        coinFirst={coinFirst ? coinFirst.id : ''}
+                        coinFirst={coinsHistoryFirst}
                         secondCoinData={coinsHistorySecond ? getConvertedDates(coinsHistory[coinsHistorySecond].prices) : []}
-                        coinSecond={coinSecond ? coinSecond.id : ''} 
+                        coinSecond={coinsHistorySecond} 
                     />
                 </ChartBox>
                 <ChartBox 

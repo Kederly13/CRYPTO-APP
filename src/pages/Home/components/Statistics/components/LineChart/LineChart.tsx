@@ -34,42 +34,7 @@ interface ILineChartProps {
     coinSecond: string
 };
 
-export const options = {
-    responsive: true,
-    scales: {
-        y: {
-            grid: {
-                display: false
-            },
-            ticks: {
-                display: false
-            }
-        },
-        x: {
-            grid: {
-                display: false
-            }
-        },
-    },
-    plugins: {
-        legend: {
-            position: 'bottom' as const,
-            display: true,
-            labels: {
-                boxWidth: 24, 
-                boxHeight: 23, 
-                color: '#7878FF',
-                font: {
-                    size: 20 
-                },
-                borderRadius: 0,
-            }
-        }
-    }
-};
-
 export const LineChart: FC<ILineChartProps> = ({ firstCoinData, secondCoinData, coinFirst, coinSecond }) => {
-
     const data = {
         labels: firstCoinData.map(item => item[0]),
         datasets: [
@@ -88,6 +53,41 @@ export const LineChart: FC<ILineChartProps> = ({ firstCoinData, secondCoinData, 
                 fill: true,
             }
         ],
+    };
+
+    const options = {
+        responsive: true,
+        scales: {
+            y: {
+                grid: {
+                    display: false
+                },
+                ticks: {
+                    display: false
+                }
+            },
+            x: {
+                grid: {
+                    display: false
+                }
+            },
+    },
+        
+        plugins: {
+            legend: {
+                position: 'bottom' as const,
+                display: secondCoinData && secondCoinData?.length > 1 ? true : false,
+                labels: {
+                    boxWidth: 24, 
+                    boxHeight: 23, 
+                    color: '#7878FF',
+                    font: {
+                        size: 20 
+                    },
+                    borderRadius: 0,
+                }
+            }
+        }
     };
 
     return (
