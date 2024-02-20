@@ -41,7 +41,7 @@ export const Statistics = () => {
             const res = await dispatch(fetchCoins()).unwrap();
             coin.onSelectedMultipleValue(res[0].id);
             
-            dispatch(fetchCoinHistory({ id: res[0].id, days: '7' }));
+            dispatch(fetchCoinHistory({ id: res[0].id, days: '300' }));
 
         })()
     }, []);
@@ -55,7 +55,7 @@ export const Statistics = () => {
             if (coinsHistoryKeys.length) {
                 const newCoin = coin.selectedValue.find((id) => !coinsHistoryKeys?.includes(id));
                 
-                newCoin && dispatch(fetchCoinHistory({ id: newCoin, days: '7' }))
+                newCoin && dispatch(fetchCoinHistory({ id: newCoin, days: '3' }))
             }
         }
     }, [coin.selectedValue?.length]);
