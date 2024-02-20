@@ -13,7 +13,8 @@ import {
     LineElement,
     Tooltip,
     Legend,
-    Filler
+    Filler,
+    LogarithmicScale
   } from 'chart.js';
 
 ChartJS.register(
@@ -24,7 +25,8 @@ ChartJS.register(
     LineElement,
     Tooltip,
     Legend,
-    Filler
+    Filler,
+    LogarithmicScale
 );
    
 interface ILineChartProps {
@@ -39,6 +41,7 @@ export const LineChart: FC<ILineChartProps> = ({ firstCoinData, secondCoinData, 
         labels: firstCoinData.map(item => item[0]),
         datasets: [
             {
+                
                 label: coinFirst,
                 data: firstCoinData.map(item => item[1]),
                 borderColor: '#7878FF',
@@ -59,6 +62,7 @@ export const LineChart: FC<ILineChartProps> = ({ firstCoinData, secondCoinData, 
         responsive: true,
         scales: {
             y: {
+                
                 grid: {
                     display: false
                 },
@@ -67,11 +71,12 @@ export const LineChart: FC<ILineChartProps> = ({ firstCoinData, secondCoinData, 
                 }
             },
             x: {
+
                 grid: {
                     display: false
                 }
             },
-    },
+        },
         
         plugins: {
             legend: {

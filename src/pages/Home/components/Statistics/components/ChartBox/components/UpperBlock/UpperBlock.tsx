@@ -18,7 +18,6 @@ export const UpperBlock: FC<IUpperBlock> = ({ headline, number }) => {
         <StyledUpperBlock>
             {Object.keys(coinsHistory).length > 1 ? (
                 <>
-                    <p>{headline}</p>
                     <p>{todayString}</p>
                 </>
 

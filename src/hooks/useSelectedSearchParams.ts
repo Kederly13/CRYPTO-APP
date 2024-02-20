@@ -5,13 +5,8 @@ export const useSelectedSearchParams = ( param: SEARCH_PARAMS ) => {
     const [searchParams, setSearchParams] = useSearchParams();
     const selectedValue = searchParams.get(param);
 
-    const onSelectedValue = (id: string) => {
-        // if (selectedValue === id) {
-        //     searchParams.delete(param)
-        //     setSearchParams(searchParams)
-        //     return;
-        // }
-        searchParams.set(param, id);
+    const onSelectedValue = (period: string) => {
+        searchParams.set(param, period);
         setSearchParams(searchParams);
     };
     

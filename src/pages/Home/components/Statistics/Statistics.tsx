@@ -20,7 +20,8 @@ export type TCoinPrice = Array<Array<number>>;
 export const Statistics = () => {
     const dispatch = useAppDispatch();
 
-    const { coin } = useAllSelectedSearchParams();
+    const { coin, days } = useAllSelectedSearchParams();
+
     const coins = useAppSelector(state => state.coins.coinList);
     const coinsHistory = useAppSelector(state => state.coinsHistory.coinsHistory);
 
@@ -31,23 +32,30 @@ export const Statistics = () => {
     
     useEffect(() => {
         (async () => {
+            
             if (coins.length && coinsHistoryKeys.length) {
-                // coin.onSelectedMultipleValue(coinsHistoryFirst);
+                coin.onSelectedMultipleValue(coinsHistoryFirst);
                 return;
             }
 
             const res = await dispatch(fetchCoins()).unwrap();
             coin.onSelectedMultipleValue(res[0].id);
-            dispatch(fetchCoinHistory(res[0].id));
+            
+            dispatch(fetchCoinHistory({ id: res[0].id, days: '7' }));
+
         })()
     }, []);
+
+    useEffect(() => {
+        days.onSelectedValue('7');
+    }, [])
 
     useEffect(() => {
         if (coin.selectedValue?.length && coin.selectedValue.length > 1) {
             if (coinsHistoryKeys.length) {
                 const newCoin = coin.selectedValue.find((id) => !coinsHistoryKeys?.includes(id));
                 
-                newCoin && dispatch(fetchCoinHistory(newCoin))
+                newCoin && dispatch(fetchCoinHistory({ id: newCoin, days: '7' }))
             }
         }
     }, [coin.selectedValue?.length]);
