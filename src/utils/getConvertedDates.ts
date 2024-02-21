@@ -1,5 +1,7 @@
-export const getConvertedDates: (data: Array<Array<number>>) => Array<Array<number>> = (data) => {
+export const getConvertedDates: (data: Array<Array<number>>) => Array<Array<string | number>> = (data) => {
     return data.map((item) => {
-        return [new Date(item[0]).getDate(), item[1]]
-    })
+        const date = new Date(item[0]);
+        const dateString = `${date.getMonth() + 1}-${date.getDate()}-${date.getFullYear()}`;
+        return [dateString, item[1]];
+    });
 };

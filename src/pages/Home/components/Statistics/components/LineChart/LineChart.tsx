@@ -1,8 +1,5 @@
-import { Line } from 'react-chartjs-2';
 import { FC } from 'react';
-import { useAppSelector } from 'hooks/reduxHooks';
 import { StyledLine } from './StyledLineChart';
-
 
 import {
     Chart as ChartJS,
@@ -30,8 +27,8 @@ ChartJS.register(
 );
    
 interface ILineChartProps {
-    firstCoinData: Array<Array<number>>;
-    secondCoinData?: Array<Array<number>>;
+    firstCoinData: Array<Array<string | number>>;
+    secondCoinData?: Array<Array<string | number>>;
     coinFirst: string,
     coinSecond: string
 };
@@ -41,19 +38,44 @@ export const LineChart: FC<ILineChartProps> = ({ firstCoinData, secondCoinData, 
         labels: firstCoinData.map(item => item[0]),
         datasets: [
             {
-                
                 label: coinFirst,
                 data: firstCoinData.map(item => item[1]),
                 borderColor: '#7878FF',
-                backgroundColor: 'rgba(43, 43, 101, 0.5)',
+                backgroundColor: (context: { chart: { ctx: CanvasRenderingContext2D } }) => {
+                    const ctx = context.chart.ctx;
+                    const gradient = ctx.createLinearGradient(0, 0, 0, 400);
+                    gradient.addColorStop(0, 'rgba(116, 116, 250, 0.8)');
+                    gradient.addColorStop(0.3, 'rgba(116, 116, 250, 0.6)');
+                    gradient.addColorStop(0.7, 'rgba(116, 116, 250, 0.4)');
+                    gradient.addColorStop(1, 'rgba(10, 10, 20, 0.01)');
+                    return gradient;
+                },
                 fill: true,
+                yAxisID: 'y-axis-1',
+                order: 1,
+                pointRadius: 0,
+                tension: 0.4,
+                pointStyle: "circle",
             },
             {
                 label: coinSecond,
                 data: secondCoinData?.map(item => item[1]),
                 borderColor: '#E771FF',
-                backgroundColor: '#612d6b',
+                backgroundColor: (context: { chart: { ctx: CanvasRenderingContext2D } }) => {
+                    const ctx = context.chart.ctx;
+                    const gradient = ctx.createLinearGradient(0, 0, 0, 400);
+                    gradient.addColorStop(0, 'rgba(231, 114, 255, 0.90)');
+                    gradient.addColorStop(0.4, 'rgba(231, 114, 255, 0.60)');
+                    gradient.addColorStop(0.6, 'rgba(231, 114, 255, 0.30)');
+                    gradient.addColorStop(1, 'rgba(231, 114, 255, 0.01)');
+                    return gradient;
+                },
                 fill: true,
+                yAxisID: 'y-axis-2',
+                order: 2,
+                pointRadius: 0,
+                tension: 0.4,
+                pointStyle: "circle",
             }
         ],
     };
@@ -61,23 +83,28 @@ export const LineChart: FC<ILineChartProps> = ({ firstCoinData, secondCoinData, 
     const options = {
         responsive: true,
         scales: {
-            y: {
-                
-                grid: {
-                    display: false
-                },
-                ticks: {
-                    display: false
-                }
-            },
             x: {
+                ticks: {
+                    maxTicksLimit: 12
+                },
+              grid: {
+                display: false,
 
-                grid: {
-                    display: false
-                }
+              },
             },
-        },
-        
+            "y-axis-1": {
+              display: false,
+              ticks: {
+                display: false,
+              },
+            },
+            "y-axis-2": {
+              display: false,
+              ticks: {
+                display: false,
+              },
+            },
+        },    
         plugins: {
             legend: {
                 position: 'bottom' as const,
@@ -89,8 +116,10 @@ export const LineChart: FC<ILineChartProps> = ({ firstCoinData, secondCoinData, 
                     font: {
                         size: 20 
                     },
+                    borderWidth: 0,
                     borderRadius: 0,
                 }
+                
             }
         }
     };

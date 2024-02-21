@@ -55,7 +55,7 @@ export const Statistics = () => {
             if (coinsHistoryKeys.length) {
                 const newCoin = coin.selectedValue.find((id) => !coinsHistoryKeys?.includes(id));
                 
-                newCoin && dispatch(fetchCoinHistory({ id: newCoin, days: '3' }))
+                newCoin && dispatch(fetchCoinHistory({ id: newCoin, days: '300' }))
             }
         }
     }, [coin.selectedValue?.length]);
@@ -87,7 +87,10 @@ export const Statistics = () => {
                 >
                     <BarChart
                         firstCoinData={coinsHistoryFirst ? getConvertedDates(coinsHistory[coinsHistoryFirst].prices): []}
-                        secondCoinData={coinsHistorySecond ? getConvertedDates(coinsHistory[coinsHistorySecond].prices) : []} 
+                        coinFirst={coinsHistoryFirst}
+                        secondCoinData={coinsHistorySecond ? getConvertedDates(coinsHistory[coinsHistorySecond].prices) : []}
+                        coinSecond={coinsHistorySecond}
+                         
                     />
                 </ChartBox>
             </div>
