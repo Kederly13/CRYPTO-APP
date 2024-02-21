@@ -5,8 +5,9 @@ export const useSelectedSearchParams = ( param: SEARCH_PARAMS ) => {
     const [searchParams, setSearchParams] = useSearchParams();
     const selectedValue = searchParams.get(param);
 
-    const onSelectedValue = (period: string) => {
-        searchParams.set(param, period);
+    const onSelectedValue = (value: string) => {
+        console.log(value)
+        searchParams.set(param, value);
         setSearchParams(searchParams);
     };
     
@@ -19,7 +20,6 @@ export const useSelectedSearchParams = ( param: SEARCH_PARAMS ) => {
 export const useMultipleSelectedSearchParams = (param: SEARCH_PARAMS) => {
     const [searchParams, setSearchParams] = useSearchParams();
     const selectedValue = searchParams.get(param);
-
     const onSelectedMultipleValue = (value: string) => {
         const selectedValueArr = selectedValue ? selectedValue.split(',') : [];
 
@@ -44,6 +44,12 @@ export const useMultipleSelectedSearchParams = (param: SEARCH_PARAMS) => {
         onSelectedMultipleValue
     };
 };
+
+    const useSelectedObjSearchParams = () => {
+        const [searchParams, setSearchParams] = useSearchParams();
+        const objSearchParams = Object.fromEntries([...searchParams]) as Record<SEARCH_PARAMS, string>
+
+    }
 
 export const useAllSelectedSearchParams = () => {
     const days = useSelectedSearchParams(SEARCH_PARAMS.DAYS);

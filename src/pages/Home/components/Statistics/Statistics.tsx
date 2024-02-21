@@ -35,27 +35,23 @@ export const Statistics = () => {
             
             if (coins.length && coinsHistoryKeys.length) {
                 coin.onSelectedMultipleValue(coinsHistoryFirst);
+                days.onSelectedValue('7');
                 return;
             }
 
             const res = await dispatch(fetchCoins()).unwrap();
             coin.onSelectedMultipleValue(res[0].id);
             
-            dispatch(fetchCoinHistory({ id: res[0].id, days: '300' }));
-
+            dispatch(fetchCoinHistory({ id: res[0].id, days: '7' }));
         })()
     }, []);
-
-    useEffect(() => {
-        days.onSelectedValue('7');
-    }, [])
 
     useEffect(() => {
         if (coin.selectedValue?.length && coin.selectedValue.length > 1) {
             if (coinsHistoryKeys.length) {
                 const newCoin = coin.selectedValue.find((id) => !coinsHistoryKeys?.includes(id));
                 
-                newCoin && dispatch(fetchCoinHistory({ id: newCoin, days: '300' }))
+                newCoin && dispatch(fetchCoinHistory({ id: newCoin, days: '7' }))
             }
         }
     }, [coin.selectedValue?.length]);
