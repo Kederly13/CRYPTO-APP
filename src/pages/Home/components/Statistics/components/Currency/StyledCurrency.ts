@@ -2,7 +2,6 @@ import styled from 'styled-components';
 
 import { IStyledCurrencyProps } from './Currency';
 
-
 export const StyledCurrency = styled.div<IStyledCurrencyProps>`
     background: ${({ selected }) => (selected ? 'rgba(97, 97, 222, 0.50)' : '#191926')};
     border: ${({ selected }) => (selected ? '1px solid #7878FF' : '')};

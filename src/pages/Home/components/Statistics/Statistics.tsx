@@ -1,19 +1,22 @@
 import { useEffect, useState } from 'react';
 import { StyledStatistics } from './StyledStatistics';
+
 import { CurrencySwiper } from './components/CurrencySwiper';
 import { Button } from 'components/Button';
 import { LineChart } from './components/LineChart';
 import { BarChart } from './components/BarChart';
 import { ChartBox } from './components/ChartBox';
+import { PeriodFilter } from 'components/PeriodFilter';
+
 import { fetchCoins } from 'store/slices/coinSlice';
 import { fetchCoinHistory } from 'store/slices/coinsHistorySlice';
-import { getConvertedDates } from 'utils/getConvertedDates';
 
 import { useAppDispatch, useAppSelector } from 'hooks/reduxHooks';
 import { useAllSelectedSearchParams } from 'hooks/useSelectedSearchParams';
 
-import 'swiper/swiper-bundle.css';
+import { getConvertedDates } from 'utils/getConvertedDates';
 
+import 'swiper/swiper-bundle.css';
 
 export type TCoinPrice = Array<Array<number>>;
 
@@ -27,21 +30,20 @@ export const Statistics = () => {
 
     const coinsHistoryKeys = Object.keys(coinsHistory)
     const [coinsHistoryFirst, coinsHistorySecond] = coinsHistoryKeys;
+
     const coinFirst = coins.find(({ id }) => id === coinsHistoryFirst);
     const coinSecond = coins.find(({ id }) => id === coinsHistorySecond);
     
     useEffect(() => {
-        (async () => {
-            
+        (async () => {       
             if (coins.length && coinsHistoryKeys.length) {
                 coin.onSelectedMultipleValue(coinsHistoryFirst);
-                days.onSelectedValue('7');
                 return;
-            }
+            };
 
             const res = await dispatch(fetchCoins()).unwrap();
             coin.onSelectedMultipleValue(res[0].id);
-            
+
             dispatch(fetchCoinHistory({ id: res[0].id, days: '7' }));
         })()
     }, []);
@@ -90,6 +92,7 @@ export const Statistics = () => {
                     />
                 </ChartBox>
             </div>
+            <PeriodFilter />
         </StyledStatistics>
     );
 };

@@ -45,11 +45,11 @@ export const useMultipleSelectedSearchParams = (param: SEARCH_PARAMS) => {
     };
 };
 
-    const useSelectedObjSearchParams = () => {
-        const [searchParams, setSearchParams] = useSearchParams();
-        const objSearchParams = Object.fromEntries([...searchParams]) as Record<SEARCH_PARAMS, string>
+    // const useSelectedObjSearchParams = () => {
+    //     const [searchParams, setSearchParams] = useSearchParams();
+    //     const objSearchParams = Object.fromEntries([...searchParams]) as Record<SEARCH_PARAMS, string>
 
-    }
+    // }
 
 export const useAllSelectedSearchParams = () => {
     const days = useSelectedSearchParams(SEARCH_PARAMS.DAYS);

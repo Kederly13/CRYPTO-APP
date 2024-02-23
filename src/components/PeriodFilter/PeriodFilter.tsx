@@ -1,17 +1,19 @@
-import { StyledPeriodTab } from './StyledPeriodTab';
+import { StyledPeriodTab } from './StyledPeriodFilter';
 import { peiodFilterData } from './periodFilterData';
 
-export const PeriodTab = () => {
+export interface IStyledPeriodTabProps {
+  selected?: boolean;
+};
 
+export const PeriodFilter = () => {
   
   return (
     <StyledPeriodTab>
       {peiodFilterData.map(({ label, value }) => (
         <li>
-          <button type='button' onClick={undefined}>{value}</button>
+          <button type='button' onClick={undefined}>{label}</button>
         </li>
       ))}
-
     </StyledPeriodTab>
   )
-}
+};
