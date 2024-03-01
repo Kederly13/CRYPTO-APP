@@ -13,6 +13,8 @@ import { fetchCoinHistory } from 'store/slices/coinsHistorySlice';
 
 import { useAppDispatch, useAppSelector } from 'hooks/reduxHooks';
 import { useAllSelectedSearchParams } from 'hooks/useSelectedSearchParams';
+import { useSelectedObjSearchParams } from 'hooks/useSelectedSearchParams';
+import { useMultipleSelectedSearchParams } from 'hooks/useSelectedSearchParams';
 
 import { getConvertedDates } from 'utils/getConvertedDates';
 
@@ -33,6 +35,7 @@ export const Statistics = () => {
 
     const coinFirst = coins.find(({ id }) => id === coinsHistoryFirst);
     const coinSecond = coins.find(({ id }) => id === coinsHistorySecond);
+    useSelectedObjSearchParams();
     
     useEffect(() => {
         (async () => {       
@@ -47,6 +50,7 @@ export const Statistics = () => {
             dispatch(fetchCoinHistory({ id: res[0].id, days: '7' }));
         })()
     }, []);
+
 
     useEffect(() => {
         if (coin.selectedValue?.length && coin.selectedValue.length > 1) {
