@@ -10,7 +10,7 @@ export interface IOptionsSetSearchParams {
     toggle?: boolean;
     limitToggle?: number;
     limitMultiple?: number;
-}
+};
 
 export const useSelectedSearchParams = ( param: SEARCH_PARAMS ) => {
     const [searchParams, setSearchParams] = useSearchParams();
@@ -56,45 +56,46 @@ export const useMultipleSelectedSearchParams = (param: SEARCH_PARAMS) => {
     };
 };
 
-    export const useSelectedObjSearchParams = () => {
-        const [searchParams, setSearchParams] = useSearchParams();
-        const objSearchParams = Object.fromEntries(Array.from(searchParams)) as TObjSearchParams;
-        console.log(objSearchParams);
-        
-        const optionsDefault = {
-            multiple: false,
-            toggle: false,
-        };
-        
-        const onSetObjSearchParams = (obj: TObjSearchParams, options: IOptionsSetSearchParams = optionsDefault): void => {
-            const updateSearchParams: TObjSearchParams | {} = Object.values(objSearchParams).length ?
+
+export const useSelectedObjSearchParams = () => {
+    const [searchParams, setSearchParams] = useSearchParams();
+    const objSearchParams = Object.fromEntries(Array.from(searchParams)) as TObjSearchParams;
+    
+    const optionsDefault = {
+        multiple: false,
+        toggle: false,
+    };
+    
+    const onSetObjSearchParams = (obj: TObjSearchParams, options: IOptionsSetSearchParams = optionsDefault): void => {
+        const updateSerchParamsObj: TObjSearchParams | {} = Object.values(objSearchParams).length ?
             Object.entries(objSearchParams).reduce((acc, [k, v]) => {
                 Object.entries(obj).forEach(([keys, value]) => {
-                    // Если в ключе пустая строка
+                    // если в ключе пустая строка
                     if (keys === k && !value) {
                         delete acc[k as SEARCH_PARAMS];
 
                         return;
                     }
 
-                    
+                    // Toggle
                     if (options?.toggle && keys === k) {
-                        // Если включено снятие и ключи равны
+                    // если включено снятие и ключи равны
                         if (options?.multiple) {
-                            // Если включено снятие и ключи равны и включен multiple
-                             const vArr = v.split(',');
+                            // если включено снятие и включен мультипл
+                            const vArr = v.split(',');
 
-                             if (vArr.length !== options.limitToggle && vArr.includes(value)) {
-                                // Значение не равно лимиту тогла и среди значений есть, то входящее значение
-                                const updateValue = vArr.filter(item => item !== value); // удаляем если кликнули и значение уже есть
+                            if (vArr.length !== options.limitToggle && vArr.includes(value)) {
+                                // если значение не равно лимиту тогла и среди значений есть входящее значение
+                                const updateValue = vArr.filter((item) => item !== value); // удаляем если мы кликнули и значение уже есть
 
                                 if (updateValue.length) {
-                                    // если это не пустой массив, то мы обновляем значение ключа
+
+                                    // если это не пустой масив, то мы обновляем значение ключа
                                     acc[k as SEARCH_PARAMS] = updateValue.join(',')
 
                                     return;
                                 } else {
-                                    // если это массив пустой, то мы удаляем ключ и зависимые ключи из depParams
+                                    // если масив пустой, то мы удаляем ключ и зависимые ключи из depParams
                                     delete acc[k as SEARCH_PARAMS];
 
                                     if (options?.depParams?.length) {
@@ -102,13 +103,12 @@ export const useMultipleSelectedSearchParams = (param: SEARCH_PARAMS) => {
                                             delete acc[item];
                                         });
                                     }
-
                                     return;
                                 }
-                             }
+                            }
                         } else {
                             if (v === value) {
-                                // если у ключа равны значения и не влюкчен мультипл, то ключ удаляется и зависимости тоже
+                                // если у ключа равны значение и не включен мультипл, то ключ удаляется и зависимости тоже
                                 delete acc[k as SEARCH_PARAMS];
 
                                 if (options?.depParams?.length) {
@@ -116,36 +116,49 @@ export const useMultipleSelectedSearchParams = (param: SEARCH_PARAMS) => {
                                         delete acc[item];
                                     })
                                 }
-
                                 return;
                             }
                         }
                     }
 
-                    if (keys === k v !== value) {
-                        // если равны ключи равны но новое значение
-                        const vArr = v.split('');
+                    //Обновление
+                    if (keys === k && v !== value) {
+                        // если равны ключи, но новое значение
+                        if (options?.multiple) {
 
-                        if (vArr.length === options?.limitMultiple) {
-                            return;
+                            const vArr = v.split(',');
+
+                            if (vArr.length === options?.limitMultiple) {
+                                // если значения равны лимиту, то выбиваем
+                                return;
+                            } else {
+                                // если значения не равны лимиту, то присваимаем новое значение если 
+                                acc[k as SEARCH_PARAMS] = [...vArr, value].join(',');
+                            }
                         } else {
-                            acc[k as SEARCH_PARAMS] = [...vArr, value].join('');
+                            acc[k as SEARCH_PARAMS] = value;
                         }
-                    } else {
-                        acc[k as SEARCH_PARAMS] = value;
-                    }
+                    }    
+                })
+                return {
+                    ...acc
                 }
-            })
-        }
+            }, {...objSearchParams} as TObjSearchParams) 
+            : Object.values(obj).every(value => !value) ? {} : obj;
 
-        onSetObjSearchParams(objSearchParams)
+            setSearchParams(updateSerchParamsObj);
+    };
 
-    }
+    return { objSearchParams, onSetObjSearchParams}
+}
+
+
+
+
 
 export const useAllSelectedSearchParams = () => {
     const days = useSelectedSearchParams(SEARCH_PARAMS.DAYS);
     const coin = useMultipleSelectedSearchParams(SEARCH_PARAMS.COIN);
-
     return {
         days,
         coin

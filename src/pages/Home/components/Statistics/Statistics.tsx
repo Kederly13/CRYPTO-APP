@@ -19,6 +19,7 @@ import { useMultipleSelectedSearchParams } from 'hooks/useSelectedSearchParams';
 import { getConvertedDates } from 'utils/getConvertedDates';
 
 import 'swiper/swiper-bundle.css';
+import { SEARCH_PARAMS } from 'constants/searchParams';
 
 export type TCoinPrice = Array<Array<number>>;
 
@@ -26,6 +27,8 @@ export const Statistics = () => {
     const dispatch = useAppDispatch();
 
     const { coin, days } = useAllSelectedSearchParams();
+
+    const { objSearchParams, onSetObjSearchParams } = useSelectedObjSearchParams();
 
     const coins = useAppSelector(state => state.coins.coinList);
     const coinsHistory = useAppSelector(state => state.coinsHistory.coinsHistory);
@@ -35,17 +38,24 @@ export const Statistics = () => {
 
     const coinFirst = coins.find(({ id }) => id === coinsHistoryFirst);
     const coinSecond = coins.find(({ id }) => id === coinsHistorySecond);
-    useSelectedObjSearchParams();
     
     useEffect(() => {
         (async () => {       
             if (coins.length && coinsHistoryKeys.length) {
-                coin.onSelectedMultipleValue(coinsHistoryFirst);
+                onSetObjSearchParams({
+                    ...objSearchParams,
+                    [SEARCH_PARAMS.COIN]: coinsHistoryFirst,
+                    [SEARCH_PARAMS.DAYS]: '7'
+                });
                 return;
             };
 
             const res = await dispatch(fetchCoins()).unwrap();
-            coin.onSelectedMultipleValue(res[0].id);
+            onSetObjSearchParams({
+                ...objSearchParams,
+                [SEARCH_PARAMS.COIN]: res[0].id,
+                [SEARCH_PARAMS.DAYS]: '7'
+            })
 
             dispatch(fetchCoinHistory({ id: res[0].id, days: '7' }));
         })()
@@ -53,14 +63,16 @@ export const Statistics = () => {
 
 
     useEffect(() => {
-        if (coin.selectedValue?.length && coin.selectedValue.length > 1) {
-            if (coinsHistoryKeys.length) {
-                const newCoin = coin.selectedValue.find((id) => !coinsHistoryKeys?.includes(id));
-                
-                newCoin && dispatch(fetchCoinHistory({ id: newCoin, days: '7' }))
+        const coinArr = objSearchParams.coin?.split(',');
+
+        if (coinArr?.length > 1) {
+            if (coinsHistory.length) {
+                const newCoin = coinArr.find(id => !coinsHistoryKeys.includes(id));
+
+                newCoin && dispatch(fetchCoinHistory({ id: newCoin, days: objSearchParams.days }))
             }
         }
-    }, [coin.selectedValue?.length]);
+    }, [objSearchParams]);
 
     return (
         <StyledStatistics>
