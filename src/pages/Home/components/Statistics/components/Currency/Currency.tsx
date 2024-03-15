@@ -19,7 +19,7 @@ export interface ICurrencyProps {
 };
 
 export interface IStyledCurrencyProps {
-    selected?: boolean;
+    $selected?: boolean;
 };
 
 export type CurrencyProps = ICurrencyProps & IStyledCurrencyProps;
@@ -43,7 +43,7 @@ export const Currency: FC<CurrencyProps> = ( props ) => {
                 limitMultiple: 2,
                 multiple: true,
             })
-        }} selected={objSearchParams?.coin?.includes(id)}>
+        }} $selected={objSearchParams?.coin?.includes(id)}>
                 <img className='currencyLogo' src={logo} alt='logo'/>
                 <div>
                     <p>{name} ({symbol})</p>
