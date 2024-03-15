@@ -20,11 +20,11 @@ type TCoinsHistoryState = {
     error: null | string,
 };
 
-export const fetchCoinHistory = createAsyncThunk<ICoinObjHistory, { id: string, days: string }, {rejectValue: string}>(
+export const fetchCoinHistory = createAsyncThunk<ICoinObjHistory, { id: string, days: string, controller: AbortController }, {rejectValue: string}>(
     'coinsHistory/fetchCoinHistory',
-    async ({id, days}, { rejectWithValue }) => {
+    async ({id, days, controller}, { rejectWithValue }) => {
         try {
-            const { data } = await ChartApi.getPrices(id, days); 
+            const { data } = await ChartApi.getPrices(id, days, controller); 
             return data;
         } catch (error) {
             return rejectWithValue(getErrorMessage(error))

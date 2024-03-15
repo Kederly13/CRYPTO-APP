@@ -9,12 +9,11 @@ type CoinsState = {
     error: null
 };
 
-export const fetchCoins = createAsyncThunk<ICoin[], undefined, {rejectValue: string}>(
+export const fetchCoins = createAsyncThunk<ICoin[], AbortController, {rejectValue: string}>(
     'coins/fetchCoins',
-    async function (_, { rejectWithValue }) {
-        const response = await CoinsApi.getCoins();
+    async function (controller, { rejectWithValue }) {
         try {
-            const { data } = await CoinsApi.getCoins();
+            const { data } = await CoinsApi.getCoins(controller);
             
             return data;
         } catch(error) {

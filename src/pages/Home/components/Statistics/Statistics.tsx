@@ -27,10 +27,12 @@ export const Statistics = () => {
 
     const coins = useAppSelector(state => state.coins.coinList);
     const coinsHistory = useAppSelector(state => state.coinsHistory.coinsHistory);
-    console.log('coinsHistory' , coinsHistory)
     const coinsHistoryKeys = Object.keys(coinsHistory);
     console.log('state', coinsHistory);
 
+    const controllerCoins = new AbortController();
+    const controllerCoinsHistory = new AbortController();
+    
     const [coinsHistoryFirst, coinsHistorySecond] = coinsHistoryKeys;
 
     const coinFirst = coins.find(({ id }) => id === coinsHistoryFirst);
@@ -47,17 +49,20 @@ export const Statistics = () => {
                 return;
             };
 
-            const res = await dispatch(fetchCoins()).unwrap();
+            const res = await dispatch(fetchCoins(controllerCoins)).unwrap();
             onSetObjSearchParams({
                 ...objSearchParams,
                 [SEARCH_PARAMS.COIN]: res[0].id,
                 [SEARCH_PARAMS.DAYS]: '7'
             })
 
-            dispatch(fetchCoinHistory({ id: res[0].id, days: '7' }));
+            dispatch(fetchCoinHistory({ id: res[0].id, days: '7', controller: controllerCoinsHistory }));
         })()
+        return () => {
+            controllerCoins.abort();
+            controllerCoinsHistory.abort();
+        }
     }, []);
-
 
     useEffect(() => {
         const coinArr = objSearchParams.coin?.split(',');
@@ -67,10 +72,12 @@ export const Statistics = () => {
                 console.log('dadsasdasdas')
                 const newCoin = coinArr.find(id => !coinsHistoryKeys.includes(id));
                 console.log('new coin', newCoin)
-                newCoin && dispatch(fetchCoinHistory({ id: newCoin, days: objSearchParams.days }))
+                newCoin && dispatch(fetchCoinHistory({ id: newCoin, days: objSearchParams.days, controller: controllerCoinsHistory }))
             }
         }
-    }, [objSearchParams]);
+
+        return () => controllerCoinsHistory.abort();
+    }, [objSearchParams?.days, objSearchParams?.coin]);
 
     return (
         <StyledStatistics>
