@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { StyledStatistics } from './StyledStatistics';
 
 import { CurrencySwiper } from './components/CurrencySwiper';
@@ -10,30 +10,27 @@ import { PeriodFilter } from 'components/PeriodFilter';
 
 import { fetchCoins } from 'store/slices/coinSlice';
 import { fetchCoinHistory } from 'store/slices/coinsHistorySlice';
-
 import { useAppDispatch, useAppSelector } from 'hooks/reduxHooks';
-import { useAllSelectedSearchParams } from 'hooks/useSelectedSearchParams';
 import { useSelectedObjSearchParams } from 'hooks/useSelectedSearchParams';
-import { useMultipleSelectedSearchParams } from 'hooks/useSelectedSearchParams';
 
 import { getConvertedDates } from 'utils/getConvertedDates';
+import { SEARCH_PARAMS } from 'constants/searchParams';
 
 import 'swiper/swiper-bundle.css';
-import { SEARCH_PARAMS } from 'constants/searchParams';
 
 export type TCoinPrice = Array<Array<number>>;
 
 export const Statistics = () => {
     const dispatch = useAppDispatch();
 
-    const { coin, days } = useAllSelectedSearchParams();
-
     const { objSearchParams, onSetObjSearchParams } = useSelectedObjSearchParams();
 
     const coins = useAppSelector(state => state.coins.coinList);
     const coinsHistory = useAppSelector(state => state.coinsHistory.coinsHistory);
+    console.log('coinsHistory' , coinsHistory)
+    const coinsHistoryKeys = Object.keys(coinsHistory);
+    console.log('state', coinsHistory);
 
-    const coinsHistoryKeys = Object.keys(coinsHistory)
     const [coinsHistoryFirst, coinsHistorySecond] = coinsHistoryKeys;
 
     const coinFirst = coins.find(({ id }) => id === coinsHistoryFirst);
@@ -64,11 +61,12 @@ export const Statistics = () => {
 
     useEffect(() => {
         const coinArr = objSearchParams.coin?.split(',');
-
+        console.log('coin arr', coinArr)
         if (coinArr?.length > 1) {
             if (coinsHistory.length) {
+                console.log('dadsasdasdas')
                 const newCoin = coinArr.find(id => !coinsHistoryKeys.includes(id));
-
+                console.log('new coin', newCoin)
                 newCoin && dispatch(fetchCoinHistory({ id: newCoin, days: objSearchParams.days }))
             }
         }
@@ -104,7 +102,6 @@ export const Statistics = () => {
                         coinFirst={coinsHistoryFirst}
                         secondCoinData={coinsHistorySecond ? getConvertedDates(coinsHistory[coinsHistorySecond].prices) : []}
                         coinSecond={coinsHistorySecond}
-                         
                     />
                 </ChartBox>
             </div>

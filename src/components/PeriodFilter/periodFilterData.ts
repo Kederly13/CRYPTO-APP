@@ -9,8 +9,8 @@ export const peiodFilterData: IPeiodFilterData[] = [
         value: '7'
     },
     {
-        label: '7W',
-        value: '7'
+        label: '10D',
+        value: '10'
     },
     {
         label: '14D',

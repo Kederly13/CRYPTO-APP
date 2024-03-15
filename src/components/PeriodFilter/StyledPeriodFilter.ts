@@ -13,17 +13,14 @@ export const StyledPeriodTab = styled.ul<IStyledPeriodTabProps>`
     margin-top: 56px;
 
     & > li {
-        background-color: ${({ selected }) => (selected ? 'rgba(97, 97, 222, 0.50)' : '')};
-        border: ${({ selected }) => (selected ? '1px solid #7878FF' : '1px solid transparent')};
-        transition: 0.5s ease; 
-        cursor: pointer;
-
-        &:hover {
+        &.selected, :hover {
             background-color: rgba(97, 97, 222, 0.50);
             border: 1px solid #7878FF;
+            transition: 0.5s ease; 
+            cursor: pointer;
             border-radius: 6px;
             box-shadow: 4px 4px 20px 8px rgba(120, 120, 255, 0.15);
-        }
+        }   
 
         > button {
            color: #E4E4F1;
