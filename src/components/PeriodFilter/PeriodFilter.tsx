@@ -14,17 +14,13 @@ export const PeriodFilter = () => {
   return (
     <StyledPeriodTab>
       {peiodFilterData.map(({ label, value }) => (
-        <li onClick={() => {
-          onSetObjSearchParams({
-            ...objSearchParams,
-            [SEARCH_PARAMS.DAYS]: value,
-          },
-          {
-            toggle: false,
-            limitToggle: 1,
-            limitMultiple: 1,
-            multiple: false,
-          })
+        <li key={value} onClick={() => {
+          if (objSearchParams.days !== value) {
+            onSetObjSearchParams({
+              ...objSearchParams,
+              [SEARCH_PARAMS.DAYS]: value,
+            })
+          }
         }} className={objSearchParams.days === value ? 'selected' : ''}>
           <button type='button' onClick={undefined}>{label}</button>
         </li>

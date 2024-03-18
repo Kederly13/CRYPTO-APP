@@ -13,7 +13,7 @@ import {
 } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
 
-import coinsHistoryReducer from './slices/coinsHistorySlice';
+import coinsHistoryReducer from './slices/coinsHistory/coinsHistorySlice';
 
 const rootReducer = combineReducers({
     coins: coinReducer,

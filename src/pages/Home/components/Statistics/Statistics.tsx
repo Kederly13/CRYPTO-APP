@@ -9,7 +9,7 @@ import { ChartBox } from './components/ChartBox';
 import { PeriodFilter } from 'components/PeriodFilter';
 
 import { fetchCoins } from 'store/slices/coinSlice';
-import { fetchCoinHistory } from 'store/slices/coinsHistorySlice';
+import { fetchCoinHistory } from 'store/slices/coinsHistory/coinsHistorySlice';
 import { useAppDispatch, useAppSelector } from 'hooks/reduxHooks';
 import { useSelectedObjSearchParams } from 'hooks/useSelectedSearchParams';
 
@@ -27,64 +27,73 @@ export const Statistics = () => {
 
     const coins = useAppSelector(state => state.coins.coinList);
     const coinsHistory = useAppSelector(state => state.coinsHistory.coinsHistory);
-    const coinsHistoryKeys = Object.keys(coinsHistory);
-    console.log('state', coinsHistory);
-
-    const controllerCoins = new AbortController();
-    const controllerCoinsHistory = new AbortController();
-    
+    const coinsHistoryKeys = Object.keys(coinsHistory);  
     const [coinsHistoryFirst, coinsHistorySecond] = coinsHistoryKeys;
 
     const coinFirst = coins.find(({ id }) => id === coinsHistoryFirst);
     const coinSecond = coins.find(({ id }) => id === coinsHistorySecond);
     
     useEffect(() => {
-        (async () => {       
-            if (coins.length && coinsHistoryKeys.length) {
-                onSetObjSearchParams({
-                    ...objSearchParams,
-                    [SEARCH_PARAMS.COIN]: coinsHistoryFirst,
-                    [SEARCH_PARAMS.DAYS]: '7'
-                });
-                return;
-            };
-
-            const res = await dispatch(fetchCoins(controllerCoins)).unwrap();
+        if (Object.values(objSearchParams).length <= 1) {
             onSetObjSearchParams({
                 ...objSearchParams,
-                [SEARCH_PARAMS.COIN]: res[0].id,
+                [SEARCH_PARAMS.COIN]: coinsHistoryFirst,
+                [SEARCH_PARAMS.DAYS]: '7'
+            });
+        };
+
+        if (coins?.length) {
+            return;
+        };
+
+        const controller = new AbortController();
+
+        (async () => {
+            const resCoins = await dispatch(fetchCoins(controller)).unwrap();
+
+            onSetObjSearchParams({
+                ...objSearchParams,
+                [SEARCH_PARAMS.COIN]: resCoins[0]?.id,
                 [SEARCH_PARAMS.DAYS]: '7'
             })
+        })();
 
-            dispatch(fetchCoinHistory({ id: res[0].id, days: '7', controller: controllerCoinsHistory }));
-        })()
         return () => {
-            controllerCoins.abort();
-            controllerCoinsHistory.abort();
+            controller.abort();
         }
     }, []);
 
     useEffect(() => {
-        const coinArr = objSearchParams.coin?.split(',');
-        console.log('coin arr', coinArr)
-        if (coinArr?.length > 1) {
-            if (coinsHistory.length) {
-                console.log('dadsasdasdas')
-                const newCoin = coinArr.find(id => !coinsHistoryKeys.includes(id));
-                console.log('new coin', newCoin)
-                newCoin && dispatch(fetchCoinHistory({ id: newCoin, days: objSearchParams.days, controller: controllerCoinsHistory }))
-            }
+        if (!objSearchParams?.coin && !objSearchParams?.days) {
+            return;
         }
 
-        return () => controllerCoinsHistory.abort();
+        const controller = new AbortController();
+
+        const coinsArr = objSearchParams?.coin?.split(',');
+        const newCoin = coinsArr[coinsArr.length - 1];
+
+        const payload = {
+            id: newCoin,
+            days: objSearchParams.days
+        };
+
+        dispatch(fetchCoinHistory({ payload, controller: controller}))
+
+        return () => {
+            controller.abort();
+        };
+
     }, [objSearchParams?.days, objSearchParams?.coin]);
 
     return (
         <StyledStatistics>
-            <h2>
-                Select the currency to view statistics
+            <div>
+                <h2>
+                    Select the currency to view statistics
+                </h2>
                 <Button disabled={true} type='button' padding='12px 24px'>Exit comparison</Button>
-            </h2>
+            </div>
             <CurrencySwiper
                 coinsDetails={coins}
             />

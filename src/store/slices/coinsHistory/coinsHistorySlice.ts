@@ -1,30 +1,14 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { ChartApi } from 'api/ChartApi';
-import { RootState } from 'store';
 import { getErrorMessage } from 'utils/getErrorMessage';
-import { getConvertedDates } from 'utils/getConvertedDates';
 
-export type TCoinData = Array<Array<number>>
+import { ICoinObjHistory, IFetchCoinsHistoryParams, TCoinsHistoryState  } from './type';
 
-interface ICoinObjHistory {
-    prices: TCoinData,
-    market_caps: TCoinData,
-    total_volumes: TCoinData,
-};
-
-type TCoinHistory = Record<string, ICoinObjHistory>;
-
-type TCoinsHistoryState = {
-    coinsHistory: TCoinHistory,
-    loading: boolean,
-    error: null | string,
-};
-
-export const fetchCoinHistory = createAsyncThunk<ICoinObjHistory, { id: string, days: string, controller: AbortController }, {rejectValue: string}>(
+export const fetchCoinHistory = createAsyncThunk<ICoinObjHistory, IFetchCoinsHistoryParams, {rejectValue: string}>(
     'coinsHistory/fetchCoinHistory',
-    async ({id, days, controller}, { rejectWithValue }) => {
+    async (params, { rejectWithValue }) => {
         try {
-            const { data } = await ChartApi.getPrices(id, days, controller); 
+            const { data } = await ChartApi.getPrices(params); 
             return data;
         } catch (error) {
             return rejectWithValue(getErrorMessage(error))
@@ -48,7 +32,6 @@ const coinHistorySlice = createSlice({
                     delete state.coinsHistory[action.payload.id]
                 }
             }
-            // console.log(state.coinsHistory)
         }
     },
     extraReducers: (builder) => {
@@ -58,7 +41,7 @@ const coinHistorySlice = createSlice({
                 state.error = null;
             })
             .addCase(fetchCoinHistory.fulfilled, (state, action) => {
-                const { id } = action.meta.arg;
+                const { payload: { id } } = action.meta.arg;
                 state.coinsHistory[id] = action.payload;
                 state.loading = false;
    

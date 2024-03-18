@@ -8,7 +8,7 @@ export interface IOptionsSetSearchParams {
     depParams?: Array<SEARCH_PARAMS>;
     multiple?: boolean;
     toggle?: boolean;
-    limitToggle?: number;
+    minToggle?: number;
     limitMultiple?: number;
 };
 
@@ -40,7 +40,7 @@ export const useSelectedObjSearchParams = () => {
                             // если включено снятие и включен мультипл
                             const vArr = v.split(',');
 
-                            if (vArr.length !== options.limitToggle && vArr.includes(value)) {
+                            if (vArr.length !== options.minToggle && vArr.includes(value)) {
                                 // если значение не равно лимиту тогла и среди значений есть входящее значение
                                 const updateValue = vArr.filter((item) => item !== value); // удаляем если мы кликнули и значение уже есть
 
