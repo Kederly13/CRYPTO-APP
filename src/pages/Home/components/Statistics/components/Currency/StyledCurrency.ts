@@ -2,6 +2,21 @@ import styled from 'styled-components';
 
 import { IStyledCurrencyProps } from './Currency';
 
+export const StyledCurrencyWrapper = styled.div`
+    margin-left: 15px;
+`
+export const StyledCurrencyName = styled.div`
+    color: #FFF;
+    display: flex;
+`
+export const StyledCurrencyPriceWrapper = styled.div`
+    display: flex;
+    margin-top: 5px;
+`
+export const StyledCurrencyPrice = styled.span`
+    color: #D1D1D1;
+    font-size: 14px;
+`
 
 export const StyledCurrency = styled.div<IStyledCurrencyProps>`
     background: ${({ $selected }) => ($selected ? 'rgba(97, 97, 222, 0.50)' : '#191926')};
@@ -17,24 +32,5 @@ export const StyledCurrency = styled.div<IStyledCurrencyProps>`
     .currencyLogo {
         width: 32px;
         height: 32px;
-    }
-
-    & > div {
-        margin-left: 15px;
-
-        & > p {
-            color: #FFF;
-            display: flex;
-        }
-
-        & > div {
-            display: flex;
-            margin-top: 5px;
-
-            & > span:nth-child(1) {
-                color: #D1D1D1;
-                font-size: 14px;
-            }
-        }                                                                                                                                                           
     }
 `                                                                                                                                                                                                       

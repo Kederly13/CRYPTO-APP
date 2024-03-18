@@ -25,6 +25,9 @@ const initialState: TCoinsHistoryState = {
 const coinHistorySlice = createSlice({
     name: 'coinsHistory',
     initialState,
+    selectors: {
+        selectCoinsHistory: state => state.coinsHistory,
+    },
     reducers: {
         removeCoin(state, action) {
             for (const coinId in state.coinsHistory) {
@@ -51,9 +54,9 @@ const coinHistorySlice = createSlice({
                 state.loading = false;
             })
     }
-
 })
 
 export const { removeCoin } = coinHistorySlice.actions;
+export const { selectCoinsHistory } = coinHistorySlice.selectors;
 
 export default coinHistorySlice.reducer;

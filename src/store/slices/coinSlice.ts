@@ -1,4 +1,4 @@
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import { createSlice, createAsyncThunk, buildCreateSlice, asyncThunkCreator } from '@reduxjs/toolkit';
 import { CoinsApi } from 'api/CoinsApi';
 import { ICoin } from 'types/coinType';
 import { getErrorMessage } from 'utils/getErrorMessage';
@@ -8,6 +8,10 @@ type CoinsState = {
     loading: boolean,
     error: null
 };
+
+const createSliceWithThunks = buildCreateSlice({
+    creators: { asyncThunk: asyncThunkCreator}
+});
 
 export const fetchCoins = createAsyncThunk<ICoin[], AbortController, {rejectValue: string}>(
     'coins/fetchCoins',
@@ -19,7 +23,6 @@ export const fetchCoins = createAsyncThunk<ICoin[], AbortController, {rejectValu
         } catch(error) {
             return rejectWithValue(getErrorMessage(error));
         }
-
     }
 );
 
@@ -32,6 +35,9 @@ const initialState: CoinsState = {
 const coinSlice = createSlice({
     name: 'coins',
     initialState,
+    selectors: {
+        selectCoinList: state => state.coinList,
+    },
     reducers: {
     },
     extraReducers: (builder) => {
@@ -48,3 +54,4 @@ const coinSlice = createSlice({
 });
 
 export default coinSlice.reducer;
+export const { selectCoinList } = coinSlice.selectors;

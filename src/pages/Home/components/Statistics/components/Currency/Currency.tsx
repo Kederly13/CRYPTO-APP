@@ -3,18 +3,18 @@ import { FC } from 'react';
 import { useSelectedObjSearchParams } from 'hooks/useSelectedSearchParams';
 import { removeCoin } from 'store/slices/coinsHistory/coinsHistorySlice';
 
-import { StyledCurrency } from './StyledCurrency';
+import { StyledCurrency, StyledCurrencyWrapper, StyledCurrencyName, StyledCurrencyPriceWrapper, StyledCurrencyPrice } from './StyledCurrency';
 import { useAppDispatch } from 'hooks/reduxHooks';
 import { SEARCH_PARAMS } from 'constants/searchParams';
 
 export interface ICurrencyProps {
     disabled?: boolean,
-    percent: React.ReactNode;
+    $percent: React.ReactNode;
     onClick?: () => void,
-    logo: string,
+    $logo: string,
     name: string,
-    symbol: string,
-    price: number,
+    $symbol: string,
+    $price: number,
     id: string
 };
 
@@ -25,7 +25,7 @@ export interface IStyledCurrencyProps {
 export type CurrencyProps = ICurrencyProps & IStyledCurrencyProps;
 
 export const Currency: FC<CurrencyProps> = ( props ) => {
-    const { logo, name, symbol, price, percent, id } = props;
+    const { $logo, name, $symbol, $price, $percent, id } = props;
     const dispatch = useAppDispatch();
 
     const { objSearchParams, onSetObjSearchParams } = useSelectedObjSearchParams();
@@ -50,13 +50,13 @@ export const Currency: FC<CurrencyProps> = ( props ) => {
             onClick={onClick}
             $selected={objSearchParams?.coin?.includes(id)}
         >
-            <img className='currencyLogo' src={logo} alt='logo'/>
-            <div>
-                <p>{name} ({symbol})</p>
-                <div>
-                    <span>{price}</span>{percent}
-                </div>
-            </div>
+            <img className='currencyLogo' src={$logo} alt='logo'/>
+            <StyledCurrencyWrapper>
+                <StyledCurrencyName>{name} ({$symbol})</StyledCurrencyName>
+                <StyledCurrencyPriceWrapper>
+                    <StyledCurrencyPrice>{$price}</StyledCurrencyPrice>{$percent}
+                </StyledCurrencyPriceWrapper>
+            </StyledCurrencyWrapper>
         </StyledCurrency>
     );
 };

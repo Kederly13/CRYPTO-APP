@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { StyledStatistics } from './StyledStatistics';
+import { StyledStatistics, StyledStatisticsHead } from './StyledStatistics';
 
 import { CurrencySwiper } from './components/CurrencySwiper';
 import { Button } from 'components/Button';
@@ -8,9 +8,10 @@ import { BarChart } from './components/BarChart';
 import { ChartBox } from './components/ChartBox';
 import { PeriodFilter } from 'components/PeriodFilter';
 
-import { fetchCoins } from 'store/slices/coinSlice';
+import { fetchCoins, selectCoinList } from 'store/slices/coinSlice';
 import { fetchCoinHistory } from 'store/slices/coinsHistory/coinsHistorySlice';
 import { useAppDispatch, useAppSelector } from 'hooks/reduxHooks';
+import { selectCoinsHistory } from 'store/slices/coinsHistory/coinsHistorySlice';
 import { useSelectedObjSearchParams } from 'hooks/useSelectedSearchParams';
 
 import { getConvertedDates } from 'utils/getConvertedDates';
@@ -25,13 +26,14 @@ export const Statistics = () => {
 
     const { objSearchParams, onSetObjSearchParams } = useSelectedObjSearchParams();
 
-    const coins = useAppSelector(state => state.coins.coinList);
-    const coinsHistory = useAppSelector(state => state.coinsHistory.coinsHistory);
+    const coins = useAppSelector(selectCoinList);
+    const coinsHistory = useAppSelector(selectCoinsHistory);
+
     const coinsHistoryKeys = Object.keys(coinsHistory);  
     const [coinsHistoryFirst, coinsHistorySecond] = coinsHistoryKeys;
 
     const coinFirst = coins.find(({ id }) => id === coinsHistoryFirst);
-    const coinSecond = coins.find(({ id }) => id === coinsHistorySecond);
+    // const coinSecond = coins.find(({ id }) => id === coinsHistorySecond);
     
     useEffect(() => {
         if (Object.values(objSearchParams).length <= 1) {
@@ -88,12 +90,12 @@ export const Statistics = () => {
 
     return (
         <StyledStatistics>
-            <div>
+            <StyledStatisticsHead>
                 <h2>
                     Select the currency to view statistics
                 </h2>
-                <Button disabled={true} type='button' padding='12px 24px'>Exit comparison</Button>
-            </div>
+                <Button disabled={true} type='button' $padding='12px 24px'>Exit comparison</Button>
+            </StyledStatisticsHead>
             <CurrencySwiper
                 coinsDetails={coins}
             />
