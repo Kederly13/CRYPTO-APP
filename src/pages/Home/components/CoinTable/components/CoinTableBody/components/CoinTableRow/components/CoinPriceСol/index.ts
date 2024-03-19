@@ -1,0 +1,1 @@
+export { CoinPriceCol } from './CoinPriceCol';

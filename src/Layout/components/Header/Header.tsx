@@ -14,6 +14,7 @@ import { Sun } from 'assets/svg/sun';
 
 export const Header = () => (
     <StyledHeader>
+        
         <Container>
             <Nav>
                 <Logo />
