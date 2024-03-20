@@ -1,1 +1,1 @@
-export { CoinPriceCol } from './CoinPriceCol';
+export { CoinPriceCol } from './CoinPriceСol';

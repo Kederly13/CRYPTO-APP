@@ -1,6 +1,7 @@
 import styled from 'styled-components';
+import { Percent } from 'components/Percent';
 
-export const StyledCoinNameCol = styled.td`
+export const StyledCoinPriceCol = styled.td`
     width: 208px;
     align-items: center;
     display: flex;

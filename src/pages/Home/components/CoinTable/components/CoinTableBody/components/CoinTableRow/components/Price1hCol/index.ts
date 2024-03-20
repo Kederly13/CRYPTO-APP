@@ -1,0 +1,1 @@
+export { Price1hCol } from './Price1hCol';

@@ -1,11 +1,13 @@
 import { HomeSwitch } from 'components/HomeSwitch';
 import { Section } from 'components/Section';
 import { Statistics } from './components/Statistics';
+import { CoinTable } from './components/CoinTable';
 
 export const Home = () => (
     <Section>
         <HomeSwitch />
         <Statistics />
+        <CoinTable />
     </Section>
 );
 
