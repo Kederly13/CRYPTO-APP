@@ -3,8 +3,8 @@ import { StyledCoinNumCol } from './StyledCoinNumCol';
 
 import { ICoinNumProps } from '../../../../types';
 
-export const CoinNumCol: FC<ICoinNumProps> = ({ coinNumber }) => (
+export const CoinNumCol: FC<ICoinNumProps> = ({ number }) => (
     <StyledCoinNumCol>
-        <span>{coinNumber}</span>
+        <span>{number}</span>
     </StyledCoinNumCol>
 );

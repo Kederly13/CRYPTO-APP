@@ -1,9 +1,8 @@
 import styled from 'styled-components';
 
 export const StyledCoinNameCol = styled.td`
-    width: 208px;
+
     align-items: center;
-    display: flex;
 
 `
 

@@ -1,50 +1,46 @@
 import styled from 'styled-components';
 
 export const StyledCoinTableHead = styled.thead`
-    padding: 20px;
+    
 `
 
 export const StyledCoinTableHeaderRow = styled.tr`
-    display: flex;
-    justify-content: space-between;
     padding: 20px;
 `
 
-export const StyledCoinTableHeader = styled.th`
-
+export const StyledHeadNum = styled.th`
+    /* width: 20px; */
 `
 
-export const StyledHeadNum = styled.div`
+export const StyledHeadName = styled.th`
+
+    /* width: 208px; */
 `
 
-export const StyledHeadName = styled.div`
-    width: 208px;
+export const StyledHeadPrice = styled.th`
+    /* width: 80px; */
 `
 
-export const StyledHeadPrice = styled.div`
-    width: 80px;
+export const StyledHead1h = styled.th`
+    /* width: 72px; */
 `
 
-export const StyledHead1h = styled.div`
-    width: 72px;
+export const StyledHead24h = styled.th`
+    /* width: 72px; */
 `
 
-export const StyledHead24h = styled.div`
-    width: 72px;
+export const StyledHead7d = styled.th`
+    /* width: 72px; */
 `
 
-export const StyledHead7d = styled.div`
-    width: 72px;
+export const StyledHeadMCap = styled.th`
+    /* width: 228px; */
 `
 
-export const StyledHeadMCap = styled.div`
-    width: 228px;
+export const StyledHeadSupply = styled.th`
+    /* width: 228px; */
 `
 
-export const StyledHeadSupply = styled.div`
-    width: 228px;
-`
-
-export const StyledHeadChart = styled.div`
-    width: 120px'
+export const StyledHeadChart = styled.th`
+    /* width: 120px; */
 `

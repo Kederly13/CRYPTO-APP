@@ -1,6 +1,10 @@
 import styled from 'styled-components';
 
-export const StyledPrice1hCol = styled.td`
+export const StyledPrice24hCol = styled.td`
+    width: 72px;
+    align-items: center;
+    display: flex;
+
 `
 
 export const StyledCoinLogo = styled.img`

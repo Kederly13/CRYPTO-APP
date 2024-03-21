@@ -5,19 +5,23 @@ import { CoinNameCol } from './components/CoinNameCol';
 import { CoinPriceCol } from './components/CoinPriceСol';
 import { CoinNumCol } from './components/CoinNumCol';
 import { Price1hCol } from './components/Price1hCol';
+import { Price24hCol } from './components/Price24hCol';
+import { Price7dCol } from './components/Price7dCol';
 
 import { TCoinTableRow } from '../../types';
 
-export const CoinTableRow: FC<TCoinTableRow> = ({ coinName, coinLogo, coinSymbol, coinNumber, current_price, price_change_percentage_1h_in_currency }) => {
+export const CoinTableRow: FC<TCoinTableRow> = ({ name, image, symbol, number, current_price, price_change_percentage_1h_in_currency, price_change_percentage_24h_in_currency, price_change_percentage_7d_in_currency }) => {
     return (
+       
         <StyledCoinTableRow>
+            
             <CoinNumCol
-                coinNumber={coinNumber}
+                number={number}
             />
             <CoinNameCol 
-                coinName={coinName}
-                coinLogo={coinLogo} 
-                coinSymbol={coinSymbol} 
+                name={name}
+                image={image} 
+                symbol={symbol} 
             />
             <CoinPriceCol
                 current_price={current_price}
@@ -25,6 +29,13 @@ export const CoinTableRow: FC<TCoinTableRow> = ({ coinName, coinLogo, coinSymbol
             <Price1hCol
                 price_change_percentage_1h_in_currency={price_change_percentage_1h_in_currency}
             />
+            <Price24hCol
+                price_change_percentage_24h_in_currency={price_change_percentage_24h_in_currency}
+            />
+            <Price7dCol
+                price_change_percentage_7d_in_currency={price_change_percentage_7d_in_currency} 
+            />
         </StyledCoinTableRow>
+        
     )
 };

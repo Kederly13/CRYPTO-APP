@@ -4,9 +4,9 @@ import { StyledCoinLogo, StyledCoinNameCol, StyledCoinName } from './StyledCoinN
 
 import { ICoinNameProps } from '../../../../types';
 
-export const CoinNameCol: FC<ICoinNameProps> = ({ coinName, coinLogo, coinSymbol }) => (
+export const CoinNameCol: FC<ICoinNameProps> = ({ name, image, symbol }) => (
     <StyledCoinNameCol>
-        <StyledCoinLogo src={coinLogo} alt='CoinLogo'/>
-        <StyledCoinName>{coinName} ({coinSymbol})</StyledCoinName>
+        <StyledCoinLogo src={image} alt='CoinLogo'/>
+        <StyledCoinName>{name} ({symbol})</StyledCoinName>
     </StyledCoinNameCol>
 );
