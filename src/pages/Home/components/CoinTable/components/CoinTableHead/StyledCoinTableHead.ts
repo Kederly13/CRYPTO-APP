@@ -1,7 +1,12 @@
 import styled from 'styled-components';
 
 export const StyledCoinTableHead = styled.thead`
-    
+    & > tr {
+        & > th {
+            text-align: left;
+        }
+       
+    }
 `
 
 export const StyledCoinTableHeaderRow = styled.tr`
