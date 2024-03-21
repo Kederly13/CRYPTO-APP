@@ -14,7 +14,7 @@ export const CoinTableRow: FC<TCoinTableRow> = ({ name, image, symbol, number, c
     return (
        
         <StyledCoinTableRow>
-            
+     
             <CoinNumCol
                 number={number}
             />

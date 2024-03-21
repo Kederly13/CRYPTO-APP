@@ -66,7 +66,7 @@ export const Statistics = () => {
     }, []);
 
     useEffect(() => {
-        if (!objSearchParams?.coin && !objSearchParams?.days) {
+        if (!objSearchParams?.coin || !objSearchParams?.days) {
             return;
         }
 
@@ -74,7 +74,7 @@ export const Statistics = () => {
 
         const coinsArr = objSearchParams?.coin?.split(',');
         const newCoin = coinsArr[coinsArr.length - 1];
-
+        console.log(newCoin)
         const payload = {
             id: newCoin,
             days: objSearchParams.days
