@@ -5,6 +5,8 @@ import { ICoinNumProps } from '../../../../types';
 
 export const CoinNumCol: FC<ICoinNumProps> = ({ number }) => (
     <StyledCoinNumCol>
-        <span>{number}</span>
+        <div className='col-wrapper'>
+            <span>{number}</span>
+        </div>
     </StyledCoinNumCol>
 );

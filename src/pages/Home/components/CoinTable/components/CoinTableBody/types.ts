@@ -10,15 +10,15 @@ export interface ICoinNumProps {
     number: number
 };
 
-export interface IPrice1hCol {
+export interface IPrice1hColProps {
     price_change_percentage_1h_in_currency: number,
 };
 
-export interface IPrice24hCol {
+export interface IPrice24hColProps {
     price_change_percentage_24h_in_currency: number,
 };
 
-export interface IPrice7dCol {
+export interface IPrice7dColProps {
     price_change_percentage_7d_in_currency: number,
 };
 
@@ -26,7 +26,14 @@ export interface ICoinPriceProps {
     current_price: number,
 };
 
-export type TCoinTableRow = ICoinNameProps & ICoinNumProps & ICoinPriceProps & IPrice1hCol & IPrice24hCol & IPrice7dCol;
+export interface IProgressBarProps {
+    market_cap: number,
+    market_cap_change_24h: number,
+    circulating_supply: number,
+    total_supply: number,
+};
+
+export type TCoinTableRow = ICoinNameProps & ICoinNumProps & ICoinPriceProps & IPrice1hColProps & IPrice24hColProps & IPrice7dColProps & IProgressBarProps;
 
 // export interface ICoinProps {
 //     name: string;

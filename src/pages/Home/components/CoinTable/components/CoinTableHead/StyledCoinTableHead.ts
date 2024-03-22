@@ -3,6 +3,7 @@ import styled from 'styled-components';
 export const StyledCoinTableHead = styled.thead`
     & > tr {
         & > th {
+            padding: 20px 10px;
             text-align: left;
         }
        

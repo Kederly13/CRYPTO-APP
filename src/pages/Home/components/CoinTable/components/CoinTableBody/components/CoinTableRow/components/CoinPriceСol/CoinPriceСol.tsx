@@ -6,6 +6,8 @@ import { ICoinPriceProps } from '../../../../types';
 
 export const CoinPriceCol: FC<ICoinPriceProps> = ({ current_price }) => (
     <StyledCoinPriceCol>
-        <span>{current_price}</span>
+        <div className='col-wrapper'>
+            <span>{current_price}</span>
+        </div>
     </StyledCoinPriceCol>
 );
