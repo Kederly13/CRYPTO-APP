@@ -19,9 +19,7 @@ export const StyledCoinTableRow = styled.tr`
 
         .col-wrapper {
             display: flex;
-            align-items: center;
-
-            
+            align-items: center;        
         }
     }
    

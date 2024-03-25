@@ -71,16 +71,15 @@ export const Statistics = () => {
         }
 
         const controller = new AbortController();
-
-        const coinsArr = objSearchParams?.coin?.split(',');
-        const newCoin = coinsArr[coinsArr.length - 1];
+        
+        const ids = objSearchParams?.coin?.split(',');
 
         const payload = {
-            id: newCoin,
+            ids,
             days: objSearchParams.days
         };
 
-        dispatch(fetchCoinHistory({ payload, controller: controller}))
+        dispatch(fetchCoinHistory({ payload, controller: controller }))
 
         return () => {
             controller.abort();

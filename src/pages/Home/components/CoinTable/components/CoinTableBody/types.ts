@@ -33,7 +33,11 @@ export interface IProgressBarProps {
     total_supply: number,
 };
 
-export type TCoinTableRow = ICoinNameProps & ICoinNumProps & ICoinPriceProps & IPrice1hColProps & IPrice24hColProps & IPrice7dColProps & IProgressBarProps;
+export interface ISparklineProps {
+    sparkline_in_7d: number[]
+};
+
+export type TCoinTableRow = ICoinNameProps & ICoinNumProps & ICoinPriceProps & IPrice1hColProps & IPrice24hColProps & IPrice7dColProps & IProgressBarProps & ISparklineProps;
 
 // export interface ICoinProps {
 //     name: string;

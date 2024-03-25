@@ -10,9 +10,10 @@ import { Price7dCol } from './components/Price7dCol';
 import { TableProgressBar } from 'components/TableProgresBar';
 
 import { TCoinTableRow } from '../../types';
+import { Sparkline } from './components/SparkLine';
 
 export const CoinTableRow: FC<TCoinTableRow> = ({ name, image, symbol, number, current_price, price_change_percentage_1h_in_currency, price_change_percentage_24h_in_currency, price_change_percentage_7d_in_currency, 
-    market_cap_change_24h, market_cap, total_supply, circulating_supply
+    market_cap_change_24h, market_cap, total_supply, circulating_supply, sparkline_in_7d
      }) => {
     return (
         <StyledCoinTableRow>
@@ -46,6 +47,11 @@ export const CoinTableRow: FC<TCoinTableRow> = ({ name, image, symbol, number, c
                 <TableProgressBar
                     value={circulating_supply}
                     max={total_supply}
+                />
+            </td>
+            <td>
+                <Sparkline
+                    sparkline_in_7d={sparkline_in_7d}
                 />
             </td>
 

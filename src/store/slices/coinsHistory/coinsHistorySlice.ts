@@ -4,12 +4,35 @@ import { getErrorMessage } from 'utils/getErrorMessage';
 
 import { ICoinObjHistory, IFetchCoinsHistoryParams, TCoinsHistoryState  } from './type';
 
-export const fetchCoinHistory = createAsyncThunk<ICoinObjHistory, IFetchCoinsHistoryParams, {rejectValue: string}>(
+export const fetchCoinHistory = createAsyncThunk<Record<string, ICoinObjHistory>, IFetchCoinsHistoryParams, {rejectValue: string}>(
     'coinsHistory/fetchCoinHistory',
     async (params, { rejectWithValue }) => {
         try {
-            const { data } = await ChartApi.getPrices(params); 
-            return data;
+            const data = await Promise.all(
+                params.payload.ids.map(async (id) => {
+                    const paramsSingle = {
+                        payload: { id, days: params.payload.days },
+                        controller: params.controller
+                    }
+
+                    const { data } = await ChartApi.getPrices(paramsSingle);
+
+                    return {
+                        [id]: data
+                    } 
+                })
+            )
+
+            const dataObj = data.reduce((items, item) => {
+                return {
+                    ...items,
+                    ...item
+                }
+            }, {})
+            console.log(data)
+            console.log(dataObj);
+            
+            return dataObj;
         } catch (error) {
             return rejectWithValue(getErrorMessage(error))
         }
@@ -44,9 +67,10 @@ const coinHistorySlice = createSlice({
                 state.error = null;
             })
             .addCase(fetchCoinHistory.fulfilled, (state, action) => {
-                const { payload: { id } } = action.meta.arg;
-                state.coinsHistory[id] = action.payload;
                 state.loading = false;
+                state.coinsHistory = action.payload;
+
+
    
             })
             .addCase(fetchCoinHistory.rejected, (state, action) => {
