@@ -17,6 +17,10 @@ export const CoinTableRow: FC<TCoinTableRow> = ({ name, image, symbol, number, c
      }) => {
     return (
         <StyledCoinTableRow>
+<<<<<<< HEAD
+=======
+     
+>>>>>>> 0218b8f3cd09df603f64545a26b13bf1009e279b
             <CoinNumCol
                 number={number}
             />

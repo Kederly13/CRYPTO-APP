@@ -66,14 +66,15 @@ export const Statistics = () => {
     }, []);
 
     useEffect(() => {
-        if (!objSearchParams?.coin && !objSearchParams?.days) {
+        if (!objSearchParams?.coin || !objSearchParams?.days) {
             return;
         }
 
         const controller = new AbortController();
-        
-        const ids = objSearchParams?.coin?.split(',');
 
+        const coinsArr = objSearchParams?.coin?.split(',');
+        const newCoin = coinsArr[coinsArr.length - 1];
+        console.log(newCoin)
         const payload = {
             ids,
             days: objSearchParams.days
