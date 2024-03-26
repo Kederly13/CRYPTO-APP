@@ -73,8 +73,8 @@ export const Statistics = () => {
         const controller = new AbortController();
 
         const coinsArr = objSearchParams?.coin?.split(',');
-        const newCoin = coinsArr[coinsArr.length - 1];
-        console.log(newCoin)
+        const ids = objSearchParams?.coin?.split(',')
+        
         const payload = {
             ids,
             days: objSearchParams.days
