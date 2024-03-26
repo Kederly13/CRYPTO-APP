@@ -1,101 +1,102 @@
-import { FC } from 'react';
-import { StyledSparkline } from './StyledSparkline';
-
-import { ISparklineProps } from '../../../../types';
+import { FC } from "react";
+import { StyledSparklineWrapper } from './StyledSparkline';
 
 import {
-    Chart as ChartJS,
-    BarElement,
-    CategoryScale,
-    LinearScale,
-    PointElement,
-    LineElement,
-    Tooltip,
-    Legend,
-    Filler,
-    LogarithmicScale
-  } from 'chart.js';
+  Chart as ChartJS,
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  LineElement,
+  BarElement,
+  Title,
+  Tooltip,
+  Filler,
+  Legend,
+} from "chart.js/auto";
+
+import { Line } from "react-chartjs-2";
+
+import { ISparklineProps } from "../../../../types";
 
 ChartJS.register(
-    BarElement,
-    CategoryScale,
-    LinearScale,
-    PointElement,
-    LineElement,
-    Tooltip,
-    Legend,
-    Filler,
-    LogarithmicScale
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  LineElement,
+  BarElement,
+  Title,
+  Tooltip,
+  Filler,
+  Legend,
 );
+export const options = {
+  elements: {
+    point: {
+      radius: 50,
+    },
+  },
+  responsive: true,
+  maintainAspectRatio: false,
+  hitRadius: 250,
+  scales: {
+    y: {
+      display: false, 
+      ticks: {
+        display: false,
+      },
+    },
+    x: {
+      display: false,
+      categoryPercentage: 0.26,
+      ticks: {
+        display: false,
+      },
+      grid: {
+        display: false, 
+      },
+    },
+  },
+  plugins: {
+    tooltip: {
+      enabled: true, // Hide the tooltip
+      backgroundColor: "rgba(0, 0, 0, 0)",
+      caretSize: 5,
+      caretPadding: 1,
+      displayColors: false,
+    },
+    legend: {
+      display: false,
+    },
+  },
+};
 
-export const Sparkline: FC<ISparklineProps> = ({ sparkline_in_7d }) => {
-    console.log(sparkline_in_7d)
-    const data = {
-        datasets: [
-            { 
-                data: [12, 15, 77, 77, 88],
-                borderColor: '#7878FF',
-                backgroundColor: (context: { chart: { ctx: CanvasRenderingContext2D } }) => {
-                    const ctx = context.chart.ctx;
-                    const gradient = ctx.createLinearGradient(0, 0, 0, 400);
-                    gradient.addColorStop(0, 'rgba(116, 116, 250, 0.8)');
-                    gradient.addColorStop(0.3, 'rgba(116, 116, 250, 0.6)');
-                    gradient.addColorStop(0.7, 'rgba(116, 116, 250, 0.4)');
-                    gradient.addColorStop(1, 'rgba(10, 10, 20, 0.01)');
-                    return gradient;
-                },
-                fill: true,
-                yAxisID: 'y-axis-1',
-                order: 1,
-                pointRadius: 0,
-                tension: 0.4,
-                pointStyle: "circle",
-            },
-        ],
-    };
-
-    const options = {
-        responsive: true,
-        
-        scales: {
-            x: {
-                ticks: {
-                    maxTicksLimit: 12
-                },
-              grid: {
-                display: false,
-
-              },
-            },
-            "y-axis-1": {
-              display: false,
-              ticks: {
-                display: false,
-              },
-            },
-            "y-axis-2": {
-              display: false,
-              ticks: {
-                display: false,
-              },
-            },
-        },    
-        plugins: {
-            legend: {
-                display: false
-            },
-            tooltip: { 
-                enabled: false
-            }
-        }
-    };
-
-    return (
-        <StyledSparkline
-            options={options} 
-            data={data}
-            height={37}
-            width={120}
-        />  
-    );
+export const Sparkline: FC<ISparklineProps> = ({ price }) => {
+  const time = Array.from({ length: price.length }, (_, i) => i);
+  const isLoaded = price.length > 0;
+  const chartData = {
+    labels: time,
+    datasets: [
+      {
+        fill: true,
+        tension: 0.75,
+        label: "$",
+        data: price,
+        borderColor: '#7878FF',
+        borderWidth: 1.5,
+        pointRadius: 0,
+        backgroundColor: (context: { chart: { ctx: CanvasRenderingContext2D } }) => {
+            const ctx = context.chart.ctx;
+            const gradient = ctx.createLinearGradient(0, 0, 0, 400);
+            gradient.addColorStop(0, 'rgba(116, 116, 250, 0.95)');
+            gradient.addColorStop(0.15, "rgba(120, 120, 250, 0)");
+            return gradient;
+        },
+      },
+    ],
+  };
+  return (
+    <StyledSparklineWrapper>
+        <Line options={options} data={chartData} width={120} height={37} />
+    </StyledSparklineWrapper>
+  );
 };

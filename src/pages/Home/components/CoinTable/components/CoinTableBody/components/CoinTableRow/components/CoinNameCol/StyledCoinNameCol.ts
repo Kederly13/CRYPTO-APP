@@ -3,7 +3,9 @@ import styled from 'styled-components';
 export const StyledCoinNameCol = styled.td`
 
     align-items: center;
-
+    .col-wrapper {
+        width: max-content;
+    }
 `
 
 export const StyledCoinLogo = styled.img`

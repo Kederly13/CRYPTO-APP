@@ -44,9 +44,9 @@ export const LineChart: FC<ILineChartProps> = ({ firstCoinData, secondCoinData, 
                 backgroundColor: (context: { chart: { ctx: CanvasRenderingContext2D } }) => {
                     const ctx = context.chart.ctx;
                     const gradient = ctx.createLinearGradient(0, 0, 0, 400);
-                    gradient.addColorStop(0, 'rgba(116, 116, 250, 0.8)');
-                    gradient.addColorStop(0.3, 'rgba(116, 116, 250, 0.6)');
-                    gradient.addColorStop(0.7, 'rgba(116, 116, 250, 0.4)');
+                    gradient.addColorStop(0, 'rgba(116, 116, 250, 0.95)');
+                    gradient.addColorStop(0.3, 'rgba(72, 72, 160, 0.7)');
+                    gradient.addColorStop(0.7, 'rgba(16, 16, 28, 0.4)');
                     gradient.addColorStop(1, 'rgba(10, 10, 20, 0.01)');
                     return gradient;
                 },

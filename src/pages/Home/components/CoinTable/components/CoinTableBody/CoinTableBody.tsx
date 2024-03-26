@@ -9,12 +9,8 @@ export const CoinTableBody = () => {
     const coins = useAppSelector(selectCoinList);
     console.log(coins)
 
-    const fetchMoreData = () => {
-
-    }
 
     return (
-        // <InfiniteScroll dataLength={coins.length} next={fetchMoreData} hasMore={false} loader={<h4>Loading...</h4>}>
             <StyledCoinTableBody>
                 {coins.map(({ id, name, symbol, image, current_price, price_change_percentage_1h_in_currency, price_change_percentage_24h_in_currency, price_change_percentage_7d_in_currency, market_cap_change_24h, market_cap, total_supply, circulating_supply, sparkline_in_7d }, index) => (
                     <CoinTableRow
@@ -31,11 +27,10 @@ export const CoinTableBody = () => {
                         market_cap={market_cap}
                         circulating_supply={circulating_supply}
                         total_supply={total_supply}
-                        sparkline_in_7d={sparkline_in_7d.price}
+                        price={sparkline_in_7d.price}
                     />
                 ))}
             </StyledCoinTableBody>
-        // </InfiniteScroll>
 
     )
 }

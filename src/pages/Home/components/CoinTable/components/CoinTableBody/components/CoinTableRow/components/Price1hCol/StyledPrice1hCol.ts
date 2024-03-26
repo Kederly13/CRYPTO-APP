@@ -1,6 +1,9 @@
 import styled from 'styled-components';
 
 export const StyledPrice1hCol = styled.td`
+& > span {
+        width: max-content;
+    }
 `
 
 export const StyledCoinLogo = styled.img`

@@ -9,10 +9,6 @@ type CoinsState = {
     error: null
 };
 
-const createSliceWithThunks = buildCreateSlice({
-    creators: { asyncThunk: asyncThunkCreator}
-});
-
 export const fetchCoins = createAsyncThunk<ICoin[], AbortController, {rejectValue: string}>(
     'coins/fetchCoins',
     async function (controller, { rejectWithValue }) {

@@ -34,7 +34,7 @@ export interface IProgressBarProps {
 };
 
 export interface ISparklineProps {
-    sparkline_in_7d: number[]
+    price: number[]
 };
 
 export type TCoinTableRow = ICoinNameProps & ICoinNumProps & ICoinPriceProps & IPrice1hColProps & IPrice24hColProps & IPrice7dColProps & IProgressBarProps & ISparklineProps;

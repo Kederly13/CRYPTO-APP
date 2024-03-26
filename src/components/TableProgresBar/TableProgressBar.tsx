@@ -1,6 +1,6 @@
 import { FC } from 'react';
 
-import { StyledTableProgressLabel } from './StyledTableProgressBar';
+import { StyledTableProgressLabel, StyledBar } from './StyledTableProgressBar';
 
 interface TableProgressBarProps {
     value: number;
@@ -27,7 +27,7 @@ export const TableProgressBar: FC<TableProgressBarProps> = ({ value, max }) => {
                 <span>{formattedValue}</span>
                 <span>{formattedMax}</span>
             </StyledTableProgressLabel>
-            <progress value={value} max={max}></progress>
+            <StyledBar value={value} max={max}></StyledBar>
         </div>
     );
 };

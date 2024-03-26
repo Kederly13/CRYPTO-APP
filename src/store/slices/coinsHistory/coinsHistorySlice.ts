@@ -29,8 +29,6 @@ export const fetchCoinHistory = createAsyncThunk<Record<string, ICoinObjHistory>
                     ...item
                 }
             }, {})
-            console.log(data)
-            console.log(dataObj);
             
             return dataObj;
         } catch (error) {

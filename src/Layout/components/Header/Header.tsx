@@ -7,6 +7,7 @@ import { Currency } from './components/Currency';
 import { Logo } from 'components/Logo';
 import { Button } from 'components/Button';
 import { Sun } from 'assets/svg/sun';
+import { HeaderTop } from './components/HeaderTop';
 
 // interface IHeader {
 //     children: ReactNode,
@@ -14,7 +15,7 @@ import { Sun } from 'assets/svg/sun';
 
 export const Header = () => (
     <StyledHeader>
-        
+        <HeaderTop />
         <Container>
             <Nav>
                 <Logo />
