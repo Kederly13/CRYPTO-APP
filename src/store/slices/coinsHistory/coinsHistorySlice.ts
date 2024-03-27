@@ -16,9 +16,9 @@ export const fetchCoinHistory = createAsyncThunk<Record<string, ICoinObjHistory>
                     }
 
                     const { data } = await ChartApi.getPrices(paramsSingle);
-                    const innerData = data.data;
+                   
                     return {
-                        [id]: innerData
+                        [id]: data
                     } 
                 })
             )

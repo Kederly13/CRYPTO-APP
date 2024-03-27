@@ -10,6 +10,7 @@ export const CoinTableBody = () => {
     const [visibleCoins, setVisibleCoins] = useState(coins.slice(0, 10)); 
     const lastElement = useRef<HTMLDivElement>(null);
     const observer = useRef<IntersectionObserver>();
+    console.log(coins)
 
     useEffect(() => {
         const callback: IntersectionObserverCallback = (entries, observer) => {

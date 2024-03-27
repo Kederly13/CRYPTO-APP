@@ -28,9 +28,11 @@ export const Statistics = () => {
 
     const coins = useAppSelector(selectCoinList);
     const coinsHistory = useAppSelector(selectCoinsHistory);
+    
 
-    const coinsHistoryKeys = Object.keys(coinsHistory);  
+    const coinsHistoryKeys = Object.keys(coinsHistory);
     const [coinsHistoryFirst, coinsHistorySecond] = coinsHistoryKeys;
+    
 
     const coinFirst = coins.find(({ id }) => id === coinsHistoryFirst);
     // const coinSecond = coins.find(({ id }) => id === coinsHistorySecond);
@@ -52,7 +54,7 @@ export const Statistics = () => {
 
         (async () => {
             const resCoins = await dispatch(fetchCoins(controller)).unwrap();
-
+            console.log(resCoins)
             onSetObjSearchParams({
                 ...objSearchParams,
                 [SEARCH_PARAMS.COIN]: resCoins[0]?.id,
