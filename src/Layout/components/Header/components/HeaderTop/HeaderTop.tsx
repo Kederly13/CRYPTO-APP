@@ -69,7 +69,7 @@ export const HeaderTop = () => {
                     <span> {btcMarketCap}</span>
                 </div>
                 <div>
-                    {/* <Percent per */}
+                    <span></span>
                 </div>
                 <div>
                     
