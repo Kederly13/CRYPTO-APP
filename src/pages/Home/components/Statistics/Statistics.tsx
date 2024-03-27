@@ -72,7 +72,6 @@ export const Statistics = () => {
 
         const controller = new AbortController();
 
-        const coinsArr = objSearchParams?.coin?.split(',');
         const ids = objSearchParams?.coin?.split(',')
         
         const payload = {

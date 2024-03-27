@@ -1,5 +1,6 @@
 import { createSlice, createAsyncThunk, buildCreateSlice, asyncThunkCreator } from '@reduxjs/toolkit';
 import { CoinsApi } from 'api/CoinsApi';
+import { act } from 'react-dom/test-utils';
 import { ICoin } from 'types/coinType';
 import { getErrorMessage } from 'utils/getErrorMessage';
 
@@ -43,6 +44,7 @@ const coinSlice = createSlice({
                 state.error = null;
             })
             .addCase(fetchCoins.fulfilled, (state, action) => {
+                
                 state.coinList = action.payload;
                 state.loading = false;
             })

@@ -25,18 +25,13 @@ export const CoinTable = () => {
     };
 
     return (
-        <InfiniteScroll
-            dataLength={coins.length}
-            next={fetchMoreData}
-            hasMore={false}
-            loader={<h4>Loading...</h4>}
-            endMessage={<p>No more data</p>}
-            scrollThreshold={0.9}
-        >
-            <StyledCoinTable>
-                <CoinTableHead />
-                <CoinTableBody />
-            </StyledCoinTable>
-        </InfiniteScroll>
+        <>
+        
+        <StyledCoinTable>
+            <CoinTableHead />
+            <CoinTableBody />
+        </StyledCoinTable>
+        </>
+        
     );
 };

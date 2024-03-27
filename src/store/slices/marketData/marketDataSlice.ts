@@ -15,7 +15,9 @@ export const fetchMarketData = createAsyncThunk<IMarketDataProps, AbortControlle
    async (controller, { rejectWithValue }) => {
         try {
             const { data } = await MarketDataApi.getMarketData(controller);
+            console.log(data)
             return data;
+
         } catch(error) {
             return rejectWithValue(getErrorMessage(error));
         }
@@ -43,6 +45,7 @@ const marketDataSlice = createSlice({
             state.error = null;
         })
         .addCase(fetchMarketData.fulfilled, (state, action) => {
+            console.log(action.payload)
             state.marketData = action.payload;
             state.loading = false;
         })

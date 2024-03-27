@@ -16,7 +16,7 @@ import { selectMarketData } from "store/slices/marketData/marketDataSlice";
 export const HeaderTop = () => {
     const dispatch = useAppDispatch();
     const marketData = useAppSelector(selectMarketData);
-    console.log(marketData)
+
 
     useEffect(() => {
         if (marketData) return;
@@ -25,6 +25,8 @@ export const HeaderTop = () => {
 
         (async () => {
             const resMarketData = await dispatch(fetchMarketData(controller)).unwrap();
+            
+
         })();
 
         return () => {
@@ -38,7 +40,7 @@ export const HeaderTop = () => {
             <StyledHeaderWrapper>
                 <div>
                     <Flash /> Coin 
-                    
+                    <span>{marketData?.active_cryptocurrencies}</span>
                 </div>
                 <div>
                     
