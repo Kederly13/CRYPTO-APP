@@ -3,7 +3,7 @@ import { useEffect } from 'react';
 
 import { StyledHeaderTop, StyledHeaderWrapper } from "./StyledHeaderTop";
 import { useAppSelector } from "hooks/reduxHooks";
-import { selectCoinList } from "store/slices/coinSlice";
+import { selectCoinList } from "store/slices/coinsSlice/coinSlice";
 import { selectCoinsHistory } from "store/slices/coinsHistory/coinsHistorySlice";
 import { fetchMarketData } from 'store/slices/marketData/marketDataSlice';
 

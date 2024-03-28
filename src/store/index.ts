@@ -1,6 +1,6 @@
 import { configureStore, combineReducers } from '@reduxjs/toolkit';
 
-import coinReducer from './slices/coinSlice';
+import coinReducer from './slices/coinsSlice/coinSlice';
 import coinsHistoryReducer from './slices/coinsHistory/coinsHistorySlice';
 import marketDataReducer from './slices/marketData/marketDataSlice';
 

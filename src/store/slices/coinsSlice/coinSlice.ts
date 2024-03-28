@@ -1,6 +1,5 @@
 import { createSlice, createAsyncThunk, buildCreateSlice, asyncThunkCreator } from '@reduxjs/toolkit';
-import { CoinsApi } from 'api/CoinsApi';
-import { act } from 'react-dom/test-utils';
+import { CoinsApi, ICoinsAPIGetCoinsParams } from 'api/CoinsApi';
 import { ICoin } from 'types/coinType';
 import { getErrorMessage } from 'utils/getErrorMessage';
 
@@ -10,11 +9,19 @@ type CoinsState = {
     error: null
 };
 
-export const fetchCoins = createAsyncThunk<ICoin[], AbortController, {rejectValue: string}>(
+export const fetchCoins = createAsyncThunk<ICoin[], ICoinsAPIGetCoinsParams, {rejectValue: string}>(
     'coins/fetchCoins',
-    async function (controller, { rejectWithValue }) {
+    async (params, { rejectWithValue }) => {
         try {
-            const { data } = await CoinsApi.getCoins(controller);
+            const param = {
+                payload: { 
+                    currency: params.payload.currency,
+                    page: params.payload.page                
+                },
+                controller: params.controller
+            }
+
+            const { data } = await CoinsApi.getCoins(param);
             
             return data;
         } catch(error) {

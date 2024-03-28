@@ -8,7 +8,7 @@ import { BarChart } from './components/BarChart';
 import { ChartBox } from './components/ChartBox';
 import { PeriodFilter } from 'components/PeriodFilter';
 
-import { fetchCoins, selectCoinList } from 'store/slices/coinSlice';
+import { fetchCoins, selectCoinList } from 'store/slices/coinsSlice/coinSlice';
 import { fetchCoinHistory } from 'store/slices/coinsHistory/coinsHistorySlice';
 import { useAppDispatch, useAppSelector } from 'hooks/reduxHooks';
 import { selectCoinsHistory } from 'store/slices/coinsHistory/coinsHistorySlice';
@@ -42,7 +42,8 @@ export const Statistics = () => {
             onSetObjSearchParams({
                 ...objSearchParams,
                 [SEARCH_PARAMS.COIN]: coinsHistoryFirst,
-                [SEARCH_PARAMS.DAYS]: '7'
+                [SEARCH_PARAMS.DAYS]: '7',
+                [SEARCH_PARAMS.CURRENCY]: 'usd'
             });
         };
 
@@ -53,12 +54,16 @@ export const Statistics = () => {
         const controller = new AbortController();
 
         (async () => {
+            const payload = {
+                currency: objSearchParams.currency
+            }
             const resCoins = await dispatch(fetchCoins(controller)).unwrap();
-            console.log(resCoins)
+            
             onSetObjSearchParams({
                 ...objSearchParams,
                 [SEARCH_PARAMS.COIN]: resCoins[0]?.id,
-                [SEARCH_PARAMS.DAYS]: '7'
+                [SEARCH_PARAMS.DAYS]: '7',
+                [SEARCH_PARAMS.CURRENCY]: 'usd'
             })
         })();
 

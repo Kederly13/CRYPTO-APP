@@ -1,7 +1,7 @@
 import { useRef, useEffect, useState } from 'react';
 import { StyledCoinTableBody } from './StyledCoinTableBody';
 import { CoinTableRow } from './components/CoinTableRow';
-import { selectCoinList } from 'store/slices/coinSlice';
+import { selectCoinList } from 'store/slices/coinsSlice/coinSlice';
 import { useAppSelector } from 'hooks/reduxHooks';
 import InfiniteScroll from 'react-infinite-scroll-component';
 
