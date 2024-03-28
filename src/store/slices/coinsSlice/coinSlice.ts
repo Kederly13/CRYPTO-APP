@@ -5,6 +5,7 @@ import { getErrorMessage } from 'utils/getErrorMessage';
 
 type CoinsState = {
     coinList: ICoin[];
+    lastCoins: ICoin[];
     loading: boolean,
     error: null
 };
@@ -32,6 +33,7 @@ export const fetchCoins = createAsyncThunk<ICoin[], ICoinsAPIGetCoinsParams, {re
 
 const initialState: CoinsState = {
     coinList: [],
+    lastCoins: [],
     loading: false,
     error: null
 };
@@ -51,10 +53,13 @@ const coinSlice = createSlice({
                 state.error = null;
             })
             .addCase(fetchCoins.fulfilled, (state, action) => {
-                
+                if (!state.lastCoins.length) {
+                    state.lastCoins = action.payload;
+                }
                 state.coinList = action.payload;
                 state.loading = false;
             })
+            
     }
 });
 

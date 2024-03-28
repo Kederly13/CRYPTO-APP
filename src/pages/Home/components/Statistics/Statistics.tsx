@@ -7,6 +7,7 @@ import { LineChart } from './components/LineChart';
 import { BarChart } from './components/BarChart';
 import { ChartBox } from './components/ChartBox';
 import { PeriodFilter } from 'components/PeriodFilter';
+import { peiodFilterData } from 'components/PeriodFilter/periodFilterData';
 
 import { fetchCoins, selectCoinList } from 'store/slices/coinsSlice/coinSlice';
 import { fetchCoinHistory } from 'store/slices/coinsHistory/coinsHistorySlice';
@@ -29,7 +30,6 @@ export const Statistics = () => {
     const coins = useAppSelector(selectCoinList);
     const coinsHistory = useAppSelector(selectCoinsHistory);
     
-
     const coinsHistoryKeys = Object.keys(coinsHistory);
     const [coinsHistoryFirst, coinsHistorySecond] = coinsHistoryKeys;
     
@@ -43,7 +43,8 @@ export const Statistics = () => {
                 ...objSearchParams,
                 [SEARCH_PARAMS.COIN]: coinsHistoryFirst,
                 [SEARCH_PARAMS.DAYS]: '7',
-                [SEARCH_PARAMS.CURRENCY]: 'usd'
+                [SEARCH_PARAMS.CURRENCY]: 'usd',
+                [SEARCH_PARAMS.PAGE]: '1'
             });
         };
 
@@ -55,14 +56,16 @@ export const Statistics = () => {
 
         (async () => {
             const payload = {
-                currency: objSearchParams.currency
+                currency: objSearchParams.currency,
+                page: objSearchParams.page,
             }
-            const resCoins = await dispatch(fetchCoins(controller)).unwrap();
+
+            const resCoins = await dispatch(fetchCoins({payload, controller })).unwrap();
             
             onSetObjSearchParams({
                 ...objSearchParams,
                 [SEARCH_PARAMS.COIN]: resCoins[0]?.id,
-                [SEARCH_PARAMS.DAYS]: '7',
+                [SEARCH_PARAMS.DAYS]: peiodFilterData[0].value,
                 [SEARCH_PARAMS.CURRENCY]: 'usd'
             })
         })();
@@ -86,7 +89,7 @@ export const Statistics = () => {
             days: objSearchParams.days
         };
 
-        dispatch(fetchCoinHistory({ payload, controller: controller }))
+        dispatch(fetchCoinHistory({ payload, controller }))
 
         return () => {
             controller.abort();

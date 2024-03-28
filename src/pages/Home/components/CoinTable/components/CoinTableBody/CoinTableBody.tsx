@@ -3,11 +3,16 @@ import { StyledCoinTableBody } from './StyledCoinTableBody';
 import { CoinTableRow } from './components/CoinTableRow';
 import { selectCoinList } from 'store/slices/coinsSlice/coinSlice';
 import { useAppSelector } from 'hooks/reduxHooks';
-import InfiniteScroll from 'react-infinite-scroll-component';
+import { useSelectedObjSearchParams } from 'hooks/useSelectedSearchParams';
+
+import { SEARCH_PARAMS } from 'constants/searchParams';
 
 export const CoinTableBody = () => {
     const coins = useAppSelector(selectCoinList);
-    const [visibleCoins, setVisibleCoins] = useState(coins.slice(0, 10)); 
+    const [visibleCoins, setVisibleCoins] = useState(coins.slice(0, 10));
+
+    const { objSearchParams, onSetObjSearchParams } = useSelectedObjSearchParams(); 
+    
     const lastElement = useRef<HTMLDivElement>(null);
     const observer = useRef<IntersectionObserver>();
     console.log(coins)
@@ -16,7 +21,6 @@ export const CoinTableBody = () => {
         const callback: IntersectionObserverCallback = (entries, observer) => {
             if (entries[0].isIntersecting) {
                 loadMoreCoins();
-                
             }
         };
 
@@ -34,8 +38,12 @@ export const CoinTableBody = () => {
     }, [visibleCoins]); 
 
     const loadMoreCoins = () => {
-        const nextBatch = coins.slice(visibleCoins.length, visibleCoins.length + 10);
-        setVisibleCoins(prevCoins => [...prevCoins, ...nextBatch]);
+        onSetObjSearchParams({ 
+            ...objSearchParams,  
+            [SEARCH_PARAMS.PAGE]: String(+objSearchParams.page + 1)
+        })
+
+
     };
 
     return (
