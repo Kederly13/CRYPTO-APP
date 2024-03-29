@@ -12,7 +12,7 @@ import { SEARCH_PARAMS } from 'constants/searchParams';
 export const CoinTableBody = () => {
     const dispatch = useAppDispatch();
     const coins = useAppSelector(selectCoinList);
-    
+    console.log(coins)
 
     const [visibleCoins, setVisibleCoins] = useState(coins.slice(0, 10));
 
@@ -41,7 +41,7 @@ export const CoinTableBody = () => {
             }
         };
     }, [visibleCoins]);
-    console.log(coins)
+    
     useEffect(() => {
         const payload = {
             currency: 'usd',
@@ -52,7 +52,7 @@ export const CoinTableBody = () => {
         const updatedCoins = dispatch(fetchCoins({ payload, controller })).unwrap;
         
     },[objSearchParams.page])
-    console.log()
+    
     const loadMoreCoins = () => {
         onSetObjSearchParams({ 
             ...objSearchParams,  

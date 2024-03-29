@@ -28,8 +28,10 @@ export const Statistics = () => {
     const { objSearchParams, onSetObjSearchParams } = useSelectedObjSearchParams();
 
     const lastCoins = useAppSelector(selectLastCoinList);
+    const coinsList = useAppSelector(selectCoinList)
     const coinsHistory = useAppSelector(selectCoinsHistory);
-    
+    // console.log(lastCoins)
+    // console.log(coinsList)
     const coinsHistoryKeys = Object.keys(coinsHistory);
     const [coinsHistoryFirst, coinsHistorySecond] = coinsHistoryKeys;
     
@@ -61,7 +63,7 @@ export const Statistics = () => {
             }
             
             const resCoins = await dispatch(fetchCoins({ payload, controller })).unwrap();
-            console.log(resCoins)
+            
             onSetObjSearchParams({
                 ...objSearchParams,
                 [SEARCH_PARAMS.COIN]: resCoins[0]?.id,
@@ -76,7 +78,6 @@ export const Statistics = () => {
         }
     }, []);
     
-    console.log(objSearchParams)
     useEffect(() => {
         if (!objSearchParams?.coin || !objSearchParams?.days) {
             return;

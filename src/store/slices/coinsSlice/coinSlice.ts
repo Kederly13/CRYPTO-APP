@@ -57,7 +57,7 @@ const coinSlice = createSlice({
                 if (!state.lastCoins.length) {
                     state.lastCoins = action.payload;
                 }
-                state.coinList = action.payload;
+                state.coinList = [...state.coinList, ...action.payload];
                 state.loading = false;
             })
             
