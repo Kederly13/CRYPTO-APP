@@ -16,7 +16,7 @@ export const fetchMarketData = createAsyncThunk<IMarketDataProps, AbortControlle
         try {
             const { data } = await MarketDataApi.getMarketData(controller);
             const innerData = data.data;
-            console.log(innerData)
+            
             return innerData;
 
         } catch(error) {

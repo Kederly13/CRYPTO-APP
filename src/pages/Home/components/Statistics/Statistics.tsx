@@ -9,7 +9,7 @@ import { ChartBox } from './components/ChartBox';
 import { PeriodFilter } from 'components/PeriodFilter';
 import { peiodFilterData } from 'components/PeriodFilter/periodFilterData';
 
-import { fetchCoins, selectCoinList } from 'store/slices/coinsSlice/coinSlice';
+import { fetchCoins, selectCoinList, selectLastCoinList } from 'store/slices/coinsSlice/coinSlice';
 import { fetchCoinHistory } from 'store/slices/coinsHistory/coinsHistorySlice';
 import { useAppDispatch, useAppSelector } from 'hooks/reduxHooks';
 import { selectCoinsHistory } from 'store/slices/coinsHistory/coinsHistorySlice';
@@ -27,14 +27,14 @@ export const Statistics = () => {
 
     const { objSearchParams, onSetObjSearchParams } = useSelectedObjSearchParams();
 
-    const coins = useAppSelector(selectCoinList);
+    const lastCoins = useAppSelector(selectLastCoinList);
     const coinsHistory = useAppSelector(selectCoinsHistory);
     
     const coinsHistoryKeys = Object.keys(coinsHistory);
     const [coinsHistoryFirst, coinsHistorySecond] = coinsHistoryKeys;
     
 
-    const coinFirst = coins.find(({ id }) => id === coinsHistoryFirst);
+    const coinFirst = lastCoins.find(({ id }) => id === coinsHistoryFirst);
     // const coinSecond = coins.find(({ id }) => id === coinsHistorySecond);
     
     useEffect(() => {
@@ -48,7 +48,7 @@ export const Statistics = () => {
             });
         };
 
-        if (coins?.length) {
+        if (lastCoins?.length) {
             return;
         };
 
@@ -56,17 +56,18 @@ export const Statistics = () => {
 
         (async () => {
             const payload = {
-                currency: objSearchParams.currency,
-                page: objSearchParams.page,
+                currency: 'usd',
+                page: '1',
             }
-
-            const resCoins = await dispatch(fetchCoins({payload, controller })).unwrap();
             
+            const resCoins = await dispatch(fetchCoins({ payload, controller })).unwrap();
+            console.log(resCoins)
             onSetObjSearchParams({
                 ...objSearchParams,
                 [SEARCH_PARAMS.COIN]: resCoins[0]?.id,
                 [SEARCH_PARAMS.DAYS]: peiodFilterData[0].value,
-                [SEARCH_PARAMS.CURRENCY]: 'usd'
+                [SEARCH_PARAMS.CURRENCY]: objSearchParams.currency,
+                [SEARCH_PARAMS.PAGE]: objSearchParams.page
             })
         })();
 
@@ -74,7 +75,8 @@ export const Statistics = () => {
             controller.abort();
         }
     }, []);
-
+    
+    console.log(objSearchParams)
     useEffect(() => {
         if (!objSearchParams?.coin || !objSearchParams?.days) {
             return;
@@ -106,7 +108,7 @@ export const Statistics = () => {
                 <Button disabled={true} type='button' $padding='12px 24px'>Exit comparison</Button>
             </StyledStatisticsHead>
             <CurrencySwiper
-                coinsDetails={coins}
+                coinsDetails={lastCoins}
             />
             <div className='charts'>
                 <ChartBox 

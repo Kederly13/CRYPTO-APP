@@ -1,4 +1,6 @@
 import { useRef, useEffect, useState } from 'react';
+import { useAppDispatch } from 'hooks/reduxHooks';
+import { fetchCoins } from 'store/slices/coinsSlice/coinSlice';
 import { StyledCoinTableBody } from './StyledCoinTableBody';
 import { CoinTableRow } from './components/CoinTableRow';
 import { selectCoinList } from 'store/slices/coinsSlice/coinSlice';
@@ -8,14 +10,17 @@ import { useSelectedObjSearchParams } from 'hooks/useSelectedSearchParams';
 import { SEARCH_PARAMS } from 'constants/searchParams';
 
 export const CoinTableBody = () => {
+    const dispatch = useAppDispatch();
     const coins = useAppSelector(selectCoinList);
+    
+
     const [visibleCoins, setVisibleCoins] = useState(coins.slice(0, 10));
 
     const { objSearchParams, onSetObjSearchParams } = useSelectedObjSearchParams(); 
     
     const lastElement = useRef<HTMLDivElement>(null);
     const observer = useRef<IntersectionObserver>();
-    console.log(coins)
+    // console.log(coins)
 
     useEffect(() => {
         const callback: IntersectionObserverCallback = (entries, observer) => {
@@ -35,15 +40,24 @@ export const CoinTableBody = () => {
                 observer.current.unobserve(lastElement.current);
             }
         };
-    }, [visibleCoins]); 
+    }, [visibleCoins]);
+    console.log(coins)
+    useEffect(() => {
+        const payload = {
+            currency: 'usd',
+            page: objSearchParams.page
+        }
+        const controller = new AbortController();
 
+        const updatedCoins = dispatch(fetchCoins({ payload, controller })).unwrap;
+        
+    },[objSearchParams.page])
+    console.log()
     const loadMoreCoins = () => {
         onSetObjSearchParams({ 
             ...objSearchParams,  
             [SEARCH_PARAMS.PAGE]: String(+objSearchParams.page + 1)
         })
-
-
     };
 
     return (

@@ -18,7 +18,6 @@ import { selectMarketData } from "store/slices/marketData/marketDataSlice";
 export const HeaderTop = () => {
     const dispatch = useAppDispatch();
     const marketData = useAppSelector(selectMarketData);
-    console.log(marketData);
 
     const formatNumber = (number: number) => {
         const suffixes = ["", "K", "M", "B", "T"];
