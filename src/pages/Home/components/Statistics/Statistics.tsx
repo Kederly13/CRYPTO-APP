@@ -68,8 +68,8 @@ export const Statistics = () => {
                 ...objSearchParams,
                 [SEARCH_PARAMS.COIN]: resCoins[0]?.id,
                 [SEARCH_PARAMS.DAYS]: peiodFilterData[0].value,
-                [SEARCH_PARAMS.CURRENCY]: objSearchParams.currency,
-                [SEARCH_PARAMS.PAGE]: objSearchParams.page
+                [SEARCH_PARAMS.CURRENCY]: payload.currency,
+                [SEARCH_PARAMS.PAGE]: payload.page
             })
         })();
 

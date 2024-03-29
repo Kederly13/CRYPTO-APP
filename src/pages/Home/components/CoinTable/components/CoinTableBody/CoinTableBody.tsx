@@ -4,8 +4,10 @@ import { fetchCoins } from 'store/slices/coinsSlice/coinSlice';
 import { StyledCoinTableBody } from './StyledCoinTableBody';
 import { CoinTableRow } from './components/CoinTableRow';
 import { selectCoinList } from 'store/slices/coinsSlice/coinSlice';
+
 import { useAppSelector } from 'hooks/reduxHooks';
 import { useSelectedObjSearchParams } from 'hooks/useSelectedSearchParams';
+import { useScrollPagination } from 'hooks/useScrollPagination';
 
 import { SEARCH_PARAMS } from 'constants/searchParams';
 
@@ -14,51 +16,59 @@ export const CoinTableBody = () => {
     const coins = useAppSelector(selectCoinList);
     console.log(coins)
 
-    const [visibleCoins, setVisibleCoins] = useState(coins.slice(0, 10));
+    // const [visibleCoins, setVisibleCoins] = useState(coins.slice(0, 10));
 
     const { objSearchParams, onSetObjSearchParams } = useSelectedObjSearchParams(); 
-    
-    const lastElement = useRef<HTMLDivElement>(null);
-    const observer = useRef<IntersectionObserver>();
 
-
-    useEffect(() => {
-        const callback: IntersectionObserverCallback = (entries, observer) => {
-            if (entries[0].isIntersecting) {
-                loadMoreCoins();
-            }
-        };
-
-        observer.current = new IntersectionObserver(callback);
-
-        if (lastElement.current) {
-            observer.current.observe(lastElement.current);
-        }
-
-        return () => {
-            if (observer.current && lastElement.current) {
-                observer.current.unobserve(lastElement.current);
-            }
-        };
-    }, [coins]);
-    
-    useEffect(() => {
-        const payload = {
-            currency: 'usd',
-            page: objSearchParams.page
-        }
-        const controller = new AbortController();
-
-        dispatch(fetchCoins({ payload, controller }));
-        
-    },[objSearchParams.page])
-    
     const loadMoreCoins = () => {
         onSetObjSearchParams({ 
             ...objSearchParams,  
             [SEARCH_PARAMS.PAGE]: String(+objSearchParams.page + 1)
         })
+
+        const payload = {
+            currency: objSearchParams.currency,
+            page: String(+objSearchParams.page + 1)
+        }
+
+        const controller = new AbortController();
+
+        dispatch(fetchCoins({ payload, controller }));
     };
+    
+    //2 paramether loading, 3 next page coins length != total = true
+    const lastElement = useScrollPagination(
+        loadMoreCoins, false, false
+    )
+    
+    
+    
+    // useEffect(() => {
+    //     const callback: IntersectionObserverCallback = (entries, observer) => {
+    //         if (entries[0].isIntersecting) {
+    //             loadMoreCoins();
+    //         }
+    //     };
+
+    //     observer.current = new IntersectionObserver(callback);
+
+    //     if (lastElement.current) {
+    //         observer.current.observe(lastElement.current);
+    //     }
+
+    //     return () => {
+    //         if (observer.current && lastElement.current) {
+    //             observer.current.unobserve(lastElement.current);
+    //         }
+    //     };
+    // }, [coins.length]);
+    
+    // useEffect(() => {
+        
+        
+    // },[objSearchParams.page])
+    
+
 
     return (
         <>

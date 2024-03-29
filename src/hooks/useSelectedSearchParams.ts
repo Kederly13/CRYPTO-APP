@@ -12,7 +12,6 @@ export interface IOptionsSetSearchParams {
     limitMultiple?: number;
 };
 
-
 export const useSelectedObjSearchParams = () => {
     const [searchParams, setSearchParams] = useSearchParams();
     const objSearchParams = Object.fromEntries(Array.from(searchParams)) as TObjSearchParams;
