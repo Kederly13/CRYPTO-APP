@@ -20,7 +20,7 @@ export const CoinTableBody = () => {
     
     const lastElement = useRef<HTMLDivElement>(null);
     const observer = useRef<IntersectionObserver>();
-    // console.log(coins)
+
 
     useEffect(() => {
         const callback: IntersectionObserverCallback = (entries, observer) => {
@@ -40,7 +40,7 @@ export const CoinTableBody = () => {
                 observer.current.unobserve(lastElement.current);
             }
         };
-    }, [visibleCoins]);
+    }, [coins]);
     
     useEffect(() => {
         const payload = {
@@ -49,7 +49,7 @@ export const CoinTableBody = () => {
         }
         const controller = new AbortController();
 
-        const updatedCoins = dispatch(fetchCoins({ payload, controller })).unwrap;
+        dispatch(fetchCoins({ payload, controller }));
         
     },[objSearchParams.page])
     
@@ -63,7 +63,7 @@ export const CoinTableBody = () => {
     return (
         <>
             <StyledCoinTableBody>
-                {visibleCoins.map(({ id, name, symbol, image, current_price, price_change_percentage_1h_in_currency, price_change_percentage_24h_in_currency, price_change_percentage_7d_in_currency, market_cap_change_24h, market_cap, total_supply, circulating_supply, sparkline_in_7d }, index) => (
+                {coins.map(({ id, name, symbol, image, current_price, price_change_percentage_1h_in_currency, price_change_percentage_24h_in_currency, price_change_percentage_7d_in_currency, market_cap_change_24h, market_cap, total_supply, circulating_supply, sparkline_in_7d }, index) => (
                     <CoinTableRow
                         key={id}
                         number={index}
