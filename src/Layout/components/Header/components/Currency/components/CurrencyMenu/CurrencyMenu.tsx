@@ -1,16 +1,27 @@
-import { CURRENCY_DATA } from './currencyData';
-import { StyledCurrencyMenu } from './StyledCurrencyMenu'
+import { currencyData} from './currencyData';
+import { SEARCH_PARAMS } from 'constants/searchParams';
+import { useSelectedObjSearchParams } from 'hooks/useSelectedSearchParams';
+import { StyledCurrencyMenu, StyledCurrencyButton, StyledCurrencyListItem } from './StyledCurrencyMenu'
 
 export const CurrencyMenu = () => {
+    const { objSearchParams, onSetObjSearchParams } = useSelectedObjSearchParams();
 
-    console.log(Object.values(CURRENCY_DATA))
     return (
         <StyledCurrencyMenu>
-            {Object.values(CURRENCY_DATA).map((item) => (
-                <li>
-                    {item}
-                </li>
-            ))}
+           {currencyData.map((item) => (
+            <StyledCurrencyListItem
+                $selected={objSearchParams?.currency === item.value}
+            >
+                <StyledCurrencyButton onClick={() => {
+                    onSetObjSearchParams({
+                        ...objSearchParams,
+                        [SEARCH_PARAMS.CURRENCY]: item.value
+                    })
+                }}>
+                    {item.value}
+                </StyledCurrencyButton>
+            </StyledCurrencyListItem>
+           ))}
         </StyledCurrencyMenu>
     )
 }

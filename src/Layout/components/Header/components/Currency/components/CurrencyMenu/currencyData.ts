@@ -1,5 +1,14 @@
-export enum CURRENCY_DATA {
-    USD = 'usd',
-    EUR = 'eur',
-    GBP = 'gbp'
-};
+export const currencyData = [
+    {
+        value: 'usd',
+        symbol: '$',
+    },
+    {
+        value: 'eur',
+        symbol: '€',
+    },
+    {
+        value: 'gbp',
+        symbol: '£',
+    },
+];

@@ -17,9 +17,10 @@ export type TCoinsHistoryState = {
 export interface IFetchCoinsHistoryPayload {
     ids: string[];
     days: string;
+    currency: string
 };
 
 export interface IFetchCoinsHistoryParams {
-    payload: IFetchCoinsHistoryPayload;
+    coinsHistoryPayload: IFetchCoinsHistoryPayload;
     controller: AbortController;
 };

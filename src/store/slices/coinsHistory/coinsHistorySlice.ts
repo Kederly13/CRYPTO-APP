@@ -9,9 +9,9 @@ export const fetchCoinHistory = createAsyncThunk<Record<string, ICoinObjHistory>
     async (params, { rejectWithValue }) => {
         try {
             const data = await Promise.all(
-                params.payload.ids.map(async (id) => {
+                params.coinsHistoryPayload.ids.map(async (id) => {
                     const paramsSingle = {
-                        payload: { id, days: params.payload.days },
+                        payload: { id, days: params.coinsHistoryPayload.days, currency: params.coinsHistoryPayload.currency },
                         controller: params.controller
                     }
 
@@ -67,9 +67,6 @@ const coinHistorySlice = createSlice({
             .addCase(fetchCoinHistory.fulfilled, (state, action) => {
                 state.loading = false;
                 state.coinsHistory = action.payload;
-
-
-   
             })
             .addCase(fetchCoinHistory.rejected, (state, action) => {
                 state.error = action.payload as string;

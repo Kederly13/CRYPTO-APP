@@ -1,14 +1,13 @@
 import { useState } from 'react';
-
-import { CurrencyMenu } from './components/CurrencyMenu';
+import { useSelectedObjSearchParams } from 'hooks/useSelectedSearchParams';
 
 import { Arrow } from 'assets/svg/arrow';
 import { Dollar } from 'assets/svg/dollar';
-
-import { StyledCurrency } from './StyledCurrency';
+import { CurrencyMenu } from './components/CurrencyMenu';
+import { StyledCurrency, StyledCurrencyWrapper } from './StyledCurrency';
 
 export const Currency = () => {
-
+    const { objSearchParams, onSetObjSearchParams } = useSelectedObjSearchParams();;
     const [isActiveMenu, setActiveMenu] = useState(false);
 
     const haldleClick = () => {
@@ -16,14 +15,12 @@ export const Currency = () => {
     };
 
     return (
-        <>
+        <StyledCurrencyWrapper>
             <StyledCurrency type='button' onClick={haldleClick}>
-                <div >
-                    <Dollar /><span>USD</span>
-                    <Arrow />
-                </div>
-                {isActiveMenu && <CurrencyMenu />}
+                <Dollar /><span>{objSearchParams.currency}</span>
+                <Arrow />
             </StyledCurrency>
-        </>
+            {isActiveMenu && <CurrencyMenu />}
+        </StyledCurrencyWrapper>
     );
 };

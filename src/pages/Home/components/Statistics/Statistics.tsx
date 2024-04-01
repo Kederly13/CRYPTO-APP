@@ -58,7 +58,7 @@ export const Statistics = () => {
 
         (async () => {
             const payload = {
-                currency: 'usd',
+                currency: 'gbp',
                 page: '1',
             }
             
@@ -81,18 +81,19 @@ export const Statistics = () => {
     useEffect(() => {
         if (!objSearchParams?.coin || !objSearchParams?.days) {
             return;
-        }
+        };
 
         const controller = new AbortController();
 
-        const ids = objSearchParams?.coin?.split(',')
+        const ids = objSearchParams?.coin?.split(',');
         
-        const payload = {
+        const coinsHistoryPayload = {
             ids,
-            days: objSearchParams.days
+            days: objSearchParams.days,
+            currency: objSearchParams.currency
         };
 
-        dispatch(fetchCoinHistory({ payload, controller }))
+        dispatch(fetchCoinHistory({ coinsHistoryPayload, controller }))
 
         return () => {
             controller.abort();
@@ -100,6 +101,37 @@ export const Statistics = () => {
 
     }, [objSearchParams?.days, objSearchParams?.coin]);
 
+    useEffect(() => {
+
+        if (!objSearchParams?.currency) {
+            return; 
+        }
+        console.log('useEffect triggers')
+        // const controller = new AbortController();
+
+        // const ids = objSearchParams?.coin?.split(',');
+
+        // const coinsHistoryPayload = {
+        //     ids,
+        //     days: objSearchParams.days,
+        //     currency: objSearchParams.currency
+        // };
+
+        // const payload = {
+        //     currency: objSearchParams.currency,
+        //     page: objSearchParams.days
+        // };
+
+        // dispatch(fetchCoinHistory({ coinsHistoryPayload, controller}))
+        // dispatch(fetchCoins({ payload, controller}))
+
+        // return () => {
+        //     controller.abort();
+        // };
+
+    }, [objSearchParams?.currency])
+
+    // console.log(lastCoins)
     return (
         <StyledStatistics>
             <StyledStatisticsHead>
