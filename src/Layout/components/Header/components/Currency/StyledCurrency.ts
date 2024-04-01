@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export const StyledCurrency = styled.div`
+export const StyledCurrency = styled.button`
     position: relative;
     padding: 12px 10px;
     
@@ -8,9 +8,9 @@ export const StyledCurrency = styled.div`
     margin: 0 16px;
     border-radius: 6px;
     background-color: #191926;
+    color: inherit;
 
-    & > button {
-        color: inherit;
+    & > div {
         display: flex;
         justify-content: space-between;
         align-items: center;
@@ -18,9 +18,6 @@ export const StyledCurrency = styled.div`
         & > span {
         display: block;
         margin: 0 8px;
+        }
     }
-}
-
-    
-    
 `

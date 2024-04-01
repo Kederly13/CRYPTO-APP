@@ -13,7 +13,7 @@ import { TCoinTableRow } from '../../types';
 import { Sparkline } from './components/SparkLine';
 
 export const CoinTableRow: FC<TCoinTableRow> = ({ name, image, symbol, number, current_price, price_change_percentage_1h_in_currency, price_change_percentage_24h_in_currency, price_change_percentage_7d_in_currency, 
-    market_cap_change_24h, market_cap, total_supply, circulating_supply, price
+    market_cap_change_24h, market_cap, total_supply, circulating_supply, price,
      }) => {
     return (
         <StyledCoinTableRow>

@@ -44,6 +44,7 @@ const coinSlice = createSlice({
     selectors: {
         selectLastCoinList: state => state.lastCoins,
         selectCoinList: state => state.coinList,
+        selectLoading: state => state.loading,
     },
     reducers: {
     },
@@ -65,4 +66,4 @@ const coinSlice = createSlice({
 });
 
 export default coinSlice.reducer;
-export const { selectCoinList, selectLastCoinList } = coinSlice.selectors;
+export const { selectCoinList, selectLastCoinList, selectLoading } = coinSlice.selectors;

@@ -3,7 +3,8 @@ import { useAppDispatch } from 'hooks/reduxHooks';
 import { fetchCoins } from 'store/slices/coinsSlice/coinSlice';
 import { StyledCoinTableBody } from './StyledCoinTableBody';
 import { CoinTableRow } from './components/CoinTableRow';
-import { selectCoinList } from 'store/slices/coinsSlice/coinSlice';
+import { selectCoinList, selectLoading } from 'store/slices/coinsSlice/coinSlice';
+import { selectMarketData } from 'store/slices/marketData/marketDataSlice';
 
 import { useAppSelector } from 'hooks/reduxHooks';
 import { useSelectedObjSearchParams } from 'hooks/useSelectedSearchParams';
@@ -13,10 +14,12 @@ import { SEARCH_PARAMS } from 'constants/searchParams';
 
 export const CoinTableBody = () => {
     const dispatch = useAppDispatch();
-    const coins = useAppSelector(selectCoinList);
-    console.log(coins)
 
-    // const [visibleCoins, setVisibleCoins] = useState(coins.slice(0, 10));
+    const coins = useAppSelector(selectCoinList);
+    const loading = useAppSelector(selectLoading);
+    const marketData = useAppSelector(selectMarketData);
+
+    const coinsTotal = marketData?.active_cryptocurrencies;
 
     const { objSearchParams, onSetObjSearchParams } = useSelectedObjSearchParams(); 
 
@@ -36,40 +39,10 @@ export const CoinTableBody = () => {
         dispatch(fetchCoins({ payload, controller }));
     };
     
-    //2 paramether loading, 3 next page coins length != total = true
     const lastElement = useScrollPagination(
-        loadMoreCoins, false, false
-    )
+        loadMoreCoins, loading, coins.length != coinsTotal
+    );
     
-    
-    
-    // useEffect(() => {
-    //     const callback: IntersectionObserverCallback = (entries, observer) => {
-    //         if (entries[0].isIntersecting) {
-    //             loadMoreCoins();
-    //         }
-    //     };
-
-    //     observer.current = new IntersectionObserver(callback);
-
-    //     if (lastElement.current) {
-    //         observer.current.observe(lastElement.current);
-    //     }
-
-    //     return () => {
-    //         if (observer.current && lastElement.current) {
-    //             observer.current.unobserve(lastElement.current);
-    //         }
-    //     };
-    // }, [coins.length]);
-    
-    // useEffect(() => {
-        
-        
-    // },[objSearchParams.page])
-    
-
-
     return (
         <>
             <StyledCoinTableBody>
@@ -91,7 +64,6 @@ export const CoinTableBody = () => {
                         price={sparkline_in_7d.price}
                     />
                 ))}
-                {/* Sentinel element */}
                 <div ref={lastElement}></div>
             </StyledCoinTableBody>
         </>

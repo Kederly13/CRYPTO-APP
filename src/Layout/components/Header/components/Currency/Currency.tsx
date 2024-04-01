@@ -1,5 +1,7 @@
 import { useState } from 'react';
 
+import { CurrencyMenu } from './components/CurrencyMenu';
+
 import { Arrow } from 'assets/svg/arrow';
 import { Dollar } from 'assets/svg/dollar';
 
@@ -14,10 +16,14 @@ export const Currency = () => {
     };
 
     return (
-        <StyledCurrency>
-            <button type='button' onClick={haldleClick}>
-                <Dollar /><span>USD</span><Arrow />
-            </button>
-        </StyledCurrency>
+        <>
+            <StyledCurrency type='button' onClick={haldleClick}>
+                <div >
+                    <Dollar /><span>USD</span>
+                    <Arrow />
+                </div>
+                {isActiveMenu && <CurrencyMenu />}
+            </StyledCurrency>
+        </>
     );
 };

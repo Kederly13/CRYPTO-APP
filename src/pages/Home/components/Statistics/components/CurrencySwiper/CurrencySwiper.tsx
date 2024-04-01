@@ -37,7 +37,7 @@ export const CurrencySwiper: FC<ICurrencySwiper> = ({ coinsDetails }) => {
                                 $logo={coin.image}
                                 name={coin.name}
                                 $symbol={coin.symbol}
-                                $price={coin.current_price}
+                                $price={Math.floor(coin.current_price * 100) / 100}
                                 $percent={<Percent $percent={coin.market_cap_change_percentage_24h} $ml='8px' />}              
                             />
                         </SwiperSlide>
