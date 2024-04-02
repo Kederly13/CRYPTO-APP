@@ -12,6 +12,12 @@ export const StyledHeaderWrapper = styled.div`
     display: flex;
     justify-content: space-between;
     font-size: 12px;
+
+    & > div {
+        & > svg {
+            margin-right: 8px;
+        }
+    }
 `
 
 export const StyledCoins = styled.div`
@@ -34,6 +40,8 @@ export const StyledMarketCapPercentage = styled.div`
         align-items: center;
         max-width: 140px;
         justify-content: space-between;
+
+        
 
         & > progress {
             width: 53px;

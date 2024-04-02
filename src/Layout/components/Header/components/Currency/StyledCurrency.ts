@@ -2,11 +2,11 @@ import styled from 'styled-components';
 
 export const StyledCurrencyWrapper = styled.div`
     position: relative;
-    padding: 12px 10px;
-    align-items: center;
+    
     margin: 0 16px;
     border-radius: 6px;
     background-color: #191926;
+    width: 100px;
 `
 
 export const StyledCurrency = styled.button`
@@ -15,4 +15,6 @@ export const StyledCurrency = styled.button`
     justify-content: space-between;
     align-items: center;
     width: 100%;
+    padding: 12px 10px;
+    height: 100%;
 `

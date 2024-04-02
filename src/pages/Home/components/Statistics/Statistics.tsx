@@ -30,8 +30,8 @@ export const Statistics = () => {
     const lastCoins = useAppSelector(selectLastCoinList);
     const coinsList = useAppSelector(selectCoinList)
     const coinsHistory = useAppSelector(selectCoinsHistory);
-    // console.log(lastCoins)
-    // console.log(coinsList)
+    console.log(lastCoins)
+    console.log(coinsList)
     const coinsHistoryKeys = Object.keys(coinsHistory);
     const [coinsHistoryFirst, coinsHistorySecond] = coinsHistoryKeys;
     
@@ -79,10 +79,10 @@ export const Statistics = () => {
     }, []);
     
     useEffect(() => {
-        if (!objSearchParams?.coin || !objSearchParams?.days) {
+        if (!objSearchParams?.coin && !objSearchParams?.days && objSearchParams?.currency) {
             return;
         };
-
+        console.log("useEffect works")
         const controller = new AbortController();
 
         const ids = objSearchParams?.coin?.split(',');
@@ -93,43 +93,19 @@ export const Statistics = () => {
             currency: objSearchParams.currency
         };
 
-        dispatch(fetchCoinHistory({ coinsHistoryPayload, controller }))
+        const coinsPayload = {
+            currency: objSearchParams.currency,
+            page: objSearchParams.page
+        };
+
+        dispatch(fetchCoinHistory({ coinsHistoryPayload, controller }));
+        dispatch(fetchCoins({ payload: coinsPayload, controller}))
 
         return () => {
             controller.abort();
         };
 
-    }, [objSearchParams?.days, objSearchParams?.coin]);
-
-    useEffect(() => {
-
-        if (!objSearchParams?.currency) {
-            return; 
-        }
-        console.log('useEffect triggers')
-        // const controller = new AbortController();
-
-        // const ids = objSearchParams?.coin?.split(',');
-
-        // const coinsHistoryPayload = {
-        //     ids,
-        //     days: objSearchParams.days,
-        //     currency: objSearchParams.currency
-        // };
-
-        // const payload = {
-        //     currency: objSearchParams.currency,
-        //     page: objSearchParams.days
-        // };
-
-        // dispatch(fetchCoinHistory({ coinsHistoryPayload, controller}))
-        // dispatch(fetchCoins({ payload, controller}))
-
-        // return () => {
-        //     controller.abort();
-        // };
-
-    }, [objSearchParams?.currency])
+    }, [objSearchParams?.days, objSearchParams?.coin, objSearchParams.currency]);
 
     // console.log(lastCoins)
     return (

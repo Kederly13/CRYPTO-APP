@@ -17,7 +17,8 @@ export const Currency = () => {
     return (
         <StyledCurrencyWrapper>
             <StyledCurrency type='button' onClick={haldleClick}>
-                <Dollar /><span>{objSearchParams.currency}</span>
+                <Dollar />
+                <span>{objSearchParams.currency}</span>
                 <Arrow />
             </StyledCurrency>
             {isActiveMenu && <CurrencyMenu />}

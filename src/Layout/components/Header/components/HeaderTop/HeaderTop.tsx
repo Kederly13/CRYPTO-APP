@@ -70,11 +70,11 @@ export const HeaderTop = () => {
             <StyledHeaderWrapper>
                 <StyledCoins>
                     <Flash />Coin 
-                    <span>{marketData?.active_cryptocurrencies}</span>
+                    <span> {marketData?.active_cryptocurrencies}</span>
                 </StyledCoins>
                 <StyledExchange>
                     <Exchange />Exchange
-                    <span>{marketData?.ended_icos}</span>
+                    <span> {marketData?.ended_icos}</span>
                 </StyledExchange>
                 <StyledMarketCap>
                     {btcMarketCapNumber !== undefined && btcMarketCapNumber > 0 ? <ArrowUp /> : <ArrowDown />}

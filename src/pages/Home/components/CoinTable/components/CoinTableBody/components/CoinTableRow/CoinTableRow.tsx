@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import { FC, forwardRef } from 'react';
 
 import { StyledCoinTableRow } from './StyledCoinTableRow';
 import { CoinNameCol } from './components/CoinNameCol';
@@ -12,11 +12,11 @@ import { TableProgressBar } from 'components/TableProgresBar';
 import { TCoinTableRow } from '../../types';
 import { Sparkline } from './components/SparkLine';
 
-export const CoinTableRow: FC<TCoinTableRow> = ({ name, image, symbol, number, current_price, price_change_percentage_1h_in_currency, price_change_percentage_24h_in_currency, price_change_percentage_7d_in_currency, 
-    market_cap_change_24h, market_cap, total_supply, circulating_supply, price,
-     }) => {
+export const CoinTableRow: FC<TCoinTableRow> = forwardRef(({ name, image, symbol, number, current_price, price_change_percentage_1h_in_currency, price_change_percentage_24h_in_currency, price_change_percentage_7d_in_currency, 
+    market_cap_change_24h, market_cap, total_supply, circulating_supply, price, 
+     }, ref) => {
     return (
-        <StyledCoinTableRow>
+        <StyledCoinTableRow ref={ref}>
             <CoinNumCol
                 number={number}
             />
@@ -54,8 +54,6 @@ export const CoinTableRow: FC<TCoinTableRow> = ({ name, image, symbol, number, c
                     price={price}
                 />
             </td>
-
         </StyledCoinTableRow>
-        
     )
-};
+});
