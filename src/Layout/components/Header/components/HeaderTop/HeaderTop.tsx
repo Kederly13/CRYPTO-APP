@@ -23,7 +23,6 @@ export const HeaderTop = () => {
     const bitcoinUrl = bitcoin?.image;
 
     const ethereum = coinList.find(({ id }) => id === 'ethereum');
-   
     const ethereumUrl = ethereum?.image;
 
     // console.log(marketData)

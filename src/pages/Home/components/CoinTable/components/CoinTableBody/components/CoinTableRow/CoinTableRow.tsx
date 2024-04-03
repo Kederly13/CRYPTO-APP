@@ -16,7 +16,7 @@ export const CoinTableRow: FC<TCoinTableRow> = forwardRef(({ name, image, symbol
     market_cap_change_24h, market_cap, total_supply, circulating_supply, price, 
      }, ref) => {
     return (
-        <StyledCoinTableRow ref={ref}>
+        <StyledCoinTableRow >
             <CoinNumCol
                 number={number}
             />

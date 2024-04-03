@@ -1,7 +1,7 @@
 import { currencyData} from './currencyData';
 import { SEARCH_PARAMS } from 'constants/searchParams';
 import { useSelectedObjSearchParams } from 'hooks/useSelectedSearchParams';
-import { StyledCurrencyMenu, StyledCurrencyButton, StyledCurrencyListItem } from './StyledCurrencyMenu'
+import { StyledCurrencyMenu, StyledCurrencyButton, StyledCurrencyListItem } from './StyledCurrencyMenu';
 
 export const CurrencyMenu = () => {
     const { objSearchParams, onSetObjSearchParams } = useSelectedObjSearchParams();
@@ -24,4 +24,4 @@ export const CurrencyMenu = () => {
            ))}
         </StyledCurrencyMenu>
     )
-}
+};

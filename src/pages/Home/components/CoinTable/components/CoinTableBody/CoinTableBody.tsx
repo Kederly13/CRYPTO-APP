@@ -48,7 +48,7 @@ export const CoinTableBody = () => {
             <StyledCoinTableBody>
                 {coins.map(({ id, name, symbol, image, current_price, price_change_percentage_1h_in_currency, price_change_percentage_24h_in_currency, price_change_percentage_7d_in_currency, market_cap_change_24h, market_cap, total_supply, circulating_supply, sparkline_in_7d }, index) => (
                     <CoinTableRow
-                        ref={index + 1 === coins.length ? lastElement : undefined}
+                        // ref={index + 1 === coins.length ? lastElement : undefined}
                         key={id}
                         number={index}
                         image={image}
