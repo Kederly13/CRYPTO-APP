@@ -18,16 +18,8 @@ export const StyledLogo = styled.div<StyledLogoProps>`
     & > img {
         object-fit: contain;
     }
+
+    @media(max-width: 992px) {
+        margin-right: 0;
+    }
 `;
-
-// export const StyledLogo = styled.div`
-//     display: flex;
-//     align-items: center;
-//     justify-content: center;
-// `;
-
-// export const LogoText = styled.span`
-//     font-size: 21px;
-//     font-weight: 700;
-//     margin-left: 10px;
-// `;

@@ -7,6 +7,10 @@ export const StyledSearchForm = styled.form`
     background: #191926;
     margin-left: 158px;
 
+    @media (max-width: 992px) {
+        display: none;
+    }
+
     & > div {
         display: flex;  
         align-items: center;

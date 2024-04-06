@@ -99,7 +99,7 @@ export const Statistics = () => {
         };
 
         dispatch(fetchCoinHistory({ coinsHistoryPayload, controller }));
-        dispatch(fetchCoins({ payload: coinsPayload, controller}))
+        // dispatch(fetchCoins({ payload: coinsPayload, controller}))
 
         return () => {
             controller.abort();
@@ -119,7 +119,7 @@ export const Statistics = () => {
             <CurrencySwiper
                 coinsDetails={lastCoins}
             />
-            <div className='charts'>
+            {/* <div className='charts'>
                 <ChartBox 
                     headline={coinFirst ? `${coinFirst.name} (${coinFirst.symbol})` : ''} 
                     number={coinFirst ? coinFirst.current_price : 0}
@@ -142,7 +142,7 @@ export const Statistics = () => {
                         coinSecond={coinsHistorySecond}
                     />
                 </ChartBox>
-            </div>
+            </div> */}
             <PeriodFilter />
         </StyledStatistics>
     );

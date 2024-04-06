@@ -8,10 +8,7 @@ import { Logo } from 'components/Logo';
 import { Button } from 'components/Button';
 import { Sun } from 'assets/svg/sun';
 import { HeaderTop } from './components/HeaderTop';
-
-// interface IHeader {
-//     children: ReactNode,
-// };
+import { SearchButton } from './components/SearchButton';
 
 export const Header = () => (
     <StyledHeader>
@@ -21,6 +18,7 @@ export const Header = () => (
                 <Logo />
                 <NavList />   
                 <SearchForm />
+                <SearchButton />
                 <Currency />
                 <Button type="button" disabled={false} $padding='11px' $backgroundcolor='#191926'>
                     <Sun />

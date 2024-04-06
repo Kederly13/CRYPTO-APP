@@ -1,32 +1,38 @@
 import styled from 'styled-components';
 
+import { IStyledListItemProps } from './NavList';
+
 export const StyledNavList = styled.ul`
     display: flex;
 
-    & > li {
+
+`;
+
+export const StyledNavListItem = styled.li<IStyledListItemProps>`
         display: flex;
         align-items: center;
-        padding: 12px;
+        padding: 12px 16px;
         font-weight: 500;
         transition: 0.5s;
         border-radius: 6px;
+        margin-right: ${({ $mr }) => $mr ? $mr : 0};
+        max-width: 131px;
 
         & > a {
-            display: inline-flex;
+            display: flex;
             align-items: center;
-
-            &:hover {
-                background-color: rgba(97, 97, 222, 0.50);
-
-                svg {
-                    fill: #FFF;
-                }
-            }
-            
 
             & > img {
                 margin-right: 10px;
             }
         }
-    }
-`;
+
+        &:hover {
+            background-color: rgba(97, 97, 222, 0.50);
+        }
+
+        @media(max-width: 768px) {
+            display: none;    
+        }
+
+`

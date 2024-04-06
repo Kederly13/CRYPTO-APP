@@ -3,32 +3,33 @@ import { Link } from 'react-router-dom';
 import Home from 'assets/svg/home.svg';
 import Layer from 'assets/svg/layers.svg';
 
-// import { ReactComponent as Logo} from 'assets/svg/logo.svg';
-
-import { StyledNavList } from './StyledNavList';
+import { StyledNavList, StyledNavListItem } from './StyledNavList';
 
 // interface NavListProps {
 //     children: ReactNode;
 // }
 
+export interface IStyledListItemProps{
+    $mr?: string;
+};
+
 export const NavList: FC = () => (
     <StyledNavList>
-        <li>
+        <StyledNavListItem $mr='24px'>
             <Link to={'/'}>
                 <img src={Home} alt='logo'/>        
                 <span>
                     HOME
                 </span>
             </Link>
-        </li>
-        
-        <li>
+        </StyledNavListItem>
+        <StyledNavListItem>
             <Link to ={'/'}>
                 <img src={Layer} alt='Layer'/>
                 <span>
                     Portfolio
                 </span>
             </Link>
-        </li>
+        </StyledNavListItem>
     </StyledNavList>
 );

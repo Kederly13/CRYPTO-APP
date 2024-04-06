@@ -6,16 +6,25 @@ export const StyledHeaderTop = styled.div`
 
 export const StyledHeaderWrapper = styled.div`
     max-width: 669px;
-    padding: 16px 0;
+    padding: 16px 16px;
     margin: 0 auto;
     display: flex;
     justify-content: space-between;
+    
     font-size: 12px;
 
-    & > div {
-        & > svg {
-            margin-right: 4px;
-        }
+    & > div:not(:last-child) {
+        margin-right: 16px;
+    }
+
+    & > div > svg {
+        margin-right: 4px;
+    }
+
+    @media(max-width: 768px ) {
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: center;
     }
 `
 
@@ -67,5 +76,9 @@ export const StyledMarketCapPercentage = styled.div`
         & > span {
             margin-right: 8px;
             color: #FFF;
+    }
+
+    @media(max-width: 471px) {
+        margin-top: 8px; 
     }
 `

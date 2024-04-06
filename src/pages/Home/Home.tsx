@@ -6,9 +6,9 @@ import { Sparkline } from './components/CoinTable/components/CoinTableBody/compo
 
 export const Home = () => (
     <Section>
-        <HomeSwitch />
+        {/* <HomeSwitch /> */}
         <Statistics />
-        <CoinTable />  
+        {/* <CoinTable />   */}
     </Section>
 );
 
