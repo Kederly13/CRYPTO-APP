@@ -1,10 +1,18 @@
 import styled from 'styled-components';
 
 export const StyledCoinNameCol = styled.td`
-
     align-items: center;
+    
     .col-wrapper {
         width: max-content;
+    }
+
+    @media (max-width: 1200px) {
+        .col-wrapper {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+        }
     }
 `
 

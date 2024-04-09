@@ -8,12 +8,6 @@ export const StyledStatisticsHead = styled.div`
 `
 
 export const StyledStatistics = styled.div`
-    .charts {
-        display: flex;
-        justify-content: space-between;
-        margin-top: 42px;
-    }
-
     & > h2 {
         font-size: 14px;
         color: #D1D1D1;
@@ -22,3 +16,13 @@ export const StyledStatistics = styled.div`
         margin-bottom: 24px;
     }
 `;
+
+export const StyledCharts = styled.div`
+    display: flex;
+    justify-content: space-between;
+    margin-top: 42px;
+
+    @media(max-width: 1400px) {
+        flex-wrap: wrap;
+    }
+`

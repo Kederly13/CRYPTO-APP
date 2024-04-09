@@ -7,5 +7,5 @@ export const StyledTableProgressLabel = styled.label`
 `
 
 export const StyledBar = styled.progress`
-    width: 228px;
+    width: 100%;
 `

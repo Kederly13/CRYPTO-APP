@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { StyledStatistics, StyledStatisticsHead } from './StyledStatistics';
+import { StyledStatistics, StyledStatisticsHead, StyledCharts } from './StyledStatistics';
 
 import { CurrencySwiper } from './components/CurrencySwiper';
 import { Button } from 'components/Button';
@@ -119,7 +119,7 @@ export const Statistics = () => {
             <CurrencySwiper
                 coinsDetails={lastCoins}
             />
-            {/* <div className='charts'>
+            <StyledCharts>
                 <ChartBox 
                     headline={coinFirst ? `${coinFirst.name} (${coinFirst.symbol})` : ''} 
                     number={coinFirst ? coinFirst.current_price : 0}
@@ -142,7 +142,7 @@ export const Statistics = () => {
                         coinSecond={coinsHistorySecond}
                     />
                 </ChartBox>
-            </div> */}
+            </StyledCharts>
             <PeriodFilter />
         </StyledStatistics>
     );

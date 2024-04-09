@@ -1,6 +1,6 @@
 import { FC, ReactNode } from 'react';
 
-import { StyledChartBox } from './StyledChart';
+import { StyledChartBox } from './StyledChartBox';
 import { UpperBlock } from './components/UpperBlock/UpperBlock';
 
 interface IChartProps {
@@ -12,13 +12,11 @@ interface IChartProps {
 export const ChartBox: FC<IChartProps> = ({ headline, number, children }) => {
   return (
     <StyledChartBox>
-      <div>
           <UpperBlock
             headline={headline}
             number={number}
           />
           {children}
-      </div>
     </StyledChartBox>
   )
 };

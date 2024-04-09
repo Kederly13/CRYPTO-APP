@@ -8,7 +8,7 @@ export const Home = () => (
     <Section>
         {/* <HomeSwitch /> */}
         <Statistics />
-        {/* <CoinTable />   */}
+        <CoinTable />  
     </Section>
 );
 
