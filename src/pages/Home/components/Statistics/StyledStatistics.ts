@@ -24,5 +24,9 @@ export const StyledCharts = styled.div`
 
     @media(max-width: 1400px) {
         flex-wrap: wrap;
+
+        & > :first-child {
+            margin-bottom: 15px;
+        }
     }
 `

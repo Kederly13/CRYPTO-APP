@@ -1,5 +1,7 @@
 import styled from 'styled-components';
 
+import { MEDIA_SIZES } from 'constants/mediaSizes';
+
 interface StyledLogoProps {
     marginRight?: string; // Optional prop for marginRight
 };
@@ -13,6 +15,10 @@ export const StyledLogo = styled.div<StyledLogoProps>`
         font-size: 21px;
         font-weight: 700;
         margin-left: 10px;
+
+        @media (max-width: 576px) {
+            display: none;
+        }
     }
 
     & > img {

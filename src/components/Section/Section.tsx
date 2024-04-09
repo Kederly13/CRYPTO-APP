@@ -15,5 +15,4 @@ const Section: React.FC<ISectionParams> = ({ children }) => (
     </section>
 )
 
-
 export { Section };

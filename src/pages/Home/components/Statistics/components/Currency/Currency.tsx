@@ -3,14 +3,12 @@ import { FC } from 'react';
 import { useSelectedObjSearchParams } from 'hooks/useSelectedSearchParams';
 import { removeCoin } from 'store/slices/coinsHistory/coinsHistorySlice';
 
-
-
 import { StyledCurrency, StyledCurrencyWrapper, StyledCurrencyName, StyledCurrencyPriceWrapper, StyledCurrencyPrice } from './StyledCurrency';
 import { useAppDispatch } from 'hooks/reduxHooks';
 import { useResize } from 'hooks/useResize';
 
 import { SEARCH_PARAMS } from 'constants/searchParams';
-import { MEDIA_SIZES } from 'constants/mediaSize';
+import { MEDIA_SIZES } from 'constants/mediaSizes';
 
 export interface ICurrencyProps {
     disabled?: boolean,
@@ -61,7 +59,7 @@ export const Currency: FC<CurrencyProps> = ( props ) => {
             <StyledCurrencyWrapper>
                 
                 <StyledCurrencyName>{name} ({$symbol})</StyledCurrencyName>
-                {width > MEDIA_SIZES.LARGE && (
+                {width > MEDIA_SIZES.XL && (
                     <StyledCurrencyPriceWrapper>
                         <StyledCurrencyPrice>{$price}</StyledCurrencyPrice>{$percent}
                     </StyledCurrencyPriceWrapper>
