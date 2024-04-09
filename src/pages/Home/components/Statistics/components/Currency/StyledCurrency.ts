@@ -4,11 +4,6 @@ import { IStyledCurrencyProps } from './Currency';
 
 export const StyledCurrencyWrapper = styled.div`
     margin-left: 15px;
-
-    @media(max-width: 1200px) {
-        display: none;
-    }
-    
 `
 export const StyledCurrencyName = styled.div`
     color: #FFF;

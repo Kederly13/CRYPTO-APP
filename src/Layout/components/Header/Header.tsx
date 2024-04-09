@@ -20,7 +20,7 @@ export const Header = () => (
                 <SearchForm />
                 <SearchButton />
                 <Currency />
-                <Button type="button" disabled={false} $padding='11px' $backgroundcolor='#191926'>
+                <Button type="button" disabled={false} $padding='11px' $backgroundcolor='#191926' >
                     <Sun />
                 </Button> 
             </Nav>

@@ -8,7 +8,8 @@ export const CoinNameCol: FC<ICoinNameProps> = ({ name, image, symbol }) => (
     <StyledCoinNameCol>
         <div className='col-wrapper'>
             <StyledCoinLogo src={image} alt='CoinLogo'/>
-            <StyledCoinName>{name} ({symbol})</StyledCoinName>
+            <StyledCoinName><span>{name}</span> <span>({symbol})</span></StyledCoinName>
+            
         </div>
     </StyledCoinNameCol>
 );

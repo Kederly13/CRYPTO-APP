@@ -26,4 +26,6 @@ export const StyledCoinName = styled.span`
     color: #FFF;
     font-size: 16px;
     font-weight: 500;
+    display: flex;
+    flex-direction: column;
 `

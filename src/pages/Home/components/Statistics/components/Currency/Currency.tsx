@@ -3,9 +3,14 @@ import { FC } from 'react';
 import { useSelectedObjSearchParams } from 'hooks/useSelectedSearchParams';
 import { removeCoin } from 'store/slices/coinsHistory/coinsHistorySlice';
 
+
+
 import { StyledCurrency, StyledCurrencyWrapper, StyledCurrencyName, StyledCurrencyPriceWrapper, StyledCurrencyPrice } from './StyledCurrency';
 import { useAppDispatch } from 'hooks/reduxHooks';
+import { useResize } from 'hooks/useResize';
+
 import { SEARCH_PARAMS } from 'constants/searchParams';
+import { MEDIA_SIZES } from 'constants/mediaSize';
 
 export interface ICurrencyProps {
     disabled?: boolean,
@@ -27,6 +32,8 @@ export type CurrencyProps = ICurrencyProps & IStyledCurrencyProps;
 export const Currency: FC<CurrencyProps> = ( props ) => {
     const { $logo, name, $symbol, $price, $percent, id } = props;
     const dispatch = useAppDispatch();
+
+    const { width } = useResize();
 
     const { objSearchParams, onSetObjSearchParams } = useSelectedObjSearchParams();
 
@@ -52,10 +59,13 @@ export const Currency: FC<CurrencyProps> = ( props ) => {
         >
             <img className='currencyLogo' src={$logo} alt='logo'/>
             <StyledCurrencyWrapper>
+                
                 <StyledCurrencyName>{name} ({$symbol})</StyledCurrencyName>
-                <StyledCurrencyPriceWrapper>
-                    <StyledCurrencyPrice>{$price}</StyledCurrencyPrice>{$percent}
-                </StyledCurrencyPriceWrapper>
+                {width > MEDIA_SIZES.LARGE && (
+                    <StyledCurrencyPriceWrapper>
+                        <StyledCurrencyPrice>{$price}</StyledCurrencyPrice>{$percent}
+                    </StyledCurrencyPriceWrapper>
+                )}
             </StyledCurrencyWrapper>
         </StyledCurrency>
     );

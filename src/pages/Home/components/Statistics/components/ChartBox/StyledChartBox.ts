@@ -8,8 +8,6 @@ export const StyledChartBox = styled.div`
     border-radius: 12px;
 
     @media (max-width: 1400px) {
-        max-width: 80%;
-        max-height: 80%;
         margin: 0 auto; 
     }
 `;

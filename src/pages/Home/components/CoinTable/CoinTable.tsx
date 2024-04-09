@@ -8,10 +8,10 @@ export const CoinTable = () => {
 
     return (
         <>    
-        <StyledCoinTable>
-            <CoinTableHead />
-            <CoinTableBody />
-        </StyledCoinTable>
+            <StyledCoinTable>
+                <CoinTableHead />
+                <CoinTableBody />
+            </StyledCoinTable>
         </>
     );
 };
