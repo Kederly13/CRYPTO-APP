@@ -9,7 +9,7 @@ interface IDefaultButtonProps {
 };
 
 interface IStyledButtonProps {
-    maxWidth?: string,
+    $maxWidth?: string,
     $padding?: string,
     margin?: string,
     $backgroundcolor?: string,

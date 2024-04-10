@@ -30,7 +30,8 @@ export interface IProgressBarProps {
     market_cap: number,
     market_cap_change_24h: number,
     circulating_supply: number,
-    total_supply: number,
+    total_volume: number,
+    total_supply: number
 };
 
 export interface ISparklineProps {

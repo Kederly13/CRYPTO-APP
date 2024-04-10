@@ -36,12 +36,9 @@ export const CurrencySwiper: FC<ICurrencySwiper> = ({ coinsDetails }) => {
                 onActiveIndexChange={(swiper: SwiperType) => setActiveIndex(swiper.activeIndex)}
                 breakpoints={{
                     320: {
-                        slidesPerView: 1,
-                    },
-                    480: {
                         slidesPerView: 2,
-
                     },
+
                     640: {
                         slidesPerView: 3,
                     },

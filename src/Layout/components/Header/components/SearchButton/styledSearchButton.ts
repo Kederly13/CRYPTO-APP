@@ -14,6 +14,6 @@ export const StyledSearchButton = styled.button`
 
     @media (max-width: 992px) {
         display: block;
-        margin: 0 auto;
+       
     }
 `;

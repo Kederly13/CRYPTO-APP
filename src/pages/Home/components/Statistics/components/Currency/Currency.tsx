@@ -57,7 +57,6 @@ export const Currency: FC<CurrencyProps> = ( props ) => {
         >
             <img className='currencyLogo' src={$logo} alt='logo'/>
             <StyledCurrencyWrapper>
-                
                 <StyledCurrencyName>{name} ({$symbol})</StyledCurrencyName>
                 {width > MEDIA_SIZES.XL && (
                     <StyledCurrencyPriceWrapper>

@@ -30,12 +30,9 @@ export const Statistics = () => {
     const lastCoins = useAppSelector(selectLastCoinList);
     const coinsList = useAppSelector(selectCoinList)
     const coinsHistory = useAppSelector(selectCoinsHistory);
-    console.log(lastCoins)
-    console.log(coinsList)
     const coinsHistoryKeys = Object.keys(coinsHistory);
     const [coinsHistoryFirst, coinsHistorySecond] = coinsHistoryKeys;
     
-
     const coinFirst = lastCoins.find(({ id }) => id === coinsHistoryFirst);
     // const coinSecond = coins.find(({ id }) => id === coinsHistorySecond);
     
@@ -82,7 +79,6 @@ export const Statistics = () => {
         if (!objSearchParams?.coin && !objSearchParams?.days && objSearchParams?.currency) {
             return;
         };
-        console.log("useEffect works")
         const controller = new AbortController();
 
         const ids = objSearchParams?.coin?.split(',');

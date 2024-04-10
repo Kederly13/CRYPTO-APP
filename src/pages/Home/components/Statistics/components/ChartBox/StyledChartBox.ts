@@ -11,4 +11,10 @@ export const StyledChartBox = styled.div`
         max-width: none;
         width: 100%;
     }
+
+    @media (max-width: 1400px) {
+        margin: 0 auto;
+        max-width: none;
+        width: 100%;
+    }
 `;
