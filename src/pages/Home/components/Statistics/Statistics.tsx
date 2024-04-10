@@ -9,7 +9,7 @@ import { ChartBox } from './components/ChartBox';
 import { PeriodFilter } from 'components/PeriodFilter';
 import { peiodFilterData } from 'components/PeriodFilter/periodFilterData';
 
-import { fetchCoins, selectCoinList, selectLastCoinList } from 'store/slices/coinsSlice/coinSlice';
+import { fetchCoins, selectCoinList, selectLastCoinList, selectPage } from 'store/slices/coinsSlice/coinSlice';
 import { fetchCoinHistory } from 'store/slices/coinsHistory/coinsHistorySlice';
 import { useAppDispatch, useAppSelector } from 'hooks/reduxHooks';
 import { selectCoinsHistory } from 'store/slices/coinsHistory/coinsHistorySlice';
@@ -30,6 +30,8 @@ export const Statistics = () => {
     const lastCoins = useAppSelector(selectLastCoinList);
     const coinsList = useAppSelector(selectCoinList)
     const coinsHistory = useAppSelector(selectCoinsHistory);
+    const pageNum = useAppSelector(selectPage);
+
     const coinsHistoryKeys = Object.keys(coinsHistory);
     const [coinsHistoryFirst, coinsHistorySecond] = coinsHistoryKeys;
     
@@ -43,7 +45,7 @@ export const Statistics = () => {
                 [SEARCH_PARAMS.COIN]: coinsHistoryFirst,
                 [SEARCH_PARAMS.DAYS]: '7',
                 [SEARCH_PARAMS.CURRENCY]: 'usd',
-                [SEARCH_PARAMS.PAGE]: '1'
+                // [SEARCH_PARAMS.PAGE]: '1'
             });
         };
 
@@ -66,7 +68,7 @@ export const Statistics = () => {
                 [SEARCH_PARAMS.COIN]: resCoins[0]?.id,
                 [SEARCH_PARAMS.DAYS]: peiodFilterData[0].value,
                 [SEARCH_PARAMS.CURRENCY]: payload.currency,
-                [SEARCH_PARAMS.PAGE]: payload.page
+                // [SEARCH_PARAMS.PAGE]: payload.page
             })
         })();
 
@@ -91,7 +93,7 @@ export const Statistics = () => {
 
         const coinsPayload = {
             currency: objSearchParams.currency,
-            page: objSearchParams.page
+            page: '1'
         };
 
         dispatch(fetchCoinHistory({ coinsHistoryPayload, controller }));

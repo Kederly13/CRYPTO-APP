@@ -1,3 +1,5 @@
+import { Ref } from 'react';
+
 import { ICoin } from 'types/coinType';
 
 export interface ICoinNameProps {
@@ -38,7 +40,12 @@ export interface ISparklineProps {
     price: number[]
 };
 
-export type TCoinTableRow = ICoinNameProps & ICoinNumProps & ICoinPriceProps & IPrice1hColProps & IPrice24hColProps & IPrice7dColProps & IProgressBarProps & ISparklineProps;
+export interface IRefProps {
+    forwardedRef?: Ref<HTMLTableRowElement>
+    ref?: Ref<HTMLTableRowElement>;
+};
+
+export type TCoinTableRow = ICoinNameProps & ICoinNumProps & ICoinPriceProps & IPrice1hColProps & IRefProps & IPrice24hColProps & IPrice7dColProps & IProgressBarProps & ISparklineProps;
 
 // export interface ICoinProps {
 //     name: string;

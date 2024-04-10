@@ -9,6 +9,7 @@ import { Button } from 'components/Button';
 import { Sun } from 'assets/svg/sun';
 import { HeaderTop } from './components/HeaderTop';
 import { SearchButton } from './components/SearchButton';
+import { ThemeBtn } from './components/ThemeBtn';
 
 export const Header = () => (
     <StyledHeader>
@@ -20,9 +21,7 @@ export const Header = () => (
                 <SearchForm />
                 <SearchButton />
                 <Currency />
-                <Button type="button" disabled={false} $padding='11px' $backgroundcolor='#191926' >
-                    <Sun />
-                </Button> 
+                <ThemeBtn />
             </Nav>
         </Container>
     </StyledHeader>

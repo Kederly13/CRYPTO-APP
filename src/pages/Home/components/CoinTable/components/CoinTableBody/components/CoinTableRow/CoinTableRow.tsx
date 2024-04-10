@@ -1,4 +1,4 @@
-import { FC, forwardRef } from 'react';
+import { FC, forwardRef, Ref } from 'react';
 
 import { StyledCoinTableRow } from './StyledCoinTableRow';
 import { CoinNameCol } from './components/CoinNameCol';
@@ -16,15 +16,26 @@ import { MEDIA_SIZES } from 'constants/mediaSizes';
 
 import { TCoinTableRow } from '../../types';
 
-
-export const CoinTableRow: FC<TCoinTableRow> = forwardRef(({ name, image, symbol, number, current_price, price_change_percentage_1h_in_currency, price_change_percentage_24h_in_currency, price_change_percentage_7d_in_currency, 
-    market_cap_change_24h, market_cap, total_supply, circulating_supply, price, total_volume
-     }, ref) => {
-
+export const CoinTableRow: FC<TCoinTableRow> = forwardRef(({
+    name,
+    image,
+    symbol,
+    number,
+    current_price,
+    price_change_percentage_1h_in_currency,
+    price_change_percentage_24h_in_currency,
+    price_change_percentage_7d_in_currency,
+    market_cap_change_24h,
+    market_cap,
+    total_supply,
+    circulating_supply,
+    price,
+    total_volume
+}, ref: Ref<HTMLTableRowElement>) => {
     const { width } = useResize();
 
     return (
-        <StyledCoinTableRow >
+        <StyledCoinTableRow ref={ref}>
             <CoinNumCol
                 number={number}
             />
@@ -36,7 +47,6 @@ export const CoinTableRow: FC<TCoinTableRow> = forwardRef(({ name, image, symbol
             <CoinPriceCol
                 current_price={+current_price.toFixed(2)}
             />
-
             {width > MEDIA_SIZES.SM && (
                 <>
                     <Price1hCol
@@ -73,7 +83,6 @@ export const CoinTableRow: FC<TCoinTableRow> = forwardRef(({ name, image, symbol
                 />
             </td>
             )}
-
         </StyledCoinTableRow>
     )
 });

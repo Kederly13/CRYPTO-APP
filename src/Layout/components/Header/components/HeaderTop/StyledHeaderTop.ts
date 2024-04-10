@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 export const StyledHeaderTop = styled.div`
-    background-color: #1F1934;
+    background-color: ${props => props.theme.backgroundColor};
 `
 
 export const StyledHeaderWrapper = styled.div`
