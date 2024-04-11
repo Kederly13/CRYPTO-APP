@@ -1,8 +1,8 @@
 import { useContext } from 'react';
 
-import { ThemeContext } from 'ContextProvider/ContextProvider';
+import { ThemeContext } from 'ThemeContextProvider/ThemeContextProvider';
 
-import { TThemeContext } from 'ContextProvider/ContextProvider';
+import { TThemeContext } from 'ThemeContextProvider/ThemeContextProvider';
 
 import { Button } from 'components/Button';
 import { Sun } from 'assets/svg/sun';

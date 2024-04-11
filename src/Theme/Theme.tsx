@@ -1,7 +1,7 @@
 import { ThemeProvider, ThemeContext } from 'styled-components';
 import { useContext, useState, useEffect } from 'react';
 
-import { TThemeContext } from 'ContextProvider/ContextProvider';
+import { TThemeContext } from 'ThemeContextProvider/ThemeContextProvider';
 
 type Theme = {
     color: string,

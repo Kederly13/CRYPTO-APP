@@ -11,8 +11,8 @@ export const ThemeContextProvider = ({ children }: {children: React.ReactNode}) 
   const [theme, setTheme] = useState("light");
 
   const changeTheme = () => {
-    setTheme(prev => (prev === "light" ? "dark" : "light")); 
-   
+    setTheme(prev => (prev === "light" ? "dark" : "light"));
+    // console.log(theme); 
   };
 
   const contextValues = useMemo(
