@@ -34,8 +34,7 @@ export const ThemeProvider: FC<IThemeProviderProps> = ({ initialTheme, children 
     }), [theme])
 
     const themeObject = useMemo(() => ({
-        light: theme === THEME.LIGHT,
-        dark: theme === THEME.DARK
+        mode: theme // Instead of light and dark
     }), [theme]);
     
     return (
