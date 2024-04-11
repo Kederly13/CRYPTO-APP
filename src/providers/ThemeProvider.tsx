@@ -1,6 +1,9 @@
 import { useEffect, useMemo, useState, ReactNode, FC } from "react";
+import { ThemeProvider as ThemeProviderSC } from "styled-components";
+
 import { THEME } from "constants/theme";
 import { LOCAL_STORAGE_KEY } from "constants/theme";
+
 import { ThemeContext } from "context/ThemeContext";
 
 interface IThemeProviderProps {
@@ -26,14 +29,20 @@ export const ThemeProvider: FC<IThemeProviderProps> = ({ initialTheme, children 
         localStorage.setItem(LOCAL_STORAGE_KEY.THEME, theme)
     }, [theme]);
 
-
     const defaultProps = useMemo(() => ({
         theme, setTheme
     }), [theme])
 
+    const themeObject = useMemo(() => ({
+        light: theme === THEME.LIGHT,
+        dark: theme === THEME.DARK
+    }), [theme]);
+    
     return (
         <ThemeContext.Provider value={defaultProps}>
-            {children}
+            <ThemeProviderSC theme={themeObject}>
+                {children}
+            </ThemeProviderSC>
         </ThemeContext.Provider>
     )
 };

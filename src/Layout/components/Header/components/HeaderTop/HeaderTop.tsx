@@ -7,6 +7,10 @@ import { selectCoinList, selectLastCoinList } from "store/slices/coinsSlice/coin
 import { selectCoinsHistory } from "store/slices/coinsHistory/coinsHistorySlice";
 import { fetchMarketData } from 'store/slices/marketData/marketDataSlice';
 
+import { THEME } from 'constants/theme';
+import { themes } from 'styles/themes';
+import { useTheme } from 'hooks/useTheme';
+
 import { Flash } from "assets/svg/flash";
 import { Exchange } from "assets/svg/exchange";
 import { ArrowDown } from 'assets/svg/arrowDown';
@@ -25,7 +29,7 @@ export const HeaderTop = () => {
     const ethereum = coinList.find(({ id }) => id === 'ethereum');
     const ethereumUrl = ethereum?.image;
 
-    // console.log(marketData)
+    const { theme } = useTheme();
 
     const formatNumber = (number: number) => {
         const suffixes = ["", "K", "M", "B", "T"];
@@ -62,10 +66,11 @@ export const HeaderTop = () => {
     if (marketData?.total_market_cap.btc) {
         btcMarketCap = formatNumber(marketData?.total_market_cap.btc);
         btcMarketCapNumber = parseFloat(btcMarketCap);
-    }
-   
+    };
+    
+    console.log(theme)
     return (
-        <StyledHeaderTop>
+        <StyledHeaderTop theme={theme === THEME.DARK ? themes[THEME.DARK] : themes[THEME.LIGHT]}>
             <StyledHeaderWrapper>
                 <StyledCoins>
                     <Flash />Coin 

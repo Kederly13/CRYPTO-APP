@@ -14,11 +14,11 @@ export const useTheme = (): IUseTheme => {
     let newTheme: THEME = THEME.DARK;
 
     if (theme === THEME.DARK) {
-        newTheme = THEME.DARK;
+        newTheme = THEME.LIGHT;
     }
 
     if (theme === THEME.LIGHT) {
-        newTheme = THEME.LIGHT;
+        newTheme = THEME.DARK;
     }
 
     setTheme?.(newTheme);
