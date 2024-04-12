@@ -2,6 +2,7 @@ import { useEffect, useMemo, useState, ReactNode, FC } from "react";
 import { ThemeProvider as ThemeProviderSC } from "styled-components";
 
 import { THEME } from "constants/theme";
+import { themes } from "styles/themes";
 import { LOCAL_STORAGE_KEY } from "constants/theme";
 
 import { ThemeContext } from "context/ThemeContext";
@@ -32,14 +33,10 @@ export const ThemeProvider: FC<IThemeProviderProps> = ({ initialTheme, children 
     const defaultProps = useMemo(() => ({
         theme, setTheme
     }), [theme])
-
-    const themeObject = useMemo(() => ({
-        mode: theme // Instead of light and dark
-    }), [theme]);
     
     return (
         <ThemeContext.Provider value={defaultProps}>
-            <ThemeProviderSC theme={themeObject}>
+            <ThemeProviderSC theme={theme === THEME.DARK ? themes[THEME.DARK] : themes[THEME.LIGHT]}>
                 {children}
             </ThemeProviderSC>
         </ThemeContext.Provider>

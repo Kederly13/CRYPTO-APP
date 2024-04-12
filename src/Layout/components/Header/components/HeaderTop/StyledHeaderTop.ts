@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 export const StyledHeaderTop = styled.div`
-    background-color: ${(props) => props.theme.HeaderTopBackgroundColor};
+    background-color: ${({ theme }) => theme.HeaderTopBackgroundColor};
 `
 
 export const StyledHeaderWrapper = styled.div`
@@ -10,7 +10,6 @@ export const StyledHeaderWrapper = styled.div`
     margin: 0 auto;
     display: flex;
     justify-content: space-between;
-    
     font-size: 12px;
 
     & > div:not(:last-child) {

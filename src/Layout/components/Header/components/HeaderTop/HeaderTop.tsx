@@ -68,9 +68,8 @@ export const HeaderTop = () => {
         btcMarketCapNumber = parseFloat(btcMarketCap);
     };
     
-    
     return (
-        <StyledHeaderTop theme={theme === THEME.DARK ? themes[THEME.DARK] : themes[THEME.LIGHT]}>
+        <StyledHeaderTop>
             <StyledHeaderWrapper>
                 <StyledCoins>
                     <Flash />Coin 
