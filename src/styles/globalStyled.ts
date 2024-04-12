@@ -6,7 +6,7 @@ export const GlobalStyle = createGlobalStyle`
     margin: 0;
     padding: 0;
     font-family: 'Space Grotesk', sans-serif;
-    background-color: #13121B;
+    background-color: ${({ theme }) => theme.backgroundColor};
     color: ${({ theme }) => theme.secondaryFontColor};
     font-size: 14px;
   }

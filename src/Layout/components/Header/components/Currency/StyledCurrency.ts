@@ -14,9 +14,18 @@ export const StyledCurrency = styled.button`
     justify-content: space-between;
     align-items: center;
     width: 100%;
-    padding: 12px 10px;
+    padding: 4px 10px;
     height: 100%;
+    border-radius: 6px;
+    border: 1px solid ${({ theme }) => theme.formBorderColor};
+    transition: 0.5s ease;
 
+    &:hover {
+        background-color: ${({ theme }) => theme.buttonActiveColor};
+        border: 1px solid ${({ theme }) => theme.buttonActiveBorderColor};
+    }
+    
+    
     & > svg:first-child {
         margin-right: 8px;
     }

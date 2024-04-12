@@ -9,12 +9,14 @@ export const StyledNavList = styled.ul`
 export const StyledNavListItem = styled.li<IStyledListItemProps>`
     display: flex;
     align-items: center;
-    padding: 12px 16px;
+    padding: 2px 16px;
     font-weight: 500;
     transition: 0.5s;
     border-radius: 6px;
     margin-right: ${({ $mr }) => $mr ? $mr : 0};
     max-width: 131px;
+    border: 1px solid ${({ theme }) => theme.formBorderColor};
+    cursor: pointer;
 
     & > a {
         display: flex;
@@ -26,7 +28,8 @@ export const StyledNavListItem = styled.li<IStyledListItemProps>`
     }
 
     &:hover {
-        background-color: rgba(97, 97, 222, 0.50);
+        background-color: ${({ theme }) => theme.buttonActiveColor};
+        border: 1px solid ${({ theme }) => theme.buttonActiveBorderColor};
     }
 
     @media(max-width: 576px) {

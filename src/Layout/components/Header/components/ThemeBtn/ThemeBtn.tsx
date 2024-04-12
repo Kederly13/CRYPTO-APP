@@ -1,6 +1,7 @@
 import { useTheme } from 'hooks/useTheme';
 
 import { Button } from 'components/Button';
+import { StyledThemeBtn } from './StyledThemeBtn';
 import { Sun } from 'assets/svg/sun';
 
 export const ThemeBtn = () => {
@@ -11,8 +12,8 @@ export const ThemeBtn = () => {
     };
 
     return (
-        <Button type="button" disabled={false} $padding='11px' $backgroundcolor='#191926' onClick={handleClick}>
+        <StyledThemeBtn type="button" onClick={handleClick}>
             <Sun />
-        </Button> 
+        </StyledThemeBtn> 
     )
 };
