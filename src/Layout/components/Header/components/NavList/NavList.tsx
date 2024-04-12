@@ -5,10 +5,13 @@ import { useResize } from 'hooks/useResize';
 
 import { MEDIA_SIZES } from 'constants/mediaSizes';
 
-import Home from 'assets/svg/home.svg';
-import Layer from 'assets/svg/layers.svg';
+import { Home } from 'assets/svg/Home';
+import { Layers } from 'assets/svg/Layers';
 
 import { StyledNavList, StyledNavListItem } from './StyledNavList';
+import { themes } from 'styles/themes';
+import { useTheme } from 'hooks/useTheme';
+import { THEME } from 'constants/theme';
 
 // interface NavListProps {
 //     children: ReactNode;
@@ -20,11 +23,13 @@ export interface IStyledListItemProps{
 
 export const NavList: FC = () => {
     const { width } = useResize();
+    const { theme } = useTheme();
+
     return (
         <StyledNavList>
             <StyledNavListItem $mr='24px'>
                 <Link to={'/'}>
-                    <img src={Home} alt='logo'/>
+                    <Home stroke={theme === THEME.DARK ? 'white' : 'black'} fill={theme === THEME.DARK ? 'white' : 'black'}/>
                     {width > MEDIA_SIZES.SM && (
                         <span>
                             HOME
@@ -34,7 +39,7 @@ export const NavList: FC = () => {
             </StyledNavListItem>
             <StyledNavListItem>
                 <Link to ={'/'}>
-                    <img src={Layer} alt='Layer'/>
+                <Layers stroke={theme === THEME.DARK ? 'white' : 'black'} fill={theme === THEME.DARK ? 'white' : 'black'}/>
                     {width > MEDIA_SIZES.SM && (
                         <span>
                             Portfolio

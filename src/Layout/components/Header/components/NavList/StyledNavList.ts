@@ -20,7 +20,7 @@ export const StyledNavListItem = styled.li<IStyledListItemProps>`
         display: flex;
         align-items: center;
 
-        & > img {
+        & > svg {
             margin-right: 10px;
         }
     }
@@ -33,8 +33,7 @@ export const StyledNavListItem = styled.li<IStyledListItemProps>`
         margin-right: 0;
 
         & > a {
-
-            & > img {
+            & > svg {
                 margin-right: 0;
             }
         }

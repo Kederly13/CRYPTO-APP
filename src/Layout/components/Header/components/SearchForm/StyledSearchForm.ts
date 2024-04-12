@@ -4,7 +4,7 @@ export const StyledSearchForm = styled.form`
     max-width: 356px;
     width: 100%;
     border-radius: 6px;
-    background: #191926;
+    background: ${({ theme }) => theme.formBackgroundColor};
     margin-left: 158px;
 
     @media (max-width: 992px) {

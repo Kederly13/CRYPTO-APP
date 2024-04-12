@@ -4,7 +4,7 @@ export const StyledCurrencyWrapper = styled.div`
     position: relative;
     margin: 0 16px;
     border-radius: 6px;
-    background-color: #191926;
+    background-color: ${({ theme }) => theme.formBackgroundColor};
     width: 100px;
 `
 

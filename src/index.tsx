@@ -5,7 +5,7 @@ import { PersistGate } from 'redux-persist/integration/react';
 
 import { ThemeProvider } from "providers/ThemeProvider";
 
-import './index.css';
+import { GlobalStyle } from "styles/globalStyled";
 import App from './App';
 
 const root = ReactDOM.createRoot(
@@ -17,6 +17,7 @@ root.render(
     <PersistGate loading={null} persistor={persistor}>
         <ThemeProvider>
           <App />
+          <GlobalStyle />
         </ThemeProvider>
     </PersistGate>
   </Provider>

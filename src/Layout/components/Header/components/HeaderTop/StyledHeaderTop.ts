@@ -11,6 +11,7 @@ export const StyledHeaderWrapper = styled.div`
     display: flex;
     justify-content: space-between;
     font-size: 12px;
+    color: ${({ theme }) => theme.secondaryHeaderFontColor};
 
     & > div:not(:last-child) {
         margin-right: 16px;
@@ -33,7 +34,7 @@ export const StyledCoins = styled.div`
 
     & > span {
         margin-left: 8px;
-        color: #FFF;
+        color: ${({ theme }) => theme.mainHeaderFontColor};
     }
 `
 
@@ -43,7 +44,7 @@ export const StyledExchange = styled.div`
 
     & > span {
         margin-left: 8px;
-        color: #FFF;
+        color: ${({ theme }) => theme.mainHeaderFontColor};
     }
 `
 
@@ -52,7 +53,7 @@ export const StyledMarketCap = styled.div`
     align-items: center;
 
     & > span {
-        color: #FFF;
+        color: ${({ theme }) => theme.mainHeaderFontColor};
     }
 `
 
@@ -74,7 +75,7 @@ export const StyledMarketCapPercentage = styled.div`
 
         & > span {
             margin-right: 8px;
-            color: #FFF;
+            color: ${({ theme }) => theme.mainHeaderFontColor};
     }
 
     @media(max-width: 471px) {
