@@ -45,7 +45,15 @@ export interface IRefProps {
     ref?: Ref<HTMLTableRowElement>;
 };
 
-export type TCoinTableRow = ICoinNameProps & ICoinNumProps & ICoinPriceProps & IPrice1hColProps & IRefProps & IPrice24hColProps & IPrice7dColProps & IProgressBarProps & ISparklineProps;
+export type TCoinTableRow = ICoinNameProps
+    & ICoinNumProps 
+    & ICoinPriceProps 
+    & IPrice1hColProps 
+    & IRefProps 
+    & IPrice24hColProps 
+    & IPrice7dColProps 
+    & IProgressBarProps 
+    & ISparklineProps;
 
 // export interface ICoinProps {
 //     name: string;

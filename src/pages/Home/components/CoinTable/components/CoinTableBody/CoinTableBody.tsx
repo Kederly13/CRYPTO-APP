@@ -1,17 +1,14 @@
-import { useRef, useEffect, useState } from 'react';
 import { useAppDispatch } from 'hooks/reduxHooks';
 import { fetchCoins } from 'store/slices/coinsSlice/coinSlice';
 import { StyledCoinTableBody } from './StyledCoinTableBody';
 import { CoinTableRow } from './components/CoinTableRow';
 import { selectCoinList, selectLoading, selectPage } from 'store/slices/coinsSlice/coinSlice';
 import { selectMarketData } from 'store/slices/marketData/marketDataSlice';
-import { nextPage } from 'store/slices/coinsSlice/coinSlice';
+import { onSetPage } from 'store/slices/coinsSlice/coinSlice';
+
 
 import { useAppSelector } from 'hooks/reduxHooks';
-import { useSelectedObjSearchParams } from 'hooks/useSelectedSearchParams';
 import { useScrollPagination } from 'hooks/useScrollPagination';
-
-import { SEARCH_PARAMS } from 'constants/searchParams';
 
 export const CoinTableBody = () => {
     const dispatch = useAppDispatch();
@@ -19,27 +16,16 @@ export const CoinTableBody = () => {
     const coins = useAppSelector(selectCoinList);
     const loading = useAppSelector(selectLoading);
     const marketData = useAppSelector(selectMarketData);
-    const pageNum = useAppSelector(selectPage);
+    const page = useAppSelector(selectPage);
 
     const coinsTotal = marketData?.active_cryptocurrencies;
 
-    const { objSearchParams, onSetObjSearchParams } = useSelectedObjSearchParams();
-
     const loadMoreCoins = () => {
-        dispatch(nextPage());
-        // onSetObjSearchParams({ 
-        //     ...objSearchParams,  
-        //     [SEARCH_PARAMS.PAGE]: String(+objSearchParams.page + 1)
-        // })
-
-        const payload = {
-            currency: objSearchParams.currency,
-            page: String(pageNum + 1)
-        };
+        dispatch(onSetPage(page + 1));
 
         const controller = new AbortController();
 
-        dispatch(fetchCoins({ payload, controller }));
+        dispatch(fetchCoins(controller));
     };
     
     const lastElement = useScrollPagination(

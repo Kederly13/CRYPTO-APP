@@ -37,6 +37,14 @@ export const themes = {
         mainFontColor: '#FFF',
        
         ...topHeaderStyles,
+
+        // icon
+        icon: {
+            default: 'rgba(255, 255, 255, 0.50)',
+            active: '#FFF'
+        }
+        
+        
     },
 
     [THEME.LIGHT]: {
@@ -61,9 +69,12 @@ export const themes = {
         buttonActiveFontColor: '#FFF',
         buttonColor: '#FFF',
         buttonActiveColor: 'rgba(97, 97, 222, 0.50)',
-        buttonActiveBorderColor: '#7878FF'
+        buttonActiveBorderColor: '#7878FF',
 
-        //form
+        icon: {
+            default: '#353574',
+            active: '#353570'
+        }
 
     }
 }

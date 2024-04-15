@@ -9,7 +9,7 @@ import { ChartBox } from './components/ChartBox';
 import { PeriodFilter } from 'components/PeriodFilter';
 import { peiodFilterData } from 'components/PeriodFilter/periodFilterData';
 
-import { fetchCoins, selectCoinList, selectLastCoinList, selectPage } from 'store/slices/coinsSlice/coinSlice';
+import { fetchCoins, onSetPage, selectCoinList, selectLastCoinList, selectPage, setNulifyCoins } from 'store/slices/coinsSlice/coinSlice';
 import { fetchCoinHistory } from 'store/slices/coinsHistory/coinsHistorySlice';
 import { useAppDispatch, useAppSelector } from 'hooks/reduxHooks';
 import { selectCoinsHistory } from 'store/slices/coinsHistory/coinsHistorySlice';
@@ -37,7 +37,7 @@ export const Statistics = () => {
     
     const coinFirst = lastCoins.find(({ id }) => id === coinsHistoryFirst);
     // const coinSecond = coins.find(({ id }) => id === coinsHistorySecond);
-    
+
     useEffect(() => {
         if (Object.values(objSearchParams).length <= 1) {
             onSetObjSearchParams({
@@ -45,67 +45,26 @@ export const Statistics = () => {
                 [SEARCH_PARAMS.COIN]: coinsHistoryFirst,
                 [SEARCH_PARAMS.DAYS]: '7',
                 [SEARCH_PARAMS.CURRENCY]: 'usd',
-                // [SEARCH_PARAMS.PAGE]: '1'
             });
         };
-
-        if (lastCoins?.length) {
-            return;
-        };
-
-        const controller = new AbortController();
-
-        (async () => {
-            const payload = {
-                currency: 'gbp',
-                page: '1',
-            }
-            
-            const resCoins = await dispatch(fetchCoins({ payload, controller })).unwrap();
-            
-            onSetObjSearchParams({
-                ...objSearchParams,
-                [SEARCH_PARAMS.COIN]: resCoins[0]?.id,
-                [SEARCH_PARAMS.DAYS]: peiodFilterData[0].value,
-                [SEARCH_PARAMS.CURRENCY]: payload.currency,
-                // [SEARCH_PARAMS.PAGE]: payload.page
-            })
-        })();
-
-        return () => {
-            controller.abort();
-        }
-    }, []);
+    })
     
     useEffect(() => {
         if (!objSearchParams?.coin && !objSearchParams?.days && objSearchParams?.currency) {
             return;
         };
+        dispatch(setNulifyCoins());
         const controller = new AbortController();
-
-        const ids = objSearchParams?.coin?.split(',');
         
-        const coinsHistoryPayload = {
-            ids,
-            days: objSearchParams.days,
-            currency: objSearchParams.currency
-        };
-
-        const coinsPayload = {
-            currency: objSearchParams.currency,
-            page: '1'
-        };
-
-        dispatch(fetchCoinHistory({ coinsHistoryPayload, controller }));
-        // dispatch(fetchCoins({ payload: coinsPayload, controller}))
+        dispatch(fetchCoins(controller));
+        dispatch(fetchCoinHistory(controller));
 
         return () => {
             controller.abort();
         };
 
-    }, [objSearchParams?.days, objSearchParams?.coin, objSearchParams.currency]);
+    }, [dispatch, objSearchParams?.days, objSearchParams?.coin, objSearchParams.currency]);
 
-    // console.log(lastCoins)
     return (
         <StyledStatistics>
             <StyledStatisticsHead>

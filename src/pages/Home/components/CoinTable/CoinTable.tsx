@@ -4,10 +4,8 @@ import { StyledCoinTable } from './StyledCoinTable';
 import { CoinTableHead } from './components/CoinTableHead';
 
 export const CoinTable = () => (
-    <>    
-        <StyledCoinTable>
-            <CoinTableHead />
-            <CoinTableBody />
-        </StyledCoinTable>
-    </>
+    <StyledCoinTable>
+        <CoinTableHead />
+        <CoinTableBody />
+    </StyledCoinTable>
 );

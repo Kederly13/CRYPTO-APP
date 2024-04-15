@@ -1,26 +1,24 @@
-import { createSlice, createAsyncThunk, buildCreateSlice, asyncThunkCreator } from '@reduxjs/toolkit';
-import { CoinsApi, ICoinsAPIGetCoinsParams } from 'api/CoinsApi';
+import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import { CoinsApi } from 'api/CoinsApi';
 import { ICoin } from 'types/coinType';
 import { getErrorMessage } from 'utils/getErrorMessage';
+import { CoinsState } from './type';
+import { getLocationSearchParams } from 'utils/getLocationSearchParams';
+import { RootState } from 'store';
 
-type CoinsState = {
-    coinList: ICoin[];
-    lastCoins: ICoin[];
-    loading: boolean,
-    error: null,
-    page: number
-};
-
-export const fetchCoins = createAsyncThunk<ICoin[], ICoinsAPIGetCoinsParams, {rejectValue: string}>(
+export const fetchCoins = createAsyncThunk<ICoin[], AbortController, {rejectValue: string}>(
     'coins/fetchCoins',
-    async (params, { rejectWithValue }) => {
+    async (controller, { rejectWithValue, getState }) => {
+        const state = getState() as RootState;
+        const { currency } = getLocationSearchParams();
+
         try {
             const param = {
                 payload: { 
-                    currency: params.payload.currency,
-                    page: params.payload.page                
+                    currency: currency || 'usd',
+                    page: state.coins.page                
                 },
-                controller: params.controller
+                controller
             }
 
             const { data } = await CoinsApi.getCoins(param);
@@ -50,8 +48,13 @@ const coinSlice = createSlice({
         selectPage: state => state.page
     },
     reducers: {
-        nextPage(state) {
-            state.page++;
+        onSetPage(state, { payload }) {
+            state.page = payload;
+        },
+        setNulifyCoins(state) {
+            state.coinList = [];
+            state.lastCoins = [];
+            state.page = 1;
         }
     },
     extraReducers: (builder) => {
@@ -71,5 +74,5 @@ const coinSlice = createSlice({
 });
 
 export default coinSlice.reducer;
-export const { nextPage } = coinSlice.actions;
+export const { onSetPage, setNulifyCoins } = coinSlice.actions;
 export const { selectCoinList, selectLastCoinList, selectLoading, selectPage } = coinSlice.selectors;

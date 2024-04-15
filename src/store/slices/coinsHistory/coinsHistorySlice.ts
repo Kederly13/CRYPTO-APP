@@ -3,16 +3,20 @@ import { ChartApi } from 'api/ChartApi';
 import { getErrorMessage } from 'utils/getErrorMessage';
 
 import { ICoinObjHistory, IFetchCoinsHistoryParams, TCoinsHistoryState  } from './type';
+import { getLocationSearchParams } from 'utils/getLocationSearchParams';
 
-export const fetchCoinHistory = createAsyncThunk<Record<string, ICoinObjHistory>, IFetchCoinsHistoryParams, {rejectValue: string}>(
+export const fetchCoinHistory = createAsyncThunk<Record<string, ICoinObjHistory>, AbortController, {rejectValue: string}>(
     'coinsHistory/fetchCoinHistory',
-    async (params, { rejectWithValue }) => {
+    async (controller, { rejectWithValue }) => {
         try {
+            const { currency, days, coin } = getLocationSearchParams();
+            const ids = coin.split(',');
+
             const data = await Promise.all(
-                params.coinsHistoryPayload.ids.map(async (id) => {
+                ids.map(async (id) => {
                     const paramsSingle = {
-                        payload: { id, days: params.coinsHistoryPayload.days, currency: params.coinsHistoryPayload.currency },
-                        controller: params.controller
+                        payload: { id, days, currency },
+                        controller
                     }
 
                     const { data } = await ChartApi.getPrices(paramsSingle);

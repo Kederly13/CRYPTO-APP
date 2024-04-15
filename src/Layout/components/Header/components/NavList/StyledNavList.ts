@@ -22,10 +22,19 @@ export const StyledNavListItem = styled.li<IStyledListItemProps>`
         display: flex;
         align-items: center;
 
+        &.active {
+            & > svg {
+                fill: ${({ theme }) => theme.icon.active}
+            }
+        }
+        
         & > svg {
+            fill: ${({ theme }) => theme.icon.default};
             margin-right: 10px;
         }
     }
+
+    
 
     &:hover {
         background-color: ${({ theme }) => theme.buttonActiveColor};

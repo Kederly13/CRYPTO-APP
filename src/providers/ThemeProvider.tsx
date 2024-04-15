@@ -36,7 +36,7 @@ export const ThemeProvider: FC<IThemeProviderProps> = ({ initialTheme, children 
     
     return (
         <ThemeContext.Provider value={defaultProps}>
-            <ThemeProviderSC theme={theme === THEME.DARK ? themes[THEME.DARK] : themes[THEME.LIGHT]}>
+            <ThemeProviderSC theme={themes[theme]}>
                 {children}
             </ThemeProviderSC>
         </ThemeContext.Provider>

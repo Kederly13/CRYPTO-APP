@@ -1,21 +1,18 @@
 import { FC } from 'react';
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 
 import { useResize } from 'hooks/useResize';
 
 import { MEDIA_SIZES } from 'constants/mediaSizes';
 
-import { Home } from 'assets/svg/Home';
-import { Layers } from 'assets/svg/Layers';
+
+import { ReactComponent as LayersIcon } from 'assets/svg/layers.svg';
+import { ReactComponent as HomeIcon } from 'assets/svg/home.svg';
 
 import { StyledNavList, StyledNavListItem } from './StyledNavList';
 import { themes } from 'styles/themes';
 import { useTheme } from 'hooks/useTheme';
 import { THEME } from 'constants/theme';
-
-// interface NavListProps {
-//     children: ReactNode;
-// }
 
 export interface IStyledListItemProps{
     $mr?: string;
@@ -24,28 +21,35 @@ export interface IStyledListItemProps{
 export const NavList: FC = () => {
     const { width } = useResize();
     const { theme } = useTheme();
+    
 
     return (
         <StyledNavList>
             <StyledNavListItem $mr='24px'>
-                <Link to={'/'}>
-                    <Home stroke={theme === THEME.DARK ? 'white' : 'black'} fill={theme === THEME.DARK ? 'white' : 'black'}/>
+                <NavLink to={'/'}
+                  className={({ isActive }) =>
+                    isActive ? "active" : ""
+                  }
+                >
+                    {/* <Home stroke={theme === THEME.DARK ? 'white' : 'black'} fill={theme === THEME.DARK ? 'white' : 'black'}/> */}
+                    <HomeIcon />
                     {width > MEDIA_SIZES.SM && (
                         <span>
                             HOME
                         </span>
                     )}        
-                </Link>
+                </NavLink>
             </StyledNavListItem>
             <StyledNavListItem>
-                <Link to ={'/'}>
-                <Layers stroke={theme === THEME.DARK ? 'white' : 'black'} fill={theme === THEME.DARK ? 'white' : 'black'}/>
+                <NavLink to ={'/'}>
+                {/* <LayersIcon stroke={theme === THEME.DARK ? 'white' : 'black'} fill={theme === THEME.DARK ? 'white' : 'black'}/> */}
+                <LayersIcon /> 
                     {width > MEDIA_SIZES.SM && (
                         <span>
                             Portfolio
                         </span>
                     )}      
-                </Link>
+                </NavLink>
             </StyledNavListItem>
         </StyledNavList>
     )
