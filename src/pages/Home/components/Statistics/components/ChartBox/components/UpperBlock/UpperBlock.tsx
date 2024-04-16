@@ -4,31 +4,20 @@ import { useAppSelector } from 'hooks/reduxHooks';
 
 interface IUpperBlock {
     headline: string,
-    number: number
+    number: string
 };
 
 export const UpperBlock: FC<IUpperBlock> = ({ headline, number }) => {
     const today = new Date();
     const todayString = today.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
 
-    const coinsHistory = useAppSelector(state => state.coinsHistory.coinsHistory);
-
-
     return (
         <StyledUpperBlock>
-            {Object.keys(coinsHistory).length > 1 ? (
-                <>
-                    <p>{todayString}</p>
-                </>
-
-            ) : (
-                <>
-                    <p>{headline}</p>
-                    <p>${number}</p>
-                    <p>{todayString}</p>
-                </>
-            )}  
-
+            <>
+                <p>{headline}</p>
+                <p>${number}</p>
+                {/* <p>{todayString}</p> */}
+            </>
         </StyledUpperBlock>
     );
 };

@@ -5,7 +5,7 @@ import { UpperBlock } from './components/UpperBlock/UpperBlock';
 
 interface IChartProps {
   headline: string;
-  number: number;
+  number: string;
   children: ReactNode;
 };
 

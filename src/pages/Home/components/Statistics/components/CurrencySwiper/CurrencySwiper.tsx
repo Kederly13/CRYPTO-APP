@@ -1,7 +1,7 @@
 import { FC } from 'react';
 import { uid } from 'uid';
 import { useState } from 'react';
-import { Currency } from '../Currency';
+import { SwiperCoins } from '../SwiperCoins';
 import { Percent } from 'components/Percent';
 import { SwiperBtns } from '../SwiperBtns';
 import { Swiper, SwiperSlide } from 'swiper/react';
@@ -53,7 +53,7 @@ export const CurrencySwiper: FC<ICurrencySwiper> = ({ coinsDetails }) => {
                 {!!coinsDetails.length && (
                     coinsDetails.map((coin) => (
                         <SwiperSlide key={uid()}>
-                            <Currency
+                            <SwiperCoins
                                 id={coin.id}         
                                 $logo={coin.image}
                                 name={coin.name}

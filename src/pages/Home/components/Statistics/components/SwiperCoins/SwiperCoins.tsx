@@ -3,14 +3,14 @@ import { FC } from 'react';
 import { useSelectedObjSearchParams } from 'hooks/useSelectedSearchParams';
 import { removeCoin } from 'store/slices/coinsHistory/coinsHistorySlice';
 
-import { StyledCurrency, StyledCurrencyWrapper, StyledCurrencyName, StyledCurrencyPriceWrapper, StyledCurrencyPrice } from './StyledCurrency';
+import { StyledSwiperCoins, StyledCurrencyWrapper, StyledCurrencyName, StyledCurrencyPriceWrapper, StyledCurrencyPrice } from './StyledSwiperCoins';
 import { useAppDispatch } from 'hooks/reduxHooks';
 import { useResize } from 'hooks/useResize';
 
 import { SEARCH_PARAMS } from 'constants/searchParams';
 import { MEDIA_SIZES } from 'constants/mediaSizes';
 
-export interface ICurrencyProps {
+export interface ISwiperCoinsProps {
     disabled?: boolean,
     $percent: React.ReactNode;
     onClick?: () => void,
@@ -21,13 +21,13 @@ export interface ICurrencyProps {
     id: string
 };
 
-export interface IStyledCurrencyProps {
-    $selected?: boolean;
+export interface IStyledSwiperCoinsProps {
+    $active?: boolean;
 };
 
-export type CurrencyProps = ICurrencyProps & IStyledCurrencyProps;
+export type SwiperCoinsProps = ISwiperCoinsProps & IStyledSwiperCoinsProps;
 
-export const Currency: FC<CurrencyProps> = ( props ) => {
+export const SwiperCoins: FC<SwiperCoinsProps> = ( props ) => {
     const { $logo, name, $symbol, $price, $percent, id } = props;
     const dispatch = useAppDispatch();
 
@@ -50,20 +50,20 @@ export const Currency: FC<CurrencyProps> = ( props ) => {
     }
 
     return (
-        <StyledCurrency 
+        <StyledSwiperCoins
             {...props} 
             onClick={onClick}
-            $selected={objSearchParams?.coin?.includes(id)}
+            $active={objSearchParams?.coin?.includes(id)}
         >
             <img className='currencyLogo' src={$logo} alt='logo'/>
-            <StyledCurrencyWrapper>
-                <StyledCurrencyName>{name} ({$symbol})</StyledCurrencyName>
+            <StyledCurrencyWrapper >
+                <StyledCurrencyName $active={objSearchParams?.coin?.includes(id)}>{name} ({$symbol})</StyledCurrencyName>
                 {width > MEDIA_SIZES.XL && (
                     <StyledCurrencyPriceWrapper>
-                        <StyledCurrencyPrice>{$price}</StyledCurrencyPrice>{$percent}
+                        <StyledCurrencyPrice $active={objSearchParams?.coin?.includes(id)}>{$price}</StyledCurrencyPrice>{$percent}
                     </StyledCurrencyPriceWrapper>
                 )}
             </StyledCurrencyWrapper>
-        </StyledCurrency>
+        </StyledSwiperCoins>
     );
 };

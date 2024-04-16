@@ -1,0 +1,1 @@
+export { SwiperCoins } from './SwiperCoins';

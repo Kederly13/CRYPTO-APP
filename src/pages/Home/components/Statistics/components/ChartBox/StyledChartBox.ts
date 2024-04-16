@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 export const StyledChartBox = styled.div`
-    background-color: #191934;
+    background-color: ${({ theme }) => theme.chartBox.background};
     padding: 24px;
     max-width: 632px;
     border-radius: 12px;

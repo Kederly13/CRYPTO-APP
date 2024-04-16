@@ -36,6 +36,9 @@ export const Statistics = () => {
     const [coinsHistoryFirst, coinsHistorySecond] = coinsHistoryKeys;
     
     const coinFirst = lastCoins.find(({ id }) => id === coinsHistoryFirst);
+
+    const today = new Date();
+    const todayString = today.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
     // const coinSecond = coins.find(({ id }) => id === coinsHistorySecond);
 
     useEffect(() => {
@@ -79,7 +82,7 @@ export const Statistics = () => {
             <StyledCharts>
                 <ChartBox 
                     headline={coinFirst ? `${coinFirst.name} (${coinFirst.symbol})` : ''} 
-                    number={coinFirst ? coinFirst.current_price : 0}
+                    number={coinFirst ? String(coinFirst.current_price) : ''}
                 >
                     <LineChart
                         firstCoinData={coinsHistoryFirst ? getConvertedDates(coinsHistory[coinsHistoryFirst].prices): []}
@@ -90,7 +93,7 @@ export const Statistics = () => {
                 </ChartBox>
                 <ChartBox 
                     headline={'Volume'} 
-                    number={coinFirst ? coinFirst.current_price : 0}
+                    number={todayString}
                 >
                     <BarChart
                         firstCoinData={coinsHistoryFirst ? getConvertedDates(coinsHistory[coinsHistoryFirst].prices): []}

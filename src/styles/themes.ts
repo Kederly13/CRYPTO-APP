@@ -42,8 +42,22 @@ export const themes = {
         icon: {
             default: 'rgba(255, 255, 255, 0.50)',
             active: '#FFF'
-        }
+        },
+
+        swiperCoin: {
+            defaultBackground: '#191926',
+            activeBackground: 'rgba(97, 97, 222, 0.50)',
+            activeBorder: '#7878FF',
+            boxShadow: '4px 4px 20px 8px rgba(120, 120, 255, 0.15)',
+            font: '#FFF',
+            activeFont: '#FFF',
+            priceFont: '#D1D1D1',
+            activePriceFont: '#D1D1D1'
+        },
         
+        chartBox: {
+            background: '#191934'
+        }
         
     },
 
@@ -74,7 +88,20 @@ export const themes = {
         icon: {
             default: '#353574',
             active: '#353570'
-        }
+        },
 
+        swiperCoin: {
+            defaultBackground: '#FFF',
+            activeBackground: 'rgba(97, 97, 222, 0.50)',
+            activeBorder: '#7878FF',
+            font: '#181826',
+            activeFont: '#FFF',
+            priceFont: '#42428B',
+            activePriceFont: 'rgba(255, 255, 255, 0.70)'
+        },
+
+        chartBox: {
+            background: '#FFF'
+        }
     }
 }
