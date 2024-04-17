@@ -1,6 +1,8 @@
 import { FC } from 'react';
+import { Link } from 'react-router-dom';
+
 import { ICoin } from 'types/coinType';
-import { StyledSearchList } from './StyledSearchList';
+import { StyledSearchList, StyledSearchListItem } from './StyledSearchList';
 
 interface SearchListProps {
     coins: ICoin[];
@@ -17,11 +19,10 @@ export const SearchList: FC<SearchListProps> = ({ coins, searchQuery }) => {
         )
     }
 
-    console.log(searchQuery)
     return (
         <StyledSearchList>
-            {filteredCoins.length > 0 && filteredCoins.map((coin, index) => (
-                <li>{coin}</li>
+            {filteredCoins.length > 0 && filteredCoins.map((coin) => (
+                <StyledSearchListItem key={coin}>{coin}</StyledSearchListItem>
             ))}
         </StyledSearchList>
     )

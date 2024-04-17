@@ -32,10 +32,12 @@ export const SearchForm: React.FC = () => {
                     onChange={handleChange}
                 />
             </div>
-            <SearchList
-                coins={coinsList}
-                searchQuery={searchQuery} 
-            />
+            {searchQuery !== '' && (
+                <SearchList
+                    coins={coinsList}
+                    searchQuery={searchQuery} 
+                />
+            )}
         </StyledSearchForm>
     );
 };

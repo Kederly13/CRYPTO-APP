@@ -49,6 +49,10 @@ export const themes = {
             selected: 'rgba(97, 97, 222, 0.50)'
         },
 
+        searchList: {
+            color: '#FFF'
+        },
+
         swiperCoin: {
             defaultBackground: '#191926',
             activeBackground: 'rgba(97, 97, 222, 0.50)',
@@ -143,6 +147,10 @@ export const themes = {
         currencyMenu: {
             background: 'rgba(204, 204, 254, 0.40)',
             selected: 'rgba(97, 97, 222, 0.50)'
+        },
+
+        searchList: {
+            color: '#181826'
         },
 
         swiperCoin: {
