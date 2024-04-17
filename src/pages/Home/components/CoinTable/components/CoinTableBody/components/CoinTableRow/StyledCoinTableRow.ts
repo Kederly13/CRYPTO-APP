@@ -2,10 +2,11 @@ import styled from "styled-components"
 
 export const StyledCoinTableRow = styled.tr`
     border-radius: 12px;
-    background-color: #191926;
-
+    background-color: ${({ theme }) => theme.trow.background};
+    
     & > td {
         padding: 20px 10px;
+        
 
         &:first-child {
             border-top-left-radius: 12px;

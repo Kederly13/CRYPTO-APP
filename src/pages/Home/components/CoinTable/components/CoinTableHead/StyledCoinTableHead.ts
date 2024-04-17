@@ -12,6 +12,10 @@ export const StyledCoinTableHead = styled.thead`
 
 export const StyledCoinTableHeaderRow = styled.tr`
     padding: 20px;
+    
+    & > th {
+        color: ${({ theme }) => theme.theader.font};
+    }
 `
 
 export const StyledHeadNum = styled.th`

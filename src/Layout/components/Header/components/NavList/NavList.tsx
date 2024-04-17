@@ -22,7 +22,6 @@ export const NavList: FC = () => {
     const { width } = useResize();
     const { theme } = useTheme();
     
-
     return (
         <StyledNavList>
             <StyledNavListItem $mr='24px'>
@@ -41,8 +40,7 @@ export const NavList: FC = () => {
                 </NavLink>
             </StyledNavListItem>
             <StyledNavListItem>
-                <NavLink to ={'/'}>
-                {/* <LayersIcon stroke={theme === THEME.DARK ? 'white' : 'black'} fill={theme === THEME.DARK ? 'white' : 'black'}/> */}
+                <NavLink to ={'/portfolio'}>
                 <LayersIcon /> 
                     {width > MEDIA_SIZES.SM && (
                         <span>

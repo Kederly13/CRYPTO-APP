@@ -7,9 +7,9 @@ import { LineChart } from './components/LineChart';
 import { BarChart } from './components/BarChart';
 import { ChartBox } from './components/ChartBox';
 import { PeriodFilter } from 'components/PeriodFilter';
-import { peiodFilterData } from 'components/PeriodFilter/periodFilterData';
+import { currencyData } from 'Layout/components/Header/components/Currency/components/CurrencyMenu/currencyData';
 
-import { fetchCoins, onSetPage, selectCoinList, selectLastCoinList, selectPage, setNulifyCoins } from 'store/slices/coinsSlice/coinSlice';
+import { fetchCoins, selectCoinList, selectLastCoinList, selectPage, setNulifyCoins } from 'store/slices/coinsSlice/coinSlice';
 import { fetchCoinHistory } from 'store/slices/coinsHistory/coinsHistorySlice';
 import { useAppDispatch, useAppSelector } from 'hooks/reduxHooks';
 import { selectCoinsHistory } from 'store/slices/coinsHistory/coinsHistorySlice';
@@ -30,7 +30,6 @@ export const Statistics = () => {
     const lastCoins = useAppSelector(selectLastCoinList);
     const coinsList = useAppSelector(selectCoinList)
     const coinsHistory = useAppSelector(selectCoinsHistory);
-    const pageNum = useAppSelector(selectPage);
 
     const coinsHistoryKeys = Object.keys(coinsHistory);
     const [coinsHistoryFirst, coinsHistorySecond] = coinsHistoryKeys;
@@ -39,7 +38,9 @@ export const Statistics = () => {
 
     const today = new Date();
     const todayString = today.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
-    // const coinSecond = coins.find(({ id }) => id === coinsHistorySecond);
+    
+    const { currency } = objSearchParams;
+    const { symbol } = currencyData.find(item => item.value === currency) || {};
 
     useEffect(() => {
         if (Object.values(objSearchParams).length <= 1) {
@@ -82,7 +83,7 @@ export const Statistics = () => {
             <StyledCharts>
                 <ChartBox 
                     headline={coinFirst ? `${coinFirst.name} (${coinFirst.symbol})` : ''} 
-                    number={coinFirst ? String(coinFirst.current_price) : ''}
+                    number={coinFirst ? symbol + String(coinFirst.current_price) : ''}
                 >
                     <LineChart
                         firstCoinData={coinsHistoryFirst ? getConvertedDates(coinsHistory[coinsHistoryFirst].prices): []}

@@ -7,8 +7,10 @@ import { StyledSwiperCoins, StyledCurrencyWrapper, StyledCurrencyName, StyledCur
 import { useAppDispatch } from 'hooks/reduxHooks';
 import { useResize } from 'hooks/useResize';
 
+
 import { SEARCH_PARAMS } from 'constants/searchParams';
 import { MEDIA_SIZES } from 'constants/mediaSizes';
+import { currencyData } from 'Layout/components/Header/components/Currency/components/CurrencyMenu/currencyData';
 
 export interface ISwiperCoinsProps {
     disabled?: boolean,
@@ -32,8 +34,10 @@ export const SwiperCoins: FC<SwiperCoinsProps> = ( props ) => {
     const dispatch = useAppDispatch();
 
     const { width } = useResize();
-
+   
     const { objSearchParams, onSetObjSearchParams } = useSelectedObjSearchParams();
+    const { currency } = objSearchParams;
+    const { symbol } = currencyData.find(item => item.value === currency) || {};
 
     const onClick = () => {
         dispatch(removeCoin({ id }));
@@ -60,7 +64,10 @@ export const SwiperCoins: FC<SwiperCoinsProps> = ( props ) => {
                 <StyledCurrencyName $active={objSearchParams?.coin?.includes(id)}>{name} ({$symbol})</StyledCurrencyName>
                 {width > MEDIA_SIZES.XL && (
                     <StyledCurrencyPriceWrapper>
-                        <StyledCurrencyPrice $active={objSearchParams?.coin?.includes(id)}>{$price}</StyledCurrencyPrice>{$percent}
+                        <StyledCurrencyPrice $active={objSearchParams?.coin?.includes(id)}>
+                            {symbol}
+                            {$price}
+                        </StyledCurrencyPrice>{$percent}
                     </StyledCurrencyPriceWrapper>
                 )}
             </StyledCurrencyWrapper>

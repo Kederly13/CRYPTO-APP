@@ -23,7 +23,7 @@ export const StyledCoinLogo = styled.img`
 `
 
 export const StyledCoinName = styled.span`
-    color: #FFF;
+    color: ${({ theme }) => theme.trow.font};
     font-size: 16px;
     font-weight: 500;
     display: flex;

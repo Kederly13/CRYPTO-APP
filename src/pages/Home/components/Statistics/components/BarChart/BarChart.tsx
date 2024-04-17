@@ -1,4 +1,5 @@
 import { FC } from 'react';
+import { useTheme } from 'styled-components';
 
 import { Bar } from 'react-chartjs-2';
 import {
@@ -28,22 +29,15 @@ interface IBarChartProps {
 };
 
 export const BarChart: FC<IBarChartProps> = ({ firstCoinData, secondCoinData, coinFirst, coinSecond }) => {
+    const theme = useTheme();
     const data = {
         labels: firstCoinData.map(item => item[0]),
         datasets: [
             {
                 label: coinFirst,
-                backgroundColor: (context: { chart: { ctx: CanvasRenderingContext2D } }) => {
-                    const ctx = context.chart.ctx;
-                    const gradient = ctx.createLinearGradient(0, 0, 0, 400);
-                    gradient.addColorStop(0, 'rgba(116, 116, 250, 0.95)');
-                    gradient.addColorStop(0.3, 'rgba(116, 116, 250, 0.70)');
-                    gradient.addColorStop(0.7, 'rgba(116, 116, 250, 0.40)');
-                    gradient.addColorStop(1, 'rgba(10, 10, 20, 0.01)');
-                    return gradient;
-                },
+                backgroundColor: theme.chartGradientSecondary.backgroundColor,
                 data: firstCoinData.map(item => item[1]),
-                borderColor: '#7878FF',
+                borderColor: theme.chartSecondary,
                 yAxisID: "y-axis-1",
                 order: 1,
                 fill: true,
@@ -51,16 +45,8 @@ export const BarChart: FC<IBarChartProps> = ({ firstCoinData, secondCoinData, co
             {
                 label: coinSecond,
                 data: secondCoinData?.map(item => item[1]),
-                borderColor: '#E771FF',
-                backgroundColor: (context: { chart: { ctx: CanvasRenderingContext2D } }) => {
-                    const ctx = context.chart.ctx;
-                    const gradient = ctx.createLinearGradient(0, 0, 0, 400);
-                    gradient.addColorStop(0, 'rgba(231, 114, 255, 0.90)');
-                    gradient.addColorStop(0.4, 'rgba(231, 114, 255, 0.60)');
-                    gradient.addColorStop(0.6, 'rgba(231, 114, 255, 0.30)');
-                    gradient.addColorStop(1, 'rgba(231, 114, 255, 0.01)');
-                    return gradient;
-                },
+                borderColor: theme.chartPrimary,
+                backgroundColor: theme.chartGradientPrimary.backgroundColor,
                 yAxisID: "y-axis-2",
                 order: 2,
                 fill: true,
@@ -78,10 +64,14 @@ export const BarChart: FC<IBarChartProps> = ({ firstCoinData, secondCoinData, co
               grid: {
                 display: false,
               },
+              stacked: true
             },
             y: {
-                stacked: true,  
+               
                 ticks: {
+                  display: false,
+                },
+                grid: {
                   display: false,
                 },
               },
@@ -91,14 +81,14 @@ export const BarChart: FC<IBarChartProps> = ({ firstCoinData, secondCoinData, co
               ticks: {
                 display: false,
               },
-              stacked: true
+             
             },
             "y-axis-2": {
               display: false,
               ticks: {
                 display: false,
               },
-              stacked: true
+              
             }
         },
         plugins: {

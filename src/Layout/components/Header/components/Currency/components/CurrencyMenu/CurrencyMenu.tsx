@@ -18,7 +18,7 @@ export const CurrencyMenu = () => {
                         [SEARCH_PARAMS.CURRENCY]: item.value
                     })
                 }}>
-                    {item.value}
+                    {item.value.toUpperCase()}
                 </StyledCurrencyButton>
             </StyledCurrencyListItem>
            ))}

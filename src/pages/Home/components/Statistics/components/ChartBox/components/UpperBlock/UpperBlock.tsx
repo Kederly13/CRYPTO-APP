@@ -1,6 +1,7 @@
 import { FC } from 'react';
 import { StyledUpperBlock } from './StyledUpperBlock';
 import { useAppSelector } from 'hooks/reduxHooks';
+import { useSelectedObjSearchParams } from 'hooks/useSelectedSearchParams';
 
 interface IUpperBlock {
     headline: string,
@@ -8,14 +9,13 @@ interface IUpperBlock {
 };
 
 export const UpperBlock: FC<IUpperBlock> = ({ headline, number }) => {
-    const today = new Date();
-    const todayString = today.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
+    const { objSearchParams } = useSelectedObjSearchParams();
 
     return (
         <StyledUpperBlock>
             <>
                 <p>{headline}</p>
-                <p>${number}</p>
+                <p>{number}</p>
                 {/* <p>{todayString}</p> */}
             </>
         </StyledUpperBlock>

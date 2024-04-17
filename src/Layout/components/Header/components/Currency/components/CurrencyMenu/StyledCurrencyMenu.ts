@@ -11,16 +11,24 @@ export const StyledCurrencyMenu = styled.ul`
     left: 0;
     flex-direction: column;
     width: 100%;
-    background-color: #191926;
+    background-color: ${({ theme }) => theme.currencyMenu.background};
+    border-radius: 6px; // not working
     color: inherit;
 `;
 
 export const StyledCurrencyButton = styled.button`
     color: inherit;
+    display: block;
+    margin: 0 auto;
+    padding: 10px 0;
 `
 
-export const StyledCurrencyListItem = styled.button<IStyledCurrencyListItem>`
+export const StyledCurrencyListItem = styled.li<IStyledCurrencyListItem>`
     color: inherit;
-    background: ${({ $selected }) => ($selected ? 'rgba(97, 97, 222, 0.50)' : '#191926')};
+    background: ${({ $selected, theme }) => ($selected ? theme.currencyMenu.selected : theme.currencyMenu.background)};
     width: 100%;
+
+    &:hover {
+        cursor: pointer;
+    }
 `

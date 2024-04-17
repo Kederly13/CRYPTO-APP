@@ -4,13 +4,13 @@ export const StyledUpperBlock = styled.div`
     margin-bottom: 24px;
 
     & p:nth-child(1) {
-        color: #D1D1D1;
+        color: ${({ theme }) => theme.chartBox.headline};
         font-size: 20px;
         margin-bottom: 24px;
     }
 
     & p:nth-child(2) {
-        color: #FFF;
+        color: ${({ theme }) => theme.chartBox.number};
         font-size: 28px;
         font-weight: 700;
         margin-bottom: 16px;
