@@ -15,6 +15,8 @@ import { useAppDispatch, useAppSelector } from 'hooks/reduxHooks';
 import { selectCoinsHistory } from 'store/slices/coinsHistory/coinsHistorySlice';
 import { useSelectedObjSearchParams } from 'hooks/useSelectedSearchParams';
 
+import { getAllCoinsApi } from 'api/AllCoinsApi';
+
 import { getConvertedDates } from 'utils/getConvertedDates';
 import { SEARCH_PARAMS } from 'constants/searchParams';
 

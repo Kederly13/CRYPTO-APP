@@ -18,7 +18,6 @@ export const fetchMarketData = createAsyncThunk<IMarketDataProps, AbortControlle
             const innerData = data.data;
             
             return innerData;
-
         } catch(error) {
             return rejectWithValue(getErrorMessage(error));
         }

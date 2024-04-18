@@ -70,6 +70,10 @@ export const themes = {
             number: '#FFF'
         },
 
+        heading: {
+            color: '#FFF'
+        },
+
         chartPrimary: '#7878FF',
         chartSecondary: '#E771FF',
         chartGradientPrimary: {
@@ -151,6 +155,10 @@ export const themes = {
 
         searchList: {
             color: '#181826'
+        },
+
+        heading: {
+            color: '#42428B'
         },
 
         swiperCoin: {
