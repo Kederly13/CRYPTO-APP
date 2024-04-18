@@ -3,7 +3,6 @@ import { StyledButton } from './StyledButton';
 
 interface IDefaultButtonProps {
     type: 'button' | 'submit',
-    disabled: boolean,
     children: React.ReactNode;
     onClick?: () => void;
 };
@@ -14,12 +13,13 @@ interface IStyledButtonProps {
     margin?: string,
     $backgroundcolor?: string,
     borderRadiusL?: string,
+    active?: boolean,
 };
 
 export type ButtonProps = IDefaultButtonProps & IStyledButtonProps;
 
-export const Button: FC<ButtonProps> = ({ children, ...props }) => (
-    <StyledButton {...props}>
+export const Button: FC<ButtonProps> = ({ children, active, ...props  }) => (
+    <StyledButton {...props} className={active ? 'active' : ''}>
         {children}
     </StyledButton>
 );

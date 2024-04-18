@@ -13,9 +13,17 @@ export const StyledButton = styled.button<ButtonProps>`
     background-color: ${({ theme }) => theme.buttonColor};
     padding: 12px;
     transition: 0.5s;
+    border: 1px solid transparent;
+
+    &.active {
+        border-color: ${({ theme }) => theme.activeBorderColor};
+        background-color: ${({ theme }) => theme.buttonActiveColor};
+    }
     
     &:hover {
         background-color: ${({ theme }) => theme.buttonActiveColor};
     }
+
+    
 `;
 

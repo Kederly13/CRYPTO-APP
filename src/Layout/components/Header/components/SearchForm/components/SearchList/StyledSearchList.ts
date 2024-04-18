@@ -11,7 +11,8 @@ export const StyledSearchList = styled.ul`
     background-color: ${({ theme }) => theme.currencyMenu.background};
     border-radius: 6px; 
     color: inherit;
-    
+    height: 200px;
+    overflow-y: auto;
 `
 
 export const StyledSearchListItem = styled.li`

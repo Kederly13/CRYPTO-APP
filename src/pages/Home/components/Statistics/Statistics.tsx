@@ -75,7 +75,7 @@ export const Statistics = () => {
                 <h2>
                     Select the currency to view statistics
                 </h2>
-                <Button disabled={true} type='button' $padding='12px 24px'>Exit comparison</Button>
+                <Button type='button' $padding='12px 24px'>Exit comparison</Button>
             </StyledStatisticsHead>
             <CurrencySwiper
                 coinsDetails={lastCoins}
