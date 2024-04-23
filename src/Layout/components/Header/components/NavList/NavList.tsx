@@ -30,7 +30,6 @@ export const NavList: FC = () => {
                     isActive ? "active" : ""
                   }
                 >
-                    {/* <Home stroke={theme === THEME.DARK ? 'white' : 'black'} fill={theme === THEME.DARK ? 'white' : 'black'}/> */}
                     <HomeIcon />
                     {width > MEDIA_SIZES.SM && (
                         <span>
