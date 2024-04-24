@@ -6,13 +6,12 @@ interface IStyledCurrencyListItem {
 
 export const StyledCurrencyMenu = styled.ul`
     position: absolute;
-    /* z-index: 150; */
     top: 100;
     left: 0;
     flex-direction: column;
     width: 100%;
     background-color: ${({ theme }) => theme.currencyMenu.background};
-    border-radius: 6px; // not working
+    border-radius: 6px; 
     color: inherit;
 `;
 

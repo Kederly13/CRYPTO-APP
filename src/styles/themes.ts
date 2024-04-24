@@ -115,6 +115,28 @@ export const themes = {
         trow: {
             background: '#191926',
             font: '#FFF'
+        },
+
+        //Convertor
+        convertorHeading: {
+            color: '#FFF',
+        },
+
+        convertorDateTime: {
+            color: '#9E9E9E',
+        },
+
+        convertorCoinHeading: {
+            color: 'rgba(255, 255, 255, 0.80)',
+        },
+
+        boxBackground: {
+            backgroundPrimary: '#191934;',
+            backgroundSecondary: '#1F1934'
+        },
+
+        boxLine: {
+            color: '#FFF'
         }
         
     },
@@ -214,6 +236,28 @@ export const themes = {
         trow: {
             background: '#FFF',
             font: '#232337'
+        },
+
+        //Convertor
+        convertorHeading: {
+            color: '#42428B',
+        },
+
+        convertorDateTime: {
+            color: 'rgba(66, 66, 139, 0.80)',
+        },
+
+        convertorCoinHeading: {
+            color: '#181826',
+        },
+
+        boxBackground: {
+            backgroundPrimary: '#FFF',
+            backgroundSecondary: '#FFF'
+        },
+
+        boxLine: {
+            color: '#353574'
         }
     }
 }

@@ -1,1 +1,1 @@
-export { Convertor } from './Convertor';
+export { ConvertorSection } from './ConvertorSection';

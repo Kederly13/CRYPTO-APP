@@ -4,7 +4,7 @@ import { Layout } from 'Layout';
 import Home from './pages/Home/Home'
 
 import './App.scss';
-import { Convertor } from 'pages/Home/components/Convertor';
+import { ConvertorSection } from 'pages/Home/components/Convertor';
 
 // Внутри роута будет еще один роут (аутлет)
 const App = () => (
@@ -12,7 +12,7 @@ const App = () => (
       <Layout>
         <Routes>
           <Route path='/' element={<Home />}>
-            <Route path='convertor' element={<Convertor />}/>
+            <Route path='convertor' element={<ConvertorSection />}/>
           </Route>
         </Routes>
       </Layout>

@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useSelectedObjSearchParams } from 'hooks/useSelectedSearchParams';
 
-import { Arrow } from 'assets/svg/arrow';
+import { ReactComponent as Arrow } from 'assets/svg/arrow.svg';
 import { Dollar } from 'assets/svg/dollar';
 import { CurrencyMenu } from './components/CurrencyMenu';
 import { StyledCurrency, StyledCurrencyWrapper } from './StyledCurrency';
