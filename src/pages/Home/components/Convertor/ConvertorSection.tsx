@@ -42,13 +42,10 @@ export const ConvertorSection = () => {
     useEffect(() => {
         if (Object.values(objSearchParams).length <= 1) {
             onSetObjSearchParams({
-                ...objSearchParams,
-                [SEARCH_PARAMS.COIN]: firstCoin.id,
-                [SEARCH_PARAMS.DAYS]: '7',
                 [SEARCH_PARAMS.CURRENCY]: 'usd',
             });
         };
-    })
+    }, [])
 
     const currentDayTime = getDateTime();
     const theme = useTheme();
@@ -65,10 +62,10 @@ export const ConvertorSection = () => {
                 <StyledConvertorCoinWrapper $backgroundColor={theme.boxBackground.backgroundPrimary}>
                     <ConvertorCoin
                         heading='You sell'  
-                        name={selectedCoins.firstCoin.name} 
-                        symbol={selectedCoins.firstCoin.symbol} 
-                        image={selectedCoins.firstCoin.image}
-                        current_price={currencySymbol + selectedCoins.firstCoin.current_price.toFixed(2)}  
+                        name={selectedCoins?.firstCoin?.name} 
+                        symbol={selectedCoins?.firstCoin?.symbol} 
+                        image={selectedCoins?.firstCoin?.image}
+                        current_price={currencySymbol + selectedCoins?.firstCoin?.current_price?.toFixed(2)}  
                     />
                 </StyledConvertorCoinWrapper>
                 <StyledSwithcWrapper type='button'>
@@ -77,10 +74,10 @@ export const ConvertorSection = () => {
                 <StyledConvertorCoinWrapper $backgroundColor={theme.boxBackground.backgroundSecondary}>    
                     <ConvertorCoin
                         heading='You buy' 
-                        name={selectedCoins.secondCoin.name} 
-                        symbol={selectedCoins.secondCoin.symbol} 
-                        image={selectedCoins.secondCoin.image} 
-                        current_price={currencySymbol + selectedCoins.secondCoin.current_price.toFixed(2)} 
+                        name={selectedCoins?.secondCoin?.name} 
+                        symbol={selectedCoins?.secondCoin?.symbol} 
+                        image={selectedCoins?.secondCoin?.image} 
+                        current_price={currencySymbol + selectedCoins?.secondCoin?.current_price?.toFixed(2)} 
                     />
                 </StyledConvertorCoinWrapper>
             </StyledConvertorWrapper>

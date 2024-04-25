@@ -43,17 +43,6 @@ export const Statistics = () => {
     
     const { currency } = objSearchParams;
     const { symbol } = currencyData.find(item => item.value === currency) || {};
-
-    useEffect(() => {
-        if (Object.values(objSearchParams).length <= 1) {
-            onSetObjSearchParams({
-                ...objSearchParams,
-                [SEARCH_PARAMS.COIN]: coinsHistoryFirst,
-                [SEARCH_PARAMS.DAYS]: '7',
-                [SEARCH_PARAMS.CURRENCY]: 'usd',
-            });
-        };
-    })
     
     useEffect(() => {
         if (!objSearchParams?.coin && !objSearchParams?.days && objSearchParams?.currency) {

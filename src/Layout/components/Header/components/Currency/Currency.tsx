@@ -7,7 +7,7 @@ import { CurrencyMenu } from './components/CurrencyMenu';
 import { StyledCurrency, StyledCurrencyWrapper } from './StyledCurrency';
 
 export const Currency = () => {
-    const { objSearchParams, onSetObjSearchParams } = useSelectedObjSearchParams();;
+    const { objSearchParams, onSetObjSearchParams } = useSelectedObjSearchParams();
     const [isActiveMenu, setActiveMenu] = useState(false);
 
     const haldleClick = () => {

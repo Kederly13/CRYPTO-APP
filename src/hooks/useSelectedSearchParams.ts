@@ -1,7 +1,7 @@
 import { SEARCH_PARAMS } from 'constants/searchParams';
 import { useSearchParams } from 'react-router-dom';
 
-export type TObjSearchParams = Record<SEARCH_PARAMS, string>;
+export type TObjSearchParams = Partial<Record<SEARCH_PARAMS, string>>;
 export type TObjSearchParamsValueOf = `${SEARCH_PARAMS}`;
 
 export interface IOptionsSetSearchParams {

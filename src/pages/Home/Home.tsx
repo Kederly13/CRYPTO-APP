@@ -14,8 +14,7 @@ interface ISection {
 
 export const Home = () => {
     const [activeSection, setActiveSection] = useState<string>('Coins');
-    const isHome = useCurrentPath('/')
-    console.log(isHome)
+    const isHome = useCurrentPath('/');
     
     return(
         <Section>
