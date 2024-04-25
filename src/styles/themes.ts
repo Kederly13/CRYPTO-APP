@@ -137,7 +137,11 @@ export const themes = {
 
         boxLine: {
             color: '#FFF'
-        }
+        },
+
+        coinPrice: {
+            color: 'rgba(255, 255, 255, 0.80)'
+        },
         
     },
 
@@ -258,6 +262,10 @@ export const themes = {
 
         boxLine: {
             color: '#353574'
-        }
+        },
+
+        coinPrice: {
+            color: 'color: rgba(53, 53, 116, 0.80)'
+        },
     }
 }

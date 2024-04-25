@@ -7,14 +7,14 @@ export const StyledCoinHeading = styled.h3`
 `
 
 export const StyledConvertorCoin =  styled.div`
-    border-bottom: 1px solid ${({ theme }) => theme.boxLine.color};
-    padding-bottom: 24px;
+    /* padding-bottom: 24px; */
 `
 
 export const StyledCoin = styled.div`
     display: flex;
     align-items: center;
-
+    border-bottom: 1px solid ${({ theme }) => theme.boxLine.color};
+    padding-bottom: 24px;
 
     & > img {
         width: 24px;
@@ -27,6 +27,8 @@ export const StyledCoinName = styled.span`
     margin-right: 3px;
     font-weight: 500;
     font-size: 20px;
+    color: #FFF;
+    
 `
 
 export const StyledCoinSymbol = styled.span`
@@ -36,8 +38,9 @@ export const StyledCoinSymbol = styled.span`
     font-size: 20px;
 `
 
-export const StyledCoinCalculator = styled.div`
-    display: flex;
-    color: #FFF;
-    font-weight: 500;
+export const StyledCoinPrice = styled.span`
+    font-size: 14px;
+    margin-top: 8px;
+    color: ${({ theme }) => theme.coinPrice.color};
+    display: block;
 `
