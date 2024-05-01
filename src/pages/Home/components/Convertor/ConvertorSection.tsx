@@ -1,20 +1,19 @@
 import { useEffect, useState } from 'react';
 
 import { ICoin } from 'types/coinType';
-import { SEARCH_PARAMS } from 'constants/searchParams';
+import { SEARCH_PARAMS } from 'constants/searchParams'
 
-import { currencyData } from 'Layout/components/Header/components/Currency/components/CurrencyMenu/currencyData';
+import { fetchCoins, setNulifyCoins } from 'store/slices/coinsSlice/coinSlice';
+import { fetchCoinHistory } from 'store/slices/coinsHistory/coinsHistorySlice';
 
-import { ConvertorCoin } from './components/ConvertorCoin';
-
+import { useAppDispatch } from 'hooks/reduxHooks';
 import { useAppSelector } from 'hooks/reduxHooks';
-import { useTheme } from 'styled-components';
 import { useSelectedObjSearchParams } from 'hooks/useSelectedSearchParams';
-
-import { StyledSwithcWrapper, StyledConvertorSection, StyledHeading, StyledDateTime, StyledConvertorWrapper, StyledConvertorCoinWrapper } from './StyledConvertorSection';
+import { selectCoinsHistory } from 'store/slices/coinsHistory/coinsHistorySlice';
+import { ConvertorWrapper } from './components/ConvertorWrapper/ConvertorWrapper';
+import { StyledConvertorSection, StyledHeading, StyledDateTime } from './StyledConvertorSection';
 import { selectCoinList } from 'store/slices/coinsSlice/coinSlice';
 import { getDateTime } from 'utils/getDateTime';
-import { ReactComponent as Switch } from 'assets/svg/switch.svg';
 
 export interface IStyledConvertorCoinWrapperProps {
     $backgroundColor?: string;
@@ -26,29 +25,36 @@ interface ISelectedCoins {
 };
 
 export const ConvertorSection = () => {
+    const dispatch = useAppDispatch();
     const { objSearchParams, onSetObjSearchParams } = useSelectedObjSearchParams();
-
-    const coinsList = useAppSelector(selectCoinList);
-    const firstCoin = coinsList[0];
-    const secondCoin = coinsList[1];
-
-    const { currency } = objSearchParams;
-    const foundCurrency = currencyData.find(item => item.value === currency);
-    const currencySymbol = foundCurrency ? foundCurrency.symbol : '';
-
-
-    const [selectedCoins, setSelectedCoins] = useState<ISelectedCoins>({firstCoin, secondCoin});
+    const coinsHistory = useAppSelector(selectCoinsHistory);
 
     useEffect(() => {
         if (Object.values(objSearchParams).length <= 1) {
             onSetObjSearchParams({
                 [SEARCH_PARAMS.CURRENCY]: 'usd',
+                [SEARCH_PARAMS.DAYS]: '7',
             });
         };
     }, [])
 
+    useEffect(() => {
+        if (!objSearchParams?.coin && !objSearchParams?.days && objSearchParams?.currency) {
+            return;
+        };
+        dispatch(setNulifyCoins());
+        const controller = new AbortController();
+        
+        dispatch(fetchCoins(controller));
+        dispatch(fetchCoinHistory(controller));
+  
+        return () => {
+            controller.abort();
+        };
+  
+    }, [objSearchParams?.days, objSearchParams?.currency]);
+
     const currentDayTime = getDateTime();
-    const theme = useTheme();
 
     return (
         <StyledConvertorSection>
@@ -58,29 +64,7 @@ export const ConvertorSection = () => {
             <StyledDateTime>
                 {currentDayTime}
             </StyledDateTime>
-            <StyledConvertorWrapper>
-                <StyledConvertorCoinWrapper $backgroundColor={theme.boxBackground.backgroundPrimary}>
-                    <ConvertorCoin
-                        heading='You sell'  
-                        name={selectedCoins?.firstCoin?.name} 
-                        symbol={selectedCoins?.firstCoin?.symbol} 
-                        image={selectedCoins?.firstCoin?.image}
-                        current_price={currencySymbol + selectedCoins?.firstCoin?.current_price?.toFixed(2)}  
-                    />
-                </StyledConvertorCoinWrapper>
-                <StyledSwithcWrapper type='button'>
-                    <Switch />
-                </StyledSwithcWrapper>
-                <StyledConvertorCoinWrapper $backgroundColor={theme.boxBackground.backgroundSecondary}>    
-                    <ConvertorCoin
-                        heading='You buy' 
-                        name={selectedCoins?.secondCoin?.name} 
-                        symbol={selectedCoins?.secondCoin?.symbol} 
-                        image={selectedCoins?.secondCoin?.image} 
-                        current_price={currencySymbol + selectedCoins?.secondCoin?.current_price?.toFixed(2)} 
-                    />
-                </StyledConvertorCoinWrapper>
-            </StyledConvertorWrapper>
+            <ConvertorWrapper />
         </StyledConvertorSection>
     )
 };

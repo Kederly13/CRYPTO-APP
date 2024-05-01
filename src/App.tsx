@@ -16,44 +16,44 @@ import { fetchCoinHistory } from 'store/slices/coinsHistory/coinsHistorySlice';
 
 
 const App = () => {
-  const dispatch = useAppDispatch();
-  const { objSearchParams, onSetObjSearchParams } = useSelectedObjSearchParams();
+  // const dispatch = useAppDispatch();
+  // const { objSearchParams, onSetObjSearchParams } = useSelectedObjSearchParams();
 
-  useEffect(() => {
-    if (Object.values(objSearchParams).length <= 1) {
-        onSetObjSearchParams({
-            [SEARCH_PARAMS.COIN]: 'bitcoin',
-            [SEARCH_PARAMS.DAYS]: '7',
-            [SEARCH_PARAMS.CURRENCY]: 'usd',
-        });
-    };
-  }, []);
+  // useEffect(() => {
+  //   if (Object.values(objSearchParams).length <= 1) {
+  //       onSetObjSearchParams({
+  //           [SEARCH_PARAMS.COIN]: 'bitcoin',
+  //           [SEARCH_PARAMS.DAYS]: '7',
+  //           [SEARCH_PARAMS.CURRENCY]: 'usd',
+  //       });
+  //   };
+  // }, []);
 
-  useEffect(() => {
-      // if (!objSearchParams?.coin && !objSearchParams?.days && objSearchParams?.currency) {
-      //     return;
-      // };
-      // dispatch(setNulifyCoins());
-      const controller = new AbortController();
+  // useEffect(() => {
+  //     // if (!objSearchParams?.coin && !objSearchParams?.days && objSearchParams?.currency) {
+  //     //     return;
+  //     // };
+  //     // dispatch(setNulifyCoins());
+  //     const controller = new AbortController();
       
-      dispatch(fetchCoins(controller));
-      dispatch(fetchCoinHistory(controller));
+  //     dispatch(fetchCoins(controller));
+  //     dispatch(fetchCoinHistory(controller));
 
-      return () => {
-          controller.abort();
-      };
+  //     return () => {
+  //         controller.abort();
+  //     };
 
-  }, [dispatch]);
+  // }, [dispatch]);
 
   return (
     <Router>
-    <Layout>
-      <Routes>
-        <Route path='/' element={<Home />}>
-          <Route path='convertor' element={<ConvertorSection />}/>
-        </Route>
-      </Routes>
-    </Layout>
+      <Layout>
+        <Routes>
+          <Route path='/' element={<Home />}>
+            <Route path='convertor' element={<ConvertorSection />}/>
+          </Route>
+        </Routes>
+      </Layout>
   </Router>
   )
 

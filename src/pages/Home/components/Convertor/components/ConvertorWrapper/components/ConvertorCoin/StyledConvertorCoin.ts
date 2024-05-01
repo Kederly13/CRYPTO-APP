@@ -10,7 +10,7 @@ export const StyledConvertorCoin =  styled.div`
     /* padding-bottom: 24px; */
 `
 
-export const StyledCoin = styled.div`
+export const StyledCoin = styled.button`
     display: flex;
     align-items: center;
     border-bottom: 1px solid ${({ theme }) => theme.boxLine.color};
@@ -22,13 +22,15 @@ export const StyledCoin = styled.div`
         margin-right: 8px;
     }
 
+    :hover {
+        cursor: pointer;
+    }
 `
 export const StyledCoinName = styled.span`
     margin-right: 3px;
     font-weight: 500;
     font-size: 20px;
     color: #FFF;
-    
 `
 
 export const StyledCoinSymbol = styled.span`

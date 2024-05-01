@@ -1,11 +1,5 @@
 import styled from 'styled-components';
-import { IStyledConvertorCoinWrapperProps } from './ConvertorSection';
-
-export const StyledHeading = styled.h2`
-        font-size: 20px;
-        color: ${({ theme }) => theme.convertorHeading.color};
-        font-weight: 500;
-`
+import { IStyledConvertorCoinWrapperProps } from './ConvertorWrapper';
 
 export const StyledConvertorCoinWrapper = styled.div<IStyledConvertorCoinWrapperProps>`
         max-width: 636px;
@@ -15,21 +9,12 @@ export const StyledConvertorCoinWrapper = styled.div<IStyledConvertorCoinWrapper
         background-color: ${({ $backgroundColor }) => $backgroundColor};   
 `
 
-export const StyledDateTime = styled.p`
-        color: ${({ theme }) => theme.convertorDateTime.color};
-        font-size: 16px;
-        font-weight: 400;
-`
-
 export const StyledConvertorWrapper = styled.div`
         display: flex;
         align-items: center;
         margin-top: 24px;
 `
 
-export const StyledConvertorSection = styled.div`
-        
-`
 export const StyledSwithcWrapper = styled.button`
         border-radius: 50%;
         background: #FFF;

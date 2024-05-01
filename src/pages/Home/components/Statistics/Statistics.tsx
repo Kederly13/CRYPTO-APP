@@ -58,7 +58,17 @@ export const Statistics = () => {
             controller.abort();
         };
 
-    }, [dispatch, objSearchParams?.days, objSearchParams?.coin, objSearchParams.currency]);
+    }, [objSearchParams?.days, objSearchParams?.coin, objSearchParams?.currency]);
+
+    useEffect(() => {
+        if (Object.values(objSearchParams).length <= 1) {
+            onSetObjSearchParams({
+                [SEARCH_PARAMS.COIN]: 'bitcoin',
+                [SEARCH_PARAMS.DAYS]: '7',
+                [SEARCH_PARAMS.CURRENCY]: 'usd',
+            });
+        };
+      }, []);
 
     return (
         <StyledStatistics>

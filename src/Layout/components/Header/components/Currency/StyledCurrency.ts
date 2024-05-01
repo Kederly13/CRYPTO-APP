@@ -19,6 +19,7 @@ export const StyledCurrency = styled.button`
     border-radius: 6px;
     border: 1px solid ${({ theme }) => theme.formBorderColor};
     transition: 0.5s ease;
+    position: relative;
 
     &:hover {
         background-color: ${({ theme }) => theme.buttonActiveColor};
