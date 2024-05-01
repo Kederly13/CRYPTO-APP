@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 import { ConvertorCoin } from "./components/ConvertorCoin";
 import { StyledConvertorCoinWrapper, StyledConvertorWrapper, StyledSwithcWrapper } from "./StyledConvertorWrapper";
@@ -7,6 +7,7 @@ import { ICoin } from "types/coinType";
 import { useTheme } from 'styled-components';
 import { useSelectedObjSearchParams } from "hooks/useSelectedSearchParams";
 import { currencyData } from "Layout/components/Header/components/Currency/components/CurrencyMenu/currencyData";
+import { selectLastCoinList } from "store/slices/coinsSlice/coinSlice";
 
 import { useAppDispatch, useAppSelector } from 'hooks/reduxHooks';
 
@@ -17,42 +18,54 @@ export interface IStyledConvertorCoinWrapperProps {
 };
 
 interface ISelectedCoins {
-    firstCoin: ICoin;
-    secondCoin: ICoin;
+    firstCoin: ICoin | null;
+    secondCoin: ICoin | null;
 };
 
 export const ConvertorWrapper = () => {
-    const coinsList = useAppSelector(selectCoinList);
+    const coinsList = useAppSelector(selectLastCoinList);
+   
     const { objSearchParams, onSetObjSearchParams } = useSelectedObjSearchParams();
     const theme = useTheme();
 
     const [selectedCoins, setSelectedCoins] = useState<ISelectedCoins>({
-        firstCoin: coinsList[0], 
-        secondCoin: coinsList[1],
+        firstCoin: null, 
+        secondCoin: null,
     });
 
-    const { currency } = objSearchParams;
-    const foundCurrency = currencyData.find(item => item.value === currency);
-    const currencySymbol = foundCurrency ? foundCurrency.symbol : '';
+    useEffect(() => {
+        if (coinsList && coinsList.length > 1) {
+            setSelectedCoins({
+                firstCoin: coinsList[0], 
+                secondCoin: coinsList[1],
+            });
+        }
+    }, [coinsList]);
+   
 
+    // console.log(selectedCoins?.firstCoin?.current_price)
     return (
         <StyledConvertorWrapper>
             <StyledConvertorCoinWrapper $backgroundColor={theme.boxBackground.backgroundPrimary}>
-                <ConvertorCoin
-                    heading='You sell' 
-                    coins={coinsList}
-                    selectedCoin={selectedCoins.firstCoin}
-                />
+                {selectedCoins && selectedCoins.firstCoin && (
+                    <ConvertorCoin
+                        heading='You sell' 
+                        coins={coinsList}
+                        selectedCoin={selectedCoins.firstCoin}
+                    />
+                )}
             </StyledConvertorCoinWrapper>
             <StyledSwithcWrapper type='button'>
                 <Switch />
             </StyledSwithcWrapper>
             <StyledConvertorCoinWrapper $backgroundColor={theme.boxBackground.backgroundSecondary}>    
-                <ConvertorCoin
-                    heading='You buy' 
-                    coins={coinsList}
-                    selectedCoin={selectedCoins.secondCoin}
-                />
+                {selectedCoins && selectedCoins.secondCoin && (
+                    <ConvertorCoin
+                        heading='You buy' 
+                        coins={coinsList}
+                        selectedCoin={selectedCoins.secondCoin}
+                    />
+                )}
             </StyledConvertorCoinWrapper>
         </StyledConvertorWrapper>
     )

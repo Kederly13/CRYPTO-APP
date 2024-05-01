@@ -7,11 +7,10 @@ interface ICoinList {
 };
 
 export const ConvertorMenu: FC<ICoinList> = ({ coinList, selectedCoin }) => {
-    console.log(selectedCoin)
     return (
         <StyledConvertorMenu>
             {coinList.map((coinName) => (
-                <StyledConvertorListItem $selected={coinName === selectedCoin}>
+                <StyledConvertorListItem id={coinName} $selected={coinName === selectedCoin}>
                     <StyledConvertorMenuButton>
                         {coinName}
                     </StyledConvertorMenuButton>

@@ -8,12 +8,11 @@ import { getLocationSearchParams } from 'utils/getLocationSearchParams';
 export const fetchCoinHistory = createAsyncThunk<Record<string, ICoinObjHistory>, AbortController, {rejectValue: string}>(
     'coinsHistory/fetchCoinHistory',
     async (controller, { rejectWithValue }) => {
-        console.log('try')
         try {
-            
             const { currency, days, coin } = getLocationSearchParams();
-            const ids = coin.split(',');
+            const ids = coin ? coin.split(',') : [];
             let data;
+
             if (ids?.length) {
                 data = await Promise.all(
                 
@@ -31,7 +30,6 @@ export const fetchCoinHistory = createAsyncThunk<Record<string, ICoinObjHistory>
                     })
                 )
             } else {
-                console.log('nono')
                 const paramsSingle = {
                     payload: { id: 'bitcoin', days: '7', currency: 'usd' },
                     controller
@@ -54,6 +52,7 @@ export const fetchCoinHistory = createAsyncThunk<Record<string, ICoinObjHistory>
             return dataObj;
         } catch (error) {
             return rejectWithValue(getErrorMessage(error))
+            
         }
     }   
 );

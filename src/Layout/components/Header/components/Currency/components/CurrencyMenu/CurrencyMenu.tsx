@@ -10,6 +10,7 @@ export const CurrencyMenu = () => {
         <StyledCurrencyMenu>
            {currencyData.map((item) => (
             <StyledCurrencyListItem
+                key={item.value}
                 $selected={objSearchParams?.currency === item.value}
             >
                 <StyledCurrencyButton onClick={() => {

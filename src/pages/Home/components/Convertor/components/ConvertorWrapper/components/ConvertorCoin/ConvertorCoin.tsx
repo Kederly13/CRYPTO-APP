@@ -2,8 +2,10 @@ import { FC, useState } from 'react';
 
 import { StyledCoinHeading, StyledCoin, StyledCoinName, StyledCoinSymbol, StyledCoinPrice, StyledConvertorCoin } from './StyledConvertorCoin';
 import { ICoin } from 'types/coinType';
+import { currencyData } from 'Layout/components/Header/components/Currency/components/CurrencyMenu/currencyData';
 
 import { ConvertorMenu } from './components/ConvertorMenu';
+import { useSelectedObjSearchParams } from 'hooks/useSelectedSearchParams';
 
 import { ReactComponent as Arrow } from 'assets/svg/arrow.svg';
 
@@ -11,15 +13,15 @@ interface IConvertorCoin {
     coins: ICoin[],
     selectedCoin: ICoin,
     heading: string,
-    // name: string,
-    // symbol: string,
-    // image: string,
-    // heading: string,
-    // current_price: string
 };
 
 export const ConvertorCoin: FC<IConvertorCoin> = ({ coins, selectedCoin, heading }) => {
     const [isActiveMenu, setActiveMenu] = useState(false);
+    
+    const { objSearchParams } = useSelectedObjSearchParams();
+
+    const currencyObj  = currencyData.find(item => item.value === objSearchParams.currency);
+    const currencySymbol = currencyObj?.symbol || '';
 
     const { name, symbol, image, current_price } = selectedCoin;
     const coinsNames = coins.map(coin => coin.name);
@@ -41,7 +43,7 @@ export const ConvertorCoin: FC<IConvertorCoin> = ({ coins, selectedCoin, heading
             {isActiveMenu &&
                 <ConvertorMenu coinList={coinsNames} selectedCoin={name}/>
             }
-            <StyledCoinPrice>1 {symbol} = {current_price}</StyledCoinPrice>
+            <StyledCoinPrice>1 {symbol} = {currencySymbol}{current_price}</StyledCoinPrice>
         </StyledConvertorCoin>
     )
 }
