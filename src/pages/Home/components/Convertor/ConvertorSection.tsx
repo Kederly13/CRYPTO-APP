@@ -28,6 +28,8 @@ export const ConvertorSection = () => {
     const dispatch = useAppDispatch();
     const { objSearchParams, onSetObjSearchParams } = useSelectedObjSearchParams();
     const coinsHistory = useAppSelector(selectCoinsHistory);
+    const currentDayTime = getDateTime();
+    console.log(coinsHistory)
 
     useEffect(() => {
         if (Object.values(objSearchParams).length <= 1) {
@@ -54,7 +56,7 @@ export const ConvertorSection = () => {
   
     }, [objSearchParams?.days, objSearchParams?.currency]);
 
-    const currentDayTime = getDateTime();
+    
 
     return (
         <StyledConvertorSection>

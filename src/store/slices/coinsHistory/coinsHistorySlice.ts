@@ -8,25 +8,42 @@ import { getLocationSearchParams } from 'utils/getLocationSearchParams';
 export const fetchCoinHistory = createAsyncThunk<Record<string, ICoinObjHistory>, AbortController, {rejectValue: string}>(
     'coinsHistory/fetchCoinHistory',
     async (controller, { rejectWithValue }) => {
+        console.log('try')
         try {
+            
             const { currency, days, coin } = getLocationSearchParams();
             const ids = coin.split(',');
+            let data;
+            if (ids?.length) {
+                data = await Promise.all(
+                
+                    ids.map(async (id) => {
+                        const paramsSingle = {
+                            payload: { id, days, currency },
+                            controller
+                        }
+    
+                        const { data } = await ChartApi.getPrices(paramsSingle);
+                       
+                        return {
+                            [id]: data
+                        } 
+                    })
+                )
+            } else {
+                console.log('nono')
+                const paramsSingle = {
+                    payload: { id: 'bitcoin', days: '7', currency: 'usd' },
+                    controller
+                }
 
-            const data = await Promise.all(
-                ids.map(async (id) => {
-                    const paramsSingle = {
-                        payload: { id, days, currency },
-                        controller
-                    }
+                const response = await ChartApi.getPrices(paramsSingle);
 
-                    const { data } = await ChartApi.getPrices(paramsSingle);
-                   
-                    return {
-                        [id]: data
-                    } 
-                })
-            )
-
+                data = [{
+                    bitcoin: response.data
+                }]
+            }
+            
             const dataObj = data.reduce((items, item) => {
                 return {
                     ...items,
