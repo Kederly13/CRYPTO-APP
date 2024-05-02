@@ -1,8 +1,9 @@
 import { FC, useState } from 'react';
 
-import { StyledCoinHeading, StyledCoin, StyledCoinName, StyledCoinSymbol, StyledCoinPrice, StyledConvertorCoin } from './StyledConvertorCoin';
+import { StyledCoinHeading, StyledCoin, StyledCoinName, StyledCoinSymbol, StyledCoinPrice, StyledConvertorCoin, StyledWrapper } from './StyledConvertorCoin';
 import { ICoin } from 'types/coinType';
 import { currencyData } from 'Layout/components/Header/components/Currency/components/CurrencyMenu/currencyData';
+import { ConvertorInput } from '../ConvertorInput';
 
 import { ConvertorMenu } from './components/ConvertorMenu';
 import { useSelectedObjSearchParams } from 'hooks/useSelectedSearchParams';
@@ -13,10 +14,15 @@ interface IConvertorCoin {
     coins: ICoin[],
     selectedCoin: ICoin,
     heading: string,
+    handleSelectedCoin: (coinName: string) => void,
+    handleInputChange: (value: string) => void,
+    inputValue: string,
+    readOnly?: boolean
 };
 
-export const ConvertorCoin: FC<IConvertorCoin> = ({ coins, selectedCoin, heading }) => {
+export const ConvertorCoin: FC<IConvertorCoin> = ({ coins, selectedCoin, heading, handleSelectedCoin, handleInputChange, inputValue, readOnly }) => {
     const [isActiveMenu, setActiveMenu] = useState(false);
+    
     
     const { objSearchParams } = useSelectedObjSearchParams();
 
@@ -33,15 +39,22 @@ export const ConvertorCoin: FC<IConvertorCoin> = ({ coins, selectedCoin, heading
     return (
         <StyledConvertorCoin>
             <StyledCoinHeading>{heading}</StyledCoinHeading>
-            <StyledCoin type='button' onClick={handleActiveMenu}>
-                <img src={image} />
-                <StyledCoinName>{name}</StyledCoinName>
-                <StyledCoinSymbol>({symbol?.toUpperCase()})</StyledCoinSymbol>
-                <Arrow />
-                
-            </StyledCoin>
+            <StyledWrapper>
+                <StyledCoin type='button' onClick={handleActiveMenu}>
+                    <img src={image} />
+                    <StyledCoinName>{name}</StyledCoinName>
+                    <StyledCoinSymbol>({symbol?.toUpperCase()})</StyledCoinSymbol>
+                    <Arrow />
+                </StyledCoin>
+                <ConvertorInput
+                     handleInputChange={handleInputChange}
+                     inputValue={inputValue}
+                     readOnly={readOnly}
+                />
+            </StyledWrapper>
+
             {isActiveMenu &&
-                <ConvertorMenu coinList={coinsNames} selectedCoin={name}/>
+                <ConvertorMenu coinList={coinsNames} selectedCoin={name} handleSelectedCoin={handleSelectedCoin}/>
             }
             <StyledCoinPrice>1 {symbol} = {currencySymbol}{current_price}</StyledCoinPrice>
         </StyledConvertorCoin>

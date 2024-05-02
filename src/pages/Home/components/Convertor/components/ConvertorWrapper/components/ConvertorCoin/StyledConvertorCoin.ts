@@ -13,8 +13,6 @@ export const StyledConvertorCoin =  styled.div`
 export const StyledCoin = styled.button`
     display: flex;
     align-items: center;
-    border-bottom: 1px solid ${({ theme }) => theme.boxLine.color};
-    padding-bottom: 24px;
 
     & > img {
         width: 24px;
@@ -30,12 +28,12 @@ export const StyledCoinName = styled.span`
     margin-right: 3px;
     font-weight: 500;
     font-size: 20px;
-    color: #FFF;
+    color: ${({ theme }) => theme.coinPrice.color};
 `
 
 export const StyledCoinSymbol = styled.span`
     margin-right: 4px;
-    color: #FFF;
+    color: ${({ theme }) => theme.coinPrice.color};
     font-weight: 500;
     font-size: 20px;
 `
@@ -45,4 +43,12 @@ export const StyledCoinPrice = styled.span`
     margin-top: 8px;
     color: ${({ theme }) => theme.coinPrice.color};
     display: block;
+`
+
+export const StyledWrapper = styled.div`
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid ${({ theme }) => theme.boxLine.color};
+    padding-bottom: 24px;
 `
