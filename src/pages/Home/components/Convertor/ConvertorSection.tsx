@@ -14,6 +14,9 @@ import { ConvertorWrapper } from './components/ConvertorWrapper/ConvertorWrapper
 import { StyledConvertorSection, StyledHeading, StyledDateTime } from './StyledConvertorSection';
 import { selectCoinList } from 'store/slices/coinsSlice/coinSlice';
 import { getDateTime } from 'utils/getDateTime';
+import { ChartBox } from '../Statistics/components/ChartBox';
+import { Sparkline } from '../CoinTable/components/CoinTableBody/components/CoinTableRow/components/SparkLine';
+import { PeriodFilter } from 'components/PeriodFilter';
 
 export interface IStyledConvertorCoinWrapperProps {
     $backgroundColor?: string;
@@ -64,6 +67,17 @@ export const ConvertorSection = () => {
                 {currentDayTime}
             </StyledDateTime>
             <ConvertorWrapper />
+            {/* <ChartBox 
+                    headline={} 
+                    number={coinFirst ? symbol + String(coinFirst.current_price) : ''}
+                >
+                    <LineChart
+                        firstCoinData={coinsHistoryFirst ? getConvertedDates(coinsHistory[coinsHistoryFirst].prices): []}
+                        coinFirst={coinsHistoryFirst}
+                        secondCoinData={coinsHistorySecond ? getConvertedDates(coinsHistory[coinsHistorySecond].prices) : []}
+                        coinSecond={coinsHistorySecond} 
+                    />
+            </ChartBox> */}
         </StyledConvertorSection>
     )
 };

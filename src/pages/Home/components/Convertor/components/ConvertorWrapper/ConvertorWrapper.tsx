@@ -59,14 +59,15 @@ export const ConvertorWrapper = () => {
             ...prevState,
             firstCoin: newFirstCoin || null
         }));
-    }
+    };
+
     const handleSecondSelectedCoin = (firstCoin: string) => {
         const newSecondCoin = coinsList.find((coin) => coin.name === firstCoin);
         setSelectedCoins(prevState => ({
             ...prevState,
             secondCoin: newSecondCoin || null
         }));
-    }
+    };
 
     useEffect(() => {
         if (coinsList && coinsList.length > 1) {
@@ -109,7 +110,6 @@ export const ConvertorWrapper = () => {
                         handleSelectedCoin={handleSecondSelectedCoin}
                         inputValue={secondInputValue}
                         handleInputChange={handleSecondInputChange}
-                        
                         
                     />
                 )}

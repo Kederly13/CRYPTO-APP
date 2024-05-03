@@ -11,39 +11,35 @@ import { useAppDispatch } from 'hooks/reduxHooks';
 import { SEARCH_PARAMS } from 'constants/searchParams';
 import { fetchCoins, setNulifyCoins } from 'store/slices/coinsSlice/coinSlice';
 import { fetchCoinHistory } from 'store/slices/coinsHistory/coinsHistorySlice';
-
+import { useAppSelector } from 'hooks/reduxHooks';
+import { selectCoinList } from 'store/slices/coinsSlice/coinSlice';
+import { selectMarketData } from 'store/slices/marketData/marketDataSlice';
+import { selectCoinsHistory } from 'store/slices/coinsHistory/coinsHistorySlice';
+import { fetchMarketData } from 'store/slices/marketData/marketDataSlice';
 
 
 
 const App = () => {
-  // const dispatch = useAppDispatch();
-  // const { objSearchParams, onSetObjSearchParams } = useSelectedObjSearchParams();
+  const coinsList = useAppSelector(selectCoinList)
+    const coinsHistory = useAppSelector(selectCoinsHistory);
+    const marketData = useAppSelector(selectMarketData)
+    const dispatch = useAppDispatch();
 
-  // useEffect(() => {
-  //   if (Object.values(objSearchParams).length <= 1) {
-  //       onSetObjSearchParams({
-  //           [SEARCH_PARAMS.COIN]: 'bitcoin',
-  //           [SEARCH_PARAMS.DAYS]: '7',
-  //           [SEARCH_PARAMS.CURRENCY]: 'usd',
-  //       });
-  //   };
-  // }, []);
+      useEffect(() => {
+        if (coinsList.length && Object.values(coinsHistory).length) {
+            return;
+        }
 
-  // useEffect(() => {
-  //     // if (!objSearchParams?.coin && !objSearchParams?.days && objSearchParams?.currency) {
-  //     //     return;
-  //     // };
-  //     // dispatch(setNulifyCoins());
-  //     const controller = new AbortController();
-      
-  //     dispatch(fetchCoins(controller));
-  //     dispatch(fetchCoinHistory(controller));
-
-  //     return () => {
-  //         controller.abort();
-  //     };
-
-  // }, [dispatch]);
+        const controller = new AbortController();
+        dispatch(fetchMarketData(controller));
+        dispatch(fetchCoins(controller));
+        dispatch(fetchCoinHistory(controller));
+  
+        return () => {
+            controller.abort();
+        };
+  
+    }, [dispatch]);
 
   return (
     <Router>

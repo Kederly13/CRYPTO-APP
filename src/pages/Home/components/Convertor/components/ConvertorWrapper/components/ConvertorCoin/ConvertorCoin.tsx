@@ -54,7 +54,7 @@ export const ConvertorCoin: FC<IConvertorCoin> = ({ coins, selectedCoin, heading
             </StyledWrapper>
 
             {isActiveMenu &&
-                <ConvertorMenu coinList={coinsNames} selectedCoin={name} handleSelectedCoin={handleSelectedCoin}/>
+                <ConvertorMenu coinList={coinsNames} selectedCoin={name} handleSelectedCoin={handleSelectedCoin}  handleActiveMenu={handleActiveMenu}/>
             }
             <StyledCoinPrice>1 {symbol} = {currencySymbol}{current_price}</StyledCoinPrice>
         </StyledConvertorCoin>
