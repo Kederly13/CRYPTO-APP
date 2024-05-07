@@ -13,6 +13,7 @@ export const StyledConvertorWrapper = styled.div`
         display: flex;
         align-items: center;
         margin-top: 24px;
+        margin-bottom: 72px;
 `
 
 export const StyledSwithcWrapper = styled.button`
@@ -27,4 +28,5 @@ export const StyledSwithcWrapper = styled.button`
         margin: 0 -12px;
         position: relative;
         z-index: 2;
+       
 `

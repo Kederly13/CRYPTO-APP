@@ -29,8 +29,8 @@ export const ConvertorCoin: FC<IConvertorCoin> = ({ coins, selectedCoin, heading
     const currencyObj  = currencyData.find(item => item.value === objSearchParams.currency);
     const currencySymbol = currencyObj?.symbol || '';
 
-    const { name, symbol, image, current_price } = selectedCoin;
-    const coinsNames = coins.map(coin => coin.name);
+    const { id, symbol, image, current_price } = selectedCoin;
+    const coinsNames = coins.map(coin => coin.id);
 
     const handleActiveMenu = () => {
         setActiveMenu(!isActiveMenu);
@@ -42,7 +42,7 @@ export const ConvertorCoin: FC<IConvertorCoin> = ({ coins, selectedCoin, heading
             <StyledWrapper>
                 <StyledCoin type='button' onClick={handleActiveMenu}>
                     <img src={image} />
-                    <StyledCoinName>{name}</StyledCoinName>
+                    <StyledCoinName>{id}</StyledCoinName>
                     <StyledCoinSymbol>({symbol?.toUpperCase()})</StyledCoinSymbol>
                     <Arrow />
                 </StyledCoin>
@@ -54,7 +54,7 @@ export const ConvertorCoin: FC<IConvertorCoin> = ({ coins, selectedCoin, heading
             </StyledWrapper>
 
             {isActiveMenu &&
-                <ConvertorMenu coinList={coinsNames} selectedCoin={name} handleSelectedCoin={handleSelectedCoin}  handleActiveMenu={handleActiveMenu}/>
+                <ConvertorMenu coinList={coinsNames} selectedCoin={id} handleSelectedCoin={handleSelectedCoin}  handleActiveMenu={handleActiveMenu}/>
             }
             <StyledCoinPrice>1 {symbol} = {currencySymbol}{current_price}</StyledCoinPrice>
         </StyledConvertorCoin>

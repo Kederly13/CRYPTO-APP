@@ -3,9 +3,9 @@ import { StyledStatistics, StyledStatisticsHead, StyledCharts } from './StyledSt
 
 import { CurrencySwiper } from './components/CurrencySwiper';
 import { Button } from 'components/Button';
-import { LineChart } from './components/LineChart';
-import { BarChart } from './components/BarChart';
-import { ChartBox } from './components/ChartBox';
+import { LineChart } from 'components/LineChart';
+import { BarChart } from 'components/BarChart';
+import { ChartBox } from 'components/ChartBox';
 import { PeriodFilter } from 'components/PeriodFilter';
 import { currencyData } from 'Layout/components/Header/components/Currency/components/CurrencyMenu/currencyData';
 
@@ -68,7 +68,7 @@ export const Statistics = () => {
                 [SEARCH_PARAMS.CURRENCY]: 'usd',
             });
         };
-      }, []);
+      }, []);      
 
     return (
         <StyledStatistics>

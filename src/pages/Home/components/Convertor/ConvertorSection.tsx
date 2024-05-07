@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 
 import { ICoin } from 'types/coinType';
 import { SEARCH_PARAMS } from 'constants/searchParams'
@@ -12,10 +12,10 @@ import { useSelectedObjSearchParams } from 'hooks/useSelectedSearchParams';
 import { selectCoinsHistory } from 'store/slices/coinsHistory/coinsHistorySlice';
 import { ConvertorWrapper } from './components/ConvertorWrapper/ConvertorWrapper';
 import { StyledConvertorSection, StyledHeading, StyledDateTime } from './StyledConvertorSection';
-import { selectCoinList } from 'store/slices/coinsSlice/coinSlice';
+import { getConvertedDates } from 'utils/getConvertedDates';
 import { getDateTime } from 'utils/getDateTime';
-import { ChartBox } from '../Statistics/components/ChartBox';
-import { Sparkline } from '../CoinTable/components/CoinTableBody/components/CoinTableRow/components/SparkLine';
+import { ChartBox } from 'components/ChartBox';
+import { LineChart } from 'components/LineChart';
 import { PeriodFilter } from 'components/PeriodFilter';
 
 export interface IStyledConvertorCoinWrapperProps {
@@ -29,13 +29,19 @@ interface ISelectedCoins {
 
 export const ConvertorSection = () => {
     const dispatch = useAppDispatch();
+
     const { objSearchParams, onSetObjSearchParams } = useSelectedObjSearchParams();
+
     const coinsHistory = useAppSelector(selectCoinsHistory);
+    const coinsHistoryKeys = Object.keys(coinsHistory);
+    const [coinsHistoryFirst, coinsHistorySecond] = coinsHistoryKeys;
+    
     const currentDayTime = getDateTime();
 
     useEffect(() => {
         if (Object.values(objSearchParams).length <= 1) {
             onSetObjSearchParams({
+                [SEARCH_PARAMS.COIN]: 'bitcoin,ethereum',
                 [SEARCH_PARAMS.CURRENCY]: 'usd',
                 [SEARCH_PARAMS.DAYS]: '7',
             });
@@ -46,6 +52,7 @@ export const ConvertorSection = () => {
         if (!objSearchParams?.coin && !objSearchParams?.days && objSearchParams?.currency) {
             return;
         };
+
         dispatch(setNulifyCoins());
         const controller = new AbortController();
         
@@ -56,7 +63,7 @@ export const ConvertorSection = () => {
             controller.abort();
         };
   
-    }, [objSearchParams?.days, objSearchParams?.currency]);
+    }, [objSearchParams?.days, objSearchParams?.currency, objSearchParams?.coin]);
 
     return (
         <StyledConvertorSection>
@@ -67,17 +74,14 @@ export const ConvertorSection = () => {
                 {currentDayTime}
             </StyledDateTime>
             <ConvertorWrapper />
-            {/* <ChartBox 
-                    headline={} 
-                    number={coinFirst ? symbol + String(coinFirst.current_price) : ''}
-                >
-                    <LineChart
-                        firstCoinData={coinsHistoryFirst ? getConvertedDates(coinsHistory[coinsHistoryFirst].prices): []}
-                        coinFirst={coinsHistoryFirst}
-                        secondCoinData={coinsHistorySecond ? getConvertedDates(coinsHistory[coinsHistorySecond].prices) : []}
-                        coinSecond={coinsHistorySecond} 
-                    />
-            </ChartBox> */}
+            <ChartBox headline={`${coinsHistoryFirst} to ${coinsHistorySecond}`} $maxWidth='100%'  $maxHeight='600px'>
+                <LineChart
+                    firstCoinData={coinsHistoryFirst ? getConvertedDates(coinsHistory[coinsHistoryFirst].prices): []}
+                    coinFirst={coinsHistoryFirst}
+                    secondCoinData={coinsHistorySecond ? getConvertedDates(coinsHistory[coinsHistorySecond].prices) : []}
+                    coinSecond={coinsHistorySecond} 
+                />  
+            </ChartBox>
         </StyledConvertorSection>
     )
 };
