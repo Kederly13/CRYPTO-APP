@@ -35,7 +35,7 @@ export const ConvertorSection = () => {
     const coinsHistory = useAppSelector(selectCoinsHistory);
     const coinsHistoryKeys = Object.keys(coinsHistory);
     const [coinsHistoryFirst, coinsHistorySecond] = coinsHistoryKeys;
-    
+    console.log(coinsHistoryFirst, coinsHistorySecond)
     const currentDayTime = getDateTime();
 
     useEffect(() => {
@@ -49,7 +49,7 @@ export const ConvertorSection = () => {
     }, [])
 
     useEffect(() => {
-        if (!objSearchParams?.coin && !objSearchParams?.days && objSearchParams?.currency) {
+        if (!objSearchParams?.coin && !objSearchParams?.days && objSearchParams?.currency && coinsHistoryFirst && coinsHistorySecond) {
             return;
         };
 
@@ -82,6 +82,7 @@ export const ConvertorSection = () => {
                     coinSecond={coinsHistorySecond} 
                 />  
             </ChartBox>
+            <PeriodFilter />
         </StyledConvertorSection>
     )
 };
