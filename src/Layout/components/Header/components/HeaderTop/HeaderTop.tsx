@@ -1,35 +1,23 @@
-import { useAppDispatch } from 'hooks/reduxHooks';
-import { useEffect } from 'react';
-
 import { StyledHeaderTop, StyledHeaderWrapper, StyledCoins, StyledExchange, StyledMarketCap, StyledMarketCapPercentage } from "./StyledHeaderTop";
 import { useAppSelector } from "hooks/reduxHooks";
-import { selectCoinList, selectLastCoinList } from "store/slices/coinsSlice/coinSlice";
-import { selectCoinsHistory } from "store/slices/coinsHistory/coinsHistorySlice";
-import { fetchMarketData } from 'store/slices/marketData/marketDataSlice';
-
-import { THEME } from 'constants/theme';
-import { themes } from 'styles/themes';
-import { useTheme } from 'hooks/useTheme';
+import { selectLastCoinList } from "store/slices/coinsSlice/coinsSlice";
 
 import { Flash } from "assets/svg/flash";
 import { Exchange } from "assets/svg/exchange";
 import { ArrowDown } from 'assets/svg/arrowDown';
 import { ArrowUp } from 'assets/svg/arrowUp';
 
-import { selectMarketData } from "store/slices/marketData/marketDataSlice";
+import { selectMarketData } from "store/slices/coinsSlice/coinsSlice"
 
 export const HeaderTop = () => {
-    const dispatch = useAppDispatch();
     const marketData = useAppSelector(selectMarketData);
-    const coinList = useAppSelector(selectLastCoinList);
+    const coinList = useAppSelector(selectLastCoinList)
 
     const bitcoin = coinList.find(({ id }) => id === 'bitcoin');
     const bitcoinUrl = bitcoin?.image;
 
     const ethereum = coinList.find(({ id }) => id === 'ethereum');
     const ethereumUrl = ethereum?.image;
-
-    const { theme } = useTheme();
 
     const formatNumber = (number: number) => {
         const suffixes = ["", "K", "M", "B", "T"];
@@ -44,21 +32,6 @@ export const HeaderTop = () => {
         
         return `${roundedNumber}${suffixes[suffixIndex]}`;
     };
-
-    useEffect(() => {
-        if (marketData) return;
-
-        const controller = new AbortController();
-
-        (async () => {
-            await dispatch(fetchMarketData(controller));
-        })();
-
-        return () => {
-            controller.abort();
-        }
-        
-    }, []);
 
     let btcMarketCap;
     let btcMarketCapNumber: number | undefined;

@@ -16,12 +16,18 @@ export const Currency = () => {
 
     return (
         <StyledCurrencyWrapper>
-            <StyledCurrency type='button' onClick={haldleClick}>
+            <StyledCurrency 
+                type='button' 
+                onClick={(e) => {
+                    e.stopPropagation()
+                    haldleClick()
+                }}
+            >
                 <Dollar />
                 <span>{objSearchParams.currency}</span>
                 <Arrow />
             </StyledCurrency>
-            {isActiveMenu && <CurrencyMenu />}
+            {isActiveMenu && <CurrencyMenu onSetShow={haldleClick} />}
         </StyledCurrencyWrapper>
     );
 };

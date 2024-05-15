@@ -19,10 +19,6 @@ export const StyledCoin = styled.button`
         height: 24px;
         margin-right: 8px;
     }
-
-    :hover {
-        cursor: pointer;
-    }
 `
 export const StyledCoinName = styled.span`
     margin-right: 3px;

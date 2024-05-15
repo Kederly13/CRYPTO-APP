@@ -5,8 +5,7 @@ import { Input } from 'components/Input';
 import { SearchList } from './components/SearchList';
 
 import { useAppSelector } from 'hooks/reduxHooks';
-import { selectCoinList } from 'store/slices/coinsSlice/coinSlice';
-
+import { selectCoinList } from 'store/slices/coinsSlice/coinsSlice';
 
 import SearchIcon from 'assets/svg/search.svg';
 // import {search as SearchIcon} frogdasdm './logo.svg';

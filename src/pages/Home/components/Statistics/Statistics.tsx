@@ -9,66 +9,71 @@ import { ChartBox } from 'components/ChartBox';
 import { PeriodFilter } from 'components/PeriodFilter';
 import { currencyData } from 'Layout/components/Header/components/Currency/components/CurrencyMenu/currencyData';
 
-import { fetchCoins, selectCoinList, selectLastCoinList, selectPage, setNulifyCoins } from 'store/slices/coinsSlice/coinSlice';
-import { fetchCoinHistory } from 'store/slices/coinsHistory/coinsHistorySlice';
-import { useAppDispatch, useAppSelector } from 'hooks/reduxHooks';
-import { selectCoinsHistory } from 'store/slices/coinsHistory/coinsHistorySlice';
+import { selectCoinList, selectLastCoinList } from 'store/slices/coinsSlice/coinsSlice';
+// import { selectInit } from 'store/slices/initSlice/initSlice';
+import { selectInit } from 'store/slices/initSlice/initSlice';
+import { useAppSelector } from 'hooks/reduxHooks';
+import { selectCoinsHistory } from 'store/slices/coinsSlice/coinsSlice';
 import { useSelectedObjSearchParams } from 'hooks/useSelectedSearchParams';
-
-import { getAllCoinsApi } from 'api/AllCoinsApi';
+import { useActions } from 'hooks/useActions';
 
 import { getConvertedDates } from 'utils/getConvertedDates';
 import { SEARCH_PARAMS } from 'constants/searchParams';
 
 import 'swiper/swiper-bundle.css';
 
+
 export type TCoinPrice = Array<Array<number>>;
 
 export const Statistics = () => {
-    const dispatch = useAppDispatch();
+    const { fetchCoins, fetchCoinHistory } = useActions();
 
     const { objSearchParams, onSetObjSearchParams } = useSelectedObjSearchParams();
+
+    const { coin, days, currency} = objSearchParams;
 
     const lastCoins = useAppSelector(selectLastCoinList);
     const coinsList = useAppSelector(selectCoinList)
     const coinsHistory = useAppSelector(selectCoinsHistory);
+    const init = useAppSelector(selectInit);
 
     const coinsHistoryKeys = Object.keys(coinsHistory);
     const [coinsHistoryFirst, coinsHistorySecond] = coinsHistoryKeys;
-    
+
     const coinFirst = lastCoins.find(({ id }) => id === coinsHistoryFirst);
 
     const today = new Date();
     const todayString = today.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
     
-    const { currency } = objSearchParams;
     const { symbol } = currencyData.find(item => item.value === currency) || {};
     
     useEffect(() => {
-        if (!objSearchParams?.coin && !objSearchParams?.days && objSearchParams?.currency) {
-            return;
-        };
-        dispatch(setNulifyCoins());
-        const controller = new AbortController();
-        
-        dispatch(fetchCoins(controller));
-        dispatch(fetchCoinHistory(controller));
-
-        return () => {
-            controller.abort();
-        };
-
-    }, [objSearchParams?.days, objSearchParams?.coin, objSearchParams?.currency]);
-
-    useEffect(() => {
         if (Object.values(objSearchParams).length <= 1) {
             onSetObjSearchParams({
-                [SEARCH_PARAMS.COIN]: 'bitcoin',
-                [SEARCH_PARAMS.DAYS]: '7',
-                [SEARCH_PARAMS.CURRENCY]: 'usd',
+                [SEARCH_PARAMS.COIN]: objSearchParams.coin || 'bitcoin',
+                [SEARCH_PARAMS.DAYS]: objSearchParams.days || '7',
+                [SEARCH_PARAMS.CURRENCY]: objSearchParams.currency || 'usd',
             });
         };
-      }, []);      
+      }, []); // eslint-disable-line
+      
+      useEffect(() => {
+        if (coin && days && currency && init) {
+            const controller = new AbortController();
+
+            if (!coinsList?.length) {
+                fetchCoins(controller);
+            }
+
+            if (!Object.values(coinsHistory).length) {   
+                fetchCoinHistory(controller);
+            }
+
+            return () => {
+                controller.abort();
+            }
+        }
+      }, [days, coin, currency, init]); // eslint-disable-line
 
     return (
         <StyledStatistics>

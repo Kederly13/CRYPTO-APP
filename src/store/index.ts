@@ -1,8 +1,7 @@
 import { configureStore, combineReducers } from '@reduxjs/toolkit';
 
-import coinReducer from './slices/coinsSlice/coinSlice';
-import coinsHistoryReducer from './slices/coinsHistory/coinsHistorySlice';
-import marketDataReducer from './slices/marketData/marketDataSlice';
+import coinsReducer from './slices/coinsSlice/coinsSlice';
+import initSlice from './slices/initSlice/initSlice';
 
 import { 
     persistStore, 
@@ -17,9 +16,8 @@ import {
 import storage from 'redux-persist/lib/storage';
 
 const rootReducer = combineReducers({
-    coins: coinReducer,
-    coinsHistory: coinsHistoryReducer,
-    marketData: marketDataReducer
+    init: initSlice,
+    coins: coinsReducer
 });
 
 const persistConfig = {

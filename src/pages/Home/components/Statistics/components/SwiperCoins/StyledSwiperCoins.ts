@@ -24,7 +24,7 @@ export const StyledCurrencyPrice = styled.span<IStyledSwiperCoinsProps>`
 
 export const StyledSwiperCoins = styled.div<IStyledSwiperCoinsProps>`
     background: ${({ $active, theme }) => ($active ? theme.swiperCoin.activeBackground : theme.swiperCoin.defaultBackground)};
-    border: ${({ $active, theme }) => ($active ? '1px solid' + theme.swiperCoin.activeBorder : 'none')};
+    border: ${({ $active, theme }) => ($active ? '1px solid' + theme.swiperCoin.activeBorder : '1px solid transparent')};
     box-shadow: ${({ $active, theme }) => ($active ? theme.swiperCoin.boxShadow : 'none')};
     max-width: 252px;
     padding: 16px;

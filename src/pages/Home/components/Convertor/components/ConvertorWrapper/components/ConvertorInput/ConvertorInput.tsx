@@ -1,24 +1,21 @@
-import { FC } from "react";
-import { useEffect, useRef } from "react";
+import { ChangeEvent, FC } from "react";
 import { StyledConvertorInput } from "./StyledConvertorInput";
 
 interface IConvertorInput {
-    inputValue: string,
-    handleInputChange: (newValue: string) => void,
+    name: string,
+    value: string
+    handleInputChange: (event: ChangeEvent<HTMLInputElement>) => void,
     readOnly?: boolean,
 };
-export const ConvertorInput: FC<IConvertorInput> = ({ inputValue, handleInputChange, readOnly }) => {
-
-    const inputRef = useRef<HTMLInputElement>(null);
+export const ConvertorInput: FC<IConvertorInput> = ({ name, value, handleInputChange, readOnly }) => {
 
     return (
         <StyledConvertorInput
-            ref={inputRef} 
             type='number'
-            value={inputValue}
-            onChange={(e) => handleInputChange(e.target.value)}
+            name={name}
+            value={value}
+            onChange={handleInputChange}
             readOnly={readOnly}
-
         />
     )
-}
+};

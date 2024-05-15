@@ -18,7 +18,7 @@ export const StyledCurrencyMenu = styled.ul`
 export const StyledCurrencyButton = styled.button`
     color: inherit;
     display: block;
-    margin: 0 auto;
+    width: 100%;
     padding: 10px 0;
 `
 

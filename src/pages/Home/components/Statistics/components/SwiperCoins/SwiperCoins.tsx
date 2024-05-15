@@ -1,13 +1,13 @@
 import { FC } from 'react';
 
 import { useSelectedObjSearchParams } from 'hooks/useSelectedSearchParams';
-import { removeCoin } from 'store/slices/coinsHistory/coinsHistorySlice';
+import { removeCoin } from 'store/slices/coinsSlice/coinsSlice';
 
 import { StyledSwiperCoins, StyledCurrencyWrapper, StyledCurrencyName, StyledCurrencyPriceWrapper, StyledCurrencyPrice } from './StyledSwiperCoins';
 import { useAppDispatch } from 'hooks/reduxHooks';
 import { useResize } from 'hooks/useResize';
 
-
+import { useActions } from 'hooks/useActions';
 import { SEARCH_PARAMS } from 'constants/searchParams';
 import { MEDIA_SIZES } from 'constants/mediaSizes';
 import { currencyData } from 'Layout/components/Header/components/Currency/components/CurrencyMenu/currencyData';
@@ -33,6 +33,8 @@ export const SwiperCoins: FC<SwiperCoinsProps> = ( props ) => {
     const { $logo, name, $symbol, $price, $percent, id } = props;
     const dispatch = useAppDispatch();
 
+    const { setNulifyCoins, onSetNulifyCoinsHistory } = useActions();
+
     const { width } = useResize();
    
     const { objSearchParams, onSetObjSearchParams } = useSelectedObjSearchParams();
@@ -40,7 +42,12 @@ export const SwiperCoins: FC<SwiperCoinsProps> = ( props ) => {
     const { symbol } = currencyData.find(item => item.value === currency) || {};
 
     const onClick = () => {
-        dispatch(removeCoin({ id }));
+        if ( objSearchParams!.coin!.split(',').length < 2) {
+            onSetNulifyCoinsHistory();
+        }
+        
+
+        dispatch(removeCoin({ id }));  
         onSetObjSearchParams({
             ...objSearchParams,
             [SEARCH_PARAMS.COIN]: id,

@@ -45,6 +45,10 @@ export const GlobalStyle = createGlobalStyle`
 
   button {
     cursor: pointer;
+    
+    :hover {
+        cursor: pointer;
+    }
   }
 
   img {

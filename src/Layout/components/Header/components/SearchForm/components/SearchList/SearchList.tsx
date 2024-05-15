@@ -22,7 +22,11 @@ export const SearchList: FC<SearchListProps> = ({ coins, searchQuery }) => {
     return (
         <StyledSearchList>
             {filteredCoins.length > 0 && filteredCoins.map((coin) => (
-                <StyledSearchListItem key={coin}>{coin}</StyledSearchListItem>
+                <StyledSearchListItem key={coin}>
+                    <Link to={`/coin-page/${coin.toLowerCase()}`}>
+                        {coin}
+                    </Link>
+                </StyledSearchListItem>
             ))}
         </StyledSearchList>
     )

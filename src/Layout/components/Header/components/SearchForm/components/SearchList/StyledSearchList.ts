@@ -18,7 +18,12 @@ export const StyledSearchList = styled.ul`
 export const StyledSearchListItem = styled.li`
     border: 1px solid transparent;
     color: ${({ theme }) => theme.periodFilter.font};
-    padding: 15px 5px; 
+    padding: 15px 5px;
+    
+    & > a {
+        color: ${({ theme }) => theme.periodFilter.selectedFont};
+
+    }
 
     &:hover {
         background-color: ${({ theme }) => theme.periodFilter.selectedBackground};
@@ -29,4 +34,7 @@ export const StyledSearchListItem = styled.li`
         box-shadow: 4px 4px 20px 8px rgba(120, 120, 255, 0.15);
         color: ${({ theme }) => theme.periodFilter.selectedFont};
     };         
+`
+
+export const StyledSearchButton = styled.button`
 `

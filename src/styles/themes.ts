@@ -81,9 +81,9 @@ export const themes = {
                 const ctx = context.chart.ctx;
                 const gradient = ctx.createLinearGradient(0, 0, 0, 193);
                 gradient.addColorStop(0, 'rgba(116, 116, 250, 0.95)');
-                gradient.addColorStop(0.3, 'rgba(116, 116, 250, 0.70)');
-                gradient.addColorStop(0.7, 'rgba(116, 116, 250, 0.40)');
-                gradient.addColorStop(1, 'rgba(10, 10, 20, 0.01)');
+                gradient.addColorStop(0.3, 'rgba(116, 116, 250, 0.80)');
+                gradient.addColorStop(0.7, 'rgba(116, 116, 250, 0.75)');
+                gradient.addColorStop(1, 'rgba(116, 116, 250, 0.70)');
                 return gradient;
             }
         },
@@ -142,6 +142,9 @@ export const themes = {
         coinPrice: {
             color: 'rgba(255, 255, 255, 0.80)'
         },
+
+        // Coin Page
+
         
     },
 

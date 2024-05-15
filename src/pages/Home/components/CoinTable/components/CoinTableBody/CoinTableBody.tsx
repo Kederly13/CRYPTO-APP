@@ -1,17 +1,14 @@
 import { useAppDispatch } from 'hooks/reduxHooks';
-import { fetchCoins } from 'store/slices/coinsSlice/coinSlice';
 import { StyledCoinTableBody } from './StyledCoinTableBody';
 import { CoinTableRow } from './components/CoinTableRow';
-import { selectCoinList, selectLoading, selectPage } from 'store/slices/coinsSlice/coinSlice';
-import { selectMarketData } from 'store/slices/marketData/marketDataSlice';
-import { onSetPage } from 'store/slices/coinsSlice/coinSlice';
-
+import { selectCoinList, selectLoading, selectPage } from 'store/slices/coinsSlice/coinsSlice';
+import { selectMarketData } from 'store/slices/coinsSlice/coinsSlice';
+import { useActions } from 'hooks/useActions';
 
 import { useAppSelector } from 'hooks/reduxHooks';
 import { useScrollPagination } from 'hooks/useScrollPagination';
 
 export const CoinTableBody = () => {
-    const dispatch = useAppDispatch();
 
     const coins = useAppSelector(selectCoinList);
     const loading = useAppSelector(selectLoading);
@@ -20,16 +17,20 @@ export const CoinTableBody = () => {
 
     const coinsTotal = marketData?.active_cryptocurrencies;
 
+    const { onSetPage, fetchCoins } = useActions();
+
     const loadMoreCoins = () => {
-        dispatch(onSetPage(page + 1));
+       onSetPage(page + 1)
 
-        const controller = new AbortController();
+       const controller = new AbortController();
 
-        dispatch(fetchCoins(controller));
+       fetchCoins(controller);
     };
     
     const lastElement = useScrollPagination(
-        loadMoreCoins, loading, coins.length != coinsTotal
+        loadMoreCoins,
+        loading,
+        !!coinsTotal && coins.length !== coinsTotal 
     );
     
     return (

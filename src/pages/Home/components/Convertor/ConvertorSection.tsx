@@ -1,69 +1,90 @@
 import { useEffect } from 'react';
 
-import { ICoin } from 'types/coinType';
 import { SEARCH_PARAMS } from 'constants/searchParams'
 
-import { fetchCoins, setNulifyCoins } from 'store/slices/coinsSlice/coinSlice';
-import { fetchCoinHistory } from 'store/slices/coinsHistory/coinsHistorySlice';
+import { selectCoinList } from 'store/slices/coinsSlice/coinsSlice';
+import { selectInit } from 'store/slices/initSlice/initSlice';
+import { selectCoinsHistory } from 'store/slices/coinsSlice/coinsSlice';
 
-import { useAppDispatch } from 'hooks/reduxHooks';
+import { StyledConvertorSection, StyledHeading, StyledDateTime } from './StyledConvertorSection';
+
 import { useAppSelector } from 'hooks/reduxHooks';
 import { useSelectedObjSearchParams } from 'hooks/useSelectedSearchParams';
-import { selectCoinsHistory } from 'store/slices/coinsHistory/coinsHistorySlice';
-import { ConvertorWrapper } from './components/ConvertorWrapper/ConvertorWrapper';
-import { StyledConvertorSection, StyledHeading, StyledDateTime } from './StyledConvertorSection';
-import { getConvertedDates } from 'utils/getConvertedDates';
-import { getDateTime } from 'utils/getDateTime';
+
 import { ChartBox } from 'components/ChartBox';
 import { LineChart } from 'components/LineChart';
 import { PeriodFilter } from 'components/PeriodFilter';
+import { ConvertorWrapper } from './components/ConvertorWrapper/ConvertorWrapper';
+
+import { getConvertedDates } from 'utils/getConvertedDates';
+import { getDateTime } from 'utils/getDateTime';
+import { useActions } from 'hooks/useActions';
+
 
 export interface IStyledConvertorCoinWrapperProps {
     $backgroundColor?: string;
 };
 
-interface ISelectedCoins {
-    firstCoin: ICoin;
-    secondCoin: ICoin;
-};
-
 export const ConvertorSection = () => {
-    const dispatch = useAppDispatch();
+    const { fetchCoins, fetchCoinHistory } = useActions();
 
     const { objSearchParams, onSetObjSearchParams } = useSelectedObjSearchParams();
 
+    const { coin, days, currency } = objSearchParams;
+
     const coinsHistory = useAppSelector(selectCoinsHistory);
+    const coinsList = useAppSelector(selectCoinList);
+    const init = useAppSelector(selectInit);
+
     const coinsHistoryKeys = Object.keys(coinsHistory);
     const [coinsHistoryFirst, coinsHistorySecond] = coinsHistoryKeys;
-    console.log(coinsHistoryFirst, coinsHistorySecond)
+
     const currentDayTime = getDateTime();
 
-    useEffect(() => {
-        if (Object.values(objSearchParams).length <= 1) {
-            onSetObjSearchParams({
-                [SEARCH_PARAMS.COIN]: 'bitcoin,ethereum',
-                [SEARCH_PARAMS.CURRENCY]: 'usd',
-                [SEARCH_PARAMS.DAYS]: '7',
-            });
-        };
-    }, [])
+    const renderCoinsParamsDefault = () => {
+        const coinsParamsArr = coin?.split(',');
+
+        if (coinsParamsArr?.length && coinsParamsArr?.length === 2) {
+            return coin;
+        }
+
+        if(coinsParamsArr?.length && coinsParamsArr?.length === 1) {
+            const idRandom = coinsList?.filter(({ id }) => id !== coinsParamsArr[0])[0]?.id;
+
+            coinsParamsArr.push(idRandom);
+
+            return coinsParamsArr.join('')
+        }
+
+        return 'bitcoin,binancecoin'
+    }
 
     useEffect(() => {
-        if (!objSearchParams?.coin && !objSearchParams?.days && objSearchParams?.currency && coinsHistoryFirst && coinsHistorySecond) {
-            return;
-        };
+        onSetObjSearchParams({
+            [SEARCH_PARAMS.COIN]: renderCoinsParamsDefault(),
+            [SEARCH_PARAMS.CURRENCY]: 'usd',
+            [SEARCH_PARAMS.DAYS]: '7',
+        });
+    }, []) // eslint-disable-line
 
-        dispatch(setNulifyCoins());
-        const controller = new AbortController();
+    useEffect(() => {
+        if (coin && days && currency && init) {
+            const controller = new AbortController();
+
+            if (!coinsList?.length) {
+                fetchCoins(controller);
+            }
+
+            if (!Object.values(coinsHistory).length) {
+                fetchCoinHistory(controller);
+            }
+
+            return () => {
+                controller.abort();
+            }
+        };
         
-        dispatch(fetchCoins(controller));
-        dispatch(fetchCoinHistory(controller));
-  
-        return () => {
-            controller.abort();
-        };
-  
-    }, [objSearchParams?.days, objSearchParams?.currency, objSearchParams?.coin]);
+      }, [days, coin, currency, init]); // eslint-disable-line
 
     return (
         <StyledConvertorSection>
