@@ -13,6 +13,7 @@ export interface ICoinsAPIGetCoinsParams {
     controller: AbortController
 };
 
+
 export const CoinsApi = {
     async getCoins({ payload, controller }: ICoinsAPIGetCoinsParams): Promise<AxiosResponse> {
         return await axios.get(`${url}=${payload.currency}&order=market_cap_desc&per_page=50&page=${payload.page}&sparkline=true&price_change_percentage=1h%2C24h%2C7d&x_cg_pro_api_key=${key}`,
