@@ -17,18 +17,18 @@ export const fetchCoinHistory = createAsyncThunk<Record<string, ICoinObjHistory>
             const { currency, days, coin } = getLocationSearchParams();
             const ids = coin ? coin.split(',') : [];
             let data;
-            
+
             if (ids?.length) {
                 data = await Promise.all(
-                
+
                     ids.map(async (id) => {
                         const paramsSingle = {
                             payload: { id, days, currency },
                             controller
                         }
-    
+
                         const { data } = await ChartApi.getPrices(paramsSingle);
-                       
+
                         return {
                             [id]: data
                         } 
@@ -46,18 +46,18 @@ export const fetchCoinHistory = createAsyncThunk<Record<string, ICoinObjHistory>
                     bitcoin: response.data
                 }]
             }
-            
+
             const dataObj = data.reduce((items, item) => {
                 return {
                     ...items,
                     ...item
                 }
             }, {})
-            
+
             return dataObj;
         } catch (error) {
             return rejectWithValue(getErrorMessage(error))
-            
+
         }
     }   
 );
@@ -78,7 +78,7 @@ export const fetchCoins = createAsyncThunk<ICoin[], AbortController, {rejectValu
             }
 
             const { data } = await CoinsApi.getCoins(param);
-            
+
             return data;
         } catch(error) {
             return rejectWithValue(getErrorMessage(error));
@@ -92,7 +92,7 @@ export const fetchMarketData = createAsyncThunk<IMarketDataProps, AbortControlle
          try {
              const { data } = await MarketDataApi.getMarketData(controller);
              const innerData = data.data;
-             
+
              return innerData;
          } catch(error) {
              return rejectWithValue(getErrorMessage(error));
@@ -127,70 +127,67 @@ const coins = createSlice({
         selectMarketData: state => state.marketData,
     },
 
-    reducers: (create) => ({
-        onSetNulifyCoinsHistory: create.reducer((state) => {
-            state.coinsHistory = {}
-        }),
-
-        removeCoin: create.reducer((state, action: PayloadAction<RemoveCoinPayload>) => {
+    reducers: {
+        onSetNulifyCoinsHistory: (state) => {
+            state.coinsHistory = {};
+        },
+        removeCoin: (state, action: PayloadAction<RemoveCoinPayload>) => {
             for (const coinId in state.coinsHistory) {
-                if (coinId === action.payload.id && Object.values(state.coinsHistory).length > 1) {
-                    delete state.coinsHistory[action.payload.id]
+                if (coinId === action.payload.id && Object.keys(state.coinsHistory).length > 1) {
+                    delete state.coinsHistory[action.payload.id];
                 }
             }
-        }),
-
-        onSetPage: create.reducer((state, action: PayloadAction<number>) => {
+        },
+        onSetPage: (state, action: PayloadAction<number>) => {
             state.page = action.payload;
-        }),
-
-        setNulifyCoins: create.reducer((state) => {
+        },
+        setNulifyCoins: (state) => {
             state.coinList = [];
             state.lastCoins = [];
             state.page = 1;
-        }),
+        }
+    },
 
-        fetchCoins: create.asyncThunk(async (controller, { rejectWithValue, getState }) => {
-            const state = getState() as RootState;
-            const { currency } = getLocationSearchParams();
-    
-            try {
-                const param = {
-                    payload: { 
-                        currency: currency || 'usd',
-                        page: state.coins.page                
-                    },
-                    controller
-                }
-    
-                const { data } = await CoinsApi.getCoins(param);
-                
-                return data;
-            } catch(error) {
-                return rejectWithValue(getErrorMessage(error));
-            }
-        }, {
-            pending: (state) => {
-                state.loading = false;
-                state.error = null
-            },
-            fulfilled: (state, action) => {
-                if (!state.lastCoins.length) {
-                    state.lastCoins = action.payload;
-                }
-                if (!state.coinList?.length) {
-                    state.coinList = action.payload;
-                } else {
-                    state.coinList = [...state.coinList, ...action.payload];
-                }
-                state.loading = false;
-            },
-            rejected: (state, action) => {
-                state.error = action.payload as string;
-                state.loading = false;
-            }
-        })
-    }),
+        // fetchCoins: create.asyncThunk(async (controller, { rejectWithValue, getState }) => {
+        //     const state = getState() as RootState;
+        //     const { currency } = getLocationSearchParams();
+
+        //     try {
+        //         const param = {
+        //             payload: { 
+        //                 currency: currency || 'usd',
+        //                 page: state.coins.page                
+        //             },
+        //             controller
+        //         }
+
+        //         const { data } = await CoinsApi.getCoins(param);
+
+        //         return data;
+        //     } catch(error) {
+        //         return rejectWithValue(getErrorMessage(error));
+        //     }
+        // }, {
+        //     pending: (state) => {
+        //         state.loading = false;
+        //         state.error = null
+        //     },
+        //     fulfilled: (state, action) => {
+        //         if (!state.lastCoins.length) {
+        //             state.lastCoins = action.payload;
+        //         }
+        //         if (!state.coinList?.length) {
+        //             state.coinList = action.payload;
+        //         } else {
+        //             state.coinList = [...state.coinList, ...action.payload];
+        //         }
+        //         state.loading = false;
+        //     },
+        //     rejected: (state, action) => {
+        //         state.error = action.payload as string;
+        //         state.loading = false;
+        //     }
+        // })
 
     extraReducers: (builder) => {
         builder

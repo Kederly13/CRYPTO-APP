@@ -30,6 +30,7 @@ export const fetchInit = createAsyncThunk<undefined, AbortController, {rejectVal
             }
 
             if(!Object.values(coinsHistory).length) {
+                console.log('blablabl')
                 const dataCoinsHistory = await dispatch(fetchCoinHistory(controller))
 
                 data.push(dataCoinsHistory)

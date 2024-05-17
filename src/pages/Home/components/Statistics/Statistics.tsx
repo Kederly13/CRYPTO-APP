@@ -10,7 +10,6 @@ import { PeriodFilter } from 'components/PeriodFilter';
 import { currencyData } from 'Layout/components/Header/components/Currency/components/CurrencyMenu/currencyData';
 
 import { selectCoinList, selectLastCoinList } from 'store/slices/coinsSlice/coinsSlice';
-// import { selectInit } from 'store/slices/initSlice/initSlice';
 import { selectInit } from 'store/slices/initSlice/initSlice';
 import { useAppSelector } from 'hooks/reduxHooks';
 import { selectCoinsHistory } from 'store/slices/coinsSlice/coinsSlice';
@@ -36,11 +35,13 @@ export const Statistics = () => {
     const coinsList = useAppSelector(selectCoinList)
     const coinsHistory = useAppSelector(selectCoinsHistory);
     const init = useAppSelector(selectInit);
+    console.log(coinsHistory)
 
     const coinsHistoryKeys = Object.keys(coinsHistory);
     const [coinsHistoryFirst, coinsHistorySecond] = coinsHistoryKeys;
 
     const coinFirst = lastCoins.find(({ id }) => id === coinsHistoryFirst);
+    console.log(coinsList)
 
     const today = new Date();
     const todayString = today.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
