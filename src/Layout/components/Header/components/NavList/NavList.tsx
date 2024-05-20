@@ -1,4 +1,5 @@
 import { FC } from 'react';
+import { useLocation } from 'react-router-dom';
 import { NavLink } from 'react-router-dom';
 
 import { useResize } from 'hooks/useResize';
@@ -10,9 +11,6 @@ import { ReactComponent as LayersIcon } from 'assets/svg/layers.svg';
 import { ReactComponent as HomeIcon } from 'assets/svg/home.svg';
 
 import { StyledNavList, StyledNavListItem } from './StyledNavList';
-import { themes } from 'styles/themes';
-import { useTheme } from 'hooks/useTheme';
-import { THEME } from 'constants/theme';
 
 export interface IStyledListItemProps{
     $mr?: string;
@@ -20,12 +18,13 @@ export interface IStyledListItemProps{
 
 export const NavList: FC = () => {
     const { width } = useResize();
-    const { theme } = useTheme();
+    
+    const { pathname, search } = useLocation(); 
     
     return (
         <StyledNavList>
             <StyledNavListItem $mr='24px'>
-                <NavLink to={'/'}
+                <NavLink to={`/${search}`}
                   className={({ isActive }) =>
                     isActive ? "active" : ""
                   }

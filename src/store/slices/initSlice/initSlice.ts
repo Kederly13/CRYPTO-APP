@@ -2,7 +2,6 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { RootState } from 'store';
 import { getErrorMessage } from 'utils/getErrorMessage';
 import { fetchCoinHistory, fetchCoins, fetchMarketData } from '../coinsSlice/coinsSlice';
-
 import { IInitializationSliceState } from './types';
 
 export const fetchInit = createAsyncThunk<undefined, AbortController, {rejectValue: string}>(

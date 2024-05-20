@@ -21,7 +21,6 @@ import { SEARCH_PARAMS } from 'constants/searchParams';
 
 import 'swiper/swiper-bundle.css';
 
-
 export type TCoinPrice = Array<Array<number>>;
 
 export const Statistics = () => {
@@ -35,13 +34,11 @@ export const Statistics = () => {
     const coinsList = useAppSelector(selectCoinList)
     const coinsHistory = useAppSelector(selectCoinsHistory);
     const init = useAppSelector(selectInit);
-    console.log(coinsHistory)
 
     const coinsHistoryKeys = Object.keys(coinsHistory);
     const [coinsHistoryFirst, coinsHistorySecond] = coinsHistoryKeys;
 
     const coinFirst = lastCoins.find(({ id }) => id === coinsHistoryFirst);
-    console.log(coinsList)
 
     const today = new Date();
     const todayString = today.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
