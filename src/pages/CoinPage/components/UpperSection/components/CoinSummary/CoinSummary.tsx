@@ -1,4 +1,6 @@
 import { selectCoinSummary, selectCoinSummaryError, selectCoinSummaryLoading } from 'store/slices/coinsSlice/coinsSlice'
+import { CoinPageCard } from 'pages/CoinPage/components/CoinPageCard';
+
 import { useAppSelector } from 'hooks/reduxHooks';
 import {
     StyledCoinSummary,
@@ -14,6 +16,7 @@ import {
 } from './StyledCoinSummary';
 
 import { getConvertedDateCoinPage } from 'utils/getConvertedDateCoinPage';
+
 
 import {ReactComponent as ArrowUp} from 'assets/svg/arrowUp.svg';
 import {ReactComponent as ArrowDown} from 'assets/svg/arrowDown.svg';
@@ -32,7 +35,7 @@ import {ReactComponent as ArrowDown} from 'assets/svg/arrowDown.svg';
     }
     
     return (
-       <StyledCoinSummary>
+       <CoinPageCard $maxWidth='564px'>
             <StyledCoinTitle>
                 <img src={coinSummary?.image?.small} alt='logo' />
                 <div>
@@ -57,6 +60,6 @@ import {ReactComponent as ArrowDown} from 'assets/svg/arrowDown.svg';
                 </StyledTimeLine>
                 <StyledDate>{atlDate}</StyledDate>
             </StyledTimeBlock>
-       </StyledCoinSummary>
+       </CoinPageCard>
     )
  }

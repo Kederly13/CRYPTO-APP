@@ -1,0 +1,1 @@
+export { CoinPageCard } from './CoinPageCard';
