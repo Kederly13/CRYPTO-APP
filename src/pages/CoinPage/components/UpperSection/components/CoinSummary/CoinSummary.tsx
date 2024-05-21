@@ -1,9 +1,12 @@
+import { FC } from 'react';
+
 import { selectCoinSummary, selectCoinSummaryError, selectCoinSummaryLoading } from 'store/slices/coinsSlice/coinsSlice'
 import { CoinPageCard } from 'pages/CoinPage/components/CoinPageCard';
 
+import { ICoinPageProps } from '../../types';
+
 import { useAppSelector } from 'hooks/reduxHooks';
 import {
-    StyledCoinSummary,
     StyledCoinTitle, 
     StyledCoinName, 
     StyledHomeLink, 
@@ -21,8 +24,10 @@ import { getConvertedDateCoinPage } from 'utils/getConvertedDateCoinPage';
 import {ReactComponent as ArrowUp} from 'assets/svg/arrowUp.svg';
 import {ReactComponent as ArrowDown} from 'assets/svg/arrowDown.svg';
 
- export const CoinSummary = () => {
-    const coinSummary = useAppSelector(selectCoinSummary);
+
+
+ export const CoinSummary: FC<ICoinPageProps> = ({ coinSummary }) => {
+    
     const coinSummaryLoading = useAppSelector(selectCoinSummaryLoading);
     const coinSummaryError = useAppSelector(selectCoinSummaryError);
 

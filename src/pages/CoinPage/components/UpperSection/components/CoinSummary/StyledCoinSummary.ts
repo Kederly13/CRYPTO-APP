@@ -1,12 +1,5 @@
 import styled from 'styled-components';
 
-export const StyledCoinSummary = styled.div`
-    background-color: ${({ theme }) => theme.coinSummary.background};
-    padding: 40px 32px;
-    width: 564px;
-    border-radius: 12px;
-`
-
 export const StyledCoinTitle = styled.div`
     margin-bottom: 51px;
     display: flex;

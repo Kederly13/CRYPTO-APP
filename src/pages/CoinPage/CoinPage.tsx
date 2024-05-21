@@ -6,7 +6,6 @@ import { StyledCoinPageTitle } from './StyledCoinPage';
 import { useParams } from 'react-router-dom';
 
 import { useActions } from 'hooks/useActions';
-import { useAppDispatch } from 'hooks/reduxHooks';
 import { selectCoinSummary } from 'store/slices/coinsSlice/coinsSlice';
 import { useAppSelector } from 'hooks/reduxHooks';
 

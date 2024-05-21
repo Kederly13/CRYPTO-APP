@@ -11,10 +11,18 @@ export const StyledDescriptionText = styled.p`
 
 export const CoinLinks = styled.div`
     display: flex;
+    flex-wrap: wrap;
 `
 
 export const CoinLinkBtn = styled.div`
     padding: 16px 24px;
     background-color: ${({ theme }) => theme.coinSummary.background};
     border-radius: 12px;
+    max-width: 309px;
+`
+
+export const CoinLink = styled.a`
+    font-size: 16px;
+    font-weight: 500;
+    word-wrap: break-word;
 `
