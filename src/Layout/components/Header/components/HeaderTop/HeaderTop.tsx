@@ -4,8 +4,9 @@ import { selectLastCoinList } from "store/slices/coinsSlice/coinsSlice";
 
 import { Flash } from "assets/svg/flash";
 import { Exchange } from "assets/svg/exchange";
-import { ArrowDown } from 'assets/svg/arrowDown';
-import { ArrowUp } from 'assets/svg/arrowUp';
+
+import {ReactComponent as ArrowUp} from 'assets/svg/arrowUp.svg';
+import {ReactComponent as ArrowDown} from 'assets/svg/arrowDown.svg';
 
 import { selectMarketData } from "store/slices/coinsSlice/coinsSlice"
 

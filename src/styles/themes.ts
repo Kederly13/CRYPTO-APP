@@ -1,10 +1,10 @@
 import { THEME } from "constants/theme";
 
-const activeButtonStyles = {
-    buttonColor: '#FFF',
-    buttonActiveColor: 'rgba(97, 97, 222, 0.50)',
-    activeBorderColor: '#7878FF',
-};
+// const activeButtonStyles = {
+//     buttonColor: '#FFF',
+//     buttonActiveColor: 'rgba(97, 97, 222, 0.50)',
+//     activeBorderColor: '#7878FF',
+// };
 
 const topHeaderStyles = {
     mainHeaderFontColor: '#FFF',
@@ -144,6 +144,11 @@ export const themes = {
         },
 
         // Coin Page
+        coinSummary: {
+            background: '#1F1934'
+        },
+        primaryFont: '#FFF',
+        secondaryFont: '#B9B9BA'
 
         
     },
@@ -270,5 +275,17 @@ export const themes = {
         coinPrice: {
             color: 'color: rgba(53, 53, 116, 0.80)'
         },
+
+        // Coin Page
+        primaryFont: {
+            color: '#181826',
+        },
+        secondaryFont: {
+            color: '#42428B'
+        },
+
+        coinSummary: {
+            background: '#FFF'
+        }
     }
 }

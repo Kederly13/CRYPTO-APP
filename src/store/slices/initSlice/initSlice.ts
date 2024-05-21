@@ -9,9 +9,9 @@ export const fetchInit = createAsyncThunk<undefined, AbortController, {rejectVal
     async(controller, { rejectWithValue, getState, dispatch }) => {
         const state = getState() as RootState;
 
-        const coinsList = state.coins.coinList;
-        const coinsHistory = state.coins.coinsHistory;
-        const marketData = state.coins.marketData;
+        const coinsList = state.coins.coinList.data;
+        const coinsHistory = state.coins.coinsHistory.data;
+        const marketData = state.coins.marketData.data;
 
         try {
             const data = [];
@@ -29,7 +29,6 @@ export const fetchInit = createAsyncThunk<undefined, AbortController, {rejectVal
             }
 
             if(!Object.values(coinsHistory).length) {
-                console.log('blablabl')
                 const dataCoinsHistory = await dispatch(fetchCoinHistory(controller))
 
                 data.push(dataCoinsHistory)
@@ -66,8 +65,9 @@ const initSlice = createSlice({
                 state.loading = false;
                 state.init = true
             })
-            .addCase(fetchInit.rejected, (state) => {
+            .addCase(fetchInit.rejected, (state, action) => {
                 state.loading = false;
+                state.error = action.payload as string;
             })
         }
     });

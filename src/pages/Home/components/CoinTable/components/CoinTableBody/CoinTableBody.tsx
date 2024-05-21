@@ -1,7 +1,7 @@
 import { useAppDispatch } from 'hooks/reduxHooks';
 import { StyledCoinTableBody } from './StyledCoinTableBody';
 import { CoinTableRow } from './components/CoinTableRow';
-import { selectCoinList, selectLoading, selectPage } from 'store/slices/coinsSlice/coinsSlice';
+import { selectCoinList, selectCoinListLoading, selectPage } from 'store/slices/coinsSlice/coinsSlice';
 import { selectMarketData } from 'store/slices/coinsSlice/coinsSlice';
 import { useActions } from 'hooks/useActions';
 
@@ -11,7 +11,7 @@ import { useScrollPagination } from 'hooks/useScrollPagination';
 export const CoinTableBody = () => {
 
     const coins = useAppSelector(selectCoinList);
-    const loading = useAppSelector(selectLoading);
+    const loading = useAppSelector(selectCoinListLoading);
     const marketData = useAppSelector(selectMarketData);
     const page = useAppSelector(selectPage);
 

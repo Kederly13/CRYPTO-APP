@@ -1,5 +1,4 @@
 import { ICoin } from "types/coinType";
-import { currencies } from './data';
 
 export type TCoinData = Array<Array<number>>;
 
@@ -9,9 +8,15 @@ export interface ICoinObjHistory {
     total_volumes: TCoinData,
 };
 
+export interface ICoinHistoryState {
+    data: TCoinHistory,
+    error: string | null,
+    loading: boolean
+};
+
 export type TCoinHistory = Record<string, ICoinObjHistory>;
 
-export interface IMarketDataProps {
+export interface IMarketDataPayload {
     active_cryptocurrencies: number;
     upcoming_icos: number;
     ongoing_icos: number;
@@ -36,12 +41,12 @@ export interface IFetchCoinsHistoryPayload {
     currency: string
 };
 
-export interface IFetchCoinsHistoryParams {
+export interface IFetchCoinsHistoryPayload {
     coinsHistoryPayload: IFetchCoinsHistoryPayload;
     controller: AbortController;
 };
 
-export interface ICoinSummaryProps {
+export interface ICoinSummaryPayload {
     id: string;
     symbol: string;
     name: string;
@@ -176,13 +181,23 @@ export interface ICoinSummaryProps {
 }
 
 export type TCoinsState = {
-    coinsHistory: TCoinHistory,
-    coinList: ICoin[];
-    lastCoins: ICoin[];
-    marketData: IMarketDataProps | null;
-    coinSummary: ICoinSummaryProps | null;
-    page: number,
-    loading: boolean,
-    error: null | string,
+    coinsHistory: ICoinHistoryState;
+    coinList: {
+        data: ICoin[];
+        lastCoins: ICoin[];
+        loading: boolean;
+        error: string | null;
+    };
+    coinSummary: {
+        data: ICoinSummaryPayload | null;
+        loading: boolean;
+        error: string | null;
+    };
+    marketData: {
+        data: IMarketDataPayload | null;
+        loading: boolean;
+        error: string | null;
+    };
+    page: number;
 };
 

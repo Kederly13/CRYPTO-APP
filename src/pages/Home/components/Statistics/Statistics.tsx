@@ -33,6 +33,7 @@ export const Statistics = () => {
     const lastCoins = useAppSelector(selectLastCoinList);
     const coinsList = useAppSelector(selectCoinList)
     const coinsHistory = useAppSelector(selectCoinsHistory);
+    console.log(coinsHistory)
     const init = useAppSelector(selectInit);
 
     const coinsHistoryKeys = Object.keys(coinsHistory);

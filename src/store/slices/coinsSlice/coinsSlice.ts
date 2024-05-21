@@ -8,13 +8,11 @@ import { MarketDataApi } from 'api/MarketDataApi';
 import { ICoin } from 'types/coinType';
 import { getErrorMessage } from 'utils/getErrorMessage';
 
-import { ICoinObjHistory, TCoinsState, IMarketDataProps, ICoinSummaryProps} from './types';
+import { ICoinObjHistory, TCoinsState, IMarketDataPayload, ICoinSummaryPayload} from './types';
 import { getLocationSearchParams } from 'utils/getLocationSearchParams';
-import { useLocation } from 'react-router-dom';
-import { Root } from 'react-dom/client';
 
 export const fetchCoinHistory = createAsyncThunk<Record<string, ICoinObjHistory>, AbortController, {rejectValue: string}>(
-    'coinsHistory/fetchCoinHistory',
+    'coins/fetchCoinHistory',
     async (controller, { rejectWithValue }) => {
         try {
             const { currency, days, coin } = getLocationSearchParams();
@@ -89,7 +87,7 @@ export const fetchCoins = createAsyncThunk<ICoin[], AbortController, {rejectValu
     }
 );
 
-export const fetchCoinSummary = createAsyncThunk<ICoinSummaryProps, { coin: string, controller: AbortController }, {rejectValue: string}>(
+export const fetchCoinSummary = createAsyncThunk<ICoinSummaryPayload, { coin: string, controller: AbortController }, {rejectValue: string}>(
     'coins/fetchCoinSummary',
     async ({ coin, controller }, { rejectWithValue }) => {
 
@@ -102,8 +100,8 @@ export const fetchCoinSummary = createAsyncThunk<ICoinSummaryProps, { coin: stri
     }
 )
 
-export const fetchMarketData = createAsyncThunk<IMarketDataProps, AbortController, {rejectValue: string}>(
-    'marketData/fetchMarketData',
+export const fetchMarketData = createAsyncThunk<IMarketDataPayload, AbortController, {rejectValue: string}>(
+    'coins/fetchMarketData',
     async (controller, { rejectWithValue }) => {
          try {
              const { data } = await MarketDataApi.getMarketData(controller);
@@ -125,37 +123,62 @@ const createSliceWithThunks = buildCreateSlice({
 });
 
 const initialState: TCoinsState = {
-    coinsHistory: {},
-    coinList: [],
-    lastCoins: [],
-    coinSummary: null,
-    marketData: null,
+    coinsHistory: {
+        data: {},
+        loading: false,
+        error: null
+    },
+    coinList: {
+        data: [],
+        lastCoins: [],
+        loading: false,
+        error: null,
+    },
+    coinSummary: {
+        data: null,
+        loading: false,
+        error: null,
+    },
+    marketData: {
+        data: null,
+        loading: false,
+        error: null,
+    },
     page: 1,
-    loading: false,
-    error: null
 };
 
 const coins = createSliceWithThunks({
     name: 'coins',
     initialState,
     selectors: {
-        selectCoinsHistory: (state: TCoinsState) => state.coinsHistory,
-        selectLastCoinList: (state: TCoinsState) => state.lastCoins,
-        selectCoinList: (state: TCoinsState) => state.coinList,
-        selectLoading: (state: TCoinsState) => state.loading,
+        selectCoinsHistory: (state: TCoinsState) => state.coinsHistory.data,
+        selectCoinsHistoryLoading: (state: TCoinsState) => state.coinsHistory.loading,
+        selectCoinsHistoryError: (state: TCoinsState) => state.coinsHistory.error,
+        
+        selectLastCoinList: (state: TCoinsState) => state.coinList.lastCoins,
+        selectCoinList: (state: TCoinsState) => state.coinList.data,
+        selectCoinListLoading: (state: TCoinsState) => state.coinList.loading,
+        selectCoinListError: (state: TCoinsState) => state.coinList.error,
+        
+        selectCoinSummary: (state: TCoinsState) => state.coinSummary.data,
+        selectCoinSummaryLoading: (state: TCoinsState) => state.coinSummary.loading,
+        selectCoinSummaryError: (state: TCoinsState) => state.coinSummary.error,
+        
+        selectMarketData: (state: TCoinsState) => state.marketData.data,
+        selectMarketDataLoading: (state: TCoinsState) => state.marketData.loading,
+        selectMarketDataError: (state: TCoinsState) => state.marketData.error,
+
         selectPage: (state: TCoinsState) => state.page,
-        selectMarketData: (state: TCoinsState) => state.marketData,
-        selectCoinSummary: (state: TCoinsState) => state.coinSummary
     },
 
     reducers: {
         onSetNulifyCoinsHistory: (state) => {
-            state.coinsHistory = {};
+            state.coinsHistory.data = {};
         },
         removeCoin: (state, action: PayloadAction<RemoveCoinPayload>) => {
-            for (const coinId in state.coinsHistory) {
+            for (const coinId in state.coinsHistory.data) {
                 if (coinId === action.payload.id && Object.keys(state.coinsHistory).length > 1) {
-                    delete state.coinsHistory[action.payload.id];
+                    delete state.coinsHistory.data[action.payload.id];
                 }
             }
         },
@@ -163,8 +186,8 @@ const coins = createSliceWithThunks({
             state.page = action.payload;
         },
         setNulifyCoins: (state) => {
-            state.coinList = [];
-            state.lastCoins = [];
+            state.coinList.data = [];
+            state.coinList.lastCoins = [];
             state.page = 1;
         }
     },
@@ -173,58 +196,81 @@ const coins = createSliceWithThunks({
         builder
             // fetchCoins
             .addCase(fetchCoins.pending, (state) => {
-                state.loading = true;
-                state.error = null;
+                state.coinList.loading = true;
+                state.coinList.error = null;
             })
             .addCase(fetchCoins.fulfilled, (state, action) => {
-                if (!state.lastCoins.length) {
-                    state.lastCoins = action.payload;
+                if (!state.coinList.lastCoins.length) {
+                    state.coinList.lastCoins = action.payload;
                 }
-                state.coinList = [...state.coinList, ...action.payload];
-                state.loading = false;
+                state.coinList.data = [...state.coinList.data, ...action.payload];
+                state.coinList.loading = false;
             })
-
+            .addCase(fetchCoins.rejected, (state, action) => {
+                state.coinList.error = action.payload as string;
+                state.coinList.loading = false;
+            })
+    
             // fetchCoinHistory
             .addCase(fetchCoinHistory.pending, (state) => {
-                state.loading = true;
-                state.error = null;
+                state.coinsHistory.loading = true;
+                state.coinsHistory.error = null;
             })
             .addCase(fetchCoinHistory.fulfilled, (state, action) => {
-                state.loading = false;
-                state.coinsHistory = action.payload;
+                state.coinsHistory.data = action.payload;
+                state.coinsHistory.loading = false;
             })
             .addCase(fetchCoinHistory.rejected, (state, action) => {
-                state.error = action.payload as string;
-                state.loading = false;
+                state.coinsHistory.error = action.payload as string;
+                state.coinsHistory.loading = false;
             })
-
+    
             // fetchMarketData
-            .addCase(fetchMarketData.pending, (state, action) => {
-                state.loading = true;
-                state.error = null;
+            .addCase(fetchMarketData.pending, (state) => {
+                state.marketData.loading = true;
+                state.marketData.error = null;
             })
             .addCase(fetchMarketData.fulfilled, (state, action) => {
-                state.marketData = action.payload;
-                state.loading = false;
+                state.marketData.data = action.payload;
+                state.marketData.loading = false;
             })
-
+            .addCase(fetchMarketData.rejected, (state, action) => {
+                state.marketData.error = action.payload as string;
+                state.marketData.loading = false;
+            })
+    
             // fetchCoinSummary
-            .addCase(fetchCoinSummary.fulfilled, (state, action) => {
-                state.coinSummary = action.payload;
-                state.loading = false;
-            })
             .addCase(fetchCoinSummary.pending, (state) => {
-                state.loading = true;
-                state.error = null;
+                state.coinSummary.loading = true;
+                state.coinSummary.error = null;
+            })
+            .addCase(fetchCoinSummary.fulfilled, (state, action) => {
+                state.coinSummary.data = action.payload;
+                state.coinSummary.loading = false;
             })
             .addCase(fetchCoinSummary.rejected, (state, action) => {
-                state.error = action.payload as string;
-                state.loading = false;
-            })
+                state.coinSummary.error = action.payload as string;
+                state.coinSummary.loading = false;
+            });
     }
 })
 
 export const { removeCoin, onSetNulifyCoinsHistory, onSetPage, setNulifyCoins } = coins.actions;
-export const { selectCoinsHistory, selectCoinList, selectLastCoinList, selectLoading, selectPage, selectMarketData, selectCoinSummary } = coins.selectors;
+export const {
+    selectCoinsHistory,
+    selectCoinsHistoryLoading,
+    selectCoinsHistoryError,
+    selectLastCoinList,
+    selectCoinList,
+    selectCoinListLoading,
+    selectCoinListError,
+    selectCoinSummary,
+    selectCoinSummaryLoading,
+    selectCoinSummaryError,
+    selectMarketData,
+    selectMarketDataLoading,
+    selectMarketDataError,
+    selectPage
+} = coins.selectors;
 
 export default coins.reducer; 

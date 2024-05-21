@@ -2,8 +2,8 @@ import { FC } from 'react';
 
 import { StyledPercent } from './StyledPercent';
 
-import { ArrowDown } from 'assets/svg/arrowDown';
-import { ArrowUp } from 'assets/svg/arrowUp';
+import {ReactComponent as ArrowUp} from 'assets/svg/arrowUp.svg';
+import {ReactComponent as ArrowDown} from 'assets/svg/arrowDown.svg';
 
 interface IPercentProps {
     $percent: number;
