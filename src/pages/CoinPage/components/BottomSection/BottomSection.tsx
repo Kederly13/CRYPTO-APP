@@ -9,17 +9,19 @@ export const BottomSection = () => {
     const coinSummaryLoading = useAppSelector(selectCoinSummaryLoading);
     const coinSummaryError = useAppSelector(selectCoinSummaryError);
 
-    let marketData;
-    if (coinSummary) {
-        marketData = coinSummary.market_data;
-    }
-
-    const 
+       const {
+        total_volume,
+        circulating_supply,
+        market_cap,
+        fully_diluted_valuation,
+        max_supply,
+    } = coinSummary?.market_data || {};
    
-    console.log(coinSummary)
+
     return (
         <StyledBottomSection>
-            <CoinPageCard>
+            <></>
+            {/* <CoinPageCard>
                 <CardLine text='Total Volume' value={} />
                 <CardLine text='Volume 24h' value={} />
                 <CardLine text='Volume/Market' value={} />
@@ -32,7 +34,7 @@ export const BottomSection = () => {
             <CoinPageCard>
                 <CardLine text='Market Cap' value={} />
                 <CardLine text='Fully Diluted Valuation' value={} />
-            </CoinPageCard>
+            </CoinPageCard> */}
         </StyledBottomSection>
     )
 }

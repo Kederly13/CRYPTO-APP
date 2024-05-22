@@ -95,6 +95,8 @@ export interface ICoinSummaryPayload {
         current_price: {
             [key: string]: number;
         };
+        max_supply: number;
+        circulating_supply: number;
         total_value_locked: null | number;
         mcap_to_tvl_ratio: null | number;
         fdv_to_tvl_ratio: null | number;

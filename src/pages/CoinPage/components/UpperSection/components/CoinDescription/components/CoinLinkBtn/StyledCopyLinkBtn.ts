@@ -7,6 +7,7 @@ export const StyledCoinLinkBtn = styled.div`
     max-width: 309px;
     display: flex;
     justify-content: center;
+     
 
     & > button {
         margin-left: 16px;
@@ -16,5 +17,5 @@ export const StyledCoinLinkBtn = styled.div`
 export const StyledCoinLink = styled.a`
     font-size: 16px;
     font-weight: 500;
-    word-wrap: break-word;
+    word-break: break-all;
 `

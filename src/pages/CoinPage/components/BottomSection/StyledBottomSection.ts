@@ -5,5 +5,3 @@ export const StyledBottomSection = styled.div`
     display: flex;
     flex-wrap: wrap;
 `
-
-export const 

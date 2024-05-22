@@ -28,7 +28,3 @@ export const StyledCoinLink = styled.a`
     font-weight: 500;
     word-wrap: break-word;
 `
-
-export const StyledCopyButton = styled.button`
-    
-`
