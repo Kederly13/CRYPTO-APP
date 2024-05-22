@@ -1,7 +1,9 @@
 import styled from 'styled-components';
 
 export const StyledUpperSection = styled.div`
-    margin: 40px 0 32px;
-    border-bottom: 1px solid ${({ theme }) => theme.boxLine};
+    margin-top: 40px;
+    border-bottom: 1px solid ${({ theme }) => theme.primaryFont};
+    padding-bottom: 40px;
     display: flex;
+    justify-content: space-between
 `

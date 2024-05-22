@@ -1,5 +1,5 @@
 import { StyledUpperSection } from './StyledUpperSection';
-import { CoinSummary } from './components/CoinSummary/CoinSummary';
+import { CoinSummary } from './components/CoinSummary';
 import { selectCoinSummary, selectCoinSummaryError, selectCoinSummaryLoading } from 'store/slices/coinsSlice/coinsSlice';
 import { useAppSelector } from 'hooks/reduxHooks';
 import { CoinDescription } from './components/CoinDescription';

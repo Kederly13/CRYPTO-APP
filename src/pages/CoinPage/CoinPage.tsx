@@ -2,6 +2,7 @@ import { useEffect } from 'react';
 
 import { Section } from 'components/Section';
 import { UpperSection } from './components/UpperSection';
+import { BottomSection } from './components/BottomSection/BottomSection';
 import { StyledCoinPageTitle } from './StyledCoinPage';
 import { useParams } from 'react-router-dom';
 
@@ -29,6 +30,7 @@ const CoinPage = () => {
                 Coin Summary
             </StyledCoinPageTitle>
             <UpperSection />
+            <BottomSection />
         </Section>
     )
 };

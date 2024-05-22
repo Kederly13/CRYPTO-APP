@@ -277,12 +277,8 @@ export const themes = {
         },
 
         // Coin Page
-        primaryFont: {
-            color: '#181826',
-        },
-        secondaryFont: {
-            color: '#42428B'
-        },
+        primaryFont: '#181826',
+        secondaryFont: '#42428B',
 
         coinSummary: {
             background: '#FFF'

@@ -9,20 +9,26 @@ export const StyledDescriptionText = styled.p`
     font-size: 14px;
 `
 
-export const CoinLinks = styled.div`
+export const StyledCoinLinks = styled.div`
     display: flex;
     flex-wrap: wrap;
+    gap: 16px;
+    margin-top: 24px;
 `
 
-export const CoinLinkBtn = styled.div`
+export const StyledCoinLinkBtn = styled.div`
     padding: 16px 24px;
     background-color: ${({ theme }) => theme.coinSummary.background};
     border-radius: 12px;
     max-width: 309px;
 `
 
-export const CoinLink = styled.a`
+export const StyledCoinLink = styled.a`
     font-size: 16px;
     font-weight: 500;
     word-wrap: break-word;
+`
+
+export const StyledCopyButton = styled.button`
+    
 `

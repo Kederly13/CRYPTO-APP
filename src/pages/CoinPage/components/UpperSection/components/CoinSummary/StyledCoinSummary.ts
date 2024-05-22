@@ -16,6 +16,10 @@ export const StyledCoinName = styled.span`
     
 `
 
+export const StyledCoinSummary = styled.div`
+   width: 100%;
+`
+
 export const StyledHomeLink = styled.a`
     font-size: 16px;
     font-weight: 500;
@@ -27,8 +31,6 @@ export const StyledPrice = styled.span`
     font-size: 36px;
     font-weight: 700;
     display: block;
-    padding-bottom: 32px;
-    border-bottom: 1px solid ${({ theme }) => theme.primaryFont};
 `
 
 export const StyledTimeBlock = styled.div`
