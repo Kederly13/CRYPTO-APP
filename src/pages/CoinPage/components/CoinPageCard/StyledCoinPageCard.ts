@@ -8,5 +8,4 @@ export const StyledCoinPageCard = styled.div<ICoinPageCardProps>`
     max-width: ${({ $maxWidth }) => $maxWidth || 'none'};
     width: 100%;
     border-radius: 12px;
-    
 `

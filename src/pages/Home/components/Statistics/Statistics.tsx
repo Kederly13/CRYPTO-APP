@@ -33,7 +33,6 @@ export const Statistics = () => {
     const lastCoins = useAppSelector(selectLastCoinList);
     const coinsList = useAppSelector(selectCoinList)
     const coinsHistory = useAppSelector(selectCoinsHistory);
-    console.log(coinsHistory)
     const init = useAppSelector(selectInit);
 
     const coinsHistoryKeys = Object.keys(coinsHistory);
@@ -47,13 +46,11 @@ export const Statistics = () => {
     const { symbol } = currencyData.find(item => item.value === currency) || {};
     
     useEffect(() => {
-        if (Object.values(objSearchParams).length <= 1) {
             onSetObjSearchParams({
                 [SEARCH_PARAMS.COIN]: objSearchParams.coin || 'bitcoin',
                 [SEARCH_PARAMS.DAYS]: objSearchParams.days || '7',
                 [SEARCH_PARAMS.CURRENCY]: objSearchParams.currency || 'usd',
             });
-        };
       }, []); // eslint-disable-line
       
       useEffect(() => {

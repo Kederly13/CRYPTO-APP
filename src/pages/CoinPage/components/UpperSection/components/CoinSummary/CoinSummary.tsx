@@ -1,11 +1,9 @@
 import { FC } from 'react';
 
-import { selectCoinSummary, selectCoinSummaryError, selectCoinSummaryLoading } from 'store/slices/coinsSlice/coinsSlice'
 import { CoinPageCard } from 'pages/CoinPage/components/CoinPageCard';
 
 import { ICoinPageProps } from '../../types';
 
-import { useAppSelector } from 'hooks/reduxHooks';
 import {
     StyledCoinSummary,
     StyledCoinTitle, 
@@ -58,4 +56,4 @@ import {ReactComponent as ArrowDown} from 'assets/svg/arrowDown.svg';
             </CoinPageCard>
         </StyledCoinSummary>
     )
- }
+ };

@@ -5,5 +5,10 @@ export const StyledUpperSection = styled.div`
     border-bottom: 1px solid ${({ theme }) => theme.primaryFont};
     padding-bottom: 40px;
     display: flex;
-    justify-content: space-between
+    justify-content: space-between;
+    gap: 32px;
+
+    @media (max-width: 1400px) {
+        flex-direction: column;
+    }
 `

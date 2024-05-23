@@ -13,11 +13,16 @@ export const StyledCoinName = styled.span`
     color: ${({ theme }) => theme.primaryFont};
     font-size: 24px;
     font-weight: 700;    
-    
 `
 
 export const StyledCoinSummary = styled.div`
    width: 100%;
+
+   @media (max-width: 1400px) {
+        /* margin: 0 auto;
+        max-width: none;
+        width: 100%; */
+    }
 `
 
 export const StyledHomeLink = styled.a`

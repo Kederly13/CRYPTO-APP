@@ -1,19 +1,27 @@
 import { useEffect } from 'react';
+import { useParams } from 'react-router-dom';
 
 import { Section } from 'components/Section';
 import { UpperSection } from './components/UpperSection';
 import { BottomSection } from './components/BottomSection/BottomSection';
-import { StyledCoinPageTitle } from './StyledCoinPage';
-import { useParams } from 'react-router-dom';
 
+import { useSelectedObjSearchParams } from 'hooks/useSelectedSearchParams';
 import { useActions } from 'hooks/useActions';
-import { selectCoinSummary } from 'store/slices/coinsSlice/coinsSlice';
-import { useAppSelector } from 'hooks/reduxHooks';
 
+import { StyledCoinPageTitle, StyledCoinPage } from './StyledCoinPage';
+
+import { SEARCH_PARAMS } from 'constants/searchParams';
 
 const CoinPage = () => {
     const { id } = useParams<{ id: string }>();
     const { fetchCoinSummary } = useActions();
+    const { objSearchParams, onSetObjSearchParams } = useSelectedObjSearchParams();
+
+    useEffect(() => {
+        onSetObjSearchParams({
+            [SEARCH_PARAMS.CURRENCY]: objSearchParams.currency || 'usd',
+        })
+    }, [])
 
     useEffect(() => {
         const controller = new AbortController();
@@ -26,11 +34,13 @@ const CoinPage = () => {
     
     return (
         <Section>
-            <StyledCoinPageTitle>
-                Coin Summary
-            </StyledCoinPageTitle>
-            <UpperSection />
-            <BottomSection />
+            <StyledCoinPage>
+                <StyledCoinPageTitle>
+                    Coin Summary
+                </StyledCoinPageTitle>
+                <UpperSection />
+                <BottomSection />
+            </StyledCoinPage>
         </Section>
     )
 };

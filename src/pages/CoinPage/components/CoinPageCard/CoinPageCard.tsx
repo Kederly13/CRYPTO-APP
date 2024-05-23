@@ -4,13 +4,11 @@ import { StyledCoinPageCard } from './StyledCoinPageCard'; // Adjust the import 
 export interface ICoinPageCardProps {
     children: React.ReactNode;
     $maxWidth?: string;
-    $width?: string
-
   }
 
-export const CoinPageCard: React.FC<ICoinPageCardProps> = ({ children, $maxWidth, $width }) => {
+export const CoinPageCard: React.FC<ICoinPageCardProps> = ({ children, $maxWidth }) => {
   return (
-    <StyledCoinPageCard $maxWidth={$maxWidth} $width={$width}>
+    <StyledCoinPageCard $maxWidth={$maxWidth} >
       {children}
     </StyledCoinPageCard>
   );
