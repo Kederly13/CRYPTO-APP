@@ -45,6 +45,7 @@ export const ConvertorSection = () => {
         const coinsParamsArr = coin?.split(',');
 
         if (coinsParamsArr?.length && coinsParamsArr?.length === 2) {
+            
             return coin;
         }
 
@@ -52,8 +53,9 @@ export const ConvertorSection = () => {
             const idRandom = coinsList?.filter(({ id }) => id !== coinsParamsArr[0])[0]?.id;
 
             coinsParamsArr.push(idRandom);
-
-            return coinsParamsArr.join('')
+            
+            return coinsParamsArr.join(',')
+           
         }
 
         return 'bitcoin,binancecoin'

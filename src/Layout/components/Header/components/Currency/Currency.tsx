@@ -1,9 +1,12 @@
 import { useState } from 'react';
+
 import { useSelectedObjSearchParams } from 'hooks/useSelectedSearchParams';
 
-import { ReactComponent as Arrow } from 'assets/svg/arrow.svg';
-import { Dollar } from 'assets/svg/dollar';
 import { CurrencyMenu } from './components/CurrencyMenu';
+
+import { ReactComponent as Arrow } from 'assets/svg/arrow.svg';
+import { ReactComponent as Dollar } from 'assets/svg/dollar.svg';
+
 import { StyledCurrency, StyledCurrencyWrapper } from './StyledCurrency';
 
 export const Currency = () => {
@@ -24,7 +27,7 @@ export const Currency = () => {
                 }}
             >
                 <Dollar />
-                <span>{objSearchParams.currency}</span>
+                <span>{objSearchParams.currency?.toLocaleUpperCase()}</span>
                 <Arrow />
             </StyledCurrency>
             {isActiveMenu && <CurrencyMenu onSetShow={haldleClick} />}

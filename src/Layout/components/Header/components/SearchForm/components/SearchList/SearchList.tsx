@@ -1,30 +1,40 @@
-import { FC } from 'react';
-import { Link } from 'react-router-dom';
+import { FC, useRef } from 'react';
+import { Link } from 'react-router-dom'; 
+
+import { useOutsideClick } from 'hooks/useOutsideClick';
+
+import { getCapitalizedWord } from 'utils/getCapitalizedWord';
 
 import { ICoin } from 'types/coinType';
+
 import { StyledSearchList, StyledSearchListItem } from './StyledSearchList';
+
 
 interface SearchListProps {
     coins: ICoin[];
-    searchQuery?: string
+    searchQuery?: string,
+    handleActiveMenu: () => void;
 };
 
-export const SearchList: FC<SearchListProps> = ({ coins, searchQuery }) => {
+export const SearchList: FC<SearchListProps> = ({ coins, searchQuery, handleActiveMenu }) => {
     const coinsNames = coins.map(coin => coin.id);
+    const ref = useRef<HTMLLIElement>(null);
     let filteredCoins: string[] = [];
 
     if (searchQuery) {
         filteredCoins = coinsNames.filter(name => 
             name.toLowerCase().includes(searchQuery?.toLocaleLowerCase() || '')
         )
-    }
+    };
+
+    useOutsideClick(ref, handleActiveMenu);
 
     return (
         <StyledSearchList>
             {filteredCoins.length > 0 && filteredCoins.map((coin) => (
-                <StyledSearchListItem key={coin}>
+                <StyledSearchListItem key={coin} ref={ref}>
                     <Link to={`/coin-page/${coin.toLowerCase()}`}>
-                        {coin}
+                        {getCapitalizedWord(coin)}
                     </Link>
                 </StyledSearchListItem>
             ))}

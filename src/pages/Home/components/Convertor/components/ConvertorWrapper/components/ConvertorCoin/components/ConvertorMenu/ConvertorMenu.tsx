@@ -14,6 +14,7 @@ interface ICoinList {
 
 export const ConvertorMenu: FC<ICoinList> = ({ index, coinList, selectedCoin, handleActiveMenu }) => {
     const ref = useRef<HTMLLIElement>(null);
+    
     const { objSearchParams, onSetObjSearchParams } = useSelectedObjSearchParams();
 
     const { onSetNulifyCoinsHistory } = useActions();

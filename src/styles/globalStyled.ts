@@ -62,4 +62,17 @@ export const GlobalStyle = createGlobalStyle`
     justify-content: space-between; */
     min-height: 100vh;
   }
+
+  input::-webkit-outer-spin-button,
+  input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+  input[type='number'] {
+    -moz-appearance: textfield;
+}
+
+  input[type='number'] {
+    -moz-appearance: textfield; /* Remove spin buttons in Firefox */
+  }
 `;

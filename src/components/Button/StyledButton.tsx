@@ -18,10 +18,12 @@ export const StyledButton = styled.button<ButtonProps>`
     &.active {
         border-color: ${({ theme }) => theme.activeBorderColor};
         background-color: ${({ theme }) => theme.buttonActiveColor};
+        color: ${({ theme }) => theme.buttonActiveFontColor};
     }
     
     &:hover {
         background-color: ${({ theme }) => theme.buttonActiveColor};
+        color: ${({ theme }) => theme.buttonActiveFontColor};
     }
 
     

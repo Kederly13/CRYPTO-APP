@@ -29,5 +29,6 @@ export const StyledCurrencyListItem = styled.li<IStyledCurrencyListItem>`
 
     &:hover {
         cursor: pointer;
+        background-color: ${({ theme }) => theme.currencyMenu.selected}
     }
 `

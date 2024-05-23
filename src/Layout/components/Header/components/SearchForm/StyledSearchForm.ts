@@ -1,4 +1,11 @@
-import styled from 'styled-components'; 
+import styled from 'styled-components';
+import { ReactComponent as SearchIcon } from 'assets/svg/search.svg';
+
+export const StyledSearchIcon = styled(SearchIcon)`
+    width: 20px;
+    height: 20px;
+    fill: ${({ theme }) => theme.searchIcon.default};
+`;
 
 export const StyledSearchForm = styled.form`
     max-width: 356px;
@@ -13,6 +20,10 @@ export const StyledSearchForm = styled.form`
     &:hover {
         background-color: ${({ theme }) => theme.buttonActiveColor};
         border: 1px solid ${({ theme }) => theme.buttonActiveBorderColor};
+
+        ${StyledSearchIcon} {
+            fill: ${({ theme }) => theme.searchIcon.active};
+        }
     }
 
     @media (max-width: 992px) {
@@ -30,5 +41,6 @@ export const StyledSearchForm = styled.form`
             height: inherit;
             color: ${({ theme }) => theme.formFontColor};
         } 
-    }  
+    }
 `;
+

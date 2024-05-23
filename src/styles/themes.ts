@@ -44,6 +44,11 @@ export const themes = {
             active: '#FFF'
         },
 
+        searchIcon: {
+            default: '#D1D1D6',
+            active: '#FFF',
+        },
+
         currencyMenu: {
             background: '#191926',
             selected: 'rgba(97, 97, 222, 0.50)'
@@ -147,9 +152,15 @@ export const themes = {
         coinSummary: {
             background: '#1F1934'
         },
+        
         primaryFont: '#FFF',
-        secondaryFont: '#B9B9BA'
+        secondaryFont: '#B9B9BA',
 
+        scrollbar: {
+            track: "#1F1934",
+            thumb: "#7878FF",
+            thumbHover: "#555555", 
+        }
         
     },
 
@@ -177,6 +188,12 @@ export const themes = {
         buttonActiveColor: 'rgba(97, 97, 222, 0.50)',
         buttonActiveBorderColor: '#7878FF',
 
+
+        searchIcon: {
+            default: '#424286',
+            active: '#424286',
+        },
+        
         icon: {
             default: '#353574 #353570',
             active: '#353570'
@@ -274,6 +291,12 @@ export const themes = {
 
         coinPrice: {
             color: 'color: rgba(53, 53, 116, 0.80)'
+        },
+
+        scrollbar: {
+            track: "#FFF",
+            thumb: "#42428B",
+            thumbHover: "#555555",
         },
 
         // Coin Page
