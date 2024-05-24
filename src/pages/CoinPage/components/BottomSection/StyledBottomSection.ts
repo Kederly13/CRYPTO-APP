@@ -1,5 +1,7 @@
 import styled from 'styled-components';
 
+import { TableProgressBar } from 'components/TableProgresBar';
+
 export const StyledBottomSection = styled.div`
     padding-top: 32px;
     display: flex;
@@ -20,6 +22,8 @@ export const StyledCardLine = styled.div`
 export const StyledLineText = styled.span`
     color: ${({ theme }) => theme.primaryFont};
     font-size: 16px;
+    position: relative;
+    padding-left: 30px;
 `
 
 export const StyledLineValue = styled.span`
@@ -29,6 +33,7 @@ export const StyledLineValue = styled.span`
 `
 
 export const StyledCircle = styled.div`
+    position: absolute;
     width: 24px;
     height: 24px;
     background-color: #7878FF; 
@@ -40,9 +45,12 @@ export const StyledCircle = styled.div`
 `;
 
 export const StyledPlus = styled.span`
-  color: ${({ theme }) => theme.primaryFont}; 
+  color: white; 
   font-size: 18px; 
   line-height: 24px; 
   font-weight: bold;
 `;
 
+export const StyledProgressBar = styled(TableProgressBar)`
+    margin-top: 15px;
+`

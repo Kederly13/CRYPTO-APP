@@ -1,14 +1,17 @@
 import { RootState } from 'store';
 
 import { createAsyncThunk, PayloadAction, asyncThunkCreator, buildCreateSlice } from '@reduxjs/toolkit';
+import { toast } from 'react-toastify';
+
 import { ChartApi } from 'api/ChartApi';
 import { CoinsApi } from 'api/CoinsApi';
 import { CoinSummaryApi } from 'api/CoinSummaryApi';
 import { MarketDataApi } from 'api/MarketDataApi';
-import { ICoin } from 'types/coinType';
-import { getErrorMessage } from 'utils/getErrorMessage';
 
+import { ICoin } from 'types/coinType';
 import { ICoinObjHistory, TCoinsState, IMarketDataPayload, ICoinSummaryPayload} from './types';
+
+import { getErrorMessage } from 'utils/getErrorMessage';
 import { getLocationSearchParams } from 'utils/getLocationSearchParams';
 
 export const fetchCoinHistory = createAsyncThunk<Record<string, ICoinObjHistory>, AbortController, {rejectValue: string}>(
@@ -57,7 +60,8 @@ export const fetchCoinHistory = createAsyncThunk<Record<string, ICoinObjHistory>
 
             return dataObj;
         } catch (error) {
-            return rejectWithValue(getErrorMessage(error))
+            toast.error('Error fetching coins: ' + getErrorMessage(error)); // Show the error message in the toast
+            return rejectWithValue(getErrorMessage(error));
 
         }
     }   

@@ -1,7 +1,10 @@
-import { StyledBottomSection, StyledCardLine, StyledLineText, StyledLineValue } from './StyledBottomSection';
 import { useAppSelector } from 'hooks/reduxHooks';
+
 import { selectCoinSummary, selectCoinSummaryError, selectCoinSummaryLoading } from 'store/slices/coinsSlice/coinsSlice';
+
 import { CoinPageCard } from '../CoinPageCard';
+
+import { StyledBottomSection, StyledCardLine, StyledLineText, StyledLineValue, StyledProgressBar, StyledCircle, StyledPlus } from './StyledBottomSection';
 
 export const BottomSection = () => {
     const coinSummary = useAppSelector(selectCoinSummary);
@@ -16,7 +19,8 @@ export const BottomSection = () => {
         circulating_supply,
         market_cap,
         max_supply,
-        current_price
+        current_price,
+        total_supply
     } = coinSummary?.market_data || {};
 
     if (total_volume && market_cap) {
@@ -31,35 +35,56 @@ export const BottomSection = () => {
         <StyledBottomSection>
             <CoinPageCard $maxWidth='640px'>
                 <StyledCardLine >
+                    <StyledCircle >
+                        <StyledPlus>+</StyledPlus>
+                    </StyledCircle>
                     <StyledLineText>Total Volume</StyledLineText>
                     <StyledLineValue>{total_volume?.btc}</StyledLineValue>
                 </StyledCardLine>
                 <StyledCardLine>
+                    <StyledCircle>
+                        <StyledPlus>+</StyledPlus>
+                    </StyledCircle>
                     <StyledLineText>Volume/Market</StyledLineText>
                     <StyledLineValue>{volumeToMarketCapRatio && volumeToMarketCapRatio.toFixed(2)}</StyledLineValue>
                 </StyledCardLine>
             </CoinPageCard>
             <CoinPageCard $maxWidth='640px'>
-                <StyledCardLine >
+                <StyledCardLine>
+                    <StyledCircle>
+                        <StyledPlus>+</StyledPlus>
+                    </StyledCircle>
                     <StyledLineText>Max Supply</StyledLineText>
                     <StyledLineValue>{max_supply ? max_supply : 'No data'}</StyledLineValue>
                 </StyledCardLine>
                 <StyledCardLine>
+                    <StyledCircle>
+                        <StyledPlus>+</StyledPlus>
+                    </StyledCircle>
                     <StyledLineText>Circulating Supply</StyledLineText>
                     <StyledLineValue>{circulating_supply?.toFixed(2)}</StyledLineValue>
                 </StyledCardLine>
+                <StyledProgressBar 
+                    marginTop='15px'
+                    value={circulating_supply ? circulating_supply: 0}
+                    max={max_supply ? max_supply : 0 }
+                />
             </CoinPageCard>
             <CoinPageCard $maxWidth='640px'>
                 <StyledCardLine>
+                    <StyledCircle>
+                        <StyledPlus>+</StyledPlus>
+                    </StyledCircle>
                     <StyledLineText>Market Cap</StyledLineText>
                     <StyledLineValue>${market_cap?.usd}</StyledLineValue>
                 </StyledCardLine>
                 <StyledCardLine>
+                    <StyledCircle>
+                        <StyledPlus>+</StyledPlus>
+                    </StyledCircle>
                     <StyledLineText>Fully Diluted Valuation</StyledLineText>
                     <StyledLineValue>{fullyDilutedValuation ? '$' + fullyDilutedValuation?.toFixed(2) : 'No data'}</StyledLineValue>
                 </StyledCardLine>
-                {/* <CardLine text='Market Cap' value={} />
-                <CardLine text='Fully Diluted Valuation' value={} /> */}
             </CoinPageCard> 
         </StyledBottomSection>
     )
