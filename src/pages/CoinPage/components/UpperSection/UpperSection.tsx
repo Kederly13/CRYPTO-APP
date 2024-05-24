@@ -16,7 +16,7 @@ export const UpperSection = () => {
             </StyledUpperSection>
         );
     }
-
+    console.log(coinSummary)
     return ( /// Почему оно требует обертки???
         <StyledUpperSection>
             {coinSummary ?

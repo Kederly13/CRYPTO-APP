@@ -20,9 +20,9 @@ export const Header = () => {
             <HeaderTop />
             <Container>
                 <Nav>
-                    <NavLink to={`/${search}`}>
+                    
                         <Logo />
-                    </NavLink>
+                    
                     <NavList />   
                     <SearchForm />
                     <SearchButton />

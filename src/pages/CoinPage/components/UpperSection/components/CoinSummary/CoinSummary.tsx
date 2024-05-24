@@ -3,6 +3,7 @@ import { FC } from 'react';
 import { CoinPageCard } from 'pages/CoinPage/components/CoinPageCard';
 
 import { ICoinPageProps } from '../../types';
+import { useSelectedObjSearchParams } from 'hooks/useSelectedSearchParams';
 
 import {
     StyledCoinSummary,
@@ -39,7 +40,7 @@ import {ReactComponent as ArrowDown} from 'assets/svg/arrowDown.svg';
                     <StyledPrice>{coinSummary?.market_data?.ath?.usd}</StyledPrice>
                     <StyledTimeBlock>
                         <StyledTimeLine>
-                            {/* <ArrowUp /> */}
+                            <ArrowUp />
                             <StyledTimeText>All time high:</StyledTimeText>
                             <StyledTimePrice>{coinSummary?.market_data?.high_24h?.usd}</StyledTimePrice>
                         </StyledTimeLine>
@@ -47,7 +48,7 @@ import {ReactComponent as ArrowDown} from 'assets/svg/arrowDown.svg';
                     </StyledTimeBlock>
                     <StyledTimeBlock>
                         <StyledTimeLine>
-                            {/* <ArrowUp /> */}
+                            <ArrowUp />
                             <StyledTimeText>All time Low:</StyledTimeText>
                             <StyledTimePrice>{coinSummary?.market_data?.low_24h?.usd}</StyledTimePrice>
                         </StyledTimeLine>

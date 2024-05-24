@@ -1,5 +1,5 @@
 import { FC } from 'react';
-import { StyledCoinDescription, StyledDescriptionText, StyledCoinLinks, StyledCoinLink } from './StyledCoinDescription';
+import { StyledCoinDescription, StyledDescriptionText, StyledCoinLinks } from './StyledCoinDescription';
 import { CoinLinkBtn } from './components/CoinLinkBtn';
 import { ICoinPageProps } from '../../types';
 
@@ -18,21 +18,6 @@ export const CoinDescription: FC<ICoinPageProps> = ({ coinSummary }) => {
                         <CoinLinkBtn key={index} link={link} /> 
                     ))
                 )}
-                {/* <StyledCoinLinkBtn>
-                    <StyledCoinLink href={blockchain_site[1]} target="_blank">
-                        {blockchain_site[1]}
-                    </StyledCoinLink>
-                </StyledCoinLinkBtn>
-                <StyledCoinLinkBtn>
-                    <StyledCoinLink href={blockchain_site[2]} target="_blank">
-                        {blockchain_site[2]}
-                    </StyledCoinLink>
-                </StyledCoinLinkBtn>
-                <StyledCoinLinkBtn>
-                    <StyledCoinLink href={blockchain_site[3]} target="_blank">
-                        {blockchain_site[3]}
-                    </StyledCoinLink>
-                </StyledCoinLinkBtn> */}
             </StyledCoinLinks>
         </StyledCoinDescription>
 

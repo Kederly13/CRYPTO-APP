@@ -36,8 +36,7 @@ export const StyledCircle = styled.div`
     display: flex;
     align-items: center;
     justify-content: center;
-    filter: drop-shadow(4px 4px 20px rgba(120, 120, 255, 0.15));
-
+    filter: drop-shadow(4px 4px 20px rgba(120, 120, 255, 0.15)); 
 `;
 
 export const StyledPlus = styled.span`

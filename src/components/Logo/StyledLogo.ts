@@ -1,12 +1,11 @@
 import styled from 'styled-components';
+import { NavLink } from 'react-router-dom';
 
-import { MEDIA_SIZES } from 'constants/mediaSizes';
-
-interface StyledLogoProps {
+interface IStyledLogoProps {
     marginRight?: string; // Optional prop for marginRight
 };
 
-export const StyledLogo = styled.div<StyledLogoProps>`
+export const StyledLogo = styled(NavLink)<IStyledLogoProps>`
     display: flex;
     align-items: center;
     margin-right: ${({ marginRight }) => marginRight || '194px'};
