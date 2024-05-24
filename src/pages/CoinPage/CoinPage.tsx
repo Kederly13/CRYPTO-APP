@@ -12,6 +12,8 @@ import { StyledCoinPageTitle, StyledCoinPage } from './StyledCoinPage';
 
 import { SEARCH_PARAMS } from 'constants/searchParams';
 
+
+
 const CoinPage = () => {
     const { id } = useParams<{ id: string }>();
     const { fetchCoinSummary } = useActions();

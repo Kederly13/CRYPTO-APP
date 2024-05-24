@@ -1,5 +1,7 @@
 import styled from 'styled-components';
 
+import { ReactComponent as SunIcon } from 'assets/svg/sun.svg';
+
 export const StyledThemeBtn = styled.button`
     color: inherit;
     background-color: ${({ theme }) => theme.formBackgroundColor};
@@ -16,3 +18,9 @@ export const StyledThemeBtn = styled.button`
         border: 1px solid ${({ theme }) => theme.buttonActiveBorderColor};
     }
 `
+
+export const StyledSun = styled(SunIcon)`
+  .sun-path {
+    stroke: ${({ theme }) => theme.primaryColor}; 
+  }
+`;

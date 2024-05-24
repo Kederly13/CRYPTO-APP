@@ -1,11 +1,9 @@
 import { FC } from 'react';
-import { useLocation } from 'react-router-dom';
-import { NavLink } from 'react-router-dom';
+import { useLocation, NavLink } from 'react-router-dom';
 
 import { useResize } from 'hooks/useResize';
 
 import { MEDIA_SIZES } from 'constants/mediaSizes';
-
 
 import { ReactComponent as LayersIcon } from 'assets/svg/layers.svg';
 import { ReactComponent as HomeIcon } from 'assets/svg/home.svg';
@@ -19,7 +17,7 @@ export interface IStyledListItemProps{
 export const NavList: FC = () => {
     const { width } = useResize();
     
-    const { pathname, search } = useLocation(); 
+    const { search } = useLocation(); 
     
     return (
         <StyledNavList>

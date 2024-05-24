@@ -5,7 +5,7 @@ export const StyledBottomSection = styled.div`
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
-    gap: 24px;
+    gap: 10px;
 `
 export const StyledCardLine = styled.div`
     display: flex;

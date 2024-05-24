@@ -38,7 +38,8 @@ export const themes = {
        
         ...topHeaderStyles,
 
-        // icon
+        // ICONS
+
         icon: {
             default: 'rgba(255, 255, 255, 0.50)',
             active: '#FFF'
@@ -47,6 +48,21 @@ export const themes = {
         searchIcon: {
             default: '#D1D1D6',
             active: '#FFF',
+        },
+
+        dollarIcon: {
+            defaultFill: '#FFF',
+        },
+
+        sunIcon: {
+            default: '#FFF',
+            active: '#FFF'
+        },
+
+        homeIcon: {
+            default: 'grey',
+            active: '#FFF',
+            activeStroke: 'black'
         },
 
         currencyMenu: {
@@ -193,10 +209,22 @@ export const themes = {
             default: '#424286',
             active: '#424286',
         },
+
+        //ICONS
         
         icon: {
             default: '#353574 #353570',
             active: '#353570'
+        },
+
+        dollarIcon: {
+            defaultFill: '#42428B',
+            signFill: '#FFF' 
+        },
+
+        sunIcon: {
+            default: '#FFF',
+            active: '#FFF'
         },
 
         currencyMenu: {

@@ -1,19 +1,27 @@
 import { useTheme } from 'hooks/useTheme';
 
 import { Button } from 'components/Button';
-import { StyledThemeBtn } from './StyledThemeBtn';
-import { Sun } from 'assets/svg/sun';
+
+import { StyledThemeBtn, StyledSun } from './StyledThemeBtn';
+
+import { ReactComponent as Moon} from 'assets/svg/moon.svg';
+
 
 export const ThemeBtn = () => {
     const { toggleTheme, theme } = useTheme();
-
+    console.log(theme)
     const handleClick = () => {
         toggleTheme(theme);
     };
 
     return (
         <StyledThemeBtn type="button" onClick={handleClick}>
-            <Sun />
+            {theme === 'dark' ? (
+                <StyledSun />
+            ) : (
+                <Moon />
+            )}
+            
         </StyledThemeBtn> 
     )
 };

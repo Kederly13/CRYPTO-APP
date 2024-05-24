@@ -1,4 +1,5 @@
-import { StyledHeader } from './StyledHeader';
+import { useLocation, NavLink } from 'react-router-dom';
+
 import { Container } from 'components/Container';
 import { NavList } from './components/NavList';
 import { SearchForm } from './components/SearchForm/SearchForm';
@@ -9,18 +10,27 @@ import { HeaderTop } from './components/HeaderTop';
 import { SearchButton } from './components/SearchButton';
 import { ThemeBtn } from './components/ThemeBtn';
 
-export const Header = () => (
-    <StyledHeader>
-        <HeaderTop />
-        <Container>
-            <Nav>
-                <Logo />
-                <NavList />   
-                <SearchForm />
-                <SearchButton />
-                <Currency />
-                <ThemeBtn />
-            </Nav>
-        </Container>
-    </StyledHeader>
-);
+import { StyledHeader } from './StyledHeader';
+
+export const Header = () => {
+    const { search } = useLocation();
+     
+    return (
+        <StyledHeader>
+            <HeaderTop />
+            <Container>
+                <Nav>
+                    <NavLink to={`/${search}`}>
+                        <Logo />
+                    </NavLink>
+                    <NavList />   
+                    <SearchForm />
+                    <SearchButton />
+                    <Currency />
+                    <ThemeBtn />
+                </Nav>
+            </Container>
+        </StyledHeader>
+    )
+
+};

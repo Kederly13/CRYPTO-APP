@@ -1,5 +1,7 @@
 import styled from 'styled-components';
 
+import { ReactComponent as Dollar } from 'assets/svg/dollar.svg';
+
 export const StyledCurrencyWrapper = styled.div`
     position: relative;
     margin: 0 16px;
@@ -35,3 +37,15 @@ export const StyledCurrency = styled.button`
         margin-right: 8px;
     }
 `
+
+export const StyledDollar = styled(Dollar)`
+    width: 20px;
+    height: 20px;
+    
+    circle {
+        fill: ${({ theme }) => theme.dollarIcon.defaultFill};
+    }
+    .dollar-sign {
+        fill: ${({ theme }) => theme.dollarIcon.signFill}; // or any other color you want for the dollar sign
+    }
+`;
