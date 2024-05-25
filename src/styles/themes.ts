@@ -351,7 +351,7 @@ export const themes = {
         portfolio: {
             backgroundPrimary: 'rgb(235 235 253',
             backgroundSecondary: 'FFF',
-            fontPrimary: '#FFF',
+            fontPrimary: '#000000	',
             fontSecondary: '#01F1E3',
          }
     }

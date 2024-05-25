@@ -15,6 +15,8 @@ export const StyledLogoWrapper = styled.div`
     }
 
     & > span {
-        
+        background-color: ${({ theme }) => theme.portfolio.fontPrimary};
+        font-size: 28px;
+        font-weight: 700;
     }
 `

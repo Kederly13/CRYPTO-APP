@@ -7,9 +7,11 @@ import { ChartApi } from 'api/ChartApi';
 import { CoinsApi } from 'api/CoinsApi';
 import { CoinSummaryApi } from 'api/CoinSummaryApi';
 import { MarketDataApi } from 'api/MarketDataApi';
+import { PortfolioDataApi } from 'api/PortfolioDataApi';
+import { IGetPortfolioPricesParams } from 'api/PortfolioDataApi';
 
 import { ICoin } from 'types/coinType';
-import { ICoinObjHistory, TCoinsState, IMarketDataPayload, ICoinSummaryPayload} from './types';
+import { ICoinObjHistory, TCoinsState, IMarketDataPayload, ICoinSummaryPayload, IPortfolioData} from './types';
 
 import { getErrorMessage } from 'utils/getErrorMessage';
 import { getLocationSearchParams } from 'utils/getLocationSearchParams';
@@ -119,6 +121,30 @@ export const fetchMarketData = createAsyncThunk<IMarketDataPayload, AbortControl
     }
 );
 
+export const fetchPortfolioData = createAsyncThunk<IPortfolioData, IGetPortfolioPricesParams, { rejectValue: string }>(
+    'coins/fetchPortfolioData',
+    
+    async ({ payload, controller }, { rejectWithValue }) => {
+        console.log('ffff')
+        try {
+            const { currency, coin } = payload;
+            console.log('ffff')
+            const params = {
+                payload: { currency: currency || 'usd', coin },
+                controller
+            };
+            console.log(params)
+            const { data } = await PortfolioDataApi.getPortfolioData(params);
+
+            return data;
+        } catch (error) {
+            const errorMessage = getErrorMessage(error);
+            console.log(error)
+            return rejectWithValue(errorMessage);
+        }
+    }
+);
+
  interface RemoveCoinPayload {
     id: string;
 };
@@ -149,6 +175,11 @@ const initialState: TCoinsState = {
         loading: false,
         error: null,
     },
+    portfolioData: {
+        data: null,
+        loading: false,
+        error: null,
+    },
     page: 1,
 };
 
@@ -172,6 +203,10 @@ const coins = createSliceWithThunks({
         selectMarketData: (state: TCoinsState) => state.marketData.data,
         selectMarketDataLoading: (state: TCoinsState) => state.marketData.loading,
         selectMarketDataError: (state: TCoinsState) => state.marketData.error,
+
+        selectPortfolioData: (state: TCoinsState) => state.portfolioData.data,
+        selectPortfolioDataLoading: (state: TCoinsState) => state.portfolioData.loading,
+        selectPortfolioDataError: (state: TCoinsState) => state.portfolioData.error,
 
         selectPage: (state: TCoinsState) => state.page,
     },
@@ -256,7 +291,21 @@ const coins = createSliceWithThunks({
             .addCase(fetchCoinSummary.rejected, (state, action) => {
                 state.coinSummary.error = action.payload as string;
                 state.coinSummary.loading = false;
-            });
+            })
+
+            // fetchPortfolioData
+            .addCase(fetchPortfolioData.pending, (state) => {
+                state.portfolioData.loading = true;
+                state.portfolioData.error = null;
+            })
+            .addCase(fetchPortfolioData.fulfilled, (state, action) => {
+                state.portfolioData.data = action.payload;
+                state.portfolioData.loading = false;
+            })
+            .addCase(fetchPortfolioData.rejected, (state, action) => {
+                state.coinSummary.error = action.payload as string;
+                state.coinSummary.loading = false;
+            }) 
     }
 })
 
@@ -275,6 +324,9 @@ export const {
     selectMarketData,
     selectMarketDataLoading,
     selectMarketDataError,
+    selectPortfolioData,
+    selectPortfolioDataError,
+    selectPortfolioDataLoading,
     selectPage
 } = coins.selectors;
 
