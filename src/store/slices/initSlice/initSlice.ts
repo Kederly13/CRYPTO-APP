@@ -1,5 +1,7 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { RootState } from 'store';
+import { toast } from 'react-toastify';
+
 import { getErrorMessage } from 'utils/getErrorMessage';
 import { fetchCoinHistory, fetchCoins, fetchMarketData } from '../coinsSlice/coinsSlice';
 import { IInitializationSliceState } from './types';
@@ -35,7 +37,9 @@ export const fetchInit = createAsyncThunk<undefined, AbortController, {rejectVal
             }
 
             await Promise.all(data);
+            toast.success('Success')
         } catch(error) {
+            
             return rejectWithValue(getErrorMessage(error));
         }
     }

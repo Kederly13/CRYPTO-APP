@@ -165,6 +165,7 @@ export const themes = {
         },
 
         // Coin Page
+
         coinSummary: {
             background: '#1F1934'
         },
@@ -176,7 +177,17 @@ export const themes = {
             track: "#1F1934",
             thumb: "#7878FF",
             thumbHover: "#555555", 
-        }
+        },
+
+
+         // PORTFOLIO
+
+         portfolio: {
+            backgroundPrimary: '#3A3978',
+            backgroundSecondary: '#1F1934',
+            fontPrimary: '#FFF',
+            fontSecondary: '#01F1E3',
+         }
         
     },
 
@@ -333,6 +344,15 @@ export const themes = {
 
         coinSummary: {
             background: '#FFF'
-        }
+        },
+
+        // PORTFOLIO
+
+        portfolio: {
+            backgroundPrimary: 'rgb(235 235 253',
+            backgroundSecondary: 'FFF',
+            fontPrimary: '#FFF',
+            fontSecondary: '#01F1E3',
+         }
     }
 }
