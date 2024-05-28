@@ -2,6 +2,7 @@ import { useEffect } from 'react';
 
 import { Button } from 'components/Button';
 import { Section } from 'components/Section';
+import { PortfolioCoin } from './components/PortfolioCoin';
 
 import { useSelectedObjSearchParams } from 'hooks/useSelectedSearchParams';
 import { useActions } from 'hooks/useActions';
@@ -16,25 +17,33 @@ import { StyledPortfolioHeader, StyledPortfolioTitle, StyledPorfolioBtns, Styled
 
 const PortfolioPage = () => {
     const { objSearchParams, onSetObjSearchParams } = useSelectedObjSearchParams();
-    // const portFolioData = useAppSelector(selectPortfolioData);
-    // console.log(portFolioData)
+    const portFolioData = useAppSelector(selectPortfolioData);
+    console.log(portFolioData)
     const { fetchPortfolioData } = useActions();
+
+    const { currency } = objSearchParams;
     
     useEffect(() => {
         onSetObjSearchParams({
             [SEARCH_PARAMS.CURRENCY]: objSearchParams.currency || 'usd',
         })
-        const controller = new AbortController(); 
         
-        fetchPortfolioData({ 
-            payload: { coin: 'bitcoin', currency: 'usd' }, 
-            controller: controller 
-        });
+    }, []);
+
+    useEffect(() => {
+        const controller = new AbortController(); 
+
+        if (currency) {
+            fetchPortfolioData({ 
+                payload: { coin: 'bitcoin', currency: currency }, 
+                controller: controller 
+            });
+        };
     
         return () => {
             controller.abort();
         }; 
-    }, []);
+    }, [currency])
 
 
     return (
@@ -49,6 +58,7 @@ const PortfolioPage = () => {
                         <Button type='button' $maxWidth='300px'>Add Assets</Button>
                     </StyledPorfolioBtns>
                 </StyledPortfolioHeader>
+                {portFolioData && <PortfolioCoin portfolioCoin={portFolioData} />}
             </StyledPortfolio>
 
         </Section>

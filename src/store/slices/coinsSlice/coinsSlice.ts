@@ -85,6 +85,7 @@ export const fetchCoins = createAsyncThunk<ICoin[], AbortController, {rejectValu
             }
 
             const { data } = await CoinsApi.getCoins(param);
+            
             toast.success('Coins Loaded Successfully')
             return data;
         } catch(error) {
@@ -125,21 +126,17 @@ export const fetchPortfolioData = createAsyncThunk<IPortfolioData, IGetPortfolio
     'coins/fetchPortfolioData',
     
     async ({ payload, controller }, { rejectWithValue }) => {
-        console.log('ffff')
         try {
             const { currency, coin } = payload;
-            console.log('ffff')
             const params = {
                 payload: { currency: currency || 'usd', coin },
                 controller
             };
-            console.log(params)
+            
             const { data } = await PortfolioDataApi.getPortfolioData(params);
-
-            return data;
+            return data[0];
         } catch (error) {
             const errorMessage = getErrorMessage(error);
-            console.log(error)
             return rejectWithValue(errorMessage);
         }
     }

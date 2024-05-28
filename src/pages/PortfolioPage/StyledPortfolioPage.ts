@@ -19,6 +19,12 @@ export const StyledPortfolioTitle = styled.h2`
 export const StyledPorfolioBtns = styled.div`
     display: flex;
     width: 650px;
-    justify-content: space-between
+    justify-content: space-between;
 `
+
+export const StyledPortfolioCard = styled.div`
+    display: flex;
+`
+
+export const StyledLogoCard = styled
 
