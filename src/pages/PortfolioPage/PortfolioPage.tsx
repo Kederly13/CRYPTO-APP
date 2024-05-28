@@ -3,6 +3,7 @@ import { useEffect } from 'react';
 import { Button } from 'components/Button';
 import { Section } from 'components/Section';
 import { PortfolioCoin } from './components/PortfolioCoin';
+import { Modal } from 'components/Modal';
 
 import { useSelectedObjSearchParams } from 'hooks/useSelectedSearchParams';
 import { useActions } from 'hooks/useActions';
@@ -48,6 +49,9 @@ const PortfolioPage = () => {
 
     return (
         <Section>
+            <Modal
+                    children={'hahaha'} 
+                />
             <StyledPortfolio>
                 <StyledPortfolioHeader>
                     <StyledPortfolioTitle>
@@ -58,6 +62,7 @@ const PortfolioPage = () => {
                         <Button type='button' $maxWidth='300px'>Add Assets</Button>
                     </StyledPorfolioBtns>
                 </StyledPortfolioHeader>
+                
                 {portFolioData && <PortfolioCoin portfolioCoin={portFolioData} />}
             </StyledPortfolio>
 
