@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
 import { Button } from 'components/Button';
 import { Section } from 'components/Section';
@@ -17,6 +17,8 @@ import { StyledPortfolioHeader, StyledPortfolioTitle, StyledPorfolioBtns, Styled
 
 
 const PortfolioPage = () => {
+    const [isOpen, setIsOpen] = useState(false);
+
     const { objSearchParams, onSetObjSearchParams } = useSelectedObjSearchParams();
     const portFolioData = useAppSelector(selectPortfolioData);
     console.log(portFolioData)
@@ -49,9 +51,12 @@ const PortfolioPage = () => {
 
     return (
         <Section>
+            <button onClick={() => setIsOpen(true)}>toggle</button>
             <Modal
-                    children={'hahaha'} 
-                />
+                isOpen={isOpen}
+                onClose={() => setIsOpen(false)}
+                children={'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam quis risus eget urna mollis ornare vel eu leo. Maecenas faucibus mollis interdum. Curabitur blandit tempus porttitor. Aenean lacinia bibendum nulla sed consectetur. Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Nullam id dolor id nibh ultricies vehicula ut id elit. Aenean lacinia bibendum nulla sed consectetur. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Vestibulum id ligula porta felis euismod semper. Donec id elit non mi porta gravida at eget metus. Donec sed odio dui.'}
+            />
             <StyledPortfolio>
                 <StyledPortfolioHeader>
                     <StyledPortfolioTitle>

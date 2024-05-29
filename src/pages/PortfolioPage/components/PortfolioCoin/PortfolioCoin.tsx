@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import { FC, useState } from 'react';
 
 import { 
     StyledPortfolioCoin, 
@@ -18,6 +18,7 @@ interface IPortfolioCoinProps {
 };
 
 export const PortfolioCoin: FC<IPortfolioCoinProps> = ({ portfolioCoin }) => {
+    
 
     const { 
         id, 
@@ -25,7 +26,6 @@ export const PortfolioCoin: FC<IPortfolioCoinProps> = ({ portfolioCoin }) => {
         name, 
         image, 
         current_price,
-         
     } = portfolioCoin;
 
     return (
