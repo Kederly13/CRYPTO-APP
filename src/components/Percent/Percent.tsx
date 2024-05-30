@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import { FC, ReactNode } from 'react';
 
 import { StyledPercent } from './StyledPercent';
 
@@ -12,17 +12,20 @@ interface IPercentProps {
 interface IStyledPercentProps {
     $ml?: string;
     marginRight?: string;
+    children?: ReactNode
 };
 
 export type PercentProps = IPercentProps & IStyledPercentProps;
 
-export const Percent: FC<PercentProps> = ({ $percent, ...props }) => {
-    const percentStr = $percent?.toFixed(2); // Add optional chaining here
+export const Percent: FC<PercentProps> = ({ $percent, children, ...props }) => {
+    const percentStr = $percent?.toFixed(2);
 
     return (
         <StyledPercent $percent={$percent} {...props}>
             {$percent && $percent < 0 ? <ArrowDown /> : <ArrowUp />} {/* Add $percent check here */}
-            <span>{percentStr} %</span>
+            <span>
+                {percentStr}{children}
+            </span>
         </StyledPercent>
     );
 };

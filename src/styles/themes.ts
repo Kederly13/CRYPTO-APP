@@ -187,7 +187,8 @@ export const themes = {
             backgroundSecondary: '#1F1934',
             fontPrimary: '#FFF',
             fontSecondary: '#01F1E3',
-         }
+            border: 'rgba(255, 255, 255, 0.80)'
+         },
         
     },
 
@@ -353,6 +354,7 @@ export const themes = {
             backgroundSecondary: 'FFF',
             fontPrimary: '#000000	',
             fontSecondary: '#01F1E3',
+            border: '#7878FF'
          }
     }
 }
