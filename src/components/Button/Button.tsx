@@ -4,7 +4,7 @@ import { StyledButton } from './StyledButton';
 interface IDefaultButtonProps {
     type: 'button' | 'submit',
     children: React.ReactNode;
-    onClick?: () => void;
+    onClick?: (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
 };
 
 interface IStyledButtonProps {

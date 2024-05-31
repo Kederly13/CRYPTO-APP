@@ -10,7 +10,7 @@ import { useSelectedObjSearchParams } from 'hooks/useSelectedSearchParams';
 import { useActions } from 'hooks/useActions';
 import { useAppSelector } from 'hooks/reduxHooks';
 
-import { selectPortfolioData, selectPortfolioDataError, selectPortfolioDataLoading } from 'store/slices/coinsSlice/coinsSlice';
+import { selectHistoricalData } from 'store/slices/coinsSlice/coinsSlice';
 
 import { SEARCH_PARAMS } from 'constants/searchParams';
 
@@ -21,42 +21,27 @@ const PortfolioPage = () => {
     const [isOpen, setIsOpen] = useState(false);
 
     const { objSearchParams, onSetObjSearchParams } = useSelectedObjSearchParams();
-    const portFolioData = useAppSelector(selectPortfolioData);
-    // console.log(portFolioData)
-    const { fetchPortfolioData } = useActions();
+    const historicalData = useAppSelector(selectHistoricalData);
+
+    const { fetchHistoricalData } = useActions();
 
     const { currency } = objSearchParams;
     
     useEffect(() => {
         onSetObjSearchParams({
-            [SEARCH_PARAMS.CURRENCY]: objSearchParams.currency || 'usd',
+            [SEARCH_PARAMS.CURRENCY]: currency || 'usd',
         })
-        
+
     }, []);
 
-    useEffect(() => {
-        const controller = new AbortController(); 
-
-        if (currency) {
-            fetchPortfolioData({ 
-                payload: { coin: 'bitcoin', currency: currency }, 
-                controller: controller 
-            });
-        };
-    
-        return () => {
-            controller.abort();
-        }; 
-    }, [currency])
-
-
+    console.log(historicalData)
     return (
         <Section>
             <button onClick={() => setIsOpen(true)}>toggle</button>
             <Modal
                 isOpen={isOpen}
                 onClose={() => setIsOpen(false)}
-                children={<PurchaseWindow/>}
+                children={<PurchaseWindow setIsOpen={setIsOpen} />}
             />
             <StyledPortfolio>
                 <StyledPortfolioHeader>

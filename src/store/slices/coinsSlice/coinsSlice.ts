@@ -7,11 +7,11 @@ import { ChartApi } from 'api/ChartApi';
 import { CoinsApi } from 'api/CoinsApi';
 import { CoinSummaryApi } from 'api/CoinSummaryApi';
 import { MarketDataApi } from 'api/MarketDataApi';
-import { PortfolioDataApi } from 'api/PortfolioDataApi';
-import { IGetPortfolioPricesParams } from 'api/PortfolioDataApi';
+import { HistoricalDataApi } from 'api/HistoricalDataApi';
+import { IGetHistoricalDataParams } from 'api/HistoricalDataApi';
 
 import { ICoin } from 'types/coinType';
-import { ICoinObjHistory, TCoinsState, IMarketDataPayload, ICoinSummaryPayload, IPortfolioData, IFetchPortfolioDataPayload} from './types';
+import { ICoinObjHistory, TCoinsState, IMarketDataPayload, ICoinSummaryPayload, ICompleteHistoricalData } from './types';
 
 import { getErrorMessage } from 'utils/getErrorMessage';
 import { getLocationSearchParams } from 'utils/getLocationSearchParams';
@@ -122,19 +122,26 @@ export const fetchMarketData = createAsyncThunk<IMarketDataPayload, AbortControl
     }
 );
 
-export const fetchPortfolioData = createAsyncThunk<IPortfolioData, IFetchPortfolioDataPayload, { rejectValue: string }>(
-    'coins/fetchPortfolioData',
+export const fetchHistoricalData = createAsyncThunk<ICompleteHistoricalData, IGetHistoricalDataParams, { rejectValue: string }>(
+    'coins/fetchHistoricalData',
     
     async ({ payload, controller }, { rejectWithValue }) => {
         try {
-            const { currency, coin } = payload;
+            const { coin, purchasedDate, purchasedAmount } = payload;
             const params = {
-                payload: { currency: currency || 'usd', coin },
+                payload: { coin, purchasedDate },
                 controller
             };
             
-            const { data } = await PortfolioDataApi.getPortfolioData(params);
-            return data[0];
+            const { data } = await HistoricalDataApi.getHistoricalData(params);
+
+            const completeDate = {
+                ...data,
+                purchasedAmount,
+                purchasedDate
+            };
+
+            return completeDate;
         } catch (error) {
             const errorMessage = getErrorMessage(error);
             return rejectWithValue(errorMessage);
@@ -172,7 +179,7 @@ const initialState: TCoinsState = {
         loading: false,
         error: null,
     },
-    portfolioData: {
+    historicalData: {
         data: [],
         loading: false,
         error: null,
@@ -201,9 +208,9 @@ const coins = createSliceWithThunks({
         selectMarketDataLoading: (state: TCoinsState) => state.marketData.loading,
         selectMarketDataError: (state: TCoinsState) => state.marketData.error,
 
-        selectPortfolioData: (state: TCoinsState) => state.portfolioData.data,
-        selectPortfolioDataLoading: (state: TCoinsState) => state.portfolioData.loading,
-        selectPortfolioDataError: (state: TCoinsState) => state.portfolioData.error,
+        selectHistoricalData: (state: TCoinsState) => state.historicalData.data,
+        selectHistoricalDataLoading: (state: TCoinsState) => state.historicalData.loading,
+        selectHistoricalDataError: (state: TCoinsState) => state.historicalData.error,
 
         selectPage: (state: TCoinsState) => state.page,
     },
@@ -291,25 +298,17 @@ const coins = createSliceWithThunks({
             })
 
             // fetchPortfolioData
-            .addCase(fetchPortfolioData.pending, (state) => {
-                state.portfolioData.loading = true;
-                state.portfolioData.error = null;
+            .addCase(fetchHistoricalData.pending, (state) => {
+                state.historicalData.loading = true;
+                state.historicalData.error = null;
             })
-            .addCase(fetchPortfolioData.fulfilled, (state, { payload, meta }) => {
-                
-                state.portfolioData.data.push({
-                    userData: payload,
-                    myData: {
-                        selectedCoin: meta.arg.selectedCoin,
-                        purchasedAmount: meta.arg.purchasedAmount,
-                        purchasedDate: meta.arg.purchasedDate
-                    }
-                })
-                state.portfolioData.loading = false;
+            .addCase(fetchHistoricalData.fulfilled, (state, action) => {
+                state.historicalData.data.push(action.payload);
+                state.historicalData.loading = false;
             })
-            .addCase(fetchPortfolioData.rejected, (state, action) => {
-                state.coinSummary.error = action.payload as string;
-                state.coinSummary.loading = false;
+            .addCase(fetchHistoricalData.rejected, (state, action) => {
+                state.historicalData.error = action.payload as string;
+                state.historicalData.loading = false;
             }) 
     }
 })
@@ -329,9 +328,9 @@ export const {
     selectMarketData,
     selectMarketDataLoading,
     selectMarketDataError,
-    selectPortfolioData,
-    selectPortfolioDataError,
-    selectPortfolioDataLoading,
+    selectHistoricalData,
+    selectHistoricalDataError,
+    selectHistoricalDataLoading,
     selectPage
 } = coins.selectors;
 

@@ -1,11 +1,11 @@
 import { useState, FC, ChangeEvent } from 'react';
 
-import DatePicker from "react-datepicker";
-import "react-datepicker/dist/react-datepicker.css";
+import { useActions } from 'hooks/useActions';
 
+import { Button } from 'components/Button';
 import { ReactComponent as CoinLogo } from 'assets/svg/coin.svg';
 
-import { StyledPurchaseWindow, StyledPurchaseHeader, StyledPurchaseInput, StyledPurchaseTitle, StyledPurchaseWrapper, StyledLogoWrapper, StyledPurchaseForm } from './StyledPurchaseWindow';
+import { StyledPurchaseWindow, StyledPurchaseHeader, StyledPurchaseInput, StyledPurchaseTitle, StyledPurchaseWrapper, StyledLogoWrapper, StyledPurchaseForm, StyledDatePicker } from './StyledPurchaseWindow';
 
 interface IPurchaseState {
     selectedCoin: string;
@@ -13,12 +13,18 @@ interface IPurchaseState {
     purchasedDate: Date | null;
 };
 
-export const PurchaseWindow: FC = () => {
+interface IPurchaseWindowProps {
+    setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
+export const PurchaseWindow: FC<IPurchaseWindowProps> = ({ setIsOpen }) => {
     const [ selectedPurchase, setSelectedPurchase ] = useState<IPurchaseState>({
         selectedCoin: '',
         purchasedAmount: '',
         purchasedDate: null
     });
+
+    const { fetchHistoricalData } = useActions();
 
     const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target
@@ -36,10 +42,44 @@ export const PurchaseWindow: FC = () => {
                 purchasedDate: date 
             }));
         }
-
     };
 
-    console.log(selectedPurchase)
+    const handleSubmit = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+        e.preventDefault();
+
+        const controller = new AbortController(); 
+
+        if (!selectedPurchase.selectedCoin || !selectedPurchase.purchasedAmount || !selectedPurchase.purchasedDate) {
+
+            console.log("Please fill in all fields");
+            return; 
+        };
+        
+        const formattedDate = selectedPurchase.purchasedDate?.toLocaleDateString('en-GB', {
+            day: '2-digit',
+            month: '2-digit',
+            year: 'numeric',
+        }).replace(/\//g, '-');
+
+        const payload = {
+            coin: selectedPurchase.selectedCoin,
+            purchasedDate: formattedDate,
+            purchasedAmount: selectedPurchase.purchasedAmount
+        };
+
+        fetchHistoricalData({
+            payload,
+            controller: controller
+        });
+
+        setSelectedPurchase({
+            selectedCoin: '',
+            purchasedAmount: '',
+            purchasedDate: null
+        });
+
+        setIsOpen(false);
+    };
 
     return (
         <StyledPurchaseWindow>
@@ -68,12 +108,13 @@ export const PurchaseWindow: FC = () => {
                         onChange={handleChange}
                         placeholder='Purchased Amount'
                     />
-                    <DatePicker
-                        selected={new Date()}
+                    <StyledDatePicker
+                        selected={selectedPurchase.purchasedDate}
                         onChange={(date: Date | null) => handleDateChange(date)}
                         placeholderText='Purchased Date'
-                        dateFormat='MMMM d, yyyy'
+                        dateFormat='d, MMMM, yyyy'
                     />
+                    <Button type='submit' onClick={handleSubmit}>Save and Continue</Button>
                 </StyledPurchaseForm>
             </StyledPurchaseWrapper>
         </StyledPurchaseWindow>

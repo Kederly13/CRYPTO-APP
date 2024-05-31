@@ -1,5 +1,8 @@
 import styled from 'styled-components';
 
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
+
 export const StyledPurchaseWindow = styled.div`
     padding: 48px;
     background-color: ${({ theme }) => theme.portfolio.backgroundSecondary};
@@ -46,8 +49,6 @@ export const StyledLogoWrapper = styled.div`
 
 export const StyledPurchaseWrapper = styled.div`
     display: flex;
-   
-    
 `
 
 export const StyledPurchaseForm = styled.form`
@@ -62,9 +63,18 @@ export const StyledPurchaseInput = styled.input`
     background-color: ${({ theme }) => theme.purchaseCoin.backgroundInput};
     font-size: 16px;
     padding: 8px;
-    margin-bottom: 16px; // or any value you need
-    
-    &:last-child {
-        margin-bottom: 0;
+    margin-bottom: 16px; 
+`
+
+export const StyledDatePicker = styled(DatePicker)`
+    width: 100%;
+    color: ${({ theme }) => theme.purchaseCoin.fontSecondary};
+    background-color: ${({ theme }) => theme.purchaseCoin.backgroundInput};
+    font-size: 16px;
+    padding: 8px;
+
+
+    & > input {
+        width: 100%;
     }
 `
