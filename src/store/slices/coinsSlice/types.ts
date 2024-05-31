@@ -1,4 +1,6 @@
+import { IGetPortfolioPricesParams } from "api/PortfolioDataApi";
 import { ICoin } from "types/coinType";
+
 
 export type TCoinData = Array<Array<number>>;
 
@@ -183,6 +185,17 @@ export interface ICoinSummaryPayload {
     last_updated: string;
 }
 
+interface IMyPortfolioData {
+    selectedCoin: string;
+    purchasedAmount: string;
+    purchasedDate: Date | null;
+};
+
+export interface IUserPortfolio {
+    userData: IPortfolioData,
+    myData: IMyPortfolioData
+}
+
 export interface IPortfolioData {
     id: string;
     symbol: string;
@@ -237,10 +250,12 @@ export type TCoinsState = {
         error: string | null;
     };
     portfolioData: {
-        data: IPortfolioData | null;
+        data: IPortfolioData[];
         loading: boolean;
         error: string | null;
     };
     page: number;
 };
 
+
+export interface IFetchPortfolioDataPayload extends IGetPortfolioPricesParams, IMyPortfolioData {}

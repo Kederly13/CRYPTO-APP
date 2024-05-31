@@ -7,7 +7,7 @@ const key = 'CG-JC2VQVMZA6H58bdgwzrNkNkH';
 export interface IGetPortfolioPricesParams {
     payload: {
         currency: string,
-        coin: string
+        coin: string,
     },
     controller: AbortController
 };

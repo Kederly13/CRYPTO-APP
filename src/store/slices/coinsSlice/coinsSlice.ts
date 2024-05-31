@@ -11,7 +11,7 @@ import { PortfolioDataApi } from 'api/PortfolioDataApi';
 import { IGetPortfolioPricesParams } from 'api/PortfolioDataApi';
 
 import { ICoin } from 'types/coinType';
-import { ICoinObjHistory, TCoinsState, IMarketDataPayload, ICoinSummaryPayload, IPortfolioData} from './types';
+import { ICoinObjHistory, TCoinsState, IMarketDataPayload, ICoinSummaryPayload, IPortfolioData, IFetchPortfolioDataPayload} from './types';
 
 import { getErrorMessage } from 'utils/getErrorMessage';
 import { getLocationSearchParams } from 'utils/getLocationSearchParams';
@@ -122,7 +122,7 @@ export const fetchMarketData = createAsyncThunk<IMarketDataPayload, AbortControl
     }
 );
 
-export const fetchPortfolioData = createAsyncThunk<IPortfolioData, IGetPortfolioPricesParams, { rejectValue: string }>(
+export const fetchPortfolioData = createAsyncThunk<IPortfolioData, IFetchPortfolioDataPayload, { rejectValue: string }>(
     'coins/fetchPortfolioData',
     
     async ({ payload, controller }, { rejectWithValue }) => {
@@ -173,7 +173,7 @@ const initialState: TCoinsState = {
         error: null,
     },
     portfolioData: {
-        data: null,
+        data: [],
         loading: false,
         error: null,
     },
@@ -295,8 +295,16 @@ const coins = createSliceWithThunks({
                 state.portfolioData.loading = true;
                 state.portfolioData.error = null;
             })
-            .addCase(fetchPortfolioData.fulfilled, (state, action) => {
-                state.portfolioData.data = action.payload;
+            .addCase(fetchPortfolioData.fulfilled, (state, { payload, meta }) => {
+                
+                state.portfolioData.data.push({
+                    userData: payload,
+                    myData: {
+                        selectedCoin: meta.arg.selectedCoin,
+                        purchasedAmount: meta.arg.purchasedAmount,
+                        purchasedDate: meta.arg.purchasedDate
+                    }
+                })
                 state.portfolioData.loading = false;
             })
             .addCase(fetchPortfolioData.rejected, (state, action) => {

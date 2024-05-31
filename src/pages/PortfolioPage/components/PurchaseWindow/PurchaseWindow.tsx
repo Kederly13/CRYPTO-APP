@@ -1,26 +1,23 @@
 import { useState, FC, ChangeEvent } from 'react';
 
-import DatePicker from 'react-date-picker';
-import DateCallback from "react-date-picker"
-import 'react-datepicker/dist/react-datepicker.css';
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 
 import { ReactComponent as CoinLogo } from 'assets/svg/coin.svg';
 
 import { StyledPurchaseWindow, StyledPurchaseHeader, StyledPurchaseInput, StyledPurchaseTitle, StyledPurchaseWrapper, StyledLogoWrapper, StyledPurchaseForm } from './StyledPurchaseWindow';
 
-
 interface IPurchaseState {
     selectedCoin: string;
     purchasedAmount: string;
     purchasedDate: Date | null;
-}
+};
 
 export const PurchaseWindow: FC = () => {
     const [ selectedPurchase, setSelectedPurchase ] = useState<IPurchaseState>({
         selectedCoin: '',
         purchasedAmount: '',
         purchasedDate: null
-
     });
 
     const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -33,10 +30,13 @@ export const PurchaseWindow: FC = () => {
     };
 
     const handleDateChange = (date: Date | null) => {
-        setSelectedPurchase(prevState => ({
-            ...prevState,
-            purchasedDate: date // Assign the date directly
-        }));
+        if (date !== null) {
+            setSelectedPurchase(prevState => ({
+                ...prevState,
+                purchasedDate: date 
+            }));
+        }
+
     };
 
     console.log(selectedPurchase)
@@ -69,7 +69,7 @@ export const PurchaseWindow: FC = () => {
                         placeholder='Purchased Amount'
                     />
                     <DatePicker
-                        selected={selectedPurchase.purchasedDate}
+                        selected={new Date()}
                         onChange={(date: Date | null) => handleDateChange(date)}
                         placeholderText='Purchased Date'
                         dateFormat='MMMM d, yyyy'
