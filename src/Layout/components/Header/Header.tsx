@@ -20,9 +20,7 @@ export const Header = () => {
             <HeaderTop />
             <Container>
                 <Nav>
-                    
-                        <Logo />
-                    
+                    <Logo />
                     <NavList />   
                     <SearchForm />
                     <SearchButton />

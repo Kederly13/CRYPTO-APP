@@ -35,10 +35,10 @@ export const StyledOverlay = styled.div`
 export const StyledContent = styled.div`
     padding: 20px;
     border-radius: 12px;
-    background-color: white;
+    /* background-color: white; */
     transition: transform 0.3s ease;
     transform: scale(0.5);
-    max-width: 60%;
+    /* max-width: 60%; */
 
     &.opened {
             transform: scale(1);

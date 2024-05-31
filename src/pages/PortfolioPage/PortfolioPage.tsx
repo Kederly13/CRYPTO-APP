@@ -4,6 +4,7 @@ import { Button } from 'components/Button';
 import { Section } from 'components/Section';
 import { PortfolioCoin } from './components/PortfolioCoin';
 import { Modal } from 'components/Modal';
+import { PurchaseWindow } from './components/PurchaseWindow';
 
 import { useSelectedObjSearchParams } from 'hooks/useSelectedSearchParams';
 import { useActions } from 'hooks/useActions';
@@ -21,7 +22,7 @@ const PortfolioPage = () => {
 
     const { objSearchParams, onSetObjSearchParams } = useSelectedObjSearchParams();
     const portFolioData = useAppSelector(selectPortfolioData);
-    console.log(portFolioData)
+    // console.log(portFolioData)
     const { fetchPortfolioData } = useActions();
 
     const { currency } = objSearchParams;
@@ -55,7 +56,7 @@ const PortfolioPage = () => {
             <Modal
                 isOpen={isOpen}
                 onClose={() => setIsOpen(false)}
-                children={'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam quis risus eget urna mollis ornare vel eu leo. Maecenas faucibus mollis interdum. Curabitur blandit tempus porttitor. Aenean lacinia bibendum nulla sed consectetur. Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Nullam id dolor id nibh ultricies vehicula ut id elit. Aenean lacinia bibendum nulla sed consectetur. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Vestibulum id ligula porta felis euismod semper. Donec id elit non mi porta gravida at eget metus. Donec sed odio dui.'}
+                children={<PurchaseWindow/>}
             />
             <StyledPortfolio>
                 <StyledPortfolioHeader>
@@ -64,11 +65,11 @@ const PortfolioPage = () => {
                     </StyledPortfolioTitle>
                     <StyledPorfolioBtns>
                         <Button type='button' $maxWidth='300px'>Investment Calculator</Button>
-                        <Button type='button' $maxWidth='300px'>Add Assets</Button>
+                        <Button type='button' onClick={() => setIsOpen(true)} $maxWidth='300px'>Add Assets</Button>
                     </StyledPorfolioBtns>
                 </StyledPortfolioHeader>
                 
-                {portFolioData && <PortfolioCoin portfolioCoin={portFolioData} />}
+                {/* {portFolioData && <PortfolioCoin portfolioCoin={portFolioData} />} */}
             </StyledPortfolio>
 
         </Section>

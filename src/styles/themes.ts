@@ -189,6 +189,16 @@ export const themes = {
             fontSecondary: '#01F1E3',
             border: 'rgba(255, 255, 255, 0.80)'
          },
+
+         // PURCHASE COIN
+
+         purchaseCoin: {
+            fontPrimary: '#FFF',
+            fontSecondary: 'rgba(255, 255, 255, 0.70)',
+            backgroundPrimary: '#13121B',
+            backgroundSecondary: '#191934',
+            backgroundInput: '#191926'
+         }
         
     },
 
@@ -355,6 +365,13 @@ export const themes = {
             fontPrimary: '#000000	',
             fontSecondary: '#01F1E3',
             border: '#7878FF'
+         },
+
+         // PURCHASE COIN
+
+         purchaseCoin: {
+            fontPrimary: '#181826',
+            fontSecondary: '#42428B'
          }
     }
 }
