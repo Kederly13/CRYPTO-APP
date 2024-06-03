@@ -9,7 +9,6 @@ import { ICoin } from 'types/coinType';
 
 import { StyledSearchList, StyledSearchListItem } from './StyledSearchList';
 
-
 interface SearchListProps {
     coins: ICoin[];
     searchQuery?: string,
@@ -25,13 +24,15 @@ export const SearchList: FC<SearchListProps> = ({ coins, searchQuery, handleActi
         filteredCoins = coinsNames.filter(name => 
             name.toLowerCase().includes(searchQuery?.toLocaleLowerCase() || '')
         )
-    };
+    } 
 
     useOutsideClick(ref, handleActiveMenu);
 
+    const coinsToRender = filteredCoins.length > 0 ? filteredCoins : coinsNames;
+
     return (
         <StyledSearchList>
-            {filteredCoins.length > 0 && filteredCoins.map((coin) => (
+            {coinsToRender.map((coin) => (
                 <StyledSearchListItem key={coin} ref={ref}>
                     <Link to={`/coin-page/${coin.toLowerCase()}`}>
                         {getCapitalizedWord(coin)}
@@ -40,4 +41,4 @@ export const SearchList: FC<SearchListProps> = ({ coins, searchQuery, handleActi
             ))}
         </StyledSearchList>
     )
-}
+};

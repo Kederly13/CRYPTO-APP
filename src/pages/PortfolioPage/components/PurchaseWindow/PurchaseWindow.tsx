@@ -1,11 +1,16 @@
 import { useState, FC, ChangeEvent } from 'react';
 
+import { Button } from 'components/Button';
+import { SearchList } from 'components/SearchList';
+
+import { useAppSelector } from 'hooks/reduxHooks';
+import { selectCoinList } from 'store/slices/coinsSlice/coinsSlice';
 import { useActions } from 'hooks/useActions';
 
-import { Button } from 'components/Button';
+import { ReactComponent as Arrow } from 'assets/svg/arrow.svg';
 import { ReactComponent as CoinLogo } from 'assets/svg/coin.svg';
 
-import { StyledPurchaseWindow, StyledPurchaseHeader, StyledPurchaseInput, StyledPurchaseTitle, StyledPurchaseWrapper, StyledLogoWrapper, StyledPurchaseForm, StyledDatePicker } from './StyledPurchaseWindow';
+import { StyledInputContainer, StyledPurchaseWindow, StyledPurchaseHeader, StyledPurchaseInput, StyledPurchaseTitle, StyledPurchaseWrapper, StyledLogoWrapper, StyledPurchaseForm, StyledDatePicker } from './StyledPurchaseWindow';
 
 interface IPurchaseState {
     selectedCoin: string;
@@ -15,19 +20,33 @@ interface IPurchaseState {
 
 interface IPurchaseWindowProps {
     setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
-}
+};
+
+type DropdownKey = 'coinDropdown' | 'amountDropdown' | 'dateDropdown';
 
 export const PurchaseWindow: FC<IPurchaseWindowProps> = ({ setIsOpen }) => {
+    const [activeDropdowns, setActiveDropdowns] = useState({
+        coinDropdown: false,
+        amountDropdown: false,
+        dateDropdown: false
+    });
     const [ selectedPurchase, setSelectedPurchase ] = useState<IPurchaseState>({
         selectedCoin: '',
         purchasedAmount: '',
         purchasedDate: null
     });
 
+    const coinsList = useAppSelector(selectCoinList)
+
     const { fetchHistoricalData } = useActions();
 
     const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target
+
+        setActiveDropdowns(prevState => ({
+            ...prevState,
+            coinDropdown: true
+        }));
 
         setSelectedPurchase(prevState => ({
             ...prevState,
@@ -44,13 +63,19 @@ export const PurchaseWindow: FC<IPurchaseWindowProps> = ({ setIsOpen }) => {
         }
     };
 
+    const toggleDropdown = (dropdown: DropdownKey) => {
+        setActiveDropdowns(prevState => ({
+            ...prevState,
+            [dropdown]: !prevState[dropdown]
+        }))
+    };
+
     const handleSubmit = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
         e.preventDefault();
 
         const controller = new AbortController(); 
 
         if (!selectedPurchase.selectedCoin || !selectedPurchase.purchasedAmount || !selectedPurchase.purchasedDate) {
-
             console.log("Please fill in all fields");
             return; 
         };
@@ -78,6 +103,15 @@ export const PurchaseWindow: FC<IPurchaseWindowProps> = ({ setIsOpen }) => {
             purchasedDate: null
         });
 
+        handleClose();
+    };
+
+    const handleClose = () => {
+        setSelectedPurchase({
+            selectedCoin: '',
+            purchasedAmount: '',
+            purchasedDate: null
+        });
         setIsOpen(false);
     };
 
@@ -94,27 +128,46 @@ export const PurchaseWindow: FC<IPurchaseWindowProps> = ({ setIsOpen }) => {
                     <span>Your Coin</span>
                 </StyledLogoWrapper>
                 <StyledPurchaseForm>
-                    <StyledPurchaseInput
-                        type='text'
-                        name='selectedCoin'
-                        value={selectedPurchase.selectedCoin}
-                        onChange={handleChange}
-                        placeholder='Select Coin'
-                    />
-                    <StyledPurchaseInput
-                        type='number'
-                        name='purchasedAmount'
-                        value={selectedPurchase.purchasedAmount}
-                        onChange={handleChange}
-                        placeholder='Purchased Amount'
-                    />
+                    <StyledInputContainer>
+                        <StyledPurchaseInput
+                            type='text'
+                            name='selectedCoin'
+                            value={selectedPurchase.selectedCoin}
+                            onChange={handleChange}
+                            placeholder='Select Coin'
+                        />
+                        <button type='button' onClick={() => toggleDropdown('coinDropdown')}>
+                            <Arrow />
+                        </button>
+                        
+                        {activeDropdowns.coinDropdown === true && (
+                            <SearchList
+                                coins={coinsList}
+                                searchQuery={selectedPurchase.selectedCoin}
+                                handleActiveMenu={() => toggleDropdown('coinDropdown')} 
+                            />
+                        )}
+                    </StyledInputContainer>
+                    <StyledInputContainer>
+                        <StyledPurchaseInput
+                            type='number'
+                            name='purchasedAmount'
+                            value={selectedPurchase.purchasedAmount}
+                            onChange={handleChange}
+                            placeholder='Purchased Amount'
+                        />
+                        <Arrow />
+                    </StyledInputContainer>
                     <StyledDatePicker
                         selected={selectedPurchase.purchasedDate}
                         onChange={(date: Date | null) => handleDateChange(date)}
                         placeholderText='Purchased Date'
                         dateFormat='d, MMMM, yyyy'
                     />
-                    <Button type='submit' onClick={handleSubmit}>Save and Continue</Button>
+                    <div className='btns'>
+                        <Button type='submit' onClick={handleSubmit} $maxWidth='47.5%'>Save and Continue</Button>
+                        <Button type='button' onClick={handleClose} $maxWidth='47.5%'>Cancel</Button>
+                    </div>
                 </StyledPurchaseForm>
             </StyledPurchaseWrapper>
         </StyledPurchaseWindow>

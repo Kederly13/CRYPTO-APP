@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 
 import { Button } from 'components/Button';
 import { Section } from 'components/Section';
+import { AllCoinsApi } from 'api/AllCoinsApi';
 import { PortfolioCoin } from './components/PortfolioCoin';
 import { Modal } from 'components/Modal';
 import { PurchaseWindow } from './components/PurchaseWindow';
@@ -26,15 +27,26 @@ const PortfolioPage = () => {
     const { fetchHistoricalData } = useActions();
 
     const { currency } = objSearchParams;
-    
+    let bbb;
+
     useEffect(() => {
         onSetObjSearchParams({
             [SEARCH_PARAMS.CURRENCY]: currency || 'usd',
         })
+   
+        const fetchData = async () => {
+            try {
+                const response = await AllCoinsApi.getAllCoinsList();
+                console.log(response.data)
+            } catch (error) {
+                console.error('Error fetching data:', error);
+            }
+        };
 
+        fetchData()
     }, []);
-
-    console.log(historicalData)
+    
+    // console.log(historicalData)
     return (
         <Section>
             <button onClick={() => setIsOpen(true)}>toggle</button>

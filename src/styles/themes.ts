@@ -197,7 +197,8 @@ export const themes = {
             fontSecondary: 'rgba(255, 255, 255, 0.70)',
             backgroundPrimary: '#13121B',
             backgroundSecondary: '#191934',
-            backgroundInput: '#191926'
+            backgroundInput: '#191926',
+            inputBorder: '#7878FF'
          }
         
     },

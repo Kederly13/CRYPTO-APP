@@ -2,7 +2,7 @@ import { useState, ChangeEvent } from 'react';
 
 import { StyledSearchForm, StyledSearchIcon } from './StyledSearchForm';
 import { Input } from 'components/Input';
-import { SearchList } from './components/SearchList';
+import { SearchList } from 'components/SearchList';
 
 import { useAppSelector } from 'hooks/reduxHooks';
 import { selectCoinList } from 'store/slices/coinsSlice/coinsSlice';
