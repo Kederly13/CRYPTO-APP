@@ -1,7 +1,7 @@
 import { useState, FC, ChangeEvent } from 'react';
 
 import { Button } from 'components/Button';
-import { SearchList } from 'components/SearchList';
+import { CoinDropdown } from './components/CoinDropdown';
 
 import { useAppSelector } from 'hooks/reduxHooks';
 import { selectCoinList } from 'store/slices/coinsSlice/coinsSlice';
@@ -43,10 +43,13 @@ export const PurchaseWindow: FC<IPurchaseWindowProps> = ({ setIsOpen }) => {
     const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target
 
-        setActiveDropdowns(prevState => ({
-            ...prevState,
-            coinDropdown: true
-        }));
+        if (name === 'selectedCoin') {
+            setActiveDropdowns(prevState => ({
+                ...prevState,
+                coinDropdown: true
+            }));
+
+        }
 
         setSelectedPurchase(prevState => ({
             ...prevState,
@@ -115,6 +118,22 @@ export const PurchaseWindow: FC<IPurchaseWindowProps> = ({ setIsOpen }) => {
         setIsOpen(false);
     };
 
+    const handleCoinSelect = (coinName: string) => {
+        setSelectedPurchase(prevState => ({
+            ...prevState,
+            selectedCoin: coinName
+        }));
+        setActiveDropdowns(prevState => ({
+            ...prevState,
+            coinDropdown: false
+        }));
+    }
+
+    let selectedCoin;
+    if (selectedPurchase.selectedCoin) {
+        selectedCoin = coinsList.find(({ id }) => id === selectedPurchase.selectedCoin);
+    };
+
     return (
         <StyledPurchaseWindow>
             <StyledPurchaseHeader>
@@ -124,8 +143,18 @@ export const PurchaseWindow: FC<IPurchaseWindowProps> = ({ setIsOpen }) => {
             </StyledPurchaseHeader>
             <StyledPurchaseWrapper>
                 <StyledLogoWrapper>
-                    <CoinLogo />
-                    <span>Your Coin</span>
+                    {selectedCoin ? (
+                        <>
+                            <img src={selectedCoin.image} alt='logo' />
+                            <span>{selectedCoin.name}</span>
+                        </>
+
+                    ) : (
+                        <>
+                            <CoinLogo />
+                            <span>Your Coin</span>
+                        </>
+                    )}
                 </StyledLogoWrapper>
                 <StyledPurchaseForm>
                     <StyledInputContainer>
@@ -139,9 +168,9 @@ export const PurchaseWindow: FC<IPurchaseWindowProps> = ({ setIsOpen }) => {
                         <button type='button' onClick={() => toggleDropdown('coinDropdown')}>
                             <Arrow />
                         </button>
-                        
                         {activeDropdowns.coinDropdown === true && (
-                            <SearchList
+                            <CoinDropdown
+                                handleCoinSelect={handleCoinSelect}
                                 coins={coinsList}
                                 searchQuery={selectedPurchase.selectedCoin}
                                 handleActiveMenu={() => toggleDropdown('coinDropdown')} 

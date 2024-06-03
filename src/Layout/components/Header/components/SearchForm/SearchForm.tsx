@@ -39,6 +39,7 @@ export const SearchForm: React.FC = () => {
             </div>
             {isActiveMenu && (
                 <SearchList
+                    isLink={true}
                     coins={coinsList}
                     searchQuery={searchQuery}
                     handleActiveMenu={handleActiveMenu} 

@@ -12,6 +12,7 @@ import { useActions } from 'hooks/useActions';
 import { useAppSelector } from 'hooks/reduxHooks';
 
 import { selectHistoricalData } from 'store/slices/coinsSlice/coinsSlice';
+import { selectCoinList } from 'store/slices/coinsSlice/coinsSlice';
 
 import { SEARCH_PARAMS } from 'constants/searchParams';
 
@@ -27,7 +28,7 @@ const PortfolioPage = () => {
     const { fetchHistoricalData } = useActions();
 
     const { currency } = objSearchParams;
-    let bbb;
+    
 
     useEffect(() => {
         onSetObjSearchParams({
@@ -37,7 +38,7 @@ const PortfolioPage = () => {
         const fetchData = async () => {
             try {
                 const response = await AllCoinsApi.getAllCoinsList();
-                console.log(response.data)
+                // console.log(response.data)
             } catch (error) {
                 console.error('Error fetching data:', error);
             }
@@ -46,10 +47,9 @@ const PortfolioPage = () => {
         fetchData()
     }, []);
     
-    // console.log(historicalData)
+    console.log(historicalData)
     return (
         <Section>
-            <button onClick={() => setIsOpen(true)}>toggle</button>
             <Modal
                 isOpen={isOpen}
                 onClose={() => setIsOpen(false)}
@@ -65,8 +65,18 @@ const PortfolioPage = () => {
                         <Button type='button' onClick={() => setIsOpen(true)} $maxWidth='300px'>Add Assets</Button>
                     </StyledPorfolioBtns>
                 </StyledPortfolioHeader>
-                
-                {/* {portFolioData && <PortfolioCoin portfolioCoin={portFolioData} />} */}
+                <>
+                    {historicalData ? (
+                        historicalData.map((coin) => (
+                            <PortfolioCoin
+                                key={coin.id} // Assuming each coin has a unique id
+                                historicalData={coin}
+                            />
+                        ))
+                    ) : (
+                        ''
+                    )}
+                </>
             </StyledPortfolio>
 
         </Section>

@@ -1,22 +1,20 @@
 import { FC, useRef } from 'react';
-import { Link } from 'react-router-dom'; 
-
 import { useOutsideClick } from 'hooks/useOutsideClick';
 
 import { getCapitalizedWord } from 'utils/getCapitalizedWord';
 
 import { ICoin } from 'types/coinType';
 
-import { StyledSearchList, StyledSearchListItem } from './StyledSearchList';
+import { StyledCoinDropdown, StyledDropdownItem } from './StyledCoinDropdown';
 
-interface SearchListProps {
+interface ICoinDropdownProps {
     coins: ICoin[];
     searchQuery?: string,
     handleActiveMenu: () => void;
-    isLink: boolean;
+    handleCoinSelect: (coinName: string) => void;
 };
 
-export const SearchList: FC<SearchListProps> = ({ coins, isLink, searchQuery, handleActiveMenu }) => {
+export const CoinDropdown: FC<ICoinDropdownProps> = ({ coins, searchQuery, handleActiveMenu, handleCoinSelect }) => {
     const coinsNames = coins.map(coin => coin.id);
     const ref = useRef<HTMLLIElement>(null);
     let filteredCoins: string[] = [];
@@ -25,25 +23,21 @@ export const SearchList: FC<SearchListProps> = ({ coins, isLink, searchQuery, ha
         filteredCoins = coinsNames.filter(name => 
             name.toLowerCase().includes(searchQuery?.toLocaleLowerCase() || '')
         )
-    } 
+    }; 
 
     useOutsideClick(ref, handleActiveMenu);
 
     const coinsToRender = filteredCoins.length > 0 ? filteredCoins : coinsNames;
 
     return (
-        <StyledSearchList>
+        <StyledCoinDropdown>
             {coinsToRender.map((coin) => (
-                <StyledSearchListItem key={coin} ref={ref}>
-                    {isLink ? (
-                        <Link to={`/coin-page/${coin.toLowerCase()}`}>
-                            {getCapitalizedWord(coin)}
-                        </Link>
-                    ) : (
-                        getCapitalizedWord(coin)
-                    )}
-                </StyledSearchListItem>
+                <StyledDropdownItem key={coin} ref={ref}>
+                    <button type='button' onClick={() => handleCoinSelect(coin)}>
+                        {getCapitalizedWord(coin)}
+                    </button>
+                </StyledDropdownItem>
             ))}
-        </StyledSearchList>
+        </StyledCoinDropdown>
     )
 };
