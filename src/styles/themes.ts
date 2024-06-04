@@ -199,6 +199,18 @@ export const themes = {
             backgroundSecondary: '#191934',
             backgroundInput: '#191926',
             inputBorder: '#7878FF'
+         },
+
+         // CALCULATOR WINDOW
+
+         calculatorWindow: {
+            modalBackground: '#13121B',
+            btnsBackground: '#191934',
+            selectInputBackground: '#191926',
+            formBackground: '#1F1934',
+            primaryFont: '#FFF',
+            secondaryFont: '#00F5E4',
+            selectInputFont: 'rgba(255, 255, 255, 0.70)'
          }
         
     },
@@ -373,6 +385,16 @@ export const themes = {
          purchaseCoin: {
             fontPrimary: '#181826',
             fontSecondary: '#42428B'
+         },
+
+         calculatorWindow: {
+            modalBackground: '#FFF',
+            btnsBackground: '#F3F5F9',
+            selectInputBackground: '#EBEBFF',
+            formBackground: '#F3F5F9',
+            primaryFont: '#42428B',
+            secondaryFont: '#00B4A7',
+            selectInputFont: 'rgba(66, 66, 139, 0.70)'
          }
     }
 }

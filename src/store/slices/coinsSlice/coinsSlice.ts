@@ -233,6 +233,11 @@ const coins = createSliceWithThunks({
             state.coinList.data = [];
             state.coinList.lastCoins = [];
             state.page = 1;
+        },
+        removePortfolioCoin: (state, action: PayloadAction<string>) => {
+            console.log(action)
+            const historicalData = state.historicalData.data.filter((coin) => coin.id !== action.payload);
+            state.historicalData.data = historicalData;
         }
     },
 
@@ -313,7 +318,7 @@ const coins = createSliceWithThunks({
     }
 })
 
-export const { removeCoin, onSetNulifyCoinsHistory, onSetPage, setNulifyCoins } = coins.actions;
+export const { removeCoin, onSetNulifyCoinsHistory, onSetPage, setNulifyCoins, removePortfolioCoin } = coins.actions;
 export const {
     selectCoinsHistory,
     selectCoinsHistoryLoading,

@@ -11,8 +11,7 @@ import { useSelectedObjSearchParams } from 'hooks/useSelectedSearchParams';
 import { useActions } from 'hooks/useActions';
 import { useAppSelector } from 'hooks/reduxHooks';
 
-import { selectHistoricalData } from 'store/slices/coinsSlice/coinsSlice';
-import { selectCoinList } from 'store/slices/coinsSlice/coinsSlice';
+import { selectHistoricalData, removePortfolioCoin, selectCoinList } from 'store/slices/coinsSlice/coinsSlice';
 
 import { SEARCH_PARAMS } from 'constants/searchParams';
 
@@ -25,7 +24,7 @@ const PortfolioPage = () => {
     const { objSearchParams, onSetObjSearchParams } = useSelectedObjSearchParams();
     const historicalData = useAppSelector(selectHistoricalData);
 
-    const { fetchHistoricalData } = useActions();
+    const { fetchHistoricalData, } = useActions();
 
     const { currency } = objSearchParams;
     

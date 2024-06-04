@@ -2,10 +2,15 @@ import { FC } from 'react';
 import { currencyData } from 'Layout/components/Header/components/Currency/components/CurrencyMenu/currencyData';
 
 import { useSelectedObjSearchParams } from 'hooks/useSelectedSearchParams';
+
 import { Percent } from 'components/Percent';
+import { ReactComponent as DeleteIcon } from 'assets/svg/delete.svg';
 
 import { selectCoinList } from 'store/slices/coinsSlice/coinsSlice';
 import { ICompleteHistoricalData } from 'store/slices/coinsSlice/types';
+import {  removePortfolioCoin } from 'store/slices/coinsSlice/coinsSlice';
+import { useAppDispatch } from 'hooks/reduxHooks';
+
 
 import { useAppSelector } from 'hooks/reduxHooks';
 
@@ -18,8 +23,7 @@ import {
     StyledCoinInfoCol,
     StyledCoinText,
     StyledCoinValue,
-    StyledCoinInfoGrid,
-    StyledBar 
+    StyledCoinInfoGrid, 
 } from './StyledPortfolioCoin';
 
 
@@ -28,6 +32,7 @@ interface IPortfolioCoinProps {
 };
 
 export const PortfolioCoin: FC<IPortfolioCoinProps> = ({ historicalData }) => {
+    const dispatch = useAppDispatch();
     const coinsList = useAppSelector(selectCoinList);
     
     const { 
@@ -73,7 +78,8 @@ export const PortfolioCoin: FC<IPortfolioCoinProps> = ({ historicalData }) => {
     (historical_price * Number(purchasedAmount)).toFixed(2) : getCoinError(symbol);
 
     const { symbol: currencySymbol } = currencyData.find(item => item.value === currency) || {};
-    
+
+   
 
     return (
         <StyledPortfolioCoin>
@@ -84,6 +90,9 @@ export const PortfolioCoin: FC<IPortfolioCoinProps> = ({ historicalData }) => {
             <StyledCoinInfo>
                 <StyledCoinInfoHeader>
                     <StyledCoinInfoTitle>Market Price</StyledCoinInfoTitle>
+                    <button type='button' onClick={() => dispatch(removePortfolioCoin(id))}>
+                        <DeleteIcon />
+                    </button>
                 </StyledCoinInfoHeader>
                 <StyledCoinInfoGrid className='top'>
                     <StyledCoinInfoCol>
@@ -128,7 +137,6 @@ export const PortfolioCoin: FC<IPortfolioCoinProps> = ({ historicalData }) => {
                         ) : (
                             <StyledCoinValue>N/A</StyledCoinValue> 
                         )}
-
                     </StyledCoinInfoCol>
                     <StyledCoinInfoCol>
                         <StyledCoinText>Purchase date</StyledCoinText>

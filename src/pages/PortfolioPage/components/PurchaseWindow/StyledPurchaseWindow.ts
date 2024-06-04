@@ -10,6 +10,7 @@ export const StyledPurchaseWindow = styled.div`
     border-radius: 20px;
     // max-width: doesn't work
 `
+
 export const StyledInputContainer = styled.div`
     display: flex;
     justify-content: space-between;
