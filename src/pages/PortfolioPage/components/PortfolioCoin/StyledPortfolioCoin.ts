@@ -2,6 +2,10 @@ import styled from 'styled-components';
 
 export const StyledPortfolioCoin = styled.div`
     display: flex;
+
+    &:not(:last-child) {
+        margin-bottom: 24px;
+    }
 `
 
 export const StyledLogoWrapper = styled.div`
@@ -13,7 +17,6 @@ export const StyledLogoWrapper = styled.div`
     max-width: 258px;
     width: 100%;
     
-
     & > img {
         margin-bottom: 12px;
         width: 32px;
@@ -25,6 +28,7 @@ export const StyledLogoWrapper = styled.div`
         font-size: 28px;
         font-weight: 700;
         display: block;
+        text-align: center;
     }
 `
 
@@ -69,7 +73,6 @@ export const StyledCoinText = styled.span`
     color: ${({ theme }) => theme.portfolio.fontPrimary};
     margin-bottom: 15px;
     font-weight: 500;
-
 `
 
 export const StyledCoinValue = styled.span`

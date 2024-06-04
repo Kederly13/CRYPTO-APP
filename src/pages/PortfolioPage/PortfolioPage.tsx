@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 
 import { Button } from 'components/Button';
 import { Section } from 'components/Section';
@@ -30,22 +30,22 @@ const PortfolioPage = () => {
     const { currency } = objSearchParams;
     
 
-    useEffect(() => {
-        onSetObjSearchParams({
-            [SEARCH_PARAMS.CURRENCY]: currency || 'usd',
-        })
+    // useEffect(() => {
+    //     onSetObjSearchParams({
+    //         [SEARCH_PARAMS.CURRENCY]: currency || 'usd',
+    //     })
    
-        const fetchData = async () => {
-            try {
-                const response = await AllCoinsApi.getAllCoinsList();
-                // console.log(response.data)
-            } catch (error) {
-                console.error('Error fetching data:', error);
-            }
-        };
+    //     const fetchData = async () => {
+    //         try {
+    //             const response = await AllCoinsApi.getAllCoinsList();
+    //             // console.log(response.data)
+    //         } catch (error) {
+    //             console.error('Error fetching data:', error);
+    //         }
+    //     };
 
-        fetchData()
-    }, []);
+    //     fetchData()
+    // }, []);
     
     console.log(historicalData)
     return (

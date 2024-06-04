@@ -1,13 +1,11 @@
 import { FC } from 'react';
 import { currencyData } from 'Layout/components/Header/components/Currency/components/CurrencyMenu/currencyData';
 
-import { ICoin } from 'types/coinType';
-
 import { useSelectedObjSearchParams } from 'hooks/useSelectedSearchParams';
 import { Percent } from 'components/Percent';
-import { TableProgressBar } from 'components/TableProgresBar';
 
 import { selectCoinList } from 'store/slices/coinsSlice/coinsSlice';
+import { ICompleteHistoricalData } from 'store/slices/coinsSlice/types';
 
 import { useAppSelector } from 'hooks/reduxHooks';
 
@@ -23,10 +21,10 @@ import {
     StyledCoinInfoGrid,
     StyledBar 
 } from './StyledPortfolioCoin';
-import { IHistoricalData } from 'store/slices/coinsSlice/types';
+
 
 interface IPortfolioCoinProps {
-    historicalData: IHistoricalData;
+    historicalData: ICompleteHistoricalData;
 };
 
 export const PortfolioCoin: FC<IPortfolioCoinProps> = ({ historicalData }) => {
@@ -36,11 +34,15 @@ export const PortfolioCoin: FC<IPortfolioCoinProps> = ({ historicalData }) => {
         id, 
         symbol, 
         name, 
-        image, 
+        image,
+        purchasedAmount,
+        market_data,
+        purchasedDate
     } = historicalData;
 
     const selectedCoin = coinsList.find((coin) => coin.id === id);
-    console.log(selectedCoin)
+
+    const getCoinError = (coinName: string) => `${coinName.toUpperCase()} was not launched yet on selected date`
 
     let current_price, price_change_24h, circulating_supply, max_supply, total_volume, market_cap;
 
@@ -57,15 +59,23 @@ export const PortfolioCoin: FC<IPortfolioCoinProps> = ({ historicalData }) => {
     const { currency } = objSearchParams;
 
     // Ciculated supply vs max supply
-    const ratio = circulating_supply && max_supply ? (circulating_supply / max_supply).toFixed(2) : 'N/A';
+    const ratio = circulating_supply && max_supply ? (circulating_supply / max_supply).toFixed(2) : 'N/A'
 
-    // Market cap vs volume
-    const marketCapVsVolume = market_cap && total_volume ? ((market_cap / total_volume) * 100).toFixed(2) : 'N/A';
+    // Percentage change in price since purchase
+    const historical_price = market_data?.current_price?.usd;
+    const percentageChange = current_price !== undefined
+    ? Number((((current_price - historical_price) / historical_price) * 100).toFixed(2))
+    : 0;
+
+    // Amount Value
+    
+    const amountValue = historical_price !== undefined ? 
+    (historical_price * Number(purchasedAmount)).toFixed(2) : getCoinError(symbol);
 
     const { symbol: currencySymbol } = currencyData.find(item => item.value === currency) || {};
+    
 
     return (
-
         <StyledPortfolioCoin>
             <StyledLogoWrapper>
                 <img src={image.thumb} alt='coin logo'/>
@@ -88,38 +98,44 @@ export const PortfolioCoin: FC<IPortfolioCoinProps> = ({ historicalData }) => {
                             />
                     </StyledCoinInfoCol>
                     <StyledCoinInfoCol>
-                        <StyledCoinText>Market Cap vs Volume</StyledCoinText>
-                        <StyledBar
-                            value={marketCapVsVolume} max={100} 
-                        />
+                        <StyledCoinText>Market Cap </StyledCoinText>
+                        <StyledCoinValue>{market_cap}</StyledCoinValue>
                     </StyledCoinInfoCol>
                     <StyledCoinInfoCol>
-                        <StyledCoinText>Circ supply vs max supply</StyledCoinText>
-                        <StyledCoinValue>{ratio}</StyledCoinValue>
+                        <StyledCoinText>Total Volume</StyledCoinText>
+                        <StyledCoinValue>{total_volume}</StyledCoinValue>
                     </StyledCoinInfoCol>
                 </StyledCoinInfoGrid>
                 <StyledCoinInfoHeader>
-                    <StyledCoinInfoTitle className='bottom-title'>Market Price</StyledCoinInfoTitle>
+                    <StyledCoinInfoTitle className='bottom-title'>Your Coin</StyledCoinInfoTitle>
                 </StyledCoinInfoHeader>
                 <StyledCoinInfoGrid className='bottom'>
                     <StyledCoinInfoCol>
                         <StyledCoinText>Coin ammount:</StyledCoinText>
-                        <StyledCoinValue>{}</StyledCoinValue>
+                        <StyledCoinValue>{purchasedAmount}</StyledCoinValue>
                     </StyledCoinInfoCol>
                     <StyledCoinInfoCol>
                         <StyledCoinText>Amount value</StyledCoinText>
-                        <StyledCoinValue>{}</StyledCoinValue>
+                        <StyledCoinValue>{amountValue}</StyledCoinValue>
                     </StyledCoinInfoCol>
                     <StyledCoinInfoCol>
                         <StyledCoinText>Amount price change since purchase</StyledCoinText>
-                        <StyledCoinValue>{}</StyledCoinValue>
+                        {percentageChange ? (
+                            <Percent
+                                $percent={percentageChange || 0}
+                                children='%'
+                            />
+                        ) : (
+                            <StyledCoinValue>N/A</StyledCoinValue> 
+                        )}
+
                     </StyledCoinInfoCol>
                     <StyledCoinInfoCol>
                         <StyledCoinText>Purchase date</StyledCoinText>
-                        <StyledCoinValue>{}</StyledCoinValue>
+                        <StyledCoinValue>{purchasedDate}</StyledCoinValue>
                     </StyledCoinInfoCol>
                 </StyledCoinInfoGrid>
             </StyledCoinInfo>
         </StyledPortfolioCoin>
     )
-}
+};

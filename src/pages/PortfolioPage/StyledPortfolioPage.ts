@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 export const StyledPortfolio = styled.div`
-    padding: 70px 0 344px;
+    padding: 70px 0 208px;
 `
 
 export const StyledPortfolioHeader = styled.div`
