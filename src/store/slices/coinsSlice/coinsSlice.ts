@@ -219,7 +219,7 @@ const coins = createSliceWithThunks({
         },
         removeCoin: (state, action: PayloadAction<RemoveCoinPayload>) => {
             for (const coinId in state.coinsHistory.data) {
-                if (coinId === action.payload.id && Object.keys(state.coinsHistory).length > 1) {
+                if (coinId === action.payload.id && Object.keys(state.coinsHistory.data).length > 1) {
                     delete state.coinsHistory.data[action.payload.id];
                 }
             }
