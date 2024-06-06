@@ -9,7 +9,7 @@ import { Navigation, Pagination, Scrollbar, A11y } from 'swiper/modules';
 
 import { useResize } from 'hooks/useResize';
 
-import { StyledCurrencySwiperWrapper } from './StyledCurrencySwiper';
+import { StyledCurrencySwiperWrapper, StyledSwiperSlide } from './StyledCurrencySwiper';
 import { Swiper as SwiperType } from 'swiper';
 import { ICoin } from 'types/coinType';
 import { MEDIA_SIZES } from 'constants/mediaSizes';
@@ -38,7 +38,6 @@ export const CurrencySwiper: FC<ICurrencySwiper> = ({ coinsDetails }) => {
                     320: {
                         slidesPerView: 2,
                     },
-
                     640: {
                         slidesPerView: 3,
                     },
@@ -52,7 +51,7 @@ export const CurrencySwiper: FC<ICurrencySwiper> = ({ coinsDetails }) => {
             >
                 {!!coinsDetails.length && (
                     coinsDetails.map((coin) => (
-                        <SwiperSlide key={uid()}>
+                        <StyledSwiperSlide key={uid()}>
                             <SwiperCoins
                                 id={coin.id}         
                                 $logo={coin.image}
@@ -61,7 +60,7 @@ export const CurrencySwiper: FC<ICurrencySwiper> = ({ coinsDetails }) => {
                                 $price={Math.floor(coin.current_price * 100) / 100}
                                 $percent={<Percent $percent={coin.market_cap_change_percentage_24h} $ml='8px' />}              
                             />
-                        </SwiperSlide>
+                        </StyledSwiperSlide >
                     ))    
                 )}
             </Swiper>

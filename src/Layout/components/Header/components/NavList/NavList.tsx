@@ -1,5 +1,5 @@
 import { FC } from 'react';
-import { useLocation, NavLink } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 
 import { useResize } from 'hooks/useResize';
 
@@ -17,12 +17,10 @@ export interface IStyledListItemProps{
 export const NavList: FC = () => {
     const { width } = useResize();
     
-    const { search } = useLocation(); 
-    
     return (
         <StyledNavList>
             <StyledNavListItem $mr='24px'>
-                <NavLink to={`/${search}`}
+                <NavLink to={`/`}
                   className={({ isActive }) =>
                     isActive ? "active" : ""
                   }
@@ -47,5 +45,4 @@ export const NavList: FC = () => {
             </StyledNavListItem>
         </StyledNavList>
     )
-
 };

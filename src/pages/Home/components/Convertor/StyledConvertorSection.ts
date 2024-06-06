@@ -1,6 +1,15 @@
 import styled from 'styled-components';
 import { IStyledConvertorCoinWrapperProps } from './ConvertorSection';
 
+export enum MEDIA_SIZES {
+        XS = 0,
+        SM = 576,
+        MD = 768,
+        LG = 992,
+        XL = 1200,
+        XXL = 1400 
+    };
+
 export const StyledHeading = styled.h2`
         font-size: 20px;
         color: ${({ theme }) => theme.convertorHeading.color};

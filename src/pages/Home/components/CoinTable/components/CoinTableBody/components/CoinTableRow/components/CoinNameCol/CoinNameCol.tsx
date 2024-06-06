@@ -10,7 +10,7 @@ export const CoinNameCol: FC<ICoinNameProps> = ({ name, image, symbol }) => {
 
     return (
         <StyledCoinNameCol>
-            <button className='col-wrapper' onClick={() => navigate(`/coin-page/${name}`)}>
+            <button className='col-wrapper' onClick={() => navigate(`/coin-page/${name.toLowerCase()}`)}>
                 <StyledCoinLogo src={image} alt='CoinLogo'/>
                 <StyledCoinName><span>{name}</span> <span>({symbol})</span></StyledCoinName>
             </button>

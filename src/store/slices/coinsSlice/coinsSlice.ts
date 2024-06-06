@@ -59,7 +59,7 @@ export const fetchCoinHistory = createAsyncThunk<Record<string, ICoinObjHistory>
                     ...item
                 }
             }, {})
-            toast.success('Coins History Loaded Successfully')
+
             return dataObj;
         } catch (error) {
             toast.error('Error fetching coins: ' + getErrorMessage(error)); // Show the error message in the toast
@@ -85,8 +85,7 @@ export const fetchCoins = createAsyncThunk<ICoin[], AbortController, {rejectValu
             }
 
             const { data } = await CoinsApi.getCoins(param);
-            
-            toast.success('Coins Loaded Successfully')
+
             return data;
         } catch(error) {
             return rejectWithValue(getErrorMessage(error));
@@ -100,7 +99,7 @@ export const fetchCoinSummary = createAsyncThunk<ICoinSummaryPayload, { coin: st
 
         try {
             const { data } = await CoinSummaryApi.getCoinSummary(coin, controller);
-            toast.success('Coin Summary loaded successfully')
+ 
             return data; 
         } catch(error) {
             return rejectWithValue(getErrorMessage(error));
@@ -124,7 +123,6 @@ export const fetchMarketData = createAsyncThunk<IMarketDataPayload, AbortControl
 
 export const fetchHistoricalData = createAsyncThunk<ICompleteHistoricalData, IGetHistoricalDataParams, { rejectValue: string }>(
     'coins/fetchHistoricalData',
-    
     async ({ payload, controller }, { rejectWithValue }) => {
         try {
             const { coin, purchasedDate, purchasedAmount } = payload;

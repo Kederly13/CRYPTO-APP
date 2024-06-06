@@ -20,7 +20,6 @@ import { getConvertedDates } from 'utils/getConvertedDates';
 import { getDateTime } from 'utils/getDateTime';
 import { useActions } from 'hooks/useActions';
 
-
 export interface IStyledConvertorCoinWrapperProps {
     $backgroundColor?: string;
 };

@@ -6,4 +6,8 @@ export const StyledConvertorInput = styled.input`
     font-weight: 700;
     width: auto;
     border: 1px solid white;
+
+    @media(max-width: 576px) {
+        width: 40%;
+    }
 `

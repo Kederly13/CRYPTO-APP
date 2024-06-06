@@ -71,13 +71,20 @@ export const Statistics = () => {
         }
       }, [days, coin, currency, init]); // eslint-disable-line
 
+      const handleClick = () => {
+        onSetObjSearchParams({
+            ...objSearchParams,
+            [SEARCH_PARAMS.COIN]: lastCoins[0].id
+        })
+      };
+
     return (
         <StyledStatistics>
             <StyledStatisticsHead>
                 <h2>
                     Select the currency to view statistics
                 </h2>
-                <Button type='button' $padding='12px 24px'>Exit comparison</Button>
+                <Button type='button' $padding='12px 24px' onClick={handleClick}>Exit comparison</Button>
             </StyledStatisticsHead>
             <CurrencySwiper
                 coinsDetails={lastCoins}

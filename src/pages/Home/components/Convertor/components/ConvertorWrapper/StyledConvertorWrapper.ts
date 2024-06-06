@@ -6,7 +6,13 @@ export const StyledConvertorCoinWrapper = styled.div<IStyledConvertorCoinWrapper
         width: 100%;
         padding: 24px;
         border-radius: 16px;
-        background-color: ${({ $backgroundColor }) => $backgroundColor};   
+        background-color: ${({ $backgroundColor }) => $backgroundColor};
+
+        @media(max-width: 1400px) {
+                flex-direction: column;
+                max-width: 100%;
+                
+        }
 `
 
 export const StyledConvertorWrapper = styled.div`
@@ -14,6 +20,10 @@ export const StyledConvertorWrapper = styled.div`
         align-items: center;
         margin-top: 24px;
         margin-bottom: 72px;
+
+        @media(max-width: 1400px) {
+                flex-direction: column; 
+        }
 `
 
 export const StyledSwithcWrapper = styled.button`

@@ -33,7 +33,7 @@ export const SwiperCoins: FC<SwiperCoinsProps> = ( props ) => {
     const { $logo, name, $symbol, $price, $percent, id } = props;
     const dispatch = useAppDispatch();
 
-    const { setNulifyCoins, onSetNulifyCoinsHistory } = useActions();
+    const { onSetNulifyCoinsHistory } = useActions();
 
     const { width } = useResize();
    
@@ -45,8 +45,6 @@ export const SwiperCoins: FC<SwiperCoinsProps> = ( props ) => {
         if ( objSearchParams!.coin!.split(',').length < 2) {
             onSetNulifyCoinsHistory();
         }
-        
-
         dispatch(removeCoin({ id }));  
         onSetObjSearchParams({
             ...objSearchParams,

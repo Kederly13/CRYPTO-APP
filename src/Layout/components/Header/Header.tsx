@@ -1,4 +1,4 @@
-import { useLocation, NavLink } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 
 import { Container } from 'components/Container';
 import { NavList } from './components/NavList';
@@ -13,7 +13,6 @@ import { ThemeBtn } from './components/ThemeBtn';
 import { StyledHeader } from './StyledHeader';
 
 export const Header = () => {
-    const { search } = useLocation();
      
     return (
         <StyledHeader>

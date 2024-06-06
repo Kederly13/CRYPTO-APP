@@ -7,8 +7,8 @@ interface IConvertorInput {
     handleInputChange: (event: ChangeEvent<HTMLInputElement>) => void,
     readOnly?: boolean,
 };
-export const ConvertorInput: FC<IConvertorInput> = ({ name, value, handleInputChange, readOnly }) => {
 
+export const ConvertorInput: FC<IConvertorInput> = ({ name, value, handleInputChange, readOnly }) => {
     return (
         <StyledConvertorInput
             type='number'

@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 import { Button } from 'components/Button';
 import { Section } from 'components/Section';
@@ -27,24 +27,12 @@ const PortfolioPage = () => {
     const { fetchHistoricalData, } = useActions();
 
     const { currency } = objSearchParams;
-    
 
-    // useEffect(() => {
-    //     onSetObjSearchParams({
-    //         [SEARCH_PARAMS.CURRENCY]: currency || 'usd',
-    //     })
-   
-    //     const fetchData = async () => {
-    //         try {
-    //             const response = await AllCoinsApi.getAllCoinsList();
-    //             // console.log(response.data)
-    //         } catch (error) {
-    //             console.error('Error fetching data:', error);
-    //         }
-    //     };
-
-    //     fetchData()
-    // }, []);
+    useEffect(() => {
+        onSetObjSearchParams({
+            [SEARCH_PARAMS.CURRENCY]: objSearchParams.currency || 'usd',
+        })
+    }, []);
     
     console.log(historicalData)
     return (
@@ -68,7 +56,7 @@ const PortfolioPage = () => {
                     {historicalData ? (
                         historicalData.map((coin) => (
                             <PortfolioCoin
-                                key={coin.id} // Assuming each coin has a unique id
+                                key={coin.id} 
                                 historicalData={coin}
                             />
                         ))

@@ -2,7 +2,6 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import { useEffect } from 'react';
 import { ToastContainer } from 'react-toastify';
 
-
 import { Layout } from 'Layout';
 import Home from './pages/Home/Home'
 import CoinPage from 'pages/CoinPage/CoinPage';
@@ -31,7 +30,10 @@ const App = () => {
   
   return (
     <>
-      <ToastContainer/>
+      <ToastContainer
+          theme="dark"
+          autoClose={2000}
+      />
         <Router>
           <Layout>
             <Routes>

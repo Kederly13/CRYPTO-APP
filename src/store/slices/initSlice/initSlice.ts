@@ -37,9 +37,8 @@ export const fetchInit = createAsyncThunk<undefined, AbortController, {rejectVal
             }
 
             await Promise.all(data);
-            toast.success('Success')
+            toast.success('Page data loaded successfully');
         } catch(error) {
-            
             return rejectWithValue(getErrorMessage(error));
         }
     }

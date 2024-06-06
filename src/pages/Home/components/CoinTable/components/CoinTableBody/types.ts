@@ -5,7 +5,7 @@ import { ICoin } from 'types/coinType';
 export interface ICoinNameProps {
     name: string,
     image: string,
-    symbol: string
+    symbol: string,
 };
 
 export interface ICoinNumProps {
