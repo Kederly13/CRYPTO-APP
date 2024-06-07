@@ -1,3 +1,5 @@
+import { useState } from 'react';
+
 import { Container } from 'components/Container';
 import { NavList } from './components/NavList';
 import { SearchForm } from './components/SearchForm/SearchForm';
@@ -7,21 +9,34 @@ import { HeaderTop } from './components/HeaderTop';
 import { SearchButton } from './components/SearchButton';
 import { ThemeBtn } from './components/ThemeBtn';
 import { Logo } from 'components/Logo';
+import { ModalSearch } from './components/ModalSearch/ModalSearch';
 
 import { StyledHeader } from './StyledHeader';
 
-export const Header = () => (
-    <StyledHeader>
-        <HeaderTop />
-        <Container>
-            <Nav>
-                <Logo />
-                <NavList />   
-                <SearchForm />
-                <SearchButton />
-                <Currency />
-                <ThemeBtn />
-            </Nav>
-        </Container>
-    </StyledHeader>
+export const Header = () => {
+    const [activeMenu, setActiveMenu] = useState<boolean>(false);
+
+    const handleSearchButtonClick = () => {
+        setActiveMenu(!activeMenu);
+    };
+
+    return (
+        <StyledHeader>
+            {activeMenu && (
+                <ModalSearch />
+            )}
+            <HeaderTop />
+            <Container>
+                <Nav>
+                    <Logo />
+                    <NavList />   
+                    <SearchForm />
+                    <SearchButton handleClick={handleSearchButtonClick}/>
+                    
+                    <Currency />
+                    <ThemeBtn />
+                </Nav>
+            </Container>
+        </StyledHeader>
     )
+}

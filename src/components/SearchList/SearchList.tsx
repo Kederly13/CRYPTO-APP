@@ -12,11 +12,12 @@ import { StyledSearchList, StyledSearchListItem } from './StyledSearchList';
 interface SearchListProps {
     coins: ICoin[];
     searchQuery?: string,
-    handleActiveMenu: () => void;
+    handleActiveMenu?: () => void;
     isLink: boolean;
+    maxHeight?: string;
 };
 
-export const SearchList: FC<SearchListProps> = ({ coins, isLink, searchQuery, handleActiveMenu }) => {
+export const SearchList: FC<SearchListProps> = ({ coins, isLink, searchQuery, handleActiveMenu, maxHeight  }) => {
     const coinsNames = coins.map(coin => coin.id);
     const ref = useRef<HTMLLIElement>(null);
     let filteredCoins: string[] = [];
@@ -27,12 +28,14 @@ export const SearchList: FC<SearchListProps> = ({ coins, isLink, searchQuery, ha
         )
     } 
 
-    useOutsideClick(ref, handleActiveMenu);
+    useOutsideClick(ref, handleActiveMenu || (() => {}));
+
+    
 
     const coinsToRender = filteredCoins.length > 0 ? filteredCoins : coinsNames;
 
     return (
-        <StyledSearchList>
+        <StyledSearchList maxHeight={maxHeight}>
             {coinsToRender.map((coin) => (
                 <StyledSearchListItem key={coin} ref={ref}>
                     {isLink ? (

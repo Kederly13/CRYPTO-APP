@@ -86,6 +86,7 @@ export const ConvertorSection = () => {
         };
         
       }, [days, coin, currency, init]); // eslint-disable-line
+      console.log(coinsHistory)
 
     return (
         <StyledConvertorSection>

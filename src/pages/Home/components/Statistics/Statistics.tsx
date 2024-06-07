@@ -77,7 +77,7 @@ export const Statistics = () => {
             [SEARCH_PARAMS.COIN]: lastCoins[0].id
         })
       };
-
+      console.log(coinsHistory)
     return (
         <StyledStatistics>
             <StyledStatisticsHead>

@@ -2,12 +2,13 @@ import styled from 'styled-components';
 import { NavLink } from 'react-router-dom';
 
 interface IStyledLogoProps {
-    marginRight?: string; // Optional prop for marginRight
+    marginRight?: string; 
 };
 
 export const StyledLogo = styled(NavLink)<IStyledLogoProps>`
     display: flex;
     align-items: center;
+    margin-right: 178px;
 
     & > span {
         font-size: 21px;
@@ -22,6 +23,14 @@ export const StyledLogo = styled(NavLink)<IStyledLogoProps>`
 
     & > img {
         object-fit: contain;
+    }
+
+    @media(max-width: 1024px) {
+        margin-right: 90px;
+    }
+
+    @media(max-width: 768px) {
+        margin-right: 50px;
     }
 
     @media(max-width: 576px) {
