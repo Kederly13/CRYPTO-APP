@@ -20,10 +20,6 @@ export const StyledSearchForm = styled.form`
     &:hover {
         background-color: ${({ theme }) => theme.buttonActiveColor};
         border: 1px solid ${({ theme }) => theme.buttonActiveBorderColor};
-
-        ${StyledSearchIcon} {
-            fill: ${({ theme }) => theme.searchIcon.active};
-        }
     }
 
     @media (max-width: 992px) {

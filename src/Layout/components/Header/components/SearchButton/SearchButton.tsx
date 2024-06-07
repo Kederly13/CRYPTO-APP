@@ -1,8 +1,7 @@
-import { StyledSearchButton } from './styledSearchButton';
-import SearchIcon from 'assets/svg/search.svg';
+import { StyledSearchButton, StyledSearchIcon } from './styledSearchButton';
 
 export const SearchButton = () => (
     <StyledSearchButton>
-        <img src={SearchIcon} alt='Search' />
+        <StyledSearchIcon />
     </StyledSearchButton>
 );

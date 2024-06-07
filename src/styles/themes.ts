@@ -59,8 +59,15 @@ export const themes = {
             active: '#FFF'
         },
 
+        layersIcon: {
+            fill: 'none',
+            stroke: '#FFF'
+        },
+
         homeIcon: {
             default: 'grey',
+            fill: 'none',
+            stroke: '#FFF',
             active: '#FFF',
             activeStroke: 'black'
         },
@@ -265,6 +272,16 @@ export const themes = {
         currencyMenu: {
             background: 'rgba(204, 204, 254, 0.40)',
             selected: 'rgba(97, 97, 222, 0.50)'
+        },
+
+        layersIcon: {
+            fill: 'none',
+            stroke: '#353570'
+        },
+
+        homeIcon: {
+            fill: 'none',
+            stroke: '#FFF'
         },
 
         searchList: {

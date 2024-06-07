@@ -8,6 +8,11 @@ export const StyledCurrencyWrapper = styled.div`
     border-radius: 6px;
     background-color: ${({ theme }) => theme.formBackgroundColor};
     width: 100px;
+
+    @media(max-width: 576px) {
+        margin: 0;
+        width: auto;
+    }
 `
 
 export const StyledCurrency = styled.button`

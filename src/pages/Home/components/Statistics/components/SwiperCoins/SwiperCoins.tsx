@@ -12,6 +12,8 @@ import { SEARCH_PARAMS } from 'constants/searchParams';
 import { MEDIA_SIZES } from 'constants/mediaSizes';
 import { currencyData } from 'Layout/components/Header/components/Currency/components/CurrencyMenu/currencyData';
 
+import { getCapitalizedWord } from 'utils/getCapitalizedWord';
+
 export interface ISwiperCoinsProps {
     disabled?: boolean,
     $percent: React.ReactNode;
@@ -66,7 +68,7 @@ export const SwiperCoins: FC<SwiperCoinsProps> = ( props ) => {
         >
             <img className='currencyLogo' src={$logo} alt='logo'/>
             <StyledCurrencyWrapper >
-                <StyledCurrencyName $active={objSearchParams?.coin?.includes(id)}>{name} ({$symbol})</StyledCurrencyName>
+            <StyledCurrencyName $active={objSearchParams?.coin?.includes(id)}><span className='name'>{name}</span>({$symbol.toUpperCase()})</StyledCurrencyName>
                 {width > MEDIA_SIZES.XL && (
                     <StyledCurrencyPriceWrapper>
                         <StyledCurrencyPrice $active={objSearchParams?.coin?.includes(id)}>

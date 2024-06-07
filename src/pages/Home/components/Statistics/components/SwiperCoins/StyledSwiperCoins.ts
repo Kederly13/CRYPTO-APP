@@ -10,6 +10,12 @@ export const StyledCurrencyName = styled.div<IStyledSwiperCoinsProps>`
     color: ${({ $active, theme}) => ($active ? theme.swiperCoin.activeFont : theme.swiperCoin.font)};
     display: flex;
     font-weight: 500;
+
+    .name {
+        @media(max-width: 576px) {
+            display: none;
+        }
+    }
 `
 
 export const StyledCurrencyPriceWrapper = styled.div`
@@ -37,10 +43,4 @@ export const StyledSwiperCoins = styled.div<IStyledSwiperCoinsProps>`
         width: 32px;
         height: 32px;
     }
-
-    /* &:hover {
-        cursor: pointer;
-        border: ${({ theme }) => (theme.swiperCoin.activeBackground)};
-        box-shadow: ${({ theme }) => (theme.swiperCoin.boxShadow)};
-    } */
 `                                                                                                                                                                                                       

@@ -8,7 +8,6 @@ interface IStyledLogoProps {
 export const StyledLogo = styled(NavLink)<IStyledLogoProps>`
     display: flex;
     align-items: center;
-    margin-right: ${({ marginRight }) => marginRight || '194px'};
 
     & > span {
         font-size: 21px;
@@ -17,6 +16,7 @@ export const StyledLogo = styled(NavLink)<IStyledLogoProps>`
 
         @media (max-width: 576px) {
             display: none;
+            
         }
     }
 
@@ -24,7 +24,7 @@ export const StyledLogo = styled(NavLink)<IStyledLogoProps>`
         object-fit: contain;
     }
 
-    @media(max-width: 992px) {
-        margin-right: 0;
+    @media(max-width: 576px) {
+        margin-right: 10px;
     }
 `;

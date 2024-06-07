@@ -1,4 +1,3 @@
-import { StyledCoinTableBody } from './StyledCoinTableBody';
 import { CoinTableRow } from './components/CoinTableRow';
 import { selectCoinList, selectCoinListLoading, selectPage } from 'store/slices/coinsSlice/coinsSlice';
 import { selectMarketData } from 'store/slices/coinsSlice/coinsSlice';
@@ -32,7 +31,7 @@ export const CoinTableBody = () => {
     );
     
     return (
-        <StyledCoinTableBody>
+        <tbody>
             {coins.map(({ id, name, symbol, image, current_price, price_change_percentage_1h_in_currency, price_change_percentage_24h_in_currency, price_change_percentage_7d_in_currency, market_cap_change_24h, market_cap, total_supply, circulating_supply, sparkline_in_7d, total_volume }, index) => (
                 <CoinTableRow
                     ref={index + 1 === coins.length ? lastElement : undefined}
@@ -53,6 +52,6 @@ export const CoinTableBody = () => {
                     total_supply={total_supply}
                 />
             ))}
-        </StyledCoinTableBody>
+        </tbody>
     );
 };
