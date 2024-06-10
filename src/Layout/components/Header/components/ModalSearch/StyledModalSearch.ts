@@ -8,7 +8,7 @@ export const StyledModalSearch = styled.div`
     right: 0;
     left: 0;
     z-index: 1000;
-    padding: 50px 50px 0;
+    /* padding: 50px 50px 0; */
 `
 
 export const StyledInputWrapper = styled.div`
