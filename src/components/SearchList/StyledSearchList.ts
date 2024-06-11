@@ -2,20 +2,22 @@ import styled from "styled-components";
 
 interface StyledModalSearchProps {
     maxHeight?: string;
-}
+    top?: string;
+    left?: string;
+};
 
 export const StyledSearchList = styled.div<StyledModalSearchProps>`
     position: absolute;
-    z-index: 150;
-    top: 50px;
-    left: 0;
+    z-index: 12000;
+    top: ${({ top }) => top || 'none'};
+    left: ${({ left }) => left || 'none'};
     flex-direction: column;
     width: 100%;
     background-color: ${({ theme }) => theme.currencyMenu.background};
     border-radius: 6px; 
     color: inherit;
-    max-height: 200px;
     overflow-y: auto;
+    height: 100%;
     max-height: ${({ maxHeight }) => maxHeight || '200px'};
 
     /* Scrollbar styles for WebKit browsers (Chrome, Safari) */

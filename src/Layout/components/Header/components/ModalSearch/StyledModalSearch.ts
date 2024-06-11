@@ -8,15 +8,17 @@ export const StyledModalSearch = styled.div`
     right: 0;
     left: 0;
     z-index: 1000;
-    /* padding: 50px 50px 0; */
+    background-color: ${({ theme }) => theme.formBackgroundColor};
+    padding: 20px 50px;
 `
 
 export const StyledInputWrapper = styled.div`
     display: flex;
     align-items: center;
-    background: ${({ theme }) => theme.formBackgroundColor};
+    justify-content: space-between;
     border: 1px solid ${({ theme }) => theme.formBorderColor};
     transition: 0.5s ease;
+    padding: 16px;    
 
     &:hover {
         background-color: ${({ theme }) => theme.buttonActiveColor};

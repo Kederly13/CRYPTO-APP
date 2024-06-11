@@ -1,14 +1,21 @@
-import { ChangeEvent, useState } from 'react';
+import { ChangeEvent, useState, FC } from 'react';
 
 import { useAppSelector } from 'hooks/reduxHooks';
+
 
 import { selectCoinList } from 'store/slices/coinsSlice/coinsSlice';
 
 import { SearchList } from 'components/SearchList';
+import { Button } from 'components/Button';
+import { Portal } from 'components/Portal/Portal';
 
 import { StyledModalSearch, StyledSearchIcon, StyledInput, StyledInputWrapper } from './StyledModalSearch';
 
-export const ModalSearch = () => {
+interface IModalSearch {
+    closeModal: () => void
+};
+
+export const ModalSearch: FC<IModalSearch> = ({ closeModal }) => {
     const [value, setValue] = useState<string>('');
     
     const coinsList = useAppSelector(selectCoinList);
@@ -20,19 +27,28 @@ export const ModalSearch = () => {
     };
 
     return (
-        <StyledModalSearch>
-            <StyledInputWrapper>
-                <StyledSearchIcon />
-                <StyledInput
-                    value={value}
-                    onChange={handleChange}
+        <Portal>
+            <StyledModalSearch>
+                <StyledInputWrapper>
+                    <StyledSearchIcon />
+                    <StyledInput
+                        value={value}
+                        onChange={handleChange}
+                    />
+                    <Button
+                        type='button'
+                        children='close'
+                        onClick={closeModal}
+                    />
+                </StyledInputWrapper>
+                <SearchList
+                    maxHeight='100%'
+                    isLink={true}
+                    coins={coinsList}
+                    searchQuery={value}
+                    
                 />
-            </StyledInputWrapper>
-            <SearchList
-                maxHeight='100vh'
-                isLink={true}
-                coins={coinsList} 
-            />
-        </StyledModalSearch>
+            </StyledModalSearch>
+        </Portal>
     )
 };

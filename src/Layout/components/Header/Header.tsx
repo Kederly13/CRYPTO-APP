@@ -18,12 +18,15 @@ export const Header = () => {
 
     const handleSearchButtonClick = () => {
         setActiveMenu(!activeMenu);
+        console.log(activeMenu)
     };
 
     return (
         <StyledHeader>
             {activeMenu && (
-                <ModalSearch />
+                <ModalSearch
+                    closeModal={handleSearchButtonClick} 
+                />
             )}
             <HeaderTop />
             <Container>

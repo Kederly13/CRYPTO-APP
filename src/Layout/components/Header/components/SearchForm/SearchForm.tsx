@@ -42,7 +42,8 @@ export const SearchForm: React.FC = () => {
                     isLink={true}
                     coins={coinsList}
                     searchQuery={searchQuery}
-                    handleActiveMenu={handleActiveMenu} 
+                    handleActiveMenu={handleActiveMenu}
+                    top='50px' 
                 />
             )}
         </StyledSearchForm>

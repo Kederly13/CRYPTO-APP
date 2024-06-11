@@ -1,4 +1,6 @@
 import { FC } from 'react';
+import { MEDIA_SIZES } from 'constants/mediaSizes';
+
 import { useTheme } from 'styled-components';
 
 import { Bar } from 'react-chartjs-2';

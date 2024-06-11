@@ -15,9 +15,11 @@ interface SearchListProps {
     handleActiveMenu?: () => void;
     isLink: boolean;
     maxHeight?: string;
+    top?: string;
+    left?: string;
 };
 
-export const SearchList: FC<SearchListProps> = ({ coins, isLink, searchQuery, handleActiveMenu, maxHeight  }) => {
+export const SearchList: FC<SearchListProps> = ({ coins, isLink, searchQuery, handleActiveMenu, maxHeight, top, left  }) => {
     const coinsNames = coins.map(coin => coin.id);
     const ref = useRef<HTMLLIElement>(null);
     let filteredCoins: string[] = [];
@@ -30,12 +32,10 @@ export const SearchList: FC<SearchListProps> = ({ coins, isLink, searchQuery, ha
 
     useOutsideClick(ref, handleActiveMenu || (() => {}));
 
-    
-
     const coinsToRender = filteredCoins.length > 0 ? filteredCoins : coinsNames;
 
     return (
-        <StyledSearchList maxHeight={maxHeight}>
+        <StyledSearchList maxHeight={maxHeight} top={top} left={left}>
             {coinsToRender.map((coin) => (
                 <StyledSearchListItem key={coin} ref={ref}>
                     {isLink ? (
