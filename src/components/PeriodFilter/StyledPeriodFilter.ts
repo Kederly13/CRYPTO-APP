@@ -31,7 +31,6 @@ export const StyledPeriodTab = styled.ul<IStyledPeriodTabProps>`
         }   
 
         > button {
-           
            width: 100%;
            height: 100%;
            padding: 8px 20px;

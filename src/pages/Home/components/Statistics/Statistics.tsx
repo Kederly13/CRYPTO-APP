@@ -98,37 +98,36 @@ export const Statistics = () => {
                 </StyledSpinnerWrapper>
                 
             ) : (
-                <>
-                    <CurrencySwiper
-                        coinsDetails={lastCoins}
-                    />
-                    <StyledCharts>
-                        <ChartBox 
-                            headline={coinFirst ? `${coinFirst.name} (${coinFirst.symbol})` : ''} 
-                            number={coinFirst ? symbol + String(coinFirst.current_price) : ''}
-                        >
-                            <LineChart
-                                firstCoinData={coinsHistoryFirst ? getConvertedDates(coinsHistory[coinsHistoryFirst].prices): []}
-                                coinFirst={coinsHistoryFirst}
-                                secondCoinData={coinsHistorySecond ? getConvertedDates(coinsHistory[coinsHistorySecond].prices) : []}
-                                coinSecond={coinsHistorySecond} 
-                            />
-                        </ChartBox>
-                        <ChartBox 
-                            headline={'Volume'} 
-                            number={todayString}
-                        >
-                            <BarChart
-                                firstCoinData={coinsHistoryFirst ? getConvertedDates(coinsHistory[coinsHistoryFirst].prices): []}
-                                coinFirst={coinsHistoryFirst}
-                                secondCoinData={coinsHistorySecond ? getConvertedDates(coinsHistory[coinsHistorySecond].prices) : []}
-                                coinSecond={coinsHistorySecond}
-                            />
-                        </ChartBox>
-                    </StyledCharts>
-                </>
-            )}
-
+                    <>
+                        <CurrencySwiper
+                            coinsDetails={lastCoins}
+                        />
+                        <StyledCharts>
+                            <ChartBox 
+                                headline={coinFirst ? `${coinFirst.name} (${coinFirst.symbol})` : ''} 
+                                number={coinFirst ? symbol + String(coinFirst.current_price) : ''}
+                            >
+                                <LineChart
+                                    firstCoinData={coinsHistoryFirst ? getConvertedDates(coinsHistory[coinsHistoryFirst].prices): []}
+                                    coinFirst={coinsHistoryFirst}
+                                    secondCoinData={coinsHistorySecond ? getConvertedDates(coinsHistory[coinsHistorySecond].prices) : []}
+                                    coinSecond={coinsHistorySecond} 
+                                />
+                            </ChartBox>
+                            <ChartBox 
+                                headline={'Volume'} 
+                                number={todayString}
+                            >
+                                <BarChart
+                                    firstCoinData={coinsHistoryFirst ? getConvertedDates(coinsHistory[coinsHistoryFirst].prices): []}
+                                    coinFirst={coinsHistoryFirst}
+                                    secondCoinData={coinsHistorySecond ? getConvertedDates(coinsHistory[coinsHistorySecond].prices) : []}
+                                    coinSecond={coinsHistorySecond}
+                                />
+                            </ChartBox>
+                        </StyledCharts>
+                    </>
+                )}
             <PeriodFilter />
         </StyledStatistics>
     );
