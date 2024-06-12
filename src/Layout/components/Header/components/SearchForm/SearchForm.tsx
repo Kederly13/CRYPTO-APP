@@ -18,6 +18,7 @@ export const SearchForm: React.FC = () => {
 
     const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
         const { value } = e.target;
+
         setActiveMenu(true);
         setSearchQuery(value);
     };
@@ -29,7 +30,7 @@ export const SearchForm: React.FC = () => {
     return (
         <StyledSearchForm>
             <div>
-            <StyledSearchIcon />
+                <StyledSearchIcon />
                 <Input
                     type='search'
                     placeholder='Search...'
@@ -43,7 +44,8 @@ export const SearchForm: React.FC = () => {
                     coins={coinsList}
                     searchQuery={searchQuery}
                     handleActiveMenu={handleActiveMenu}
-                    top='50px' 
+                    top='50px'
+                    maxHeight='300px' 
                 />
             )}
         </StyledSearchForm>

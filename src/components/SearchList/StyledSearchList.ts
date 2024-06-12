@@ -18,7 +18,7 @@ export const StyledSearchList = styled.div<StyledModalSearchProps>`
     color: inherit;
     overflow-y: auto;
     height: 100%;
-    max-height: ${({ maxHeight }) => maxHeight || '200px'};
+    max-height: ${({ maxHeight }) => maxHeight || '500px'};
 
     /* Scrollbar styles for WebKit browsers (Chrome, Safari) */
     &::-webkit-scrollbar {

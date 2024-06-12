@@ -10,16 +10,16 @@ export const StyledPeriodTab = styled.ul<IStyledPeriodTabProps>`
     justify-content: space-between;
     background-color: ${({ theme }) => theme.periodFilter.background};
     border-radius: 6px;
-    margin-top: 56px;
+    margin: 56px 0 72px;
 
     @media(max-width: 1400px) {
-            margin-top: 20px; 
-        }
-    
+        margin: 20px 0; 
+    }
 
     & > li {
         border: 1px solid transparent;
         color: ${({ theme }) => theme.periodFilter.font}; 
+
         &.selected, &:hover {
             background-color: ${({ theme }) => theme.periodFilter.selectedBackground};
             border-color: ${({ theme }) => theme.periodFilter.borderColor};

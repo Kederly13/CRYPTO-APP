@@ -30,3 +30,8 @@ export const StyledCharts = styled.div`
         }
     }
 `
+
+export const StyledSpinnerWrapper = styled.div`
+    max-width: 150px;
+    margin: 0 auto;
+`
