@@ -10,10 +10,6 @@ import { Price7dCol } from './components/Price7dCol';
 import { TableProgressBar } from 'components/TableProgresBar';
 import { Sparkline } from './components/SparkLine';
 
-import { useResize } from 'hooks/useResize';
-
-import { MEDIA_SIZES } from 'constants/mediaSizes';
-
 import { TCoinTableRow } from '../../types';
 
 export const CoinTableRow: FC<TCoinTableRow> = forwardRef(({
@@ -31,7 +27,6 @@ export const CoinTableRow: FC<TCoinTableRow> = forwardRef(({
     price,
     total_volume
 }, ref: Ref<HTMLTableRowElement>) => {
-    const { width } = useResize();
 
     return (
         <StyledCoinTableRow ref={ref}>
@@ -46,7 +41,7 @@ export const CoinTableRow: FC<TCoinTableRow> = forwardRef(({
             <CoinPriceCol
                 current_price={+current_price.toFixed(2)}
             />
-            {width > MEDIA_SIZES.SM && (
+            
                 <>
                     <Price1hCol
                         price_change_percentage_1h_in_currency={price_change_percentage_1h_in_currency}
@@ -58,8 +53,8 @@ export const CoinTableRow: FC<TCoinTableRow> = forwardRef(({
                         price_change_percentage_7d_in_currency={price_change_percentage_7d_in_currency} 
                     />
                 </>
-            )}
-            {width > MEDIA_SIZES.XL && (
+            
+            
                 <>
                     <td>
                         <TableProgressBar
@@ -74,14 +69,14 @@ export const CoinTableRow: FC<TCoinTableRow> = forwardRef(({
                         />
                     </td>
                 </>
-            )}
-            {width > MEDIA_SIZES.MD && (
+            
+            
             <td>
                 <Sparkline
                     price={price}
                 />
             </td>
-            )}
+           
         </StyledCoinTableRow>
     )
 });

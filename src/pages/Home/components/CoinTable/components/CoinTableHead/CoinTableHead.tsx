@@ -1,7 +1,3 @@
-import { useResize } from 'hooks/useResize';
-
-import { MEDIA_SIZES } from 'constants/mediaSizes';
-
 import {  
     StyledCoinTableHead, 
     StyledCoinTableHeaderRow,
@@ -13,34 +9,29 @@ import {
     StyledHead7d,
     StyledHeadMCap,
     StyledHeadSupply,
-    StyledHeadChart
+    StyledHeadChart,
  } from './StyledCoinTableHead';
 
 export const CoinTableHead = () => {
-
-    const { width } = useResize();
     return (
         <StyledCoinTableHead>
             <StyledCoinTableHeaderRow>
                     <StyledHeadNum><span>#</span></StyledHeadNum>
                     <StyledHeadName><span>Name</span></StyledHeadName>
                     <StyledHeadPrice><span>Price</span></StyledHeadPrice>
-                    {width > MEDIA_SIZES.SM && (
                         <>
                             <StyledHead1h><span>1h%</span></StyledHead1h>
                             <StyledHead24h><span>24h%</span></StyledHead24h>
                             <StyledHead7d><span>7d%</span></StyledHead7d>
                         </>
-                    )}
-                    {width > MEDIA_SIZES.XL && (
+
                         <>
                             <StyledHeadMCap><span>24h volume / Market Cap</span></StyledHeadMCap>
                             <StyledHeadSupply><span>Circulating / Total supply</span></StyledHeadSupply>
                         </>
-                    )}
-                    {width > MEDIA_SIZES.MD && (
+
                         <StyledHeadChart><span>Last 7d</span></StyledHeadChart>
-                    )}
+
             </StyledCoinTableHeaderRow>
     </StyledCoinTableHead>
     )

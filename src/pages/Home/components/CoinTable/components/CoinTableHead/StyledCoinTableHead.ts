@@ -1,6 +1,11 @@
 import styled from 'styled-components';
 
 export const StyledCoinTableHead = styled.thead`
+    /* position: sticky;
+    z-index: 25;
+    top: 260px; */
+    
+
     & > tr {
         & > th {
             padding: 20px 10px;

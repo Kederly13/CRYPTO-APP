@@ -1,9 +1,14 @@
 import styled from 'styled-components';
 
+
 export const StyledCoinHeading = styled.h3`
     font-size: 14px;
     color: ${({ theme }) => theme.convertorDateTime.color};
     margin-bottom: 40px;
+
+    @media(max-width: 1200px) {
+        margin-bottom: 20px;
+    }
 `
 
 export const StyledConvertorCoin =  styled.div`

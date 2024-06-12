@@ -6,9 +6,14 @@ import "react-datepicker/dist/react-datepicker.css";
 export const StyledPurchaseWindow = styled.div`
     padding: 48px;
     background-color: ${({ theme }) => theme.portfolio.backgroundSecondary};
-    width: 886px;
+    width: 100%;
     border-radius: 20px;
-    // max-width: doesn't work
+    max-width: 886px;
+    margin: 0 auto;
+
+    @media(max-width: 992px) {
+        padding: 25px;
+    }
 `
 
 export const StyledInputContainer = styled.div`
@@ -38,6 +43,14 @@ export const StyledPurchaseTitle = styled.h3`
     font-weight: 500;
     font-size: 20px;
     margin-bottom: 37px;
+
+    @media(max-width: 992px) {
+        margin-bottom: 15px;
+    };
+
+    @media(max-width: 768px) {
+        margin: 20px auto;
+    }
 `
 
 export const StyledLogoWrapper = styled.div`
@@ -48,8 +61,11 @@ export const StyledLogoWrapper = styled.div`
     background-color: ${({ theme }) => theme.purchaseCoin.backgroundSecondary};
     max-width: 258px;
     width: 100%;
-    
 
+    @media(max-width: 768px) {
+        display: none;
+    }
+    
     & > img {
         margin-bottom: 12px;
         width: 32px;
@@ -73,11 +89,35 @@ export const StyledPurchaseForm = styled.form`
     width: 100%;
     margin-left: 32px;
 
+    @media(max-width: 768px) {
+        margin-left: 0;
+    }
+
     .btns {
         display: flex;
         justify-content: space-between;
         align-items: center;
         margin-top: 32px;
+
+        @media(max-width: 992px) {
+            flex-direction: column;
+            margin-top: 16px;
+
+            & > button {
+                margin-bottom: 16px;
+                max-width: 100%; 
+
+                @media(max-width: 768px) {
+                    font-size: 12px;
+                }
+            }
+
+            & > button:last-child {
+                margin-bottom: 0;
+            }   
+        }
+
+        
     }
 `
 
@@ -85,6 +125,10 @@ export const StyledPurchaseInput = styled.input`
     width: 100%;
     color: ${({ theme }) => theme.purchaseCoin.fontSecondary};
     font-size: 16px;
+
+    @media(max-width: 768px) {
+        font-size: 12px;
+    }
 `
 
 export const StyledDatePicker = styled(DatePicker)`
@@ -94,8 +138,11 @@ export const StyledDatePicker = styled(DatePicker)`
     font-size: 16px;
     padding: 8px;
 
-
     & > input {
         width: 100%;
+    }
+
+    @media(max-width: 768px) {
+        font-size: 12px;
     }
 `

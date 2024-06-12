@@ -36,6 +36,7 @@ export const ModalSearch: FC<IModalSearch> = ({ closeModal }) => {
                         onChange={handleChange}
                     />
                     <Button
+                        margin=''
                         type='button'
                         children='close'
                         onClick={closeModal}

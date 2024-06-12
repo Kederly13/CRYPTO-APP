@@ -2,6 +2,10 @@ import { FC } from 'react';
 import { StyledLine } from './StyledLineChart';
 import { useTheme } from 'styled-components';
 
+import { useResize } from 'hooks/useResize';
+
+import { MEDIA_SIZES } from 'constants/mediaSizes';
+
 import {
     Chart as ChartJS,
     BarElement,
@@ -16,11 +20,10 @@ import {
 ChartJS.register(
     BarElement,
     CategoryScale,
-    LinearScale,
+    LinearScale,    
     PointElement,
     LineElement,
     Tooltip,
-
 );
    
 interface ILineChartProps {
@@ -32,7 +35,7 @@ interface ILineChartProps {
 
 export const LineChart: FC<ILineChartProps> = ({ firstCoinData, secondCoinData, coinFirst, coinSecond }) => {
     const theme = useTheme();
-
+    const { width } = useResize();
     const data = {
         labels: firstCoinData.map(item => item[0]),
         datasets: [
@@ -86,19 +89,16 @@ export const LineChart: FC<ILineChartProps> = ({ firstCoinData, secondCoinData, 
         },    
         plugins: {
             legend: {
+                display: width >= MEDIA_SIZES.SM && secondCoinData && secondCoinData.length > 1,
                 position: 'bottom' as const,
-                display: secondCoinData && secondCoinData?.length > 1 ? true : false,
                 labels: {
-                    boxWidth: 24, 
-                    boxHeight: 23, 
+                    boxWidth: 24,
+                    boxHeight: 23,
                     color: '#7878FF',
-                    font: {
-                        size: 20 
-                    },
+                    font: { size: 20 },
                     borderRadius: 0,
-                }
-                
-            }
+                },
+            },
         }
     };
 

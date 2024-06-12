@@ -2,13 +2,11 @@ import { useState, useEffect } from 'react';
 
 import { Button } from 'components/Button';
 import { Section } from 'components/Section';
-import { AllCoinsApi } from 'api/AllCoinsApi';
 import { PortfolioCoin } from './components/PortfolioCoin';
 import { Modal } from 'components/Modal';
 import { PurchaseWindow } from './components/PurchaseWindow';
 
 import { useSelectedObjSearchParams } from 'hooks/useSelectedSearchParams';
-import { useActions } from 'hooks/useActions';
 import { useAppSelector } from 'hooks/reduxHooks';
 
 import { selectHistoricalData, removePortfolioCoin, selectCoinList } from 'store/slices/coinsSlice/coinsSlice';
@@ -23,10 +21,6 @@ const PortfolioPage = () => {
 
     const { objSearchParams, onSetObjSearchParams } = useSelectedObjSearchParams();
     const historicalData = useAppSelector(selectHistoricalData);
-
-    const { fetchHistoricalData, } = useActions();
-
-    const { currency } = objSearchParams;
 
     useEffect(() => {
         onSetObjSearchParams({
@@ -47,10 +41,9 @@ const PortfolioPage = () => {
                     <StyledPortfolioTitle>
                         Portfolio
                     </StyledPortfolioTitle>
-                    <StyledPorfolioBtns>
-                        <Button type='button' $maxWidth='300px'>Investment Calculator</Button>
+
                         <Button type='button' onClick={() => setIsOpen(true)} $maxWidth='300px'>Add Assets</Button>
-                    </StyledPorfolioBtns>
+
                 </StyledPortfolioHeader>
                 <>
                     {historicalData ? (
@@ -61,7 +54,7 @@ const PortfolioPage = () => {
                             />
                         ))
                     ) : (
-                        ''
+                        'You have no selected coins'
                     )}
                 </>
             </StyledPortfolio>

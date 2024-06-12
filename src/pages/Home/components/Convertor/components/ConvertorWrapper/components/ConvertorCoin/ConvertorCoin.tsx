@@ -5,8 +5,12 @@ import { ICoin } from 'types/coinType';
 import { currencyData } from 'Layout/components/Header/components/Currency/components/CurrencyMenu/currencyData';
 import { ConvertorInput } from '../ConvertorInput';
 
+import { MEDIA_SIZES } from 'constants/mediaSizes';
+
 import { ConvertorMenu } from './components/ConvertorMenu';
+
 import { useSelectedObjSearchParams } from 'hooks/useSelectedSearchParams';
+import { useResize } from 'hooks/useResize';
 
 import { ReactComponent as Arrow } from 'assets/svg/arrow.svg';
 
@@ -32,6 +36,8 @@ export const ConvertorCoin: FC<IConvertorCoin> = ({
         selectedCoin,
         index
 }) => {
+    const { width } = useResize();
+
     const [isActiveMenu, setActiveMenu] = useState(false);
 
     const { objSearchParams } = useSelectedObjSearchParams();
@@ -55,7 +61,9 @@ export const ConvertorCoin: FC<IConvertorCoin> = ({
                         handleActiveMenu()
                 }}>
                     <img src={selectedCoin?.image} alt={selectedCoin?.id} />
-                    <StyledCoinName>{selectedCoin?.id}</StyledCoinName>
+                    {width > MEDIA_SIZES.MD && (
+                        <StyledCoinName>{selectedCoin?.id}</StyledCoinName>
+                    )}
                     <StyledCoinSymbol>({selectedCoin?.symbol?.toUpperCase()})</StyledCoinSymbol>
                     <Arrow />
                 </StyledCoin>

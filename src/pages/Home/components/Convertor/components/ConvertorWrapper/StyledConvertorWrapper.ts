@@ -22,7 +22,8 @@ export const StyledConvertorWrapper = styled.div`
         margin-bottom: 72px;
 
         @media(max-width: 1400px) {
-                flex-direction: column; 
+                flex-direction: column;
+                margin-bottom: 20px; 
         }
 `
 
@@ -38,5 +39,9 @@ export const StyledSwithcWrapper = styled.button`
         margin: 0 -12px;
         position: relative;
         z-index: 2;
+
+        @media(max-width: 1400px) {
+                margin: -12px 0; 
+        }
        
 `

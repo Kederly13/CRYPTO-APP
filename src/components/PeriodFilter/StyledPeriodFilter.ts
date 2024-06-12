@@ -11,6 +11,10 @@ export const StyledPeriodTab = styled.ul<IStyledPeriodTabProps>`
     background-color: ${({ theme }) => theme.periodFilter.background};
     border-radius: 6px;
     margin-top: 56px;
+
+    @media(max-width: 1400px) {
+            margin-top: 20px; 
+        }
     
 
     & > li {

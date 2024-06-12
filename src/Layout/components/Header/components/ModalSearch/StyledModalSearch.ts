@@ -15,7 +15,6 @@ export const StyledModalSearch = styled.div`
 export const StyledInputWrapper = styled.div`
     display: flex;
     align-items: center;
-    justify-content: space-between;
     border: 1px solid ${({ theme }) => theme.formBorderColor};
     transition: 0.5s ease;
     padding: 16px;    

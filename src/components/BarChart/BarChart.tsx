@@ -1,6 +1,8 @@
 import { FC } from 'react';
 import { MEDIA_SIZES } from 'constants/mediaSizes';
 
+import { useResize } from 'hooks/useResize';
+
 import { useTheme } from 'styled-components';
 
 import { Bar } from 'react-chartjs-2';
@@ -31,6 +33,7 @@ interface IBarChartProps {
 };
 
 export const BarChart: FC<IBarChartProps> = ({ firstCoinData, secondCoinData, coinFirst, coinSecond }) => {
+    const { width } = useResize();
     const theme = useTheme();
     const data = {
         labels: firstCoinData.map(item => item[0]),
@@ -94,22 +97,19 @@ export const BarChart: FC<IBarChartProps> = ({ firstCoinData, secondCoinData, co
             }
         },
         plugins: {
-            legend: {
-                position: 'bottom' as const,
-                display: secondCoinData && secondCoinData?.length > 1 ? true : false,
-                labels: {
-                    boxWidth: 24, 
-                    boxHeight: 23, 
-                    color: '#7878FF',
-                    font: {
-                        size: 20 
-                    },
-                    borderRadius: 0,
-                }
-            }
+          legend: {
+            display: width >= MEDIA_SIZES.SM && secondCoinData && secondCoinData.length > 1,
+            position: 'bottom' as const,
+            labels: {
+                boxWidth: 24,
+                boxHeight: 23,
+                color: '#7878FF',
+                font: { size: 20 },
+                borderRadius: 0,
+            },
+        },
         }
     };
-
     return (
         <Bar 
             options={options} 
