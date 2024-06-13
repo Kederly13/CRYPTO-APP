@@ -1,6 +1,6 @@
 import { Ref } from 'react';
 
-import { ICoin } from 'types/coinType';
+
 
 export interface ICoinNameProps {
     name: string,

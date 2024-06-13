@@ -64,7 +64,8 @@ export const BarChart: FC<IBarChartProps> = ({ firstCoinData, secondCoinData, co
         scales: {
             x: {
               ticks: {
-                maxTicksLimit: 12
+                maxTicksLimit: 8,
+                    maxRotation: 0, 
               },
               grid: {
                 display: false,

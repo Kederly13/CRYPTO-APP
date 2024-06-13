@@ -1,13 +1,19 @@
+import { FC } from 'react';
+
 import { CoinTableRow } from './components/CoinTableRow';
-import { selectCoinList, selectCoinListLoading, selectPage } from 'store/slices/coinsSlice/coinsSlice';
+import { selectCoinListLoading, selectPage } from 'store/slices/coinsSlice/coinsSlice';
 import { selectMarketData } from 'store/slices/coinsSlice/coinsSlice';
 import { useActions } from 'hooks/useActions';
 
 import { useAppSelector } from 'hooks/reduxHooks';
+import { ICoin } from 'types/coinType';
 import { useScrollPagination } from 'hooks/useScrollPagination';
 
-export const CoinTableBody = () => {
-    const coins = useAppSelector(selectCoinList);
+interface ICoins {
+    coins: ICoin[]
+};
+
+export const CoinTableBody: FC<ICoins> = ({ coins }) => {
     const loading = useAppSelector(selectCoinListLoading);
     const marketData = useAppSelector(selectMarketData);
     const page = useAppSelector(selectPage);
@@ -32,24 +38,12 @@ export const CoinTableBody = () => {
     
     return (
         <tbody>
-            {coins.map(({ id, name, symbol, image, current_price, price_change_percentage_1h_in_currency, price_change_percentage_24h_in_currency, price_change_percentage_7d_in_currency, market_cap_change_24h, market_cap, total_supply, circulating_supply, sparkline_in_7d, total_volume }, index) => (
+            {coins.map((coin, index) => (
                 <CoinTableRow
                     ref={index + 1 === coins.length ? lastElement : undefined}
-                    key={id}
+                    key={coin.id}
                     number={index}
-                    image={image}
-                    name={name}
-                    symbol={symbol}
-                    current_price={current_price}
-                    price_change_percentage_1h_in_currency={price_change_percentage_1h_in_currency}
-                    price_change_percentage_24h_in_currency={price_change_percentage_24h_in_currency}
-                    price_change_percentage_7d_in_currency={price_change_percentage_7d_in_currency}
-                    market_cap_change_24h={market_cap_change_24h}
-                    market_cap={market_cap}
-                    circulating_supply={circulating_supply}
-                    total_volume={total_volume}
-                    price={sparkline_in_7d.price}
-                    total_supply={total_supply}
+                    coin={coin}
                 />
             ))}
         </tbody>

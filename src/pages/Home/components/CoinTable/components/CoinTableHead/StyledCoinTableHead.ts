@@ -24,39 +24,11 @@ export const StyledCoinTableHeaderRow = styled.tr`
     }
 `
 
-export const StyledHeadNum = styled.th`
-    /* width: 20px; */
-`
+export const StyledHeadButton = styled.button`
+    color: white;
+    background-color: transparent;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+`;
 
-export const StyledHeadName = styled.th`
-
-    /* width: 208px; */
-`
-
-export const StyledHeadPrice = styled.th`
-    /* width: 80px; */
-`
-
-export const StyledHead1h = styled.th`
-    /* width: 72px; */
-`
-
-export const StyledHead24h = styled.th`
-    /* width: 72px; */
-`
-
-export const StyledHead7d = styled.th`
-    /* width: 72px; */
-`
-
-export const StyledHeadMCap = styled.th`
-    /* width: 228px; */
-`
-
-export const StyledHeadSupply = styled.th`
-    /* width: 228px; */
-`
-
-export const StyledHeadChart = styled.th`
-    /* width: 120px; */
-`

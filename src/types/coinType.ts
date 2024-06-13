@@ -30,3 +30,7 @@ export interface ICoin {
     total_supply: number;
     total_volume: number;
 }
+
+export interface ICoinObj {
+    coin: ICoin
+};

@@ -10,23 +10,28 @@ import { Price7dCol } from './components/Price7dCol';
 import { TableProgressBar } from 'components/TableProgresBar';
 import { Sparkline } from './components/SparkLine';
 
-import { TCoinTableRow } from '../../types';
+import { ICoin } from 'types/coinType';
 
-export const CoinTableRow: FC<TCoinTableRow> = forwardRef(({
-    name,
-    image,
-    symbol,
-    number,
-    current_price,
-    price_change_percentage_1h_in_currency,
-    price_change_percentage_24h_in_currency,
-    price_change_percentage_7d_in_currency,
-    market_cap,
-    total_supply,
-    circulating_supply,
-    price,
-    total_volume
-}, ref: Ref<HTMLTableRowElement>) => {
+interface ICoinInfo {
+    coin: ICoin;
+    number: number;
+};
+
+export const CoinTableRow: FC<ICoinInfo & { ref?: Ref<HTMLTableRowElement> }> = forwardRef(({ coin, number }, ref) => {
+    const {
+        name,
+        image,
+        symbol,
+        current_price,
+        price_change_percentage_1h_in_currency,
+        price_change_percentage_24h_in_currency,
+        price_change_percentage_7d_in_currency,
+        total_volume,
+        market_cap,
+        circulating_supply,
+        total_supply,
+        sparkline_in_7d
+    } = coin;
 
     return (
         <StyledCoinTableRow ref={ref}>
@@ -41,42 +46,32 @@ export const CoinTableRow: FC<TCoinTableRow> = forwardRef(({
             <CoinPriceCol
                 current_price={+current_price.toFixed(2)}
             />
-            
-                <>
-                    <Price1hCol
-                        price_change_percentage_1h_in_currency={price_change_percentage_1h_in_currency}
-                     />
-                    <Price24hCol
-                        price_change_percentage_24h_in_currency={price_change_percentage_24h_in_currency}
-                    />
-                    <Price7dCol
-                        price_change_percentage_7d_in_currency={price_change_percentage_7d_in_currency} 
-                    />
-                </>
-            
-            
-                <>
-                    <td>
-                        <TableProgressBar
-                            value={total_volume}
-                            max={market_cap}
-                        />
-                    </td>
-                    <td>
-                        <TableProgressBar
-                            value={circulating_supply}
-                            max={total_supply}
-                        />
-                    </td>
-                </>
-            
-            
+            <Price1hCol
+                price_change_percentage_1h_in_currency={price_change_percentage_1h_in_currency}
+                />
+            <Price24hCol
+                price_change_percentage_24h_in_currency={price_change_percentage_24h_in_currency}
+            />
+            <Price7dCol
+                price_change_percentage_7d_in_currency={price_change_percentage_7d_in_currency} 
+            />
             <td>
-                <Sparkline
-                    price={price}
+                <TableProgressBar
+                    value={total_volume}
+                    max={market_cap}
                 />
             </td>
-           
+            <td>
+                <TableProgressBar
+                    value={circulating_supply}
+                    max={total_supply}
+                />
+            </td>
+            <td>
+                <Sparkline
+                    price={sparkline_in_7d.price}
+                />
+            </td>
         </StyledCoinTableRow>
     )
 });

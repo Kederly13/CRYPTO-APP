@@ -67,12 +67,13 @@ export const LineChart: FC<ILineChartProps> = ({ firstCoinData, secondCoinData, 
         scales: {
             x: {
                 ticks: {
-                    maxTicksLimit: 12
+                    maxTicksLimit: 8,
+                    maxRotation: 0, 
                 },
-              grid: {
-                display: false,
-
-              },
+                grid: {
+                    display: false,
+                    drawTicks: false,
+                },
             },
             "y-axis-1": {
               display: false,
