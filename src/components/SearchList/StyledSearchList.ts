@@ -1,12 +1,10 @@
 import styled from "styled-components";
 
-interface StyledModalSearchProps {
-    maxHeight?: string;
-    top?: string;
-    left?: string;
-};
+import { IStyledListProps } from "./SearchList";
 
-export const StyledSearchList = styled.div<StyledModalSearchProps>`
+
+
+export const StyledSearchList = styled.ul<IStyledListProps>`
     position: absolute;
     z-index: 12000;
     top: ${({ top }) => top || 'none'};
@@ -18,7 +16,7 @@ export const StyledSearchList = styled.div<StyledModalSearchProps>`
     color: inherit;
     overflow-y: auto;
     height: 100%;
-    max-height: ${({ maxHeight }) => maxHeight || '500px'};
+    height: ${({ $height }) => $height || '500px'};
 
     /* Scrollbar styles for WebKit browsers (Chrome, Safari) */
     &::-webkit-scrollbar {

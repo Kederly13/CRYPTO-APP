@@ -171,6 +171,10 @@ export const themes = {
             color: 'rgba(255, 255, 255, 0.80)'
         },
 
+        tableHeader: {
+            color: '#D1D1D1'
+        },
+
         // Coin Page
 
         coinSummary: {
@@ -270,7 +274,7 @@ export const themes = {
         },
 
         currencyMenu: {
-            background: 'rgba(204, 204, 254, 0.40)',
+            background: 'rgba(204, 204, 254)',
             selected: 'rgba(97, 97, 222, 0.50)'
         },
 
@@ -306,6 +310,10 @@ export const themes = {
             background: '#FFF',
             headline: '#191934',
             number: '#181826'
+        },
+
+        tableHeader: {
+            color: '#42428B'
         },
 
         chartGradientPrimary: {

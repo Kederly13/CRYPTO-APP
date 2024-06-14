@@ -45,7 +45,7 @@ export const SearchForm: React.FC = () => {
                     searchQuery={searchQuery}
                     handleActiveMenu={handleActiveMenu}
                     top='50px'
-                    maxHeight='300px' 
+                    $height='300px' 
                 />
             )}
         </StyledSearchForm>

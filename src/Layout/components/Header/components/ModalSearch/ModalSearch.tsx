@@ -43,7 +43,7 @@ export const ModalSearch: FC<IModalSearch> = ({ closeModal }) => {
                     />
                 </StyledInputWrapper>
                 <SearchList
-                    maxHeight='100%'
+                    $height='100vh'
                     isLink={true}
                     coins={coinsList}
                     searchQuery={value}

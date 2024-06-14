@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { CoinTableBody } from './components/CoinTableBody';
 import { CoinTableHead } from './components/CoinTableHead';
 import { useAppSelector } from 'hooks/reduxHooks';
@@ -14,9 +14,13 @@ enum SortDirection {
 
 export const CoinTable = () => {
     const coins = useAppSelector(selectCoinList);
-    const [sortedCoins, setSortedCoins] = useState(coins);
+    const [sortedCoins, setSortedCoins] = useState<ICoin[]>(coins);
     const [sortConfig, setSortConfig] = useState<{ key: keyof ICoin, direction: SortDirection }>({ key: 'name', direction: SortDirection.Ascending });
+    console.log(coins);
+    console.log(sortedCoins);
     console.log(sortConfig)
+
+    
     const handleSort = (sortKey: keyof ICoin) => {
         let direction = SortDirection.Ascending;
 
@@ -36,11 +40,17 @@ export const CoinTable = () => {
         setSortedCoins(sorted);
     };
 
+    // useEffect(() => {
+    //     if (coins?.length) {
+    //         setSortedCoins(coins)
+    //     }
+    // }, [coins])
+
     return (
         <StyledTableContainer>
             <StyledCoinTable>
                 <CoinTableHead onSort={handleSort} sortConfig={sortConfig} />
-                <CoinTableBody coins={sortedCoins} />
+                <CoinTableBody coins={coins} />
             </StyledCoinTable>
         </StyledTableContainer>
     );

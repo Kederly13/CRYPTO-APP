@@ -55,13 +55,13 @@ export const CoinTableRow: FC<ICoinInfo & { ref?: Ref<HTMLTableRowElement> }> = 
             <Price7dCol
                 price_change_percentage_7d_in_currency={price_change_percentage_7d_in_currency} 
             />
-            <td>
+            <td className='bar'>
                 <TableProgressBar
                     value={total_volume}
                     max={market_cap}
                 />
             </td>
-            <td>
+            <td className='bar'>
                 <TableProgressBar
                     value={circulating_supply}
                     max={total_supply}

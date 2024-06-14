@@ -1,9 +1,9 @@
 import styled from 'styled-components';
 
 export const StyledCoinTableHead = styled.thead`
-        /* position: sticky;
-        top: 0;
-        left: 0; */
+    position: sticky;
+    top: 0;
+    background-color: ${({ theme }) => theme.trow.background}; 
 
     & > tr {
 
@@ -25,7 +25,7 @@ export const StyledCoinTableHeaderRow = styled.tr`
 `
 
 export const StyledHeadButton = styled.button`
-    color: white;
+    color: ${({ theme }) => theme.tableHeader.color};
     background-color: transparent;
     border: none;
     padding: 0;

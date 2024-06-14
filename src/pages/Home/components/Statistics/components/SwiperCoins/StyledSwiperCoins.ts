@@ -38,6 +38,7 @@ export const StyledSwiperCoins = styled.div<IStyledSwiperCoinsProps>`
     align-items: center;
     width: 100%;
     border-radius: 6px;
+    min-height: 94px;
 
     .currencyLogo {
         width: 32px;

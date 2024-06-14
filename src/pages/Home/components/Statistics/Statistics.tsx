@@ -27,7 +27,7 @@ import 'swiper/swiper-bundle.css';
 export type TCoinPrice = Array<Array<number>>;
 
 export const Statistics = () => {
-    const { fetchCoins, fetchCoinHistory } = useActions();
+    const { fetchCoins, fetchCoinHistory, onSetNulifyCoinsHistory } = useActions();
 
     const { objSearchParams, onSetObjSearchParams } = useSelectedObjSearchParams();
 
@@ -77,11 +77,12 @@ export const Statistics = () => {
         }
       }, [days, coin, currency, init]); // eslint-disable-line
 
-      const handleClick = () => {
+      const handleExit = () => {
         onSetObjSearchParams({
             ...objSearchParams,
             [SEARCH_PARAMS.COIN]: lastCoins[0].id
-        })
+        });
+        onSetNulifyCoinsHistory();
       };
       
     return (
@@ -90,13 +91,15 @@ export const Statistics = () => {
                 <h2>
                     Select the currency to view statistics
                 </h2>
-                <Button type='button' $padding='12px 24px' onClick={handleClick}>Exit comparison</Button>
+                {coinsHistoryKeys.length > 1 && (
+                    <Button type='button' $padding='12px 24px' onClick={handleExit}>Exit comparison</Button>
+                )}
+
             </StyledStatisticsHead>
             {coinsListLoading && coinsHistoryLoading ? (
                 <StyledSpinnerWrapper>
                     <Spinner />
                 </StyledSpinnerWrapper>
-                
             ) : (
                     <>
                         <CurrencySwiper

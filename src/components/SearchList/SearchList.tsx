@@ -9,17 +9,22 @@ import { ICoin } from 'types/coinType';
 
 import { StyledSearchList, StyledSearchListItem } from './StyledSearchList';
 
-interface SearchListProps {
+interface ISearchListDefaultProps {
     coins: ICoin[];
     searchQuery?: string,
     handleActiveMenu?: () => void;
     isLink: boolean;
-    maxHeight?: string;
+};
+
+export interface IStyledListProps {
+    $height: string;
     top?: string;
     left?: string;
 };
 
-export const SearchList: FC<SearchListProps> = ({ coins, isLink, searchQuery, handleActiveMenu, maxHeight, top, left  }) => {
+type ISearchKustProps = ISearchListDefaultProps & IStyledListProps
+
+export const SearchList: FC<ISearchKustProps> = ({ coins, isLink, searchQuery, handleActiveMenu, $height, top, left  }) => {
     const coinsNames = coins.map(coin => coin.id);
     const ref = useRef<HTMLLIElement>(null);
     let filteredCoins: string[] = [];
@@ -35,7 +40,7 @@ export const SearchList: FC<SearchListProps> = ({ coins, isLink, searchQuery, ha
     const coinsToRender = filteredCoins.length > 0 ? filteredCoins : coinsNames;
 
     return (
-        <StyledSearchList maxHeight={maxHeight} top={top} left={left}>
+        <StyledSearchList $height={$height} top={top} left={left}>
             {coinsToRender.map((coin) => (
                 <StyledSearchListItem key={coin} ref={ref}>
                     {isLink ? (

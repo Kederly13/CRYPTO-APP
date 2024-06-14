@@ -9,6 +9,7 @@ export const StyledChartBox = styled.div<IChartBoxProps>`
     max-width: ${({ $maxWidth }) => $maxWidth};
     max-height: ${({ $maxHeight }) => $maxHeight};;
     border-radius: 12px;
+    min-height: 351px;
 
     @media (max-width: 1400px) {
         margin: 0 auto;
@@ -17,6 +18,7 @@ export const StyledChartBox = styled.div<IChartBoxProps>`
     }
 
     @media (max-width: 600px) {
-        padding: 12px
+        padding: 12px;
+        min-height: 200px;
     }
 `;
