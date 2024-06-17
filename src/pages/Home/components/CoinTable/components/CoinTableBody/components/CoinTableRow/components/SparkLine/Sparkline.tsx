@@ -71,8 +71,8 @@ export const options = {
 };
 
 export const Sparkline: FC<ISparklineProps> = ({ price }) => {
-  const time = Array.from({ length: price.length }, (_, i) => i);
-  const isLoaded = price.length > 0;
+  const time = Array(price.length).fill(0).map((_, i) => i);
+  const dataPrice = price?.length ? [...price] : [];
   const chartData = {
     labels: time,
     datasets: [
@@ -80,7 +80,7 @@ export const Sparkline: FC<ISparklineProps> = ({ price }) => {
         fill: true,
         tension: 0.75,
         label: "$",
-        data: price,
+        data: dataPrice,
         borderColor: '#7878FF',
         borderWidth: 1.5,
         pointRadius: 0,
@@ -94,6 +94,7 @@ export const Sparkline: FC<ISparklineProps> = ({ price }) => {
       },
     ],
   };
+  
   return (
     <StyledSparklineWrapper>
         <Line options={options} data={chartData} width={120} height={37} />

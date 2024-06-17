@@ -1,6 +1,5 @@
 import styled from 'styled-components';
 import { IChartBoxProps } from './ChartBox';
-import { MEDIA_SIZES } from 'constants/mediaSizes';
 
 export const StyledChartBox = styled.div<IChartBoxProps>`
     background-color: ${({ theme }) => theme.chartBox.background};

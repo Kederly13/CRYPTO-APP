@@ -7,9 +7,6 @@ import { SearchList } from 'components/SearchList';
 import { useAppSelector } from 'hooks/reduxHooks';
 import { selectCoinList } from 'store/slices/coinsSlice/coinsSlice';
 
-import { ReactComponent as SearchIcon } from 'assets/svg/search.svg';
-// import {search as SearchIcon} frogdasdm './logo.svg';
-
 export const SearchForm: React.FC = () => {
     const coinsList = useAppSelector(selectCoinList)
     

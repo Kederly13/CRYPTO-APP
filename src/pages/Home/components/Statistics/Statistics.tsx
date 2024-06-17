@@ -96,7 +96,7 @@ export const Statistics = () => {
                 )}
 
             </StyledStatisticsHead>
-            {coinsListLoading && coinsHistoryLoading ? (
+            {coinsListLoading || coinsHistoryLoading ? (
                 <StyledSpinnerWrapper>
                     <Spinner />
                 </StyledSpinnerWrapper>

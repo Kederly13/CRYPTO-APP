@@ -14,7 +14,7 @@ import {
     PointElement,
     LineElement,
     Tooltip,
-
+    Filler
   } from 'chart.js';
 
 ChartJS.register(
@@ -24,6 +24,7 @@ ChartJS.register(
     PointElement,
     LineElement,
     Tooltip,
+    Filler
 );
    
 interface ILineChartProps {

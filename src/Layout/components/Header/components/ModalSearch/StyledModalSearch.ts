@@ -14,10 +14,16 @@ export const StyledModalSearch = styled.div`
 
 export const StyledInputWrapper = styled.div`
     display: flex;
+    justify-content: space-between;
     align-items: center;
     border: 1px solid ${({ theme }) => theme.formBorderColor};
     transition: 0.5s ease;
-    padding: 16px;    
+    padding: 16px;
+    
+    & > div {
+        display: flex;
+        align-items: center;
+    }
 
     &:hover {
         background-color: ${({ theme }) => theme.buttonActiveColor};

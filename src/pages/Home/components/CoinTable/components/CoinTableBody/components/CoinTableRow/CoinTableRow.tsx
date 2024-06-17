@@ -69,7 +69,7 @@ export const CoinTableRow: FC<ICoinInfo & { ref?: Ref<HTMLTableRowElement> }> = 
             </td>
             <td>
                 <Sparkline
-                    price={sparkline_in_7d.price}
+                    price={sparkline_in_7d?.price}
                 />
             </td>
         </StyledCoinTableRow>

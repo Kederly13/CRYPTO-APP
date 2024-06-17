@@ -30,11 +30,13 @@ export const ModalSearch: FC<IModalSearch> = ({ closeModal }) => {
         <Portal>
             <StyledModalSearch>
                 <StyledInputWrapper>
-                    <StyledSearchIcon />
-                    <StyledInput
-                        value={value}
-                        onChange={handleChange}
-                    />
+                    <div>
+                        <StyledSearchIcon />
+                        <StyledInput
+                            value={value}
+                            onChange={handleChange}
+                        />
+                    </div>
                     <Button
                         margin=''
                         type='button'
@@ -47,7 +49,6 @@ export const ModalSearch: FC<IModalSearch> = ({ closeModal }) => {
                     isLink={true}
                     coins={coinsList}
                     searchQuery={value}
-                    
                 />
             </StyledModalSearch>
         </Portal>

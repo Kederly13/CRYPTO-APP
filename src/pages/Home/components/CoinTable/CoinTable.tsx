@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { CoinTableBody } from './components/CoinTableBody';
 import { CoinTableHead } from './components/CoinTableHead';
 import { useAppSelector } from 'hooks/reduxHooks';
@@ -16,9 +16,9 @@ export const CoinTable = () => {
     const coins = useAppSelector(selectCoinList);
     const [sortedCoins, setSortedCoins] = useState<ICoin[]>(coins);
     const [sortConfig, setSortConfig] = useState<{ key: keyof ICoin, direction: SortDirection }>({ key: 'name', direction: SortDirection.Ascending });
-    console.log(coins);
-    console.log(sortedCoins);
-    console.log(sortConfig)
+    // console.log(coins);
+    // console.log(sortedCoins);
+    // console.log(sortConfig)
 
     
     const handleSort = (sortKey: keyof ICoin) => {

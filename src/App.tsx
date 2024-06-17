@@ -9,7 +9,6 @@ import PortfolioPage from 'pages/PortfolioPage/PortfolioPage';
 
 import { ConvertorSection } from 'pages/Home/components/Convertor';
 
-
 import './App.scss';
 import 'react-toastify/dist/ReactToastify.css';
 import { useActions } from 'hooks/useActions';

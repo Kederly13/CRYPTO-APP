@@ -250,7 +250,12 @@ const coins = createSliceWithThunks({
                 if (!state.coinList.lastCoins.length) {
                     state.coinList.lastCoins = action.payload;
                 }
-                state.coinList.data = [...state.coinList.data, ...action.payload];
+                if (state.coinList.data.length) {
+                    state.coinList.data = [...state.coinList.data, ...action.payload];
+                } else {
+                    state.coinList.data = action.payload;
+                }
+                
                 state.coinList.loading = false;
             })
             .addCase(fetchCoins.rejected, (state, action) => {
