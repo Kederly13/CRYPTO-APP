@@ -190,6 +190,9 @@ export const themes = {
             thumbHover: "#555555", 
         },
 
+        overlay: {
+            background: '#191926'
+        },
 
          // PORTFOLIO
 
@@ -231,7 +234,7 @@ export const themes = {
 
         //form
         formBackgroundColor: 'rgba(204, 204, 254, 0.40)',
-        formBorderColor: 'rgba(255, 255, 255, 0.05)',
+        formBorderColor: 'rgba(255, 255, 255)',
         formFontColor: '#42428B',
 
         //headerTop
@@ -393,6 +396,11 @@ export const themes = {
 
         coinSummary: {
             background: '#FFF'
+        },
+
+        // Overlay
+        overlay: {
+            background: 'rgba(204, 204, 254)'
         },
 
         // PORTFOLIO

@@ -35,7 +35,6 @@ export const Header = () => {
                     <NavList />   
                     <SearchForm />
                     <SearchButton handleClick={handleSearchButtonClick}/>
-                    
                     <Currency />
                     <ThemeBtn />
                 </Nav>

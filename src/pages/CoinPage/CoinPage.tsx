@@ -31,6 +31,7 @@ const CoinPage = () => {
 
     useEffect(() => {
         const controller = new AbortController();
+        
         if (id) {
             fetchCoinSummary({ coin: id, controller: controller });
         }

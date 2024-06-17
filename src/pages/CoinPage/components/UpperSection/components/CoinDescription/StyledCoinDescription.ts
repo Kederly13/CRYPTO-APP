@@ -3,6 +3,10 @@ import styled from 'styled-components';
 export const StyledCoinDescription = styled.div`
     max-width: 700px;
     margin-bottom: 24px;
+
+    @media (max-width: 1400px) {
+        max-width: 100%;
+    }
 `
 export const StyledDescriptionText = styled.p`
     color: ${({ theme }) => theme.primaryFont};

@@ -8,7 +8,7 @@ export const StyledModalSearch = styled.div`
     right: 0;
     left: 0;
     z-index: 1000;
-    background-color: ${({ theme }) => theme.formBackgroundColor};
+    background-color: ${({ theme }) => theme.overlay.background};
     padding: 20px 50px;
 `
 

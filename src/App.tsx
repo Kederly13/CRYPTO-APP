@@ -2,6 +2,8 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import { useEffect } from 'react';
 import { ToastContainer } from 'react-toastify';
 
+import { useActions } from 'hooks/useActions';
+
 import { Layout } from 'Layout';
 import Home from './pages/Home/Home'
 import CoinPage from 'pages/CoinPage/CoinPage';
@@ -11,7 +13,7 @@ import { ConvertorSection } from 'pages/Home/components/Convertor';
 
 import './App.scss';
 import 'react-toastify/dist/ReactToastify.css';
-import { useActions } from 'hooks/useActions';
+
 
 const App = () => {
   const { fetchInit } = useActions();

@@ -2,7 +2,6 @@ import { ChangeEvent, useState, FC } from 'react';
 
 import { useAppSelector } from 'hooks/reduxHooks';
 
-
 import { selectCoinList } from 'store/slices/coinsSlice/coinsSlice';
 
 import { SearchList } from 'components/SearchList';
@@ -35,6 +34,7 @@ export const ModalSearch: FC<IModalSearch> = ({ closeModal }) => {
                         <StyledInput
                             value={value}
                             onChange={handleChange}
+                            placeholder='Search'
                         />
                     </div>
                     <Button
@@ -49,6 +49,7 @@ export const ModalSearch: FC<IModalSearch> = ({ closeModal }) => {
                     isLink={true}
                     coins={coinsList}
                     searchQuery={value}
+                    closeWindow={closeModal}
                 />
             </StyledModalSearch>
         </Portal>

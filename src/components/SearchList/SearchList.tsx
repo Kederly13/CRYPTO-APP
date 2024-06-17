@@ -20,11 +20,12 @@ export interface IStyledListProps {
     $height: string;
     top?: string;
     left?: string;
+    closeWindow?: () => void;
 };
 
 type ISearchKustProps = ISearchListDefaultProps & IStyledListProps
 
-export const SearchList: FC<ISearchKustProps> = ({ coins, isLink, searchQuery, handleActiveMenu, $height, top, left  }) => {
+export const SearchList: FC<ISearchKustProps> = ({ coins, isLink, searchQuery, handleActiveMenu, $height, top, left, closeWindow  }) => {
     const coinsNames = coins.map(coin => coin.id);
     const ref = useRef<HTMLLIElement>(null);
     let filteredCoins: string[] = [];
@@ -42,7 +43,7 @@ export const SearchList: FC<ISearchKustProps> = ({ coins, isLink, searchQuery, h
     return (
         <StyledSearchList $height={$height} top={top} left={left}>
             {coinsToRender.map((coin) => (
-                <StyledSearchListItem key={coin} ref={ref}>
+                <StyledSearchListItem key={coin} ref={ref} onClick={closeWindow}>
                     {isLink ? (
                         <Link to={`/coin-page/${coin.toLowerCase()}`}>
                             {getCapitalizedWord(coin)}

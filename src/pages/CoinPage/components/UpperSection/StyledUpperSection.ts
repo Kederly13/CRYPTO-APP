@@ -10,5 +10,7 @@ export const StyledUpperSection = styled.div`
 
     @media (max-width: 1400px) {
         flex-direction: column;
+        
+        padding-bottom: 10px;
     }
 `

@@ -4,6 +4,7 @@ import { CoinPageCard } from 'pages/CoinPage/components/CoinPageCard';
 
 import { ICoinPageProps } from '../../types';
 import { useSelectedObjSearchParams } from 'hooks/useSelectedSearchParams';
+import { currencyData } from 'Layout/components/Header/components/Currency/components/CurrencyMenu/currencyData';
 
 import {
     StyledCoinSummary,
@@ -20,12 +21,20 @@ import {
 
 import { getConvertedDateCoinPage } from 'utils/getConvertedDateCoinPage';
 
-import {ReactComponent as ArrowUp} from 'assets/svg/arrowUp.svg';
-import {ReactComponent as ArrowDown} from 'assets/svg/arrowDown.svg';
-
  export const CoinSummary: FC<ICoinPageProps> = ({ coinSummary }) => {
-    const athDate = coinSummary?.market_data?.ath_date?.usd && getConvertedDateCoinPage(coinSummary?.market_data?.ath_date?.usd);
-    const atlDate = coinSummary?.market_data?.atl_date?.usd && getConvertedDateCoinPage(coinSummary?.market_data?.atl_date?.usd);
+    const { objSearchParams } = useSelectedObjSearchParams();
+
+    const { currency } = objSearchParams;
+
+    const athDate = currency && coinSummary?.market_data?.ath_date?.[currency]
+    ? getConvertedDateCoinPage(coinSummary.market_data.ath_date[currency])
+    : undefined;
+
+    const atlDate = currency && coinSummary?.market_data?.atl_date?.[currency]
+    ? getConvertedDateCoinPage(coinSummary.market_data.atl_date[currency])
+    : undefined;
+    
+    const { symbol } = currencyData.find(item => item.value === currency) || {};
 
     return (
         <StyledCoinSummary>
@@ -37,20 +46,19 @@ import {ReactComponent as ArrowDown} from 'assets/svg/arrowDown.svg';
                             <StyledHomeLink href={coinSummary?.links?.homepage[0]}>{coinSummary?.links?.homepage[0]}</StyledHomeLink>
                         </div>
                     </StyledCoinTitle>
-                    <StyledPrice>{coinSummary?.market_data?.ath?.usd}</StyledPrice>
+                    <StyledPrice>{symbol}{currency && coinSummary?.market_data?.ath?.[currency]}</StyledPrice>
                     <StyledTimeBlock>
                         <StyledTimeLine>
-                            <ArrowUp />
+                            
                             <StyledTimeText>All time high:</StyledTimeText>
-                            <StyledTimePrice>{coinSummary?.market_data?.high_24h?.usd}</StyledTimePrice>
+                            <StyledTimePrice>{symbol}{currency && coinSummary?.market_data?.high_24h?.[currency]}</StyledTimePrice>
                         </StyledTimeLine>
                         <StyledDate>{athDate}</StyledDate>
                     </StyledTimeBlock>
                     <StyledTimeBlock>
                         <StyledTimeLine>
-                            <ArrowUp />
                             <StyledTimeText>All time Low:</StyledTimeText>
-                            <StyledTimePrice>{coinSummary?.market_data?.low_24h?.usd}</StyledTimePrice>
+                            <StyledTimePrice>{symbol}{currency && coinSummary?.market_data?.low_24h?.[currency]}</StyledTimePrice>
                         </StyledTimeLine>
                         <StyledDate>{atlDate}</StyledDate>
                     </StyledTimeBlock>

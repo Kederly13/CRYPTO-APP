@@ -1,6 +1,6 @@
 import { useAppSelector } from 'hooks/reduxHooks';
 
-import { selectCoinSummary, selectCoinSummaryError, selectCoinSummaryLoading } from 'store/slices/coinsSlice/coinsSlice';
+import { selectCoinSummary } from 'store/slices/coinsSlice/coinsSlice';
 
 import { CoinPageCard } from '../CoinPageCard';
 
@@ -8,8 +8,6 @@ import { StyledBottomSection, StyledCardLine, StyledLineText, StyledLineValue, S
 
 export const BottomSection = () => {
     const coinSummary = useAppSelector(selectCoinSummary);
-    const coinSummaryLoading = useAppSelector(selectCoinSummaryLoading);
-    const coinSummaryError = useAppSelector(selectCoinSummaryError);
 
     let volumeToMarketCapRatio;
     let fullyDilutedValuation;
@@ -20,7 +18,6 @@ export const BottomSection = () => {
         market_cap,
         max_supply,
         current_price,
-        total_supply
     } = coinSummary?.market_data || {};
 
     if (total_volume && market_cap) {
@@ -83,7 +80,7 @@ export const BottomSection = () => {
                         <StyledPlus>+</StyledPlus>
                     </StyledCircle>
                     <StyledLineText>Fully Diluted Valuation</StyledLineText>
-                    <StyledLineValue>{fullyDilutedValuation ? '$' + fullyDilutedValuation?.toFixed(2) : 'No data'}</StyledLineValue>
+                    <StyledLineValue>{fullyDilutedValuation ? fullyDilutedValuation?.toFixed(2) : 'No data'}</StyledLineValue>
                 </StyledCardLine>
             </CoinPageCard> 
         </StyledBottomSection>
