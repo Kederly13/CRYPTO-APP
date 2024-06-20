@@ -8,8 +8,10 @@ import { PurchaseWindow } from './components/PurchaseWindow';
 
 import { useSelectedObjSearchParams } from 'hooks/useSelectedSearchParams';
 import { useAppSelector } from 'hooks/reduxHooks';
+import { useActions } from 'hooks/useActions';
 
-import { selectHistoricalData, removePortfolioCoin, selectCoinList } from 'store/slices/coinsSlice/coinsSlice';
+import { selectLastCoinList } from 'store/slices/coinsSlice/coinsSlice';
+import { selectHistoricalData } from 'store/slices/coinsSlice/coinsSlice';
 
 import { SEARCH_PARAMS } from 'constants/searchParams';
 
@@ -21,6 +23,10 @@ const PortfolioPage = () => {
 
     const { objSearchParams, onSetObjSearchParams } = useSelectedObjSearchParams();
     const historicalData = useAppSelector(selectHistoricalData);
+    const { fetchCoins } = useActions();
+    const coinsList = useAppSelector(selectLastCoinList)
+
+    const { currency } = objSearchParams;
 
     useEffect(() => {
         onSetObjSearchParams({
@@ -28,7 +34,19 @@ const PortfolioPage = () => {
         })
     }, []);
     
-    console.log(historicalData)
+    useEffect(() => {
+        const controller = new AbortController();
+        
+        if (!coinsList?.length) {
+            fetchCoins(controller);
+        }
+
+        return () => {
+            controller.abort();
+        }
+    
+    }, [currency]);
+
     return (
         <Section>
             <Modal

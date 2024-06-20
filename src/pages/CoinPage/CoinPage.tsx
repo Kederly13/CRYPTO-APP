@@ -22,9 +22,7 @@ const CoinPage = () => {
     const { objSearchParams, onSetObjSearchParams } = useSelectedObjSearchParams();
 
     const coinsList = useAppSelector(selectLastCoinList)
-    const { currency 
-
-    } = objSearchParams;
+    const { currency } = objSearchParams;
 
     const coinSummaryLoading = useAppSelector(selectCoinSummaryLoading) 
 
@@ -45,7 +43,7 @@ const CoinPage = () => {
                 controller.abort();
             }
         
-    }, [ currency ]); 
+    }, [currency]); 
   
     useEffect(() => {
         const controller = new AbortController();
