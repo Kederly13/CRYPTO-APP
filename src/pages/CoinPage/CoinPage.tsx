@@ -10,8 +10,7 @@ import { useSelectedObjSearchParams } from 'hooks/useSelectedSearchParams';
 import { useActions } from 'hooks/useActions';
 import { useAppSelector } from 'hooks/reduxHooks';
 
-import { selectCoinSummaryLoading } from 'store/slices/coinsSlice/coinsSlice';
-
+import { selectCoinSummaryLoading, selectLastCoinList } from 'store/slices/coinsSlice/coinsSlice';
 import { StyledCoinPageTitle, StyledCoinPage } from './StyledCoinPage';
 
 import { SEARCH_PARAMS } from 'constants/searchParams';
@@ -19,7 +18,13 @@ import { SEARCH_PARAMS } from 'constants/searchParams';
 const CoinPage = () => {
     const { id } = useParams<{ id: string }>();
     const { fetchCoinSummary } = useActions();
+    const { fetchCoins } = useActions();
     const { objSearchParams, onSetObjSearchParams } = useSelectedObjSearchParams();
+
+    const coinsList = useAppSelector(selectLastCoinList)
+    const { currency 
+
+    } = objSearchParams;
 
     const coinSummaryLoading = useAppSelector(selectCoinSummaryLoading) 
 
@@ -30,14 +35,34 @@ const CoinPage = () => {
     }, [])
 
     useEffect(() => {
-        const controller = new AbortController();
+            const controller = new AbortController();
+            if (!coinsList?.length) {
+                fetchCoins(controller);
+            }
+
+
+            return () => {
+                controller.abort();
+            }
         
-        if (id) {
+    }, [ currency ]); 
+  
+    useEffect(() => {
+        const controller = new AbortController();
+        if (id ) {
             fetchCoinSummary({ coin: id, controller: controller });
+        };
+        if (!coinsList?.length) {
+            fetchCoins(controller);
         }
 
+
+        onSetObjSearchParams({
+            [SEARCH_PARAMS.CURRENCY]: objSearchParams.currency || 'usd',
+        });
+
         return () => controller.abort();
-    }, [id]);
+    }, [id, currency]);
 
     return (
         <Section>

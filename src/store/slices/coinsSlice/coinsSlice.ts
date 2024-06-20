@@ -85,10 +85,12 @@ export const fetchCoins = createAsyncThunk<ICoin[], AbortController, {rejectValu
             }
 
             const { data } = await CoinsApi.getCoins(param);
-
+            
             return data;
         } catch(error) {
+            
             return rejectWithValue(getErrorMessage(error));
+            
         }
     }
 );

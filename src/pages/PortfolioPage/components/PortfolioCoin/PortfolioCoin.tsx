@@ -1,18 +1,16 @@
 import { FC } from 'react';
 import { currencyData } from 'Layout/components/Header/components/Currency/components/CurrencyMenu/currencyData';
 
-import { useSelectedObjSearchParams } from 'hooks/useSelectedSearchParams';
-
 import { Percent } from 'components/Percent';
 import { ReactComponent as DeleteIcon } from 'assets/svg/delete.svg';
 
 import { selectCoinList } from 'store/slices/coinsSlice/coinsSlice';
 import { ICompleteHistoricalData } from 'store/slices/coinsSlice/types';
 import {  removePortfolioCoin } from 'store/slices/coinsSlice/coinsSlice';
-import { useAppDispatch } from 'hooks/reduxHooks';
 
+import { useAppDispatch, useAppSelector } from 'hooks/reduxHooks';
 
-import { useAppSelector } from 'hooks/reduxHooks';
+import { useSelectedObjSearchParams } from 'hooks/useSelectedSearchParams';
 
 import { 
     StyledPortfolioCoin, 
@@ -58,13 +56,13 @@ export const PortfolioCoin: FC<IPortfolioCoinProps> = ({ historicalData }) => {
         max_supply = selectedCoin.max_supply;
         total_volume = selectedCoin.total_volume;
         market_cap = selectedCoin.market_cap;
-    }
+    };
 
-    const { objSearchParams, onSetObjSearchParams } = useSelectedObjSearchParams();
+    const { objSearchParams } = useSelectedObjSearchParams();
     const { currency } = objSearchParams;
 
     // Ciculated supply vs max supply
-    const ratio = circulating_supply && max_supply ? (circulating_supply / max_supply).toFixed(2) : 'N/A'
+    // const ratio = circulating_supply && max_supply ? (circulating_supply / max_supply).toFixed(2) : 'N/A'
 
     // Percentage change in price since purchase
     const historical_price = market_data?.current_price?.usd;
@@ -78,8 +76,6 @@ export const PortfolioCoin: FC<IPortfolioCoinProps> = ({ historicalData }) => {
     (historical_price * Number(purchasedAmount)).toFixed(2) : getCoinError(symbol);
 
     const { symbol: currencySymbol } = currencyData.find(item => item.value === currency) || {};
-
-   
 
     return (
         <StyledPortfolioCoin>

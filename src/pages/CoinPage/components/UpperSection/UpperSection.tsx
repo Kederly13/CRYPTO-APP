@@ -8,7 +8,7 @@ export const UpperSection = () => {
     const coinSummary = useAppSelector(selectCoinSummary);
     const coinSummaryLoading = useAppSelector(selectCoinSummaryLoading);
     const coinSummaryError = useAppSelector(selectCoinSummaryError);
-
+    
     if (coinSummaryLoading) {
         return (
             <StyledUpperSection>
@@ -16,7 +16,6 @@ export const UpperSection = () => {
             </StyledUpperSection>
         );
     }
-    // console.log(coinSummary)
 
     return (
         <StyledUpperSection>

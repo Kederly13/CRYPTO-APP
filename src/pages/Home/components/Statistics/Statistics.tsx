@@ -43,7 +43,7 @@ export const Statistics = () => {
 
     const coinsHistoryKeys = Object.keys(coinsHistory);
     const [coinsHistoryFirst, coinsHistorySecond] = coinsHistoryKeys;
-
+    console.log(coinsList)
     const coinFirst = lastCoins.find(({ id }) => id === coinsHistoryFirst);
 
     const today = new Date();

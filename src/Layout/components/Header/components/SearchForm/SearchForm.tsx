@@ -22,6 +22,7 @@ export const SearchForm: React.FC = () => {
 
     const handleActiveMenu = () => {
         setActiveMenu(!isActiveMenu);
+        setSearchQuery('');
     };
 
     return (
@@ -42,7 +43,8 @@ export const SearchForm: React.FC = () => {
                     searchQuery={searchQuery}
                     handleActiveMenu={handleActiveMenu}
                     top='50px'
-                    $height='300px' 
+                    $height='300px'
+                    closeWindow={handleActiveMenu}
                 />
             )}
         </StyledSearchForm>
