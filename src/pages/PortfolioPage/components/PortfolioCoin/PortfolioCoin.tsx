@@ -90,7 +90,7 @@ export const PortfolioCoin: FC<IPortfolioCoinProps> = ({ historicalData }) => {
                         <DeleteIcon />
                     </button>
                 </StyledCoinInfoHeader>
-                <StyledCoinInfoGrid className='top'>
+                <StyledCoinInfoGrid className='top-grid'>
                     <StyledCoinInfoCol>
                         <StyledCoinText>Current price</StyledCoinText>
                         <StyledCoinValue>{currencySymbol}{current_price}</StyledCoinValue>
@@ -111,8 +111,8 @@ export const PortfolioCoin: FC<IPortfolioCoinProps> = ({ historicalData }) => {
                         <StyledCoinValue>{total_volume}</StyledCoinValue>
                     </StyledCoinInfoCol>
                 </StyledCoinInfoGrid>
-                <StyledCoinInfoHeader>
-                    <StyledCoinInfoTitle className='bottom-title'>Your Coin</StyledCoinInfoTitle>
+                <StyledCoinInfoHeader className='bottom-header'>
+                    <StyledCoinInfoTitle >Your Coin</StyledCoinInfoTitle>
                 </StyledCoinInfoHeader>
                 <StyledCoinInfoGrid className='bottom'>
                     <StyledCoinInfoCol>

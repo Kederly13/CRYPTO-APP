@@ -407,7 +407,7 @@ export const themes = {
 
         portfolio: {
             backgroundPrimary: 'rgb(235 235 253',
-            backgroundSecondary: 'FFF',
+            backgroundSecondary: '#FFF',
             fontPrimary: '#000000	',
             fontSecondary: '#01F1E3',
             border: '#7878FF'
@@ -417,7 +417,9 @@ export const themes = {
 
          purchaseCoin: {
             fontPrimary: '#181826',
-            fontSecondary: '#42428B'
+            fontSecondary: '#42428B',
+            backgroundInput: 'rgba(204, 204, 254)',
+            inputBorder: '#7878FF'
          },
 
          calculatorWindow: {
