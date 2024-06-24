@@ -57,7 +57,7 @@ export const StyledCoinInfoGrid = styled.div`
 
     @media(max-width: 992px) {
         grid-template-columns: repeat(2, 1fr);
-        grid-row-gap: 20px; // Adjust this value as per your design
+        grid-row-gap: 20px;
     }
 `
 
@@ -90,12 +90,11 @@ export const StyledCoinText = styled.span`
     @media(max-width: 992px) {
         margin-bottom: 5px;
     }
-    /* text-align: center; */
+   
 `
 
 export const StyledCoinValue = styled.span`
     color: ${({ theme }) => theme.portfolio.fontSecondary};
-    /* text-align: center; */
 `
 
 export const StyledBar = styled.progress`
