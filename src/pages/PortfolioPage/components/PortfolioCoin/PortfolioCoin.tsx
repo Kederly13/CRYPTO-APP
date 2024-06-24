@@ -47,13 +47,11 @@ export const PortfolioCoin: FC<IPortfolioCoinProps> = ({ historicalData }) => {
 
     const getCoinError = (coinName: string) => `${coinName.toUpperCase()} was not launched yet on selected date`
 
-    let current_price, price_change_24h, circulating_supply, max_supply, total_volume, market_cap;
+    let current_price, price_change_24h, total_volume, market_cap;
 
     if (selectedCoin) {
         current_price = selectedCoin.current_price;
         price_change_24h = selectedCoin.price_change_24h;
-        circulating_supply = selectedCoin.circulating_supply;
-        max_supply = selectedCoin.max_supply;
         total_volume = selectedCoin.total_volume;
         market_cap = selectedCoin.market_cap;
     };
