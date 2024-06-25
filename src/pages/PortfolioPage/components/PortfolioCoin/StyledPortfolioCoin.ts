@@ -44,7 +44,6 @@ export const StyledLogoWrapper = styled.div`
 export const StyledCoinInfo = styled.div`
     background-color: ${({ theme }) => theme.portfolio.backgroundSecondary};
     padding: 24px 32px;
-
 `
 
 export const StyledCoinInfoGrid = styled.div`
@@ -58,8 +57,9 @@ export const StyledCoinInfoGrid = styled.div`
 
     @media(max-width: 992px) {
         grid-template-columns: repeat(2, 1fr);
+        grid-row-gap: 20px;
     }
-`;
+`
 
 export const StyledCoinInfoHeader = styled.div`
     display: flex;
@@ -86,12 +86,15 @@ export const StyledCoinText = styled.span`
     color: ${({ theme }) => theme.portfolio.fontPrimary};
     margin-bottom: 15px;
     font-weight: 500;
-    text-align: center;
+
+    @media(max-width: 992px) {
+        margin-bottom: 5px;
+    }
+   
 `
 
 export const StyledCoinValue = styled.span`
     color: ${({ theme }) => theme.portfolio.fontSecondary};
-    text-align: center;
 `
 
 export const StyledBar = styled.progress`
