@@ -3,8 +3,9 @@ import { uid } from 'uid';
 import { useState } from 'react';
 import { SwiperCoins } from '../SwiperCoins';
 import { Percent } from 'components/Percent';
+
 import { SwiperBtns } from '../SwiperBtns';
-import { Swiper, SwiperSlide } from 'swiper/react';
+import { Swiper } from 'swiper/react';
 import { Navigation, Pagination, Scrollbar, A11y } from 'swiper/modules';
 
 import { useResize } from 'hooks/useResize';

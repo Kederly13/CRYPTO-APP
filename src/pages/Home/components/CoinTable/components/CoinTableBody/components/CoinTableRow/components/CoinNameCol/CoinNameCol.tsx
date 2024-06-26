@@ -7,6 +7,7 @@ import { ICoinNameProps } from '../../../../types';
 
 export const CoinNameCol: FC<ICoinNameProps> = ({ name, image, symbol }) => {
     const navigate = useNavigate();
+    // use link from react router dom
 
     return (
         <StyledCoinNameCol>

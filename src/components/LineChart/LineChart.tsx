@@ -65,6 +65,9 @@ export const LineChart: FC<ILineChartProps> = ({ firstCoinData, secondCoinData, 
 
     const options = {
         responsive: true,
+        animation: {
+            duration: 0,
+        },
         scales: {
             x: {
                 ticks: {

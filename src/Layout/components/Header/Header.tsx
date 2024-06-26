@@ -18,7 +18,6 @@ export const Header = () => {
 
     const handleSearchButtonClick = () => {
         setActiveMenu(!activeMenu);
-        console.log(activeMenu)
     };
 
     return (
@@ -32,11 +31,11 @@ export const Header = () => {
             <Container>
                 <Nav>
                     <Logo />
-                    <NavList />   
-                    <SearchForm />
-                    <SearchButton handleClick={handleSearchButtonClick}/>
-                    <Currency />
-                    <ThemeBtn />
+                    <NavList />
+                        <SearchForm />
+                        <SearchButton handleClick={handleSearchButtonClick}/>
+                        <Currency />
+                        <ThemeBtn />
                 </Nav>
             </Container>
         </StyledHeader>

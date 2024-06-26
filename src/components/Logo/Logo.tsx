@@ -11,7 +11,7 @@ export const Logo: FC = () => {
     return (
         <StyledLogo to={`/${search}`}>
             <LogoIcon fill='green'/>
-            <span>Logoipsm</span>
+            <span>CRYPTO PRO</span>
         </StyledLogo> 
     )
 };

@@ -63,6 +63,9 @@ export const BarChart: FC<IBarChartProps> = ({ firstCoinData, secondCoinData, co
 
      const options = {
         responsive: true,
+        animation: {
+          duration: 0,
+        },
         scales: {
             x: {
               ticks: {
