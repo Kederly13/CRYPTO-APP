@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { Swiper, SwiperSlide } from 'swiper/react';
+import { SwiperSlide } from 'swiper/react';
 
 export const StyledCurrencySwiperWrapper = styled.div`
     position: relative;
@@ -11,6 +11,8 @@ export const StyledCurrencySwiperWrapper = styled.div`
 `
 
 export const StyledSwiperSlide = styled(SwiperSlide)`
+    padding: 0 5px;
+    
 
     &:hover {
         cursor: pointer;

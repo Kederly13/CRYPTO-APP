@@ -1,11 +1,12 @@
 import { useEffect } from 'react';
-import { StyledStatistics, StyledStatisticsHead, StyledCharts, StyledSpinnerWrapper } from './StyledStatistics';
+import { StyledStatistics, StyledStatisticsHead, StyledCharts } from './StyledStatistics';
 
 import { CurrencySwiper } from './components/CurrencySwiper';
 import { Button } from 'components/Button';
 import { LineChart } from 'components/LineChart';
 import { BarChart } from 'components/BarChart';
 import { ChartBox } from 'components/ChartBox';
+import { CoinCarouselSkeleton, CoinsChartCardSkeleton } from './components/SwiperSkeleton/SwiperSkeleton';
 import { PeriodFilter } from 'components/PeriodFilter';
 import { currencyData } from 'Layout/components/Header/components/Currency/components/CurrencyMenu/currencyData';
 
@@ -13,8 +14,6 @@ import { selectCoinList, selectLastCoinList, selectCoinListLoading, selectCoinsH
 import { selectInit } from 'store/slices/initSlice/initSlice';
 import { useAppSelector } from 'hooks/reduxHooks';
 import { selectCoinsHistory } from 'store/slices/coinsSlice/coinsSlice';
-
-import { ReactComponent as Spinner } from 'assets/svg/spinner.svg';
 
 import { useSelectedObjSearchParams } from 'hooks/useSelectedSearchParams';
 import { useActions } from 'hooks/useActions';
@@ -96,41 +95,41 @@ export const Statistics = () => {
                 )}
 
             </StyledStatisticsHead>
-            {coinsListLoading || coinsHistoryLoading ? (
-                <StyledSpinnerWrapper>
-                    <Spinner />
-                </StyledSpinnerWrapper>
-            ) : (
-                    <>
-                        <CurrencySwiper
-                            coinsDetails={lastCoins}
-                        />
-                        <StyledCharts>
-                            <ChartBox 
-                                headline={coinFirst ? `${coinFirst.name} (${coinFirst.symbol})` : ''} 
-                                number={coinFirst ? symbol + String(coinFirst.current_price) : ''}
-                            >
-                                <LineChart
-                                    firstCoinData={coinsHistoryFirst ? getConvertedDates(coinsHistory[coinsHistoryFirst].prices): []}
-                                    coinFirst={coinsHistoryFirst}
-                                    secondCoinData={coinsHistorySecond ? getConvertedDates(coinsHistory[coinsHistorySecond].prices) : []}
-                                    coinSecond={coinsHistorySecond} 
-                                />
-                            </ChartBox>
-                            <ChartBox 
-                                headline={'Volume'} 
-                                number={todayString}
-                            >
-                                <BarChart
-                                    firstCoinData={coinsHistoryFirst ? getConvertedDates(coinsHistory[coinsHistoryFirst].prices): []}
-                                    coinFirst={coinsHistoryFirst}
-                                    secondCoinData={coinsHistorySecond ? getConvertedDates(coinsHistory[coinsHistorySecond].prices) : []}
-                                    coinSecond={coinsHistorySecond}
-                                />
-                            </ChartBox>
-                        </StyledCharts>
-                    </>
-                )}
+            {coinsListLoading ? (
+                <CoinCarouselSkeleton />
+            ) : (    
+                <CurrencySwiper
+                    coinsDetails={lastCoins}
+                /> 
+            )}
+            {coinsHistoryLoading ? (
+                <CoinsChartCardSkeleton />
+            ): (
+                <StyledCharts>
+                <ChartBox 
+                    headline={coinFirst ? `${coinFirst.name} (${coinFirst.symbol})` : ''} 
+                    number={coinFirst ? symbol + String(coinFirst.current_price) : ''}
+                >
+                    <LineChart
+                        firstCoinData={coinsHistoryFirst ? getConvertedDates(coinsHistory[coinsHistoryFirst].prices): []}
+                        coinFirst={coinsHistoryFirst}
+                        secondCoinData={coinsHistorySecond ? getConvertedDates(coinsHistory[coinsHistorySecond].prices) : []}
+                        coinSecond={coinsHistorySecond} 
+                    />
+                </ChartBox>
+                <ChartBox 
+                    headline={'Volume'} 
+                    number={todayString}
+                >
+                    <BarChart
+                        firstCoinData={coinsHistoryFirst ? getConvertedDates(coinsHistory[coinsHistoryFirst].prices): []}
+                        coinFirst={coinsHistoryFirst}
+                        secondCoinData={coinsHistorySecond ? getConvertedDates(coinsHistory[coinsHistorySecond].prices) : []}
+                        coinSecond={coinsHistorySecond}
+                    />
+                </ChartBox>
+            </StyledCharts>
+            )}
             <PeriodFilter />
         </StyledStatistics>
     );
